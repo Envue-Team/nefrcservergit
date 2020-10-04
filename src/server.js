@@ -9,7 +9,8 @@ db.sequelize.sync();
 
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+//   origin: "http://localhost:8081"
+    origin: "ec2-54-166-36-127.compute-1.amazonaws.com"
 };
 
 expapp.use(cors(corsOptions));
