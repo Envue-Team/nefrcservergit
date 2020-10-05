@@ -8,12 +8,13 @@ const db = require("../src/models");
 db.sequelize.sync();
 
 
-var corsOptions = {
+// var corsOptions = {
 //   origin: "http://localhost:8081"
-    origin: "ec2-54-166-36-127.compute-1.amazonaws.com"
-};
+    // origin: "ec2-54-166-36-127.compute-1.amazonaws.com"
+// };
 
-expapp.use(cors(corsOptions));
+// expapp.use(cors(corsOptions));
+expapp.use(cors());
 
 // parse requests of content-type - application/json
 expapp.use(bodyParser.json());
