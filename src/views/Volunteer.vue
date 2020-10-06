@@ -70,7 +70,6 @@ export default {
       DataService.get(id)
         .then(response => {
           this.currentVolunteer = response.data;
-          console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -117,6 +116,7 @@ export default {
         });
     }
   },
+  
   mounted() {
     this.message = '';
     this.getVolunteer(this.$route.params.id);

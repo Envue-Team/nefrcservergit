@@ -22,8 +22,6 @@ exports.create = (req, res) => {
   // Save Volunteer in the database
   DBVolunteer.create(Volunteer)
     .then(data => {
-      console.log("create called");
-      console.log("create data: " + data);
       res.send(data);
     })
     .catch(err => {

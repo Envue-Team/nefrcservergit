@@ -18,7 +18,7 @@ expapp.use(bodyParser.urlencoded({ extended: true }));
 require("../src/routes/volunteer.routes")(expapp);
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8085;
 
 expapp.listen(PORT, () => {
 	console.log(`Server is running on port ${PORT}`);

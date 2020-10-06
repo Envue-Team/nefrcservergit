@@ -6,7 +6,6 @@ class DataService {
   }
 
   get(id) {
-    console.log(id);
     return http.get(`/volunteers/${id}`);
   }
 
