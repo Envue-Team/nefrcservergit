@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import DataService from "../services/DataService";
+import VolunteerDataService from "../services/VolunteerDataService";
 
 export default {
   name: "volunteer",
@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     getVolunteer(id) {
-      DataService.get(id)
+      VolunteerDataService.get(id)
         .then(response => {
           this.currentVolunteer = response.data;
         })
@@ -84,7 +84,7 @@ export default {
         published: status
       };
 
-      DataService.update(this.currentVolunteer.id, data)
+      VolunteerDataService.update(this.currentVolunteer.id, data)
         .then(response => {
           this.currentVolunteer.published = status;
           console.log(response.data);
@@ -95,7 +95,7 @@ export default {
     },
 
     updateVolunteer() {
-      DataService.update(this.currentVolunteer.id, this.currentVolunteer)
+      VolunteerDataService.update(this.currentVolunteer.id, this.currentVolunteer)
         .then(response => {
           console.log(response.data);
           this.message = 'The volunteer was updated successfully!';
@@ -106,7 +106,7 @@ export default {
     },
 
     deleteVolunteer() {
-      DataService.delete(this.currentVolunteer.id)
+      VolunteerDataService.delete(this.currentVolunteer.id)
         .then(response => {
           console.log(response.data);
           this.$router.push({ name: "volunteers" });

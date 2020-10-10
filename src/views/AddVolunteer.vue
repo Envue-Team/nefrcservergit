@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import DataService from "../services/DataService";
+import VolunteerDataService from "../services/VolunteerDataService";
 
 export default {
   name: "add-volunteer",
@@ -58,7 +58,7 @@ export default {
         description: this.volunteer.description
       };
 
-      DataService.create(data)
+      VolunteerDataService.create(data)
         .then(response => {
           this.volunteer.id = response.data.id;
           console.log("response id: " + response.data.id);

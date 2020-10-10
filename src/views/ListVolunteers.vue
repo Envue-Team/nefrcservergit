@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import DataService from "../services/DataService";
+import VolunteerDataService from "../services/VolunteerDataService";
 
 export default {
   name: "volunteers-list",
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     retrieveVolunteers() {
-      DataService.getAll()
+      VolunteerDataService.getAll()
         .then(response => {
           this.volunteers = response.data;
         })
@@ -93,7 +93,7 @@ export default {
     },
 
     removeAllVolunteers() {
-      DataService.deleteAll()
+      VolunteerDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -104,7 +104,7 @@ export default {
     },
     
     searchTitle() {
-      DataService.findByName(this.name)
+      VolunteerDataService.findByName(this.name)
         .then(response => {
           this.volunteers = response.data;
           console.log(response.data);
