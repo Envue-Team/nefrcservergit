@@ -21,5 +21,6 @@ db.sequelize = sequelize;
 
 //Convert to db objects here
 db.volunteer = require("./volunteer.model.js")(sequelize, Sequelize);
+db.shelter = require("./shelter.model.js")(sequelize, Sequelize);
 
 module.exports = db;
