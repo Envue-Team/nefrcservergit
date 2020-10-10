@@ -16,7 +16,7 @@ expapp.use(bodyParser.json());
 expapp.use(bodyParser.urlencoded({ extended: true }));
 
 require("../src/routes/volunteer.routes")(expapp);
-require("../src/routes/shelters.routes")(expapp);
+require("../src/routes/shelter.routes")(expapp);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
