@@ -20,7 +20,14 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //Convert to db objects here
-db.volunteer = require("./volunteer.model.js")(sequelize, Sequelize);
-db.shelter = require("./shelter.model.js")(sequelize, Sequelize);
+db.volunteers = require("./volunteer.model.js")(sequelize, Sequelize);
+db.shelters = require("./shelter.model.js")(sequelize, Sequelize);
+db.persons = require("./person.model.js")(sequelize, Sequelize);
+db.shelters_persons = require("./shelters_person.model.js")(sequelize, Sequelize);
+
+db.shelters_persons.hasMany(db.shelters);
+db.shelters_persons.hasMany(db.persons);
+db.persons.belongsTo(db.shelters_persons);
+db.shelters.belongsTo(db.shelters_persons);
 
 module.exports = db;
