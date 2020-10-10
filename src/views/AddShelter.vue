@@ -79,7 +79,7 @@
 </template>
 
 <script>
-import ShelterDataService from "../services/ShelterShelterDataService";
+import ShelterDataService from "../services/ShelterDataService";
 
 export default {
   name: "add-shelter",

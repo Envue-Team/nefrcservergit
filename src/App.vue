@@ -4,7 +4,9 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> | 
       <router-link to="/volunteer/1">Volunteer 1</router-link> |
-      <router-link to="/volunteers-list">Volunteers</router-link>
+      <router-link to="/volunteers-list">Volunteers</router-link> | 
+      <router-link to="/add-shelter">Add Shelter</router-link> |
+      <router-link to="/shelters-list">Shelters</router-link>
     </div>
     <h1>Some obvious chane</h1>
     <router-view/>

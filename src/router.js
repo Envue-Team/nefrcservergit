@@ -4,6 +4,8 @@ import Home from './views/Home.vue'
 import Volunteer from './views/Volunteer.vue'
 import Volunteers from './views/ListVolunteers.vue'
 import AddVolunteer from './views/AddVolunteer.vue'
+import AddShelter from './views/AddShelter.vue'
+import Shelters from './views/ListShelters.vue'
 
 Vue.use(Router)
 
@@ -40,6 +42,18 @@ export default new Router({
       path: '/add-volunteer',
       name: 'add-volunteer',
       component: AddVolunteer
+
+    },
+    {
+      path: '/add-shelter',
+      name: 'add-shelter',
+      component: AddShelter
+
+    },
+    {
+      path: '/shelters-list',
+      name: 'shelters-list',
+      component: Shelters
 
     }
   ]
