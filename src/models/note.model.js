@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false
     },
+    type: {
+      type: DataTypes.TEXT,
+      defaultValue: "general"
+    },
     text: {
       type: DataTypes.TEXT
     }

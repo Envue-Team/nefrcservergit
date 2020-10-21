@@ -1,15 +1,5 @@
-module.exports = (sequelize, DataTypes) => {
-  const POC = sequelize.define("poc", {
-	id: {
-      type: DataTypes.UUID,
-      primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
-      allowNull: false
-    },
-    name: {
-      type: DataTypes.STRING
-    }
-  });
+module.exports = (sequelize) => {
+  const Point_of_Contact = sequelize.define("point_of_contact");
 
-  return POC;
+  return Point_of_Contact;
 };

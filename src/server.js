@@ -22,6 +22,9 @@ require("../src/routes/note.routes")(expapp);
 require("../src/routes/partner.routes")(expapp);
 require("../src/routes/phone.routes")(expapp);
 require("../src/routes/person.routes")(expapp);
+require("../src/routes/poc.routes")(expapp);
+require("../src/routes/rm.routes")(expapp);
+require("../src/routes/relationship.routes")(expapp);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

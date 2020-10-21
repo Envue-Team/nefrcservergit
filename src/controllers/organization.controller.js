@@ -1,7 +1,11 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const db = require("../models");
 const DBOrganization = db.organization;
+const DBPOC = db.pointofcontact;
+const DBRM = db.relationshipmanager;
+const DBPerson = db.person;
 const DBPartner = db.partner;
+const DBRelationship = db.relationship;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new organization
@@ -23,7 +27,7 @@ exports.create = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     website: req.body.website,
-    // county: req.body.county
+    county: req.body.county
   };
 
   // Save new organization in the database
@@ -58,7 +62,7 @@ exports.createPartner = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     website: req.body.website,
-    // county: req.body.county
+    county: req.body.county
   };
 
   // Save new organization in the database
@@ -87,10 +91,74 @@ exports.createPartner = (req, res) => {
     });
 };
 
+// Create and Save a new Partner
+exports.createRelationship = (req, res) => {
+  // Validate request
+  if (!req.body.name) {
+    res.status(400).send({
+      message: "You must provide a name when creating a relationship"
+    });
+    return;
+  }
+
+  // Create an organization
+  const organization = {
+    name: req.body.name,
+    street_number: req.body.street_number,
+    street_name: req.body.street_name,
+    city: req.body.city,
+    state: req.body.state,
+    zip: req.body.zip,
+    website: req.body.website,
+    county: req.body.county
+  };
+
+  // Save new organization in the database
+  DBOrganization.create(organization)
+    .then(data => {
+		const relationship = {
+			status: req.body.status,
+			organizationId: data.dataValues.id
+    }
+    
+		DBRelationship.create(relationship).then(data =>{
+			res.send(data)
+		}).catch(err=>{
+			res.status(500).send({
+				message:
+				err.message || "Some error occurred while creating the partner."
+			});
+		});
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the partner organization."
+      });
+    });
+}
+
 // Retrieve all organizations from the database.
 exports.findAll = (req, res) => {
   DBOrganization.findAll({ 
-    include :['notes','people']
+    include :[
+      'notes',
+      {
+        model: DBPOC,
+        include: [{
+          model: DBPerson,
+          include: 'phones'
+        }]
+      },
+      {
+        model: DBRM,
+        include: [{
+          model: DBPerson, 
+          include: 'phones'
+        }]
+      }
+    ]
   })
     .then(data => {
       res.send(data);
@@ -111,8 +179,58 @@ exports.findAllPartners = (req, res) => {
     {
       model: DBPartner,
       where: { services : {[Op.ne]: null} }
+    },
+    {
+      model: DBPOC,
+      include: [{
+        model: DBPerson,
+        include: 'phones'
+      }]
+    },
+    {
+      model: DBRM,
+      include: [{
+        model: DBPerson, 
+        include: 'phones'
+      }]
     }
-      ]
+    ]
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving persons."
+      });
+    });
+};
+
+// Retrieve all partners from the database.
+exports.findAllRelationships = (req, res) => {
+  DBOrganization.findAll({ 
+    include :[
+      'notes',
+    {
+      model: DBRelationship,
+      where: { status : {[Op.ne]: null} }
+    },
+    {
+      model: DBPOC,
+      include: [{
+        model: DBPerson,
+        include: 'phones'
+      }]
+    },
+    {
+      model: DBRM,
+      include: [{
+        model: DBPerson, 
+        include: 'phones'
+      }]
+    }
+    ]
   })
     .then(data => {
       res.send(data);
@@ -144,7 +262,60 @@ exports.findOne = (req, res) => {
 exports.findOnePartner = (req, res) => {
   const id = req.params.id;
 
-  DBOrganization.findByPk(id, {include: 'partner'})
+  DBOrganization.findByPk(id,{ 
+    include :[
+      'notes',
+      'partner',
+    {
+      model: DBPOC,
+      include: [{
+        model: DBPerson,
+        include: 'phones'
+      }]
+    },
+    {
+      model: DBRM,
+      include: [{
+        model: DBPerson, 
+        include: 'phones'
+      }]
+    }
+    ]
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving person with id=" + id +" err: "+err
+      });
+    });
+};
+
+// Find a single relationship by id
+exports.findOneRelationship = (req, res) => {
+  const id = req.params.id;
+
+  DBOrganization.findByPk(id,{ 
+    include :[
+      'notes',
+      'relationship',
+    {
+      model: DBPOC,
+      include: [{
+        model: DBPerson,
+        include: 'phones'
+      }]
+    },
+    {
+      model: DBRM,
+      include: [{
+        model: DBPerson, 
+        include: 'phones'
+      }]
+    }
+    ]
+  })
     .then(data => {
       res.send(data);
     })
@@ -191,6 +362,51 @@ exports.updatePartner = (req, res) => {
       if (num == 1) {
         res.send({
           message: "partner was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update partner with organizationId=${id}. Maybe organization was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating partner with organizationId=" + id + " err: " + err
+      });
+    });
+
+  DBOrganization.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "organization was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update organization with id=${id}. Maybe organization was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating organization with id=" + id + " err: " + err
+      });
+    });
+};
+
+// Update a organization by the id in the request
+exports.updateRelationship = (req, res) => {
+  const id = req.params.id;
+// console.log(req);
+  DBRelationship.update(req.body, {
+    where: {organizationId: id}
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Relationship was updated successfully."
         });
       } else {
         res.send({
