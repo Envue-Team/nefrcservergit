@@ -20,14 +20,23 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 //Convert to db objects here
-db.volunteers = require("./volunteer.model.js")(sequelize, Sequelize);
-db.shelters = require("./shelter.model.js")(sequelize, Sequelize);
-db.persons = require("./person.model.js")(sequelize, Sequelize);
-db.shelters_persons = require("./shelters_person.model.js")(sequelize, Sequelize);
+db.organization = require("./organization.model.js")(sequelize, Sequelize);
+db.note = require("./note.model.js")(sequelize, Sequelize);
+db.partner = require("./partner.model.js")(sequelize, Sequelize);
+db.phone = require("./phone.model.js")(sequelize, Sequelize);
+db.person = require("./person.model.js")(sequelize, Sequelize);
 
-db.shelters_persons.hasMany(db.shelters);
-db.shelters_persons.hasMany(db.persons);
-db.persons.belongsTo(db.shelters_persons);
-db.shelters.belongsTo(db.shelters_persons);
+//Relationship building
+db.organization.hasMany(db.note, {onDelete: 'CASCADE'});
+db.note.belongsTo(db.organization);
+db.organization.hasOne(db.partner, {onDelete: 'CASCADE'});
+db.partner.belongsTo(db.organization);
+db.organization.hasMany(db.person);
+db.person.belongsTo(db.organization);
+db.organization.hasMany(db.phone, {onDelete: 'CASCADE'});
+db.phone.belongsTo(db.organization);
+db.person.hasMany(db.phone, {onDelete: 'CASCADE'});
+db.phone.belongsTo(db.person);
+
 
 module.exports = db;

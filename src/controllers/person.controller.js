@@ -1,26 +1,25 @@
 const db = require("../models");
-const DBperson = db.person;
-const Op = db.Sequelize.Op;
+const DBPerson = db.person;
 
 // Create and Save a new person
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.first_name) {
     res.status(400).send({
-      message: "Content can not be empty!!"
+      message: "A person must have a first name"
     });
     return;
   }
 
   // Create a person
   const person = {
-    name: req.body.name,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    organizationId: req.body.organizationId
   };
 
   // Save person in the database
-  DBperson.create(person)
+  DBPerson.create(person)
     .then(data => {
       res.send(data);
     })
@@ -34,10 +33,9 @@ exports.create = (req, res) => {
 
 // Retrieve all persons from the database.
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-
-  DBperson.findAll({ where: condition })
+  DBPerson.findAll({
+    include :'phones'
+  })
     .then(data => {
       res.send(data);
     })
@@ -53,7 +51,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBperson.findByPk(id)
+  DBPerson.findByPk(id, {include: 'phone'})
     .then(data => {
       res.send(data);
     })
@@ -68,7 +66,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  DBperson.update(req.body, {
+  DBPerson.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -93,7 +91,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  DBperson.destroy({
+  DBPerson.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -116,7 +114,7 @@ exports.delete = (req, res) => {
 
 // Delete all persons from the database.
 exports.deleteAll = (req, res) => {
-  DBperson.destroy({
+  DBPerson.destroy({
     where: {},
     truncate: false
   })
@@ -127,21 +125,6 @@ exports.deleteAll = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while removing all persons."
-      });
-    });
-};
-
-// Find all published persons
-exports.findAllPublished = (req, res) => {
-  DBperson.findAll({ where: { published: true } })
-    .then(data => {
-      console.log("findAll called");
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving persons."
       });
     });
 };

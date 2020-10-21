@@ -1,26 +1,32 @@
 const db = require("../models");
-const DBShelter = db.shelter;
-const Op = db.Sequelize.Op;
+const DBNote = db.note;
+// const Op = db.Sequelize.Op;
 
 // Create and Save a new shelter
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.text) {
     res.status(400).send({
-      message: "Content can not be empty!!"
+      message: "You are in note"
     });
     return;
   }
 
+  if(!req.body.organizationId) {
+	res.status(400).send({
+		message: "Notes must be associated with an organization"
+	});
+	return;
+	}
+
   // Create a shelter
-  const shelter = {
-    name: req.body.name,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+  const note = {
+	text: req.body.text,
+	organizationId: req.body.organizationId
   };
 
   // Save shelter in the database
-  DBShelter.create(shelter)
+  DBNote.create(note)
     .then(data => {
       res.send(data);
     })
@@ -34,10 +40,8 @@ exports.create = (req, res) => {
 
 // Retrieve all shelters from the database.
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-  DBShelter.findAll({ where: condition })
+  DBNote.findAll()
     .then(data => {
       res.send(data);
     })
@@ -53,7 +57,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBShelter.findByPk(id)
+  DBNote.findByPk(id)
     .then(data => {
       res.send(data);
     })
@@ -68,7 +72,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  DBShelter.update(req.body, {
+  DBNote.update(req.body, {
     where: { id: id }
   })
     .then(num => {
@@ -93,7 +97,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  DBShelter.destroy({
+  DBNote.destroy({
     where: { id: id }
   })
     .then(num => {
@@ -116,7 +120,7 @@ exports.delete = (req, res) => {
 
 // Delete all shelters from the database.
 exports.deleteAll = (req, res) => {
-  DBShelter.destroy({
+  DBNote.destroy({
     where: {},
     truncate: false
   })
@@ -133,7 +137,7 @@ exports.deleteAll = (req, res) => {
 
 // Find all published shelters
 exports.findAllPublished = (req, res) => {
-  DBShelter.findAll({ where: { published: true } })
+  DBNote.findAll({ where: { published: true } })
     .then(data => {
       console.log("findAll called");
       res.send(data);

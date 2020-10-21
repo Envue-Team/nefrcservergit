@@ -1,18 +1,15 @@
 module.exports = (sequelize, DataTypes) => {
-  const Person = sequelize.define("person", {
+  const County = sequelize.define("county", {
 	id: {
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false
     },
-    first_name: {
+    name: {
       type: DataTypes.STRING
-    },
-    last_name: {
-        type: DataTypes.STRING
-      }
-    });
+    }
+  });
 
-  return Person;
+  return County;
 };
