@@ -27,7 +27,8 @@ exports.create = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     website: req.body.website,
-    county: req.body.county
+    county: req.body.county,
+    public_safety: req.body.public_safety
   };
 
   // Save new organization in the database
@@ -62,7 +63,9 @@ exports.createPartner = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     website: req.body.website,
-    county: req.body.county
+    county: req.body.county,
+    public_safety: req.body.public_safety
+    
   };
 
   // Save new organization in the database
@@ -110,7 +113,8 @@ exports.createRelationship = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     website: req.body.website,
-    county: req.body.county
+    county: req.body.county,
+    public_safety: req.body.public_safety
   };
 
   // Save new organization in the database
@@ -144,6 +148,8 @@ exports.findAll = (req, res) => {
   DBOrganization.findAll({ 
     include :[
       'notes',
+      'partner',
+      'relationship',
       {
         model: DBPOC,
         include: [{

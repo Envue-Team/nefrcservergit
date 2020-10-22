@@ -1,9 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
-  const Partner = sequelize.define("partner", {
+  const Relationship = sequelize.define("relationship", {
     status: {
       type: DataTypes.TEXT
 	}
   });
 
-  return Partner;
+  return Relationship;
 };

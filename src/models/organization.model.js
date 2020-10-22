@@ -30,6 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       },
       website:{
         type:DataTypes.STRING
+      },
+      public_safety:{
+        type:DataTypes.BOOLEAN,
+        defaultValue: false
       }
     }
   );

@@ -5,8 +5,8 @@ const cors = require("cors");
 const expapp = express();
 
 const db = require("../src/models");
-// db.sequelize.sync({force: true});
-db.sequelize .sync();
+db.sequelize.sync({force: true});
+// db.sequelize .sync();
 
 
 expapp.use(cors());
