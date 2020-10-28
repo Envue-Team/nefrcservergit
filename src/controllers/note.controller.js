@@ -19,10 +19,11 @@ exports.create = (req, res) => {
 	return;
 	}
 
-  // Create a shelter
+  // Create a note
   const note = {
   text: req.body.text,
   type: req.body.type,
+  personId: req.body.personId,
 	organizationId: req.body.organizationId
   };
 
@@ -42,7 +43,27 @@ exports.create = (req, res) => {
 // Retrieve all shelters from the database.
 exports.findAll = (req, res) => {
 
-  DBNote.findAll()
+  DBNote.findAll({
+    include: 'person'
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving shelters."
+      });
+    });
+};
+
+// Retrieve all shelters from the database.
+exports.findAllOrganizationNotes = (req, res) => {
+  const organizationId = req.params.organizationId
+  DBNote.findAllOrganizationNotes({
+    where: {organizationId: organizationId},
+    include: 'person'
+  })
     .then(data => {
       res.send(data);
     })
@@ -58,7 +79,9 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBNote.findByPk(id)
+  DBNote.findByPk(id,{
+    include: 'person'
+  })
     .then(data => {
       res.send(data);
     })

@@ -47,12 +47,12 @@
             >
             <template v-slot:item.name="{ item }">
               <template v-if="item.relationship !== null">
-                <span class="red--text">{{ item.name }}</span>&nbsp
-                <span v-if="item.public_safety">(Public Safety)</span>
+                <span class="red--text">{{ item.name }}</span>
+                <span v-if="item.public_safety"> (Public Safety)</span>
               </template>
               <template v-else-if="item.partner!==null">
-                <span class="green--text">{{ item.name }}</span>&nbsp
-                <span v-if="item.public_safety">(Public Safety)</span> 
+                <span class="green--text">{{ item.name }}</span>
+                <span v-if="item.public_safety"> (Public Safety)</span> 
               </template>
             </template>
             <template
@@ -105,13 +105,17 @@ export default {
   methods: {
     nav(item){
       if(item.partner !== null){
-        
+        console.log(item.id);
+        this.$router.push({ path: "partner/"+item.id});
+      }else if(item.relationship != null){
+        console.log(item.id);
+        this.$router.push({ path: "relationship/"+item.id});
       }
-      console.log(item);
     },
     retrieveOrganizations() {
       OrganizationDataService.getAll()
         .then(response => {
+          console.log(response.data);
           this.orgCache = response.data;
           this.organizations = response.data;
         })

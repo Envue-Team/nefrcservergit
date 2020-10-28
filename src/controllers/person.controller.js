@@ -78,7 +78,7 @@ exports.createPOC = (req, res) => {
 // Retrieve all persons from the database.
 exports.findAll = (req, res) => {
   DBPerson.findAll({
-    include :'phones'
+    include :['phones', 'emails']
   })
     .then(data => {
       res.send(data);
@@ -111,7 +111,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, {include: 'phone'})
+  DBPerson.findByPk(id, {include: ['phones','emails']})
     .then(data => {
       res.send(data);
     })

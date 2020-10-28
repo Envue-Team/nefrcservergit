@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     services: {
       type: DataTypes.TEXT
-	},
-	critical_relationship_information: {
-      type: DataTypes.TEXT
-    }
-  });
+    },
+    critical_relationship_information: {
+        type: DataTypes.TEXT
+      }
+    });
 
   return Partner;
 };

@@ -5,8 +5,8 @@ const cors = require("cors");
 const expapp = express();
 
 const db = require("../src/models");
-db.sequelize.sync({force: true});
-// db.sequelize .sync();
+// db.sequelize.sync({force: true});
+db.sequelize .sync();
 
 
 expapp.use(cors());
@@ -25,6 +25,8 @@ require("../src/routes/person.routes")(expapp);
 require("../src/routes/poc.routes")(expapp);
 require("../src/routes/rm.routes")(expapp);
 require("../src/routes/relationship.routes")(expapp);
+require("../src/routes/email.routes")(expapp);
+require("../src/routes/file.routes")(expapp);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

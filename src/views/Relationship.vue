@@ -5,13 +5,13 @@
 				<v-col class="col-7"><!----------------------Left Column-------------------------->
 						<!---------------------Partner Basic Data-------------------------------->
 						<div class="text-h5 font-weight-thin">
-							{{partner.county}}
+							{{relationship.county}}
 
 						</div>
-						<div class="text-h3 font-weight-thin">{{partner.name}}
+						<div class="text-h3 font-weight-thin">{{relationship.name}}
 						<!---------------------------------Edit Partner Dialog------------------------------->
 							<v-dialog
-							v-model="partner_edit_dlg"
+							v-model="relationship_edit_dlg"
 							max-width="600px"
 							>
 							<template v-slot:activator="{ on, attrs }">
@@ -48,7 +48,7 @@
 										<v-text-field
 										label="Agency Name*"
 										required
-										v-model="partner.name"
+										v-model="relationship.name"
 										></v-text-field>
 										</v-col>
 										<v-col
@@ -58,12 +58,12 @@
 										>
 										<v-checkbox
 										label="Public Safety"
-										v-model="partner.public_safety"
+										v-model="relationship.public_safety"
 										></v-checkbox>
 										</v-col>
 									</v-row>
 									<v-row>
-										<v-label>Critical Relationship Information</v-label>
+										<v-label>Relationship Status</v-label>
 										<v-col
 										cols="12"
 										sm="12"
@@ -71,20 +71,7 @@
 										>
 										<v-textarea
 										solo
-										v-model="partner_secondary_info.critical_relationship_information"
-										></v-textarea>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-label>Services</v-label>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-										<v-textarea
-										solo
-										v-model="partner_secondary_info.services"
+										v-model="relationship_secondary_info.status"
 										></v-textarea>
 										</v-col>
 									</v-row>
@@ -96,7 +83,7 @@
 										>
 										<v-text-field
 										label="Street Number"
-										v-model="partner.street_number"
+										v-model="relationship.street_number"
 										></v-text-field>
 									</v-col>
 									<v-col
@@ -106,7 +93,7 @@
 									>
 										<v-text-field
 										label="Street Name"
-										v-model="partner.street_name"
+										v-model="relationship.street_name"
 										></v-text-field>
 									</v-col>
 									</v-row>
@@ -118,19 +105,19 @@
 									>
 										<v-text-field
 										label="City"
-										v-model="partner.city"
+										v-model="relationship.city"
 										></v-text-field>
 									</v-col>
 									<v-col cols="2">
 										<v-text-field
 										label="State"
-										v-model="partner.state"
+										v-model="relationship.state"
 										></v-text-field>
 									</v-col>
 									<v-col cols="3">
 										<v-text-field
 										label="Zip"
-										v-model="partner.zip"
+										v-model="relationship.zip"
 										></v-text-field>
 									</v-col>
 									</v-row>
@@ -138,7 +125,7 @@
 									<v-col cols="6">
 										<v-text-field
 										label="County"
-										v-model="partner.county"
+										v-model="relationship.county"
 										></v-text-field>
 									</v-col>
 									</v-row>
@@ -146,14 +133,14 @@
 									<v-col cols="6">
 										<v-text-field
 										label="Website"
-										v-model="partner.website"
+										v-model="relationship.website"
 										></v-text-field>
 									</v-col>
 									</v-row>
 									<v-row>
 										<div class="headline">Points of Contact</div>
 									</v-row>
-									<v-row v-for="poc in partner.point_of_contacts" :key="poc.personId">
+									<v-row v-for="poc in relationship.point_of_contacts" :key="poc.personId">
 										<v-col class="col-12">
 											<v-row>
 												<v-col>
@@ -201,14 +188,14 @@
 								<v-btn
 									color="blue darken-1"
 									text
-									@click="partner_edit_dlg=false"
+									@click="relationship_edit_dlg=false"
 								>
 									Close
 								</v-btn>
 								<v-btn
 									color="blue darken-1"
 									text
-									@click="updatePartner"
+									@click="updateRelationship"
 								>
 									Save
 								</v-btn>
@@ -219,19 +206,19 @@
 						<!---------------------------------//Edit Partner Dialog------------------------------> 
 						</div>
 						<div class="body-3 mt-3">
-							{{ partner.street_number }} {{ partner.street_name}}<br>
-							{{ partner.city }}, {{ partner.state }} {{ partner.zip }}
+							{{ relationship.street_number }} {{ relationship.street_name}}<br>
+							{{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}
 						</div>
-						<a :href="partner.website" class="blue--text text--darken-1 body-3 mt-3">{{ partner.website }}</a>
+						<a :href="relationship.website" class="blue--text text--darken-1 body-3 mt-3">{{ relationship.website }}</a>
 						<!---------------------//Partner Basic Data-------------------------------->
 
 						<!--------------------------Partner Services-------------------------------->
-						<div class="text-h5 mt-3">Services<span v-if="partner.public_safety"> (Safety) </span></div>
-						<div class="text-h5 font-weight-light">{{ partner_secondary_info.services }}</div>
+						<div class="text-h5 mt-3">Services<span v-if="relationship.public_safety"> (Safety) </span></div>
+						<div class="text-h5 font-weight-light">{{ relationship_secondary_info.services }}</div>
 						<!------------------------//Partner Services--------------------------------->
 
 						<!-----------------------Point of Contact--------------------------------->
-						<div v-for="contact in partner.point_of_contacts" v-bind:key="contact.personId" class="mt-3">
+						<div v-for="contact in relationship.point_of_contacts" v-bind:key="contact.personId" class="mt-3">
 							<div class="text-h5 font-weight-light">
 								<span :ref="'first_name_' + contact.personId">{{ contact.person.first_name }} </span> 
 								<span :ref="'last_name_' + contact.personId">{{ contact.person.last_name }}</span>
@@ -505,10 +492,7 @@
 							</v-card-title>
 
 							<v-card-text class="pt-4">
-							<v-card-title>Important information</v-card-title>
-								<div class="body-1 font-weight-light">
-									{{ partner_secondary_info.critical_relationship_information }}
-								</div>
+							<v-card-title>Relationship History</v-card-title>
 								<v-divider></v-divider>
 								<v-row>
 									<v-col>
@@ -551,14 +535,12 @@
 											v-bind="attrs"
 											v-on="on"
 											clearable
-										>
-										</v-text-field>
+										></v-text-field>
 										</template>
 										<v-date-picker
 										v-model="start_date"
 										@input="menu1 = false"
-										>
-										</v-date-picker>
+										></v-date-picker>
 									</v-menu>
 									</v-col>
 									<v-col
@@ -575,6 +557,7 @@
 										min-width="290px"
 									>
 										<template v-slot:activator="{ on, attrs }">
+											<!---------v-model="end_date"---------------->
 										<v-text-field
 											v-model="formattedEndDate"
 											label="End Date"
@@ -644,7 +627,7 @@
 
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
-import PartnerDataService from "../services/PartnerDataService";
+import RelationshipDataService from "../services/RelationshipDataService";
 import PersonDataService from "../services/PersonDataService";
 import RelationshipManagerDataService from "../services/RelationshipManagerDataService";
 import PhoneDataService from "../services/PhoneDataService";
@@ -653,25 +636,24 @@ import FileDataService from "../services/FileDataService";
 import NoteDialog from "./NoteDialog"
 
 export default {
-	name: "partner",
+	name: "relationship",
 	components: {
 		NoteDialog
 	},
 	
 	data() {
 	return {
-
 		/**
 		 * Experimental
 		 */
 		showNoteDialog: false,
 
 		/**
-		 * Partner
+		 * Relationship
 		 */
-		partner: '',
-		partner_edit_dlg: false,
-		partner_secondary_info: '',
+		relationship: '',
+		relationship_edit_dlg: false,
+		relationship_secondary_info: '',
 		search: '',
 
 		/**
@@ -691,6 +673,7 @@ export default {
 		uploadFieldName: 'files',
 		file_upload: '',
 		upload_disabled: true,
+		search: '',
 
 		/**
 		 * Notes
@@ -722,12 +705,13 @@ export default {
 		//Date Pickers
 		menu1: false,
 		menu2: false,
-		start_date: '',
-		end_date: '',
+		start_date: new Date().toISOString().substr(0, 10),
+		// end_date: ''
+		end_date: new Date().toISOString().substr(0, 10),
 		formattedStartDate: '',
 		formattedEndDate: ''
 	}
-	},
+},
     watch: {
       start_date (val) {
         this.formattedStartDate = this.formatDate(this.start_date)
@@ -757,13 +741,13 @@ export default {
 		addNote(val){
 			if(this.$refs.new_note_form.validate()){
 				var data = {
-					organizationId: this.partner.id,
+					organizationId: this.relationship.id,
 					personId: "5693164c-5da4-4d07-ad24-d9f39befc823",
 					text: this.add_note_form.text,
 					type: this.add_note_form.type.toLowerCase()
 				};
 				NoteDataService.create(data).then(response=>{
-					this.setPartner(this.partner.id);
+					this.setRelationship(this.relationship.id);
 				})
 				.catch(e=>{console.log(e)});
 				this.add_note_form.text = '';
@@ -773,7 +757,7 @@ export default {
 		deleteNote(val){
 			NoteDataService.delete(val.id)
 			.then(response=>{
-				this.setPartner(this.partner.id);
+				this.setRelationship(this.relationship.id);
 			})
 			.catch(e=>{
 				console.log(e);
@@ -784,6 +768,12 @@ export default {
 			this.notes_type_selected.general = !this.history_switch;
 			this.notes_type_selected.contact = this.history_switch;
 		},
+		formatDate (date) {
+			if (!date) return null
+
+			const [year, month, day] = date.split('-')
+			return `${month}/${day}/${year}`
+      	},
 
 		/**
 		 * Files
@@ -811,7 +801,7 @@ export default {
 			}
 			FileDataService.delete(obj.item.id, data)
 			.then(response=>{
-				this.populateFiles(this.partner.id);
+				this.populateFiles(this.reltionship.id);
 			})
 			.catch(e=>{
 				console.log(e);
@@ -826,7 +816,7 @@ export default {
 		uploadFile() {
 			const formData = new FormData();
 			formData.append('file', this.file_upload);
-			formData.append('organizationId', this.partner.id);
+			formData.append('organizationId', this.relationship.id);
 			formData.append('personId',"5693164c-5da4-4d07-ad24-d9f39befc823" );
 			this.formData = formData;
 			
@@ -844,7 +834,7 @@ export default {
 				});
 			this.formData = '';
 			this.upload_disabled=true;
-			this.populateFiles(this.partner.id);
+			this.populateFiles(this.relationship.id);
 		},
 		filesChange(files) {
 			// handle file changes
@@ -870,25 +860,25 @@ export default {
 		/**
 		 * Files
 		 **/
-		updatePartner(){
+		updateRelationship(){
 			/*
 			Update organization data
 			*/
-			this.partner_edit_dlg = false;
+			this.relationship_edit_dlg = false;
 			var data = {
-				"name": this.partner.name,
-				"street_number": this.partner.street_number,
-				"street_name": this.partner.street_name,
-				"city": this.partner.city,
-				"state": this.partner.state,
-				"zip": this.partner.zip,
-				"county": this.partner.county,
-				"website": this.partner.website,
-				"public_safety": this.partner.public_safety,
-				"services": this.partner.partner.services,
-				"critical_relationship_information": this.partner.partner.critical_relationship_information
+				"name": this.relationship.name,
+				"street_number": this.relationship.street_number,
+				"street_name": this.relationship.street_name,
+				"city": this.relationship.city,
+				"state": this.relationship.state,
+				"zip": this.relationship.zip,
+				"county": this.relationship.county,
+				"website": this.relationship.website,
+				"public_safety": this.relationship.public_safety,
+				"status": this.relationship.relationship.status
+				// "critical_relationship_information": this.relationship.relationship.critical_relationship_information
 			}
-			PartnerDataService.update(this.partner.id, data)
+			RelationshipDataService.update(this.relationship.id, data)
 			.then(response=>{
 				console.log(response.data);
 			})
@@ -899,7 +889,7 @@ export default {
 			/*
 			Update point of contact data
 			*/
-			this.partner.point_of_contacts.forEach(contact=>{
+			this.relationship.point_of_contacts.forEach(contact=>{
 				const person = {
 					first_name: this.$refs["first_name_"+contact.personId][0]["innerHTML"],
 					last_name: this.$refs["last_name_"+contact.personId][0]["innerHTML"],
@@ -935,7 +925,7 @@ export default {
 			/*
 			Update relationship manager for partner
 			*/
-			this.partner.relationship_managers.forEach(manager=>{
+			this.relationship.relationship_managers.forEach(manager=>{
 				const data = {
 					organizationId: manager.organizationId,
 					personId: manager.personId
@@ -943,8 +933,8 @@ export default {
 				OrganizationManagerDataService.update(manager.organizationId, manager.personId, data)
 			});
 		},
-		setPartner(){
-			PartnerDataService.get(this.$route.params.organizationId)
+		setRelationship(){
+			RelationshipDataService.get(this.$route.params.organizationId)
 			.then(response => {
 				this.notes = response.data.notes.map(note=>{
 					var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
@@ -956,10 +946,11 @@ export default {
 						type: note.type
 					}
 				});
-				this.partner = response.data;
+				this.relationship = response.data;
 				this.organization_relationship_managers = response.data.relationship_managers;
-				this.populateFiles(this.partner.id);
-				this.partner_secondary_info = response.data.partner;
+				this.populateFiles(this.relationship.id);
+				this.relationship_secondary_info = response.data.relationship;
+				console.log(this.relationship);
 			})
 			.catch(e => {
 				console.log(e.message);
@@ -979,19 +970,19 @@ export default {
 		},
 		updateRelationshipManager(obj){
 			this.assign_mgr_dlg = false;
-			var organizationId = this.partner.id;
+			var organizationId = this.relationship.id;
 
 			var data = {
 				organizationId: organizationId,
 				personId: obj.value
 			};
-			var personId = this.partner.relationship_managers[0].personId;
+			var personId = this.relationship.relationship_managers[0].personId;
 
 			RelationshipManagerDataService.update(organizationId, personId, data)
 			.then(response=>{
-				PartnerDataService.get(this.partner.id)
+				PartnerDataService.get(this.relationship.id)
 				.then(response=>{
-					this.partner = response.data;
+					this.relationship = response.data;
 					this.organization_relationship_managers = response.data.relationship_managers;
 				}).catch(e=>{console.log(e)});
 			})
@@ -1002,9 +993,13 @@ export default {
 
 			const [year, month, day] = date.split('-')
 			return `${month}/${day}/${year}`
-		},
+		  },
 	},
 	computed:{
+		computedDateFormatted (date) {
+        	return this.formatDate(date)
+      	},
+		
 		headers () {
 			var headers = [
 				{text: 'File Name',value: 'name', width: '80px'},
@@ -1032,13 +1027,14 @@ export default {
 						return (note.author.first_name.toLowerCase().includes(this.note_search.toLowerCase()) ||
 						note.author.last_name.toLowerCase().includes(this.note_search.toLowerCase())) &&
 						(afterStart && beforeEnd)
-					}
-				})
+                    }
+                })
             },		
 	},
 	mounted() {
 		this.reset();
-		this.setPartner();
+		//Update
+		this.setRelationship();
 		this.populateRelationshipManagersList();
 	}
 };

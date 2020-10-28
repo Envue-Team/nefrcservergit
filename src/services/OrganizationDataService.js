@@ -25,9 +25,6 @@ class OrganizationDataService {
     return http.delete(`/organizations`);
   }
 
-//   findByName(name) {
-//     return http.get(`/shelter?name=${name}`);
-//   }
 }
 
 export default new OrganizationDataService();

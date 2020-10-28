@@ -4,21 +4,23 @@ module.exports = volapp => {
   var router = require("express").Router();
 
   //On organization added, change all to second line
-  // Create a new note
-  router.post("/:organizationId/:personId", rms.create);
+  // Create a new manager relationship
+  router.post("/", rms.create);
 
-  // Retrieve all notes
+  // Retrieve all manager relationships
   router.get("/", rms.findAll);
 
+  // Retrieve all organizations relationship managers with organizationId
+  router.get("/:organizationId", rms.findAllManagers);
 
-  // Retrieve a single note with id
-  router.get("/:id", rms.findOne);
+  // Retrieve single organization relationship manager with organizationId and personId
+  router.get("/:organizationId/:personId", rms.findOneOrganizationRelationshipManager);
 
-  // Update a note with id
-  router.put("/:id", rms.update);
+  // Update a replace a manager
+  router.put("/:organizationId/:personId", rms.update);
 
   // Delete a note with id
-  router.delete("/:id", rms.delete);
+  router.delete("/:organizationId/:personId", rms.delete);
 
   // Delete all notes
   router.delete("/", rms.deleteAll);

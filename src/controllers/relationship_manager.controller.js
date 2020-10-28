@@ -1,10 +1,11 @@
 const db = require("../models");
 const DBRM = db.relationshipmanager;
+const DBPerson = db.person;
 
 // Create and Save a new shelter
 exports.create = (req, res) => {
   // Validate request
-  if (!req.params.personId || !req.params.organizationId) {
+  if (!req.body.personId || !req.body.organizationId) {
     res.status(400).send({
       message: "You must have both a person and organization id to create a relationship manager"
     });
@@ -13,8 +14,8 @@ exports.create = (req, res) => {
 
   // Create a relationship manager relationship
   const relationship_manager = {
-	personId: req.params.personId,
-	organizationId: req.params.organizationId
+    personId: req.body.personId,
+    organizationId: req.body.organizationId
   };
 
   // Save relatioship manager in the database
@@ -33,7 +34,39 @@ exports.create = (req, res) => {
 // Retrieve all relationship managers from the database.
 exports.findAll = (req, res) => {
 
-  DBRM.findAll()
+  DBRM.findAll({
+    include: [
+      {
+        model: DBPerson,
+        include: ['phones', 'emails'],
+      }
+    ]
+    })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving relationshiip managers."
+      });
+    });
+};
+
+// Retrieve all relationship managers from the database.
+exports.findAllManagers = (req, res) => {
+
+  DBRM.findAll({
+    where :{
+      organizationId: req.params.organizationId
+    },
+    include: [
+      {
+        model: DBPerson,
+        include: ['phones', 'emails'],
+      }
+    ]
+    })
     .then(data => {
       res.send(data);
     })
@@ -46,10 +79,18 @@ exports.findAll = (req, res) => {
 };
 
 // Find a single relationship manager with an id
-exports.findOne = (req, res) => {
-	const id = req.params.id
+exports.findOneOrganizationRelationshipManager = (req, res) => {
 	DBRM.findAll({
-		where: { personId : id }
+    where: { 
+      personId : req.params.personId,  
+      organizationId: req.params.organizationId
+    },
+    include: [
+      {
+        model: DBPerson,
+        include: ['phones', 'emails'],
+      }
+    ]
 	})
 	.then(data=>{
 		res.send(data);
@@ -63,10 +104,15 @@ exports.findOne = (req, res) => {
 
 // Update a relationship manager by the id in the request
 exports.update = (req, res) => {
-  const id = req.params.id;
-
+  data = {
+    organizationId: req.body.organiationId,
+    personId: req.body.personId
+  }
   DBRM.update(req.body, {
-    where: { personId: id }
+    where: { 
+      personId: req.params.personId,
+      organizationId: req.params.organizationId
+     }
   })
     .then(num => {
       if (num == 1) {
@@ -88,10 +134,11 @@ exports.update = (req, res) => {
 
 // Delete a relationship manager with the specified id in the request
 exports.delete = (req, res) => {
-  const id = req.params.id;
-
   DBRM.destroy({
-    where: { personId: id }
+    where: { 
+      personId: req.params.personId, 
+      organizationId: req.params.organizationId
+    }
   })
     .then(num => {
       if (num == 1) {

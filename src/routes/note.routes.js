@@ -11,6 +11,7 @@ module.exports = volapp => {
   // Retrieve all notes
   router.get("/", notes.findAll);
 
+  router.get("/organization/:id", notes.findAllOrganizationNotes)
 
   // Retrieve a single note with id
   router.get("/:id", notes.findOne);

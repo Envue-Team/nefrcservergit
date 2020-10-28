@@ -6,6 +6,7 @@ const DBRM = db.relationshipmanager;
 const DBPerson = db.person;
 const DBPartner = db.partner;
 const DBRelationship = db.relationship;
+const DBNote = db.note;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new organization
@@ -28,7 +29,8 @@ exports.create = (req, res) => {
     zip: req.body.zip,
     website: req.body.website,
     county: req.body.county,
-    public_safety: req.body.public_safety
+    public_safety: req.body.public_safety,
+    gendata: req.body.gendata
   };
 
   // Save new organization in the database
@@ -64,7 +66,8 @@ exports.createPartner = (req, res) => {
     zip: req.body.zip,
     website: req.body.website,
     county: req.body.county,
-    public_safety: req.body.public_safety
+    public_safety: req.body.public_safety,
+    gendata: req.body.gendata
     
   };
 
@@ -114,7 +117,8 @@ exports.createRelationship = (req, res) => {
     zip: req.body.zip,
     website: req.body.website,
     county: req.body.county,
-    public_safety: req.body.public_safety
+    public_safety: req.body.public_safety,
+    gendata: req.body.gendata
   };
 
   // Save new organization in the database
@@ -147,21 +151,26 @@ exports.createRelationship = (req, res) => {
 exports.findAll = (req, res) => {
   DBOrganization.findAll({ 
     include :[
-      'notes',
       'partner',
       'relationship',
+      'phones',
+      'emails',
+      {
+        model: DBNote,
+        include: 'person'
+      },
       {
         model: DBPOC,
         include: [{
           model: DBPerson,
-          include: 'phones'
+          include: ['phones', 'emails'],
         }]
       },
       {
         model: DBRM,
         include: [{
           model: DBPerson, 
-          include: 'phones'
+          include: ['phones', 'emails'],
         }]
       }
     ]
@@ -181,7 +190,12 @@ exports.findAll = (req, res) => {
 exports.findAllPartners = (req, res) => {
   DBOrganization.findAll({ 
     include :[
-      'notes',
+      'phones',
+      'emails',
+      {
+        model: DBNote,
+        include:'person'
+      },
     {
       model: DBPartner,
       where: { services : {[Op.ne]: null} }
@@ -190,14 +204,14 @@ exports.findAllPartners = (req, res) => {
       model: DBPOC,
       include: [{
         model: DBPerson,
-        include: 'phones'
+        include: ['phones', 'email']
       }]
     },
     {
       model: DBRM,
       include: [{
         model: DBPerson, 
-        include: 'phones'
+        include: ['phones', 'email']
       }]
     }
     ]
@@ -208,7 +222,7 @@ exports.findAllPartners = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving persons."
+          err.message || "Some error occurred while retrieving partners."
       });
     });
 };
@@ -217,7 +231,12 @@ exports.findAllPartners = (req, res) => {
 exports.findAllRelationships = (req, res) => {
   DBOrganization.findAll({ 
     include :[
-      'notes',
+      'phones',
+      'emails',
+      {
+        model: DBNote,
+        include: 'person'
+      },
     {
       model: DBRelationship,
       where: { status : {[Op.ne]: null} }
@@ -226,14 +245,14 @@ exports.findAllRelationships = (req, res) => {
       model: DBPOC,
       include: [{
         model: DBPerson,
-        include: 'phones'
+        include: ['phones', 'emails']
       }]
     },
     {
       model: DBRM,
       include: [{
         model: DBPerson, 
-        include: 'phones'
+        include: ['phones', 'emails']
       }]
     }
     ]
@@ -244,7 +263,7 @@ exports.findAllRelationships = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving persons."
+          err.message || "Some error occurred while retrieving organizations."
       });
     });
 };
@@ -253,7 +272,31 @@ exports.findAllRelationships = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBOrganization.findByPk(id)
+  DBOrganization.findByPk(id, { 
+    include :[
+      'emails',
+      'phones',
+      'partner',
+      {
+        model: DBNote, 
+        include: 'person'
+      },
+    {
+      model: DBPOC,
+      include: [{
+        model: DBPerson,
+        include: ['phones', 'emails']
+      }]
+    },
+    {
+      model: DBRM,
+      include: [{
+        model: DBPerson, 
+        include: ['phones', 'emails']
+      }]
+    }
+    ]
+  })
     .then(data => {
       res.send(data);
     })
@@ -270,20 +313,25 @@ exports.findOnePartner = (req, res) => {
 
   DBOrganization.findByPk(id,{ 
     include :[
-      'notes',
+      'emails',
+      'phones',
       'partner',
+      {
+        model: DBNote,
+        include: 'person'
+      },
     {
       model: DBPOC,
       include: [{
         model: DBPerson,
-        include: 'phones'
+        include: ['phones', 'emails']
       }]
     },
     {
       model: DBRM,
       include: [{
         model: DBPerson, 
-        include: 'phones'
+        include: ['phones', 'emails']
       }]
     }
     ]
@@ -304,20 +352,25 @@ exports.findOneRelationship = (req, res) => {
 
   DBOrganization.findByPk(id,{ 
     include :[
-      'notes',
+      'phones',
+      'emails',
       'relationship',
+      {
+        model: DBNote, 
+        include: 'person'
+      },
     {
       model: DBPOC,
       include: [{
         model: DBPerson,
-        include: 'phones'
+        include: ['phones', 'emails']
       }]
     },
     {
       model: DBRM,
       include: [{
         model: DBPerson, 
-        include: 'phones'
+        include: ['phones', 'emails']
       }]
     }
     ]
@@ -360,8 +413,12 @@ exports.update = (req, res) => {
 // Update a organization by the id in the request
 exports.updatePartner = (req, res) => {
   const id = req.params.id;
-// console.log(req);
-  DBPartner.update(req.body, {
+  const partner = {
+    services: req.body.services,
+    critical_relationship_information: req.body.critical_relationship_information 
+  };
+console.log(partner);
+  DBPartner.update(partner, {
     where: {organizationId: id}
   })
     .then(num => {
