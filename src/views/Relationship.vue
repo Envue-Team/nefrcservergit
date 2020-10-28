@@ -996,10 +996,6 @@ export default {
 		  },
 	},
 	computed:{
-		computedDateFormatted (date) {
-        	return this.formatDate(date)
-      	},
-		
 		headers () {
 			var headers = [
 				{text: 'File Name',value: 'name', width: '80px'},
