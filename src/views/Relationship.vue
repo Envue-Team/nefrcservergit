@@ -5,11 +5,11 @@
 				<v-col class="col-7"><!----------------------Left Column-------------------------->
 						<!---------------------Partner Basic Data-------------------------------->
 						<div class="text-h5 font-weight-thin">
-							{{relationship.county}}
+							
 
 						</div>
 						<div class="text-h3 font-weight-thin">{{relationship.name}}
-						<!---------------------------------Edit Partner Dialog------------------------------->
+						<!---------------------------------Edit Relationship Dialog------------------------------->
 							<v-dialog
 							v-model="relationship_edit_dlg"
 							max-width="600px"
@@ -35,7 +35,7 @@
 							<v-card>
 								<v-form>
 								<v-card-title>
-								<span class="headline">Partner Information</span>
+								<span class="headline">Relationship Information</span>
 								</v-card-title>
 								<v-card-text>
 								<v-container>
@@ -69,10 +69,11 @@
 										sm="12"
 										md="12"
 										>
-										<v-textarea
-										solo
-										v-model="relationship_secondary_info.status"
-										></v-textarea>
+										<v-select
+										class="text-capitalize"
+										:items="status_options"
+										v-model="current_status">
+										</v-select>
 										</v-col>
 									</v-row>
 									<v-row>
@@ -205,9 +206,10 @@
 							</v-dialog>
 						<!---------------------------------//Edit Partner Dialog------------------------------> 
 						</div>
-						<div class="body-3 mt-3">
+						<div class="body-3 mt-3 text-capitalize">
 							{{ relationship.street_number }} {{ relationship.street_name}}<br>
-							{{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}
+							{{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}<br>
+							{{relationship.county}} County
 						</div>
 						<a :href="relationship.website" class="blue--text text--darken-1 body-3 mt-3">{{ relationship.website }}</a>
 						<!---------------------//Partner Basic Data-------------------------------->
@@ -358,7 +360,6 @@
 								small
 								@click="deleteFile(item)"
 							>
-							Delete
 							<v-icon
 								color="orange darken-4"
 								right
@@ -643,6 +644,7 @@ export default {
 	
 	data() {
 	return {
+
 		/**
 		 * Experimental
 		 */
@@ -655,6 +657,12 @@ export default {
 		relationship_edit_dlg: false,
 		relationship_secondary_info: '',
 		search: '',
+
+		/**
+		 * Relationship secondary info
+		 */
+		status_options: ["hot", "warm", "cold"],
+		current_status: '',
 
 		/**
 		 * Relationship Mangers 
@@ -875,8 +883,7 @@ export default {
 				"county": this.relationship.county,
 				"website": this.relationship.website,
 				"public_safety": this.relationship.public_safety,
-				"status": this.relationship.relationship.status
-				// "critical_relationship_information": this.relationship.relationship.critical_relationship_information
+				"status": this.current_status
 			}
 			RelationshipDataService.update(this.relationship.id, data)
 			.then(response=>{
@@ -910,7 +917,7 @@ export default {
 					.catch(e=>{console.log(e)});
 				});
 				
-				contact.person.emails.forEach(phone=>{
+				contact.person.emails.forEach(email=>{
 					const data = {
 						number: this.$refs["email_"+email.id][0]["innerHTML"]
 					};
@@ -950,6 +957,7 @@ export default {
 				this.organization_relationship_managers = response.data.relationship_managers;
 				this.populateFiles(this.relationship.id);
 				this.relationship_secondary_info = response.data.relationship;
+				this.current_status = response.data.relationship.status
 				console.log(this.relationship);
 			})
 			.catch(e => {

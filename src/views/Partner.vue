@@ -6,7 +6,6 @@
 						<!---------------------Partner Basic Data-------------------------------->
 						<div class="text-h5 font-weight-thin">
 							{{partner.county}}
-
 						</div>
 						<div class="text-h3 font-weight-thin">{{partner.name}}
 						<!---------------------------------Edit Partner Dialog------------------------------->
@@ -506,18 +505,16 @@
 
 							<v-card-text class="pt-4">
 							<v-card-title>Important information</v-card-title>
-								<div class="body-1 font-weight-light">
+							<v-row style="margin-top: -10px; margin-bottom: 20px">
+								<v-col class="offset-1">
+									<div class="body-1 font-weight-light">
 									{{ partner_secondary_info.critical_relationship_information }}
 								</div>
+								</v-col>
+							</v-row>
+								
 								<v-divider></v-divider>
 								<v-row>
-									<v-col>
-										<v-text-field
-												placeholder="Search"
-												v-model="note_search"
-												append-icon="mdi-magnify"
-										></v-text-field>
-									</v-col>
 									<v-col>
 										<v-switch
 										v-model="history_switch"
@@ -528,24 +525,17 @@
 										></v-switch>
 									</v-col>
 								</v-row>
-								<v-row>
-									<v-col
-									cols="12"
-									sm="6"
-									md="4"
-									>
+									<v-row style="margin-top:-30px">
+									<v-col class="col-5">
 									<v-menu
 										v-model="menu1"
 										:close-on-content-click="false"
-										:nudge-right="40"
 										transition="scale-transition"
-										offset-y
-										min-width="290px"
 									>
 										<template v-slot:activator="{ on, attrs }">
 										<v-text-field
 											v-model="formattedStartDate"
-											label="Start Date"
+											label="From"
 											prepend-icon="mdi-calendar"
 											readonly
 											v-bind="attrs"
@@ -561,23 +551,16 @@
 										</v-date-picker>
 									</v-menu>
 									</v-col>
-									<v-col
-									cols="12"
-									sm="6"
-									md="4"
-									>
+									<v-col class="col-5">
 									<v-menu
 										v-model="menu2"
 										:close-on-content-click="false"
-										:nudge-right="40"
 										transition="scale-transition"
-										offset-y
-										min-width="290px"
 									>
 										<template v-slot:activator="{ on, attrs }">
 										<v-text-field
 											v-model="formattedEndDate"
-											label="End Date"
+											label="To"
 											prepend-icon="mdi-calendar"
 											readonly
 											v-bind="attrs"
@@ -591,7 +574,16 @@
 										></v-date-picker>
 									</v-menu>
 									</v-col>
-									<v-spacer></v-spacer>
+									
+								</v-row>
+								<v-row style="margin-top:-30px">
+									<v-col class="col-5 offset-1">
+										<v-text-field
+											placeholder="Search Author"
+											v-model="note_search"
+											append-icon="mdi-magnify"
+										></v-text-field>
+									</v-col>
 								</v-row>
 							</v-card-text>
 							
@@ -659,82 +651,82 @@ export default {
 	},
 	
 	data() {
-	return {
+		return {
 
-		/**
-		 * Experimental
-		 */
-		showNoteDialog: false,
+			/**
+			 * Experimental
+			 */
+			showNoteDialog: false,
 
-		/**
-		 * Partner
-		 */
-		partner: '',
-		partner_edit_dlg: false,
-		partner_secondary_info: '',
-		search: '',
+			/**
+			 * Partner
+			 */
+			partner: '',
+			partner_edit_dlg: false,
+			partner_secondary_info: '',
+			search: '',
 
-		/**
-		 * Relationship Mangers 
-		 **/
-		assign_mgr_dlg: false,
-		all_relationship_managers:[],
-		organization_relationship_managers: [],
+			/**
+			 * Relationship Mangers 
+			 **/
+			assign_mgr_dlg: false,
+			all_relationship_managers:[],
+			organization_relationship_managers: [],
 
-		/**
-		 * Files 
-		 **/
-		files: [],
-        uploadedFiles: [],
-        uploadError: null,
-        currentStatus: null,
-		uploadFieldName: 'files',
-		file_upload: '',
-		upload_disabled: true,
+			/**
+			 * Files 
+			 **/
+			files: [],
+			uploadedFiles: [],
+			uploadError: null,
+			currentStatus: null,
+			uploadFieldName: 'files',
+			file_upload: '',
+			upload_disabled: true,
 
-		/**
-		 * Notes
-		 **/
-		view_note_item: {},
-		note_search: '',
-		history_switch: true,
-		notes: [],
+			/**
+			 * Notes
+			 **/
+			view_note_item: {},
+			note_search: '',
+			history_switch: true,
+			notes: [],
 
-		//Add Note
-		add_note_dlg: false,
-		valid_note: true,
-		note_text_rule: [
-			v => !!v || 'Text is required',
-		],
-		add_note_form: {
-			types: ['General', 'Contact'],
-			text: '',
-			type: 'General'
-		},
+			//Add Note
+			add_note_dlg: false,
+			valid_note: true,
+			note_text_rule: [
+				v => !!v || 'Text is required',
+			],
+			add_note_form: {
+				types: ['General', 'Contact'],
+				text: '',
+				type: 'General'
+			},
 
-		//View Note
-		view_note_dlg: false,
-		notes_type_selected:{
-			general: false,
-			contact: true
-		},
+			//View Note
+			view_note_dlg: false,
+			notes_type_selected:{
+				general: false,
+				contact: true
+			},
 
-		//Date Pickers
-		menu1: false,
-		menu2: false,
-		start_date: '',
-		end_date: '',
-		formattedStartDate: '',
-		formattedEndDate: ''
-	}
+			//Date Pickers
+			menu1: false,
+			menu2: false,
+			start_date: '',
+			end_date: '',
+			formattedStartDate: '',
+			formattedEndDate: ''
+		}
 	},
     watch: {
-      start_date (val) {
-        this.formattedStartDate = this.formatDate(this.start_date)
-	  },
-	  end_date (val){
-		this.formattedEndDate = this.formatDate(this.end_date)  
-	  }
+		start_date (val) {
+			this.formattedStartDate = this.formatDate(this.start_date)
+		},
+		end_date (val){
+			this.formattedEndDate = this.formatDate(this.end_date)  
+		}
     },
 	methods: {
 		/**
@@ -920,7 +912,7 @@ export default {
 					.catch(e=>{console.log(e)});
 				});
 				
-				contact.person.emails.forEach(phone=>{
+				contact.person.emails.forEach(email=>{
 					const data = {
 						number: this.$refs["email_"+email.id][0]["innerHTML"]
 					};
