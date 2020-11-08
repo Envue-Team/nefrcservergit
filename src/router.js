@@ -6,7 +6,7 @@ import Volunteers from './views/ListVolunteers.vue'
 import AddVolunteer from './views/AddVolunteer.vue'
 import AddShelter from './views/AddShelter.vue'
 import Shelters from './views/ListShelters.vue'
-
+import Login from './views/Login.vue'
 Vue.use(Router)
 
 
@@ -16,6 +16,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home
     },
