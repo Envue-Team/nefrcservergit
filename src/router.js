@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Volunteer from './views/Volunteer.vue'
-import Volunteers from './views/ListVolunteers.vue'
-import AddVolunteer from './views/AddVolunteer.vue'
-import AddShelter from './views/AddShelter.vue'
-import Shelters from './views/ListShelters.vue'
-import Login from './views/Login.vue'
+import Organization from './views/Organizations.vue'
+import Partner from './views/Partner.vue'
+import Relationship from './views/Relationship.vue'
+import Contacts from './views/Contacts.vue'
+
+
 Vue.use(Router)
 
 
@@ -16,50 +16,37 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'login',
-      component: Login
-    },
-    {
-      path: '/home',
       name: 'home',
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/organizations',
+      name: 'organizations',
+      component: Organization
     },
+    
     {
-      path: '/volunteer/:id',
-      name: 'volunteer',
-      component: Volunteer
+      path: '/partner/:organizationId',
+      name: 'partner',
+      component: Partner,
+      props: true
     },
-    {
-      path: '/volunteers-list',
-      name: 'volunteers-list',
-      component: Volunteers
 
-    },
     {
-      path: '/add-volunteer',
-      name: 'add-volunteer',
-      component: AddVolunteer
-
+      path: '/relationship/:organizationId',
+      name: 'relationship',
+      component: Relationship
+      // props: true
     },
-    {
-      path: '/add-shelter',
-      name: 'add-shelter',
-      component: AddShelter
 
+    {
+      path: '/contacts',
+      name: 'contacts',
+      component: Contacts
+      // props: true
     },
-    {
-      path: '/shelters-list',
-      name: 'shelters-list',
-      component: Shelters
 
-    }
+
+
   ]
 })
