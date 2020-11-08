@@ -1,43 +1,39 @@
 const db = require("../models");
-const DBShelter = db.shelter;
-const Op = db.Sequelize.Op;
+const DBCounty = db.county;
+// const Op = db.Sequelize.Op;
 
 // Create and Save a new shelter
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.name) {
+  if (!req.body.name ) {
     res.status(400).send({
-      message: "Content can not be empty!!"
+      message: "You must have a county name"
     });
     return;
   }
 
   // Create a shelter
-  const shelter = {
-    name: req.body.name,
-    description: req.body.description,
-    published: req.body.published ? req.body.published : false
+  const county = {
+  name: req.body.name,
   };
 
   // Save shelter in the database
-  DBShelter.create(shelter)
+  DBCounty.create(county)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the shelter."
+          err.message || "Some error occurred while creating the county."
       });
     });
 };
 
 // Retrieve all shelters from the database.
 exports.findAll = (req, res) => {
-  const name = req.query.name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
 
-  DBShelter.findAll({ where: condition })
+  DBCounty.findAll()
     .then(data => {
       res.send(data);
     })
@@ -53,7 +49,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBShelter.findByPk(id)
+  DBCounty.findByPk(id)
     .then(data => {
       res.send(data);
     })
@@ -68,17 +64,17 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  DBShelter.update(req.body, {
+  DBCounty.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "shelter was updated successfully."
+          message: "County was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update shelter with id=${id}. Maybe shelter was not found or req.body is empty!`
+          message: `Cannot update county with id=${id}. Maybe county was not found or req.body is empty!`
         });
       }
     })
@@ -89,39 +85,39 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a shelter with the specified id in the request
+// Delete a county with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  DBShelter.destroy({
+  DBCounty.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "shelter was deleted successfully!"
+          message: "county was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete shelter with id=${id}. Maybe shelter was not found!`
+          message: `Cannot delete county with id=${id}. Maybe county was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete shelter with id=" + id + " err: " + err
+        message: "Could not delete county with id=" + id + " err: " + err
       });
     });
 };
 
-// Delete all shelters from the database.
+// Delete all counties from the database.
 exports.deleteAll = (req, res) => {
-  DBShelter.destroy({
+  DBCounty.destroy({
     where: {},
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} shelters were deleted successfully!` });
+      res.send({ message: `${nums} counties were deleted successfully!` });
     })
     .catch(err => {
       res.status(500).send({
@@ -131,17 +127,3 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// Find all published shelters
-exports.findAllPublished = (req, res) => {
-  DBShelter.findAll({ where: { published: true } })
-    .then(data => {
-      console.log("findAll called");
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving shelters."
-      });
-    });
-};
