@@ -809,7 +809,7 @@ export default {
 				console.log(e);
 			});
 		},
-		reset() {
+		reset() {``
 			// reset form to initial state
 			this.currentStatus = STATUS_INITIAL;
 			this.uploadedFiles = [];
