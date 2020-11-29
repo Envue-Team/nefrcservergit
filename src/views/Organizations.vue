@@ -50,33 +50,21 @@
             item-key="id"
             multi-sort
             >
-            <template v-slot:item.name="{ item }">
-              <template v-if="item.relationship !== null">
-                <span class="red--text">{{ item.name }}</span>
-                <span v-if="item.public_safety"> (Public Safety)</span>
-              </template>
-              <template v-else-if="item.partner!==null">
-                <span class="purple--text">{{ item.name }}</span>
-                <span v-if="item.public_safety"> (Public Safety)</span> 
-              </template>
-            </template>
-            <template
-              v-slot:item.address="{ item }"
-            >
-              <address>
-                {{ item.street_number }} {{ item.street_name}}<br>
-                {{ item.city }}, {{ item.state }} {{ item.zip }}
-              </address>
-          </template>
-          <template v-slot:item.manager ="{ item }">
-            {{ item.manager }}
-
-          </template>
-        </v-data-table>
-    </v-col>
-  </v-row>
-  <v-row>
-    <v-col class="offset-1">
+            <template v-slot:body.prepend="{ item }">
+                  <v-btn
+                    text
+                    flat
+                    color="red"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                  Add Organization
+                  <v-icon>
+                    mdi-plus
+                  </v-icon>
+                  </v-btn>
+                  <v-divider></v-divider>
+                  <v-col class="offset-1">
       <!---------------------------------Add Organization Dialog------------------------------->
       <v-dialog
         v-model="add_organization_dlg"
@@ -87,18 +75,6 @@
           v-slot="{ hover }"
           open-delay="200"
         >
-        <v-btn
-          text
-          :elevation="hover ? 16 : 2"
-          :class="{ 'on-hover': hover }"
-          v-bind="attrs"
-          v-on="on"
-        >
-        Add Organization
-        <v-icon>
-          mdi-plus
-        </v-icon>
-        </v-btn>
         </v-hover>
         </template>
         <v-card>
@@ -307,6 +283,48 @@
         </v-dialog>
       <!---------------------------------//Add Organization Dialog------------------------------> 
     </v-col>
+            </template>
+            <template v-slot:body.append="{ item }">
+                <JsonExcel
+                class="btn btn-default"
+                :data="excel_data"
+                :fields="excel_fields"
+                worksheet="My Worksheet"
+                name="filename.xls"
+                ><v-btn
+                  text
+                  color="blue"
+                >
+                Download to Excel
+                </v-btn>
+              </JsonExcel>
+            </template>
+            <template v-slot:item.name="{ item }">
+              <template v-if="item.relationship !== null">
+                <span class="red--text">{{ item.name }}</span>
+                <span v-if="item.public_safety"> (Public Safety)</span>
+              </template>
+              <template v-else-if="item.partner!==null">
+                <span class="purple--text">{{ item.name }}</span>
+                <span v-if="item.public_safety"> (Public Safety)</span> 
+              </template>
+            </template>
+            <template
+              v-slot:item.address="{ item }"
+            >
+              <address>
+                {{ item.address }}
+              </address>
+          </template>
+          <template v-slot:item.manager ="{ item }">
+            {{ item.manager }}
+
+          </template>
+        </v-data-table>
+    </v-col>
+  </v-row>
+  <v-row>
+    
   </v-row>
   </div>
 </template>
@@ -315,11 +333,61 @@
 import OrganizationDataService from "../services/OrganizationDataService";
 import PartnerDataService from "../services/PartnerDataService";
 import RelationshipDataService from "../services/RelationshipDataService";
+import JsonExcel from "vue-json-excel";
 
 export default {
   name: "organizations",
+  components: {
+    JsonExcel,
+  },
     data() {
       return {
+        excel_fields:{},
+        excel_data:[],
+        /**
+         * Excel Download
+         */
+        json_fields: {
+      "Complete name": "name",
+          City: "city",
+          Telephone: "phone.mobile",
+          "Telephone 2": {
+            field: "phone.landline",
+            callback: (value) => {
+              return `Landline Phone - ${value}`;
+            },
+          },
+        },
+        json_data: [
+          {
+            name: "Tony Peña",
+            city: "New York",
+            country: "United States",
+            birthdate: "1978-03-15",
+            phone: {
+              mobile: "1-541-754-3010",
+              landline: "(541) 754-3010",
+            },
+          },
+          {
+            name: "Thessaloniki",
+            city: "Athens",
+            country: "Greece",
+            birthdate: "1987-11-23",
+            phone: {
+              mobile: "+1 855 275 5071",
+              landline: "(2741) 2621-244",
+            },
+          },
+        ],
+        json_meta: [
+          [
+            {
+              key: "charset",
+              value: "utf-8",
+            },
+          ],
+        ],
         filters:{
           partners: true, 
           relationships: true,
@@ -356,7 +424,7 @@ export default {
    computed: {
       headers () {
         var headers = [
-          {text: 'Agency',value: 'name', width: '80px'},
+          {text: 'Name',value: 'name', width: '80px'},
           {text: 'Address', value: 'address', width: '80px'},
           {text: 'County', value: 'county', width: '100px' },
           {text: 'Manager', value: 'manager', width: '100px'},
@@ -367,6 +435,11 @@ export default {
         if(this.filters.relationships){
           headers.push({text: "Status",value:'relationship.status', width: '80px'});
         }
+        headers.forEach(header=>{
+          headers.forEach(header =>{
+            this.excel_fields[header.text] = header.text.toLowerCase();
+          });
+        });
         return headers;
       },
     },
@@ -419,8 +492,9 @@ export default {
           .then(response => {
             this.orgCache = response.data;
             this.orgCache.forEach(organization=>{
-              console.log(organization.relationship_managers);
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
+                organization.address = organization.street_number+" "+organization.street_name+"\n"+
+                organization.city+", "+organization.state+" "+organization.zip
                 var manager = organization.relationship_managers[0].person;
                 var manager_data = manager.first_name+" "+manager.last_name;
                 organization.manager = manager_data;
@@ -438,10 +512,21 @@ export default {
                 organization.manager = "Not yet assigned";
                 organization.managerId = 0;
               }
+
+              if( organization.partner !== null ){
+                organization.services = organization.partner.services;
+              }else if( organization.relationship !== null ){
+                organization.status = organization.relationship.status;
+              }
+              this.excel_data = this.organizations;
             });
+            
             this.organizations = response.data;
+            
             this.organizations.forEach(organization=>{
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
+                organization.address = organization.street_number+" "+organization.street_name+"\n"+
+                      organization.city+", "+organization.state+" "+organization.zip
                 var manager = organization.relationship_managers[0].person;
                 var manager_data = manager.first_name+" "+manager.last_name;
                 var phones = '';
@@ -458,6 +543,13 @@ export default {
                 organization.manager = "Not yet assigned";
                 organization.managerId = 0;
               }
+
+              if( organization.partner !== null ){
+                organization.services = organization.partner.services;
+              }else if( organization.relationship !== null ){
+                organization.status = organization.relationship.status;
+              }
+              this.excel_data = this.organizations;
           });
           })
           .catch(e => {
@@ -472,6 +564,7 @@ export default {
           (this.filters['relationships'] && organization.relationship !== null && assign) | 
           (this.filters['public_safety'] && organization.public_safety && assign)
         });
+        this.updateExcelFields();
       }
     },
     mounted() {

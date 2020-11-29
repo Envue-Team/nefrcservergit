@@ -486,7 +486,7 @@
 									</v-btn>
 									</v-card-actions>
 								</v-card>
-							</v-form>
+								</v-form>
 							</v-dialog>
 							<!---------------------------------//Add Note Dialog------------------------------> 
 							
