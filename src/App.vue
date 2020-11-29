@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <v-app>
     <v-app-bar
       app
@@ -53,3 +54,29 @@ export default {
   }),
 };
 </script>
+=======
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> | 
+      <router-link to="/volunteer/1">Volunteer 1</router-link> |
+      <router-link to="/volunteers-list">Volunteers</router-link> | 
+      <router-link to="/add-shelter">Add Shelter</router-link> |
+      <router-link to="/shelters-list">Shelters</router-link>
+    </div>
+    <h1>Some obvious chane</h1>
+    <router-view/>
+  </div>
+</template>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>
+>>>>>>> parent of 1bb00a0e... Merge pull request #1 from Envue-Team/UserAccounts
