@@ -479,6 +479,7 @@ export default {
       this.add_person_dlg = false;
       this.refreshList();
       // console.log("hit");
+
       this.refreshVolunteers();
     },
     removePerson(item) {

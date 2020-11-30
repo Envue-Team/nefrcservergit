@@ -5,13 +5,12 @@ import Organization from './views/Organizations.vue'
 import Partner from './views/Partner.vue'
 import Relationship from './views/Relationship.vue'
 import Contacts from './views/Contacts.vue'
-import ContactInfo from './views/ContactInfo.vue'
 
-// import Volunteer from './views/Volunteer.vue'
-// import Volunteers from './views/ListVolunteers.vue'
-// import AddVolunteer from './views/AddVolunteer.vue'
-// import AddShelter from './views/AddShelter.vue'
-// import Shelters from './views/ListShelters.vue'
+import ContactInfo from './views/ContactInfo.vue'
+import Register from './views/Register.vue'
+import UserInfo from './views/UserInfo'
+import User from './views/User'
+
 
 Vue.use(Router)
 
@@ -30,7 +29,11 @@ export default new Router({
       name: 'organizations',
       component: Organization
     },
-    
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
     {
       path: '/partner/:organizationId',
       name: 'partner',
@@ -51,6 +54,7 @@ export default new Router({
       component: Contacts
       // props: true
     },
+
     {
       path: '/ContactInfo/:personId',
       name: 'ContactInfo',
@@ -59,5 +63,19 @@ export default new Router({
     },
 
 
+
+
+    {
+      path: '/user',
+      name: 'user',
+      component: User
+      // props: true
+    },
+    {
+      path: '/userinfo/:personId',
+      name: 'userinfo',
+      component: UserInfo
+      // props: true
+    },
   ]
 })
