@@ -30,6 +30,11 @@ db.relationshipmanager = require("./relationship_manager.model.js")(sequelize, S
 db.relationship = require("./relationship.model.js")(sequelize, Sequelize);
 db.email = require("./email.model.js")(sequelize, Sequelize);
 db.file = require("./file.model.js")(sequelize, Sequelize);
+db.user = require('./user.model.js')(sequelize, Sequelize);
+db.role = require('./role.model.js')(sequelize, Sequelize);
+db.permission = require('./permission.model.js')(sequelize, Sequelize);
+db.user_roles = require('./user_roles.model.js')(sequelize, Sequelize);
+db.role_permissions = require('./role_permissions.model.js')(sequelize, Sequelize);
 
 //Relationship building
 db.organization.hasMany(db.note, {onDelete: 'CASCADE'});
@@ -62,7 +67,10 @@ db.organization.hasMany(db.file);
 db.file.belongsTo(db.organization);
 db.person.hasMany(db.file);
 db.file.belongsTo(db.person);
-
+db.user.belongsTo(db.person);
+db.person.hasOne(db.user);
+db.user.belongsToMany(db.role, { through: db.user_roles });
+db.permission.belongsToMany(db.role, { through: db.role_permissions});
 
 
 module.exports = db;
