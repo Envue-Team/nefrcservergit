@@ -245,6 +245,76 @@
 						<!-----------------------//Point of Contact--------------------------------->
 
 						<!--------------------------Relationship Management-------------------------------->
+          <div v-if="organization_relationship_managers.length == 0">
+            <!---------------------------------Assign Relationship Manager Dialog------------------------------->
+            <v-dialog
+                v-model="assign_mgr_dlg"
+                max-width="600px"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-hover
+                    v-slot="{ hover }"
+                    open-delay="200"
+                >
+                  <v-btn
+                      icon
+                      :elevation="hover ? 16 : 2"
+                      :class="{ 'on-hover': hover }"
+                      v-bind="attrs"
+                      v-on="on"
+                  >
+                    <v-icon>
+                      mdi-pencil
+                    </v-icon>
+                  </v-btn>
+                </v-hover>
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="headline">Assign Relationship Manager</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col
+                          cols="12"
+                          sm="12"
+                          md="12"
+                      >
+                        <v-autocomplete
+                            label="Relationship Manager"
+                            :items="all_relationship_managers"
+                            item-text="name"
+                            item-value="value"
+                            return-object
+                            @change="updateSelectedManager"
+                        >
+                        </v-autocomplete>
+                      </v-col>
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="assign_mgr_dlg=false"
+                  >
+                    Close
+                  </v-btn>
+                  <v-btn
+                      color="blue darken-1"
+                      text
+                      v-on:click="updateRelationshipManager"
+                  >
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <!---------------------------------//Assign Manager Dialog------------------------------>
+          </div>
 						<div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
 							<div class="text-h5 font-weight-light mt-3">
 								<span :ref="'relationship_manager_' + manager.personId">
@@ -291,7 +361,7 @@
 											item-text="name"
 											item-value="value"
 											return-object
-											@change="updateRelationshipManager"
+                      @change="updateSelectedManager"
 											>
 											</v-autocomplete>
 										</v-col>	
@@ -326,85 +396,85 @@
 						<!--------------------------//Relationship Management-------------------------------->
 						
 						<!--------------------------File List Table-------------------------------->
-						<v-data-table
-						:headers="headers"
-						:search="search"
-						:items="files"
-						item-key="id"
-						multi-sort
-						>
-						<template v-slot:top>
-						<v-text-field
-						v-model="search"
-						label="Search Files"
-						class="mx-4"
-						></v-text-field>
-						</template>
-						<template v-slot:item.name="item">
-							<p>{{ item.item.name  }}</p>
-						</template>
-						<template v-slot:item.date="item">
-							<p>{{ item.item.date }}</p>
-						</template>
-						<template v-slot:item.author="item">
-							<p>{{ item.item.author }}</p>
-						</template>
-						<template v-slot:item.download="item">
-							<v-btn
-								depressed
-								small
-								@click="downloadFile(item)"
-							>
-							Download
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-arrow-down
-							</v-icon>
-							</v-btn>
-						</template>
-						<template v-slot:item.remove="item">
-							<v-btn
-								depressed
-								small
-								@click="deleteFile(item)"
-							>
-							Delete
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-trash-can
-							</v-icon>
-							</v-btn>
-						</template>
-						<template v-slot:footer>
-							<v-row>
-							<v-file-input
-							label="Upload new file"
-							show-size
-							counter
-							dense
-							@change="filesChange"
-							></v-file-input>
-							<v-btn
-								depressed
-								small
-								:disabled="upload_disabled"
-								@click="uploadFile"
-							>
-							Upload
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-arrow-up
-							</v-icon>
-							</v-btn>
-							</v-row>
-						</template>
-						</v-data-table>
+<!--						<v-data-table-->
+<!--						:headers="headers"-->
+<!--						:search="search"-->
+<!--						:items="files"-->
+<!--						item-key="id"-->
+<!--						multi-sort-->
+<!--						>-->
+<!--						<template v-slot:top>-->
+<!--						<v-text-field-->
+<!--						v-model="search"-->
+<!--						label="Search Files"-->
+<!--						class="mx-4"-->
+<!--						></v-text-field>-->
+<!--						</template>-->
+<!--						<template v-slot:item.name="item">-->
+<!--							<p>{{ item.item.name  }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.date="item">-->
+<!--							<p>{{ item.item.date }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.author="item">-->
+<!--							<p>{{ item.item.author }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.download="item">-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								@click="downloadFile(item)"-->
+<!--							>-->
+<!--							Download-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-arrow-down-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--						</template>-->
+<!--						<template v-slot:item.remove="item">-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								@click="deleteFile(item)"-->
+<!--							>-->
+<!--							Delete-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-trash-can-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--						</template>-->
+<!--						<template v-slot:footer>-->
+<!--							<v-row>-->
+<!--							<v-file-input-->
+<!--							label="Upload new file"-->
+<!--							show-size-->
+<!--							counter-->
+<!--							dense-->
+<!--							@change="filesChange"-->
+<!--							></v-file-input>-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								:disabled="upload_disabled"-->
+<!--								@click="uploadFile"-->
+<!--							>-->
+<!--							Upload-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-arrow-up-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--							</v-row>-->
+<!--						</template>-->
+<!--						</v-data-table>-->
 						<!--------------------------//File List Table-------------------------------->
 
 				</v-col><!----------------------//Left Column-------------------------->
@@ -670,6 +740,7 @@ export default {
 			 * Relationship Mangers 
 			 **/
 			assign_mgr_dlg: false,
+      updated_relationship_manager: '',
 			all_relationship_managers:[],
 			organization_relationship_managers: [],
 
@@ -809,7 +880,7 @@ export default {
 				console.log(e);
 			});
 		},
-		reset() {``
+		reset() {
 			// reset form to initial state
 			this.currentStatus = STATUS_INITIAL;
 			this.uploadedFiles = [];
@@ -819,6 +890,7 @@ export default {
 			const formData = new FormData();
 			formData.append('file', this.file_upload);
 			formData.append('organizationId', this.partner.id);
+			//TODO: Set this id to current user
 			formData.append('personId',"5693164c-5da4-4d07-ad24-d9f39befc823" );
 			this.formData = formData;
 			
@@ -860,7 +932,7 @@ export default {
 			.catch(e=>{console.log(e)});
 		},
 		/**
-		 * Files
+		 * Partner
 		 **/
 		updatePartner(){
 			/*
@@ -957,6 +1029,8 @@ export default {
 				console.log(e.message);
 			});
 		},
+
+    //Replace with a user list for fully populated assignment purposes
 		populateRelationshipManagersList(){
 			RelationshipManagerDataService.getAll()
 			.then(response=>{
@@ -969,25 +1043,51 @@ export default {
 			})
 			.catch(e=>{console.log(e)});
 		},
-		updateRelationshipManager(obj){
+    updateSelectedManager(obj){
+      this.updated_relationship_manager = {
+        value: obj.value
+      };
+    },
+    updateRelationshipManager(){
 			this.assign_mgr_dlg = false;
 			var organizationId = this.partner.id;
 
 			var data = {
 				organizationId: organizationId,
-				personId: obj.value
+        personId: this.updated_relationship_manager.value
 			};
-			var personId = this.partner.relationship_managers[0].personId;
 
-			RelationshipManagerDataService.update(organizationId, personId, data)
-			.then(response=>{
-				PartnerDataService.get(this.partner.id)
-				.then(response=>{
-					this.partner = response.data;
-					this.organization_relationship_managers = response.data.relationship_managers;
-				}).catch(e=>{console.log(e)});
-			})
-			.catch(e=>{console.log(e)});
+			if(this.partner.relationship_managers.length != 0) {
+        let personId = this.partner.relationship_managers[0].personId;
+        RelationshipManagerDataService.update(organizationId, personId, data)
+            .then(response => {
+              PartnerDataService.get(this.partner.id)
+                  .then(response => {
+                    this.partner = response.data;
+                    this.organization_relationship_managers = response.data.relationship_managers;
+                  }).catch(e => {
+                console.log(e);
+              });
+              console.log(response);
+            })
+            .catch(e => {
+              console.log(e)
+            });
+      }else {
+			  console.log(data);
+			  RelationshipManagerDataService.create(data)
+        .then(response=>{
+          PartnerDataService.get(this.partner.id)
+              .then(response => {
+                this.partner = response.data;
+                this.organization_relationship_managers = response.data.relationship_managers;
+              }).catch(e => {
+            console.log(e);
+          });
+          console.log(response);
+        })
+            .catch(err=>{console.log(err)});
+      }
 		},
 		formatDate (date) {
 			if (!date) return null

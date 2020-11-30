@@ -3,223 +3,248 @@
 		<v-row><!---------------------First Container Row-------------------------------->
 					
 				<v-col class="col-7"><!----------------------Left Column-------------------------->
-						<!---------------------Partner Basic Data-------------------------------->
-						<div class="text-h5 font-weight-thin">
-							
-
-						</div>
+						<!---------------------Relationship Basic Data-------------------------------->
 						<div class="text-h3 font-weight-thin">{{relationship.name}}
-						<!---------------------------------Edit Relationship Dialog------------------------------->
+
+              <!---------------------------------Edit Relationship Dialog------------------------------->
 							<v-dialog
 							v-model="relationship_edit_dlg"
 							max-width="600px"
 							>
 							<template v-slot:activator="{ on, attrs }">
-							<v-hover
-								v-slot="{ hover }"
-								open-delay="200"
-							>
-							<v-btn
-								icon
-								:elevation="hover ? 16 : 2"
-								:class="{ 'on-hover': hover }"
-								v-bind="attrs"
-								v-on="on"
-							>
-							<v-icon>
-								mdi-pencil
-							</v-icon>
-							</v-btn>
-							</v-hover>
+                <v-hover
+                  v-slot="{ hover }"
+                  open-delay="200"
+                >
+                  <v-btn
+                    icon
+                    :elevation="hover ? 16 : 2"
+                    :class="{ 'on-hover': hover }"
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>
+                      mdi-pencil
+                    </v-icon>
+                  </v-btn>
+                </v-hover>
 							</template>
 							<v-card>
 								<v-form>
-								<v-card-title>
-								<span class="headline">Relationship Information</span>
-								</v-card-title>
-								<v-card-text>
-								<v-container>
-									<v-row>
-										<v-col
-										cols="6"
-										sm="6"
-										md="6"
-									>
-										<v-text-field
-										label="Agency Name*"
-										required
-										v-model="relationship.name"
-										></v-text-field>
-										</v-col>
-										<v-col
-										cols="6"
-										sm="6"
-										md="6"
-										>
-										<v-checkbox
-										label="Public Safety"
-										v-model="relationship.public_safety"
-										></v-checkbox>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-label>Relationship Status</v-label>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-										<v-select
-										class="text-capitalize"
-										:items="status_options"
-										v-model="current_status">
-										</v-select>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-col
-											cols="12"
-											sm="6"
-											md="4"
-										>
-										<v-text-field
-										label="Street Number"
-										v-model="relationship.street_number"
-										></v-text-field>
-									</v-col>
-									<v-col
-										cols="12"
-										sm="6"
-										md="4"
-									>
-										<v-text-field
-										label="Street Name"
-										v-model="relationship.street_name"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col
-										cols="3"
-										sm="6"
-										md="4"
-									>
-										<v-text-field
-										label="City"
-										v-model="relationship.city"
-										></v-text-field>
-									</v-col>
-									<v-col cols="2">
-										<v-text-field
-										label="State"
-										v-model="relationship.state"
-										></v-text-field>
-									</v-col>
-									<v-col cols="3">
-										<v-text-field
-										label="Zip"
-										v-model="relationship.zip"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col cols="6">
-										<v-text-field
-										label="County"
-										v-model="relationship.county"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col cols="6">
-										<v-text-field
-										label="Website"
-										v-model="relationship.website"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-										<div class="headline">Points of Contact</div>
-									</v-row>
-									<v-row v-for="poc in relationship.point_of_contacts" :key="poc.personId">
-										<v-col class="col-12">
-											<v-row>
-												<v-col>
-													<v-text-field
-														label="First Name"
-														v-model="poc.person.first_name"
-													>
-													</v-text-field>
-												</v-col>
-												<v-col>
-													<v-text-field
-														label="Last Name"
-														v-model="poc.person.last_name"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-											<v-row v-for="phone in poc.person.phones" :key="phone.id">
-												<v-col>
-													<v-text-field
-														label="Phone"
-														v-model="phone.number"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-											<v-row v-for="email in poc.person.emails" :key="email.id">
-												<v-col>
-													<v-text-field
-														label="Email Address"
-														v-model="email.address"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-										</v-col>
-										
-									</v-row>
-
-								</v-container>
-								<small>*indicates required field</small>
-								</v-card-text>
-								<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="relationship_edit_dlg=false"
-								>
-									Close
-								</v-btn>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="updateRelationship"
-								>
-									Save
-								</v-btn>
-								</v-card-actions>
+                  <v-card-title>
+                    <span class="headline">Relationship Information</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                        cols="6"
+                        sm="6"
+                        md="6"
+                        >
+                          <v-text-field
+                          label="Agency Name*"
+                          required
+                          v-model="relationship.name"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col
+                        cols="6"
+                        sm="6"
+                        md="6"
+                        >
+                          <v-checkbox
+                          label="Public Safety"
+                          v-model="relationship.public_safety"
+                          ></v-checkbox>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-label>Relationship Status</v-label>
+                        <v-col
+                        cols="12"
+                        sm="12"
+                        md="12"
+                        >
+                          <v-select
+                          class="text-capitalize"
+                          :items="status_options"
+                          v-model="current_status">
+                          </v-select>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                        >
+                        <v-text-field
+                        label="Street Number"
+                        v-model="relationship.street_number"
+                        ></v-text-field>
+                        </v-col>
+                        <v-col
+                          cols="12"
+                          sm="6"
+                          md="4"
+                        >
+                          <v-text-field
+                          label="Street Name"
+                          v-model="relationship.street_name"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col
+                          cols="3"
+                          sm="6"
+                          md="4"
+                        >
+                          <v-text-field
+                          label="City"
+                          v-model="relationship.city"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="2">
+                          <v-text-field
+                          label="State"
+                          v-model="relationship.state"
+                          ></v-text-field>
+                        </v-col>
+                        <v-col cols="3">
+                          <v-text-field
+                          label="Zip"
+                          v-model="relationship.zip"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col cols="6">
+                          <v-text-field
+                          label="County"
+                          v-model="relationship.county"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                      <v-row>
+                        <v-col cols="6">
+                          <v-text-field
+                          label="Website"
+                          v-model="relationship.website"
+                          ></v-text-field>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                    <small>*indicates required field</small>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="relationship_edit_dlg=false"
+                    >
+                      Close
+                    </v-btn>
+                    <v-btn
+                      color="blue darken-1"
+                      text
+                      @click="updateRelationship"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
 								</v-form>
 							</v-card>
 							</v-dialog>
-						<!---------------------------------//Edit Partner Dialog------------------------------> 
+						<!---------------------------------//Edit Relationship Dialog------------------------------>
 						</div>
+            <!------------------------------------Relationship Address Info------------------------------>
 						<div class="body-3 mt-3 text-capitalize">
 							{{ relationship.street_number }} {{ relationship.street_name}}<br>
 							{{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}<br>
 							{{relationship.county}} County
 						</div>
 						<a :href="relationship.website" class="blue--text text--darken-1 body-3 mt-3">{{ relationship.website }}</a>
-						<!---------------------//Partner Basic Data-------------------------------->
+						<!---------------------//Relationship Basic Data-------------------------------->
 
 						<!--------------------------Partner Services-------------------------------->
-						<div class="text-h5 mt-3">Services<span v-if="relationship.public_safety"> (Safety) </span></div>
-						<div class="text-h5 font-weight-light">{{ relationship_secondary_info.services }}</div>
+<!--						<div class="text-h5 mt-3">Services<span v-if="relationship.public_safety"> (Safety) </span></div>-->
+<!--						<div class="text-h5 font-weight-light">{{ relationship_secondary_info.services }}</div>-->
 						<!------------------------//Partner Services--------------------------------->
 
 						<!-----------------------Point of Contact--------------------------------->
+            <div>
+              <!---------------------------------Assign Point of Contact Dialog------------------------------->
+              <v-dialog
+                  v-model="assign_poc_dlg"
+                  max-width="600px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-hover
+                      v-slot="{ hover }"
+                      open-delay="200"
+                  >
+                    <v-btn
+                        icon
+                        :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                      <v-icon>
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Assign Point of Contact</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                            md="12"
+                        >
+                          <v-autocomplete
+                              label="Point of Contact"
+                              :items="all_contacts"
+                              item-text="name"
+                              item-value="value"
+                              return-object
+                              @change="updateSelectedPointOfContact"
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="assign_poc_dlg=false"
+                    >
+                      Close
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        v-on:click="updatePointOfContact"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              <!---------------------------------//Assign Point of Contact Dialog------------------------------>
+            </div>
 						<div v-for="contact in relationship.point_of_contacts" v-bind:key="contact.personId" class="mt-3">
 							<div class="text-h5 font-weight-light">
 								<span :ref="'first_name_' + contact.personId">{{ contact.person.first_name }} </span> 
@@ -235,6 +260,76 @@
 						<!-----------------------//Point of Contact--------------------------------->
 
 						<!--------------------------Relationship Management-------------------------------->
+            <div v-if="organization_relationship_managers.length == 0">
+              <!---------------------------------Assign Relationship Manager Dialog------------------------------->
+              <v-dialog
+                  v-model="assign_mgr_dlg"
+                  max-width="600px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-hover
+                      v-slot="{ hover }"
+                      open-delay="200"
+                  >
+                    <v-btn
+                        icon
+                        :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                      <v-icon>
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="headline">Assign Relationship Manager</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                            cols="12"
+                            sm="12"
+                            md="12"
+                        >
+                          <v-autocomplete
+                              label="Relationship Manager"
+                              :items="all_relationship_managers"
+                              item-text="name"
+                              item-value="value"
+                              return-object
+                              @change="updateSelectedManager"
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                      </v-row>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="assign_mgr_dlg=false"
+                    >
+                      Close
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        v-on:click="updateRelationshipManager"
+                    >
+                      Save
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              <!---------------------------------//Assign Manager Dialog------------------------------>
+            </div>
 						<div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
 							<div class="text-h5 font-weight-light mt-3">
 								<span :ref="'relationship_manager_' + manager.personId">
@@ -281,7 +376,7 @@
 											item-text="name"
 											item-value="value"
 											return-object
-											@change="updateRelationshipManager"
+											@change="updateSelectedManager"
 											>
 											</v-autocomplete>
 										</v-col>	
@@ -316,84 +411,84 @@
 						<!--------------------------//Relationship Management-------------------------------->
 						
 						<!--------------------------File List Table-------------------------------->
-						<v-data-table
-						:headers="headers"
-						:search="search"
-						:items="files"
-						item-key="id"
-						multi-sort
-						>
-						<template v-slot:top>
-						<v-text-field
-						v-model="search"
-						label="Search Files"
-						class="mx-4"
-						></v-text-field>
-						</template>
-						<template v-slot:item.name="item">
-							<p>{{ item.item.name  }}</p>
-						</template>
-						<template v-slot:item.date="item">
-							<p>{{ item.item.date }}</p>
-						</template>
-						<template v-slot:item.author="item">
-							<p>{{ item.item.author }}</p>
-						</template>
-						<template v-slot:item.download="item">
-							<v-btn
-								depressed
-								small
-								@click="downloadFile(item)"
-							>
-							Download
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-arrow-down
-							</v-icon>
-							</v-btn>
-						</template>
-						<template v-slot:item.remove="item">
-							<v-btn
-								depressed
-								small
-								@click="deleteFile(item)"
-							>
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-trash-can
-							</v-icon>
-							</v-btn>
-						</template>
-						<template v-slot:footer>
-							<v-row>
-							<v-file-input
-							label="Upload new file"
-							show-size
-							counter
-							dense
-							@change="filesChange"
-							></v-file-input>
-							<v-btn
-								depressed
-								small
-								:disabled="upload_disabled"
-								@click="uploadFile"
-							>
-							Upload
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-arrow-up
-							</v-icon>
-							</v-btn>
-							</v-row>
-						</template>
-						</v-data-table>
+<!--						<v-data-table-->
+<!--						:headers="headers"-->
+<!--						:search="search"-->
+<!--						:items="files"-->
+<!--						item-key="id"-->
+<!--						multi-sort-->
+<!--						>-->
+<!--						<template v-slot:top>-->
+<!--						<v-text-field-->
+<!--						v-model="search"-->
+<!--						label="Search Files"-->
+<!--						class="mx-4"-->
+<!--						></v-text-field>-->
+<!--						</template>-->
+<!--						<template v-slot:item.name="item">-->
+<!--							<p>{{ item.item.name  }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.date="item">-->
+<!--							<p>{{ item.item.date }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.author="item">-->
+<!--							<p>{{ item.item.author }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.download="item">-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								@click="downloadFile(item)"-->
+<!--							>-->
+<!--							Download-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-arrow-down-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--						</template>-->
+<!--						<template v-slot:item.remove="item">-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								@click="deleteFile(item)"-->
+<!--							>-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-trash-can-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--						</template>-->
+<!--						<template v-slot:footer>-->
+<!--							<v-row>-->
+<!--							<v-file-input-->
+<!--							label="Upload new file"-->
+<!--							show-size-->
+<!--							counter-->
+<!--							dense-->
+<!--							@change="filesChange"-->
+<!--							></v-file-input>-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								:disabled="upload_disabled"-->
+<!--								@click="uploadFile"-->
+<!--							>-->
+<!--							Upload-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-arrow-up-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--							</v-row>-->
+<!--						</template>-->
+<!--						</v-data-table>-->
 						<!--------------------------//File List Table-------------------------------->
 
 				</v-col><!----------------------//Left Column-------------------------->
@@ -486,7 +581,7 @@
 									</v-btn>
 									</v-card-actions>
 								</v-card>
-							</v-form>
+								</v-form>
 							</v-dialog>
 							<!---------------------------------//Add Note Dialog------------------------------> 
 							
@@ -626,6 +721,8 @@
 </template>
 <script>
 
+import PartnerDataService from "@/services/PartnerDataService";
+
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
 import RelationshipDataService from "../services/RelationshipDataService";
@@ -634,7 +731,8 @@ import RelationshipManagerDataService from "../services/RelationshipManagerDataS
 import PhoneDataService from "../services/PhoneDataService";
 import NoteDataService from "../services/NoteDataService";
 import FileDataService from "../services/FileDataService";
-import NoteDialog from "./NoteDialog"
+import NoteDialog from "./NoteDialog";
+import EmailDataService from "@/services/EmailDataService";
 
 export default {
 	name: "relationship",
@@ -656,7 +754,6 @@ export default {
 		relationship: '',
 		relationship_edit_dlg: false,
 		relationship_secondary_info: '',
-		search: '',
 
 		/**
 		 * Relationship secondary info
@@ -668,8 +765,16 @@ export default {
 		 * Relationship Mangers 
 		 **/
 		assign_mgr_dlg: false,
+    updated_relationship_manager: '',
 		all_relationship_managers:[],
 		organization_relationship_managers: [],
+    /**
+     * Point of Contact
+     **/
+    assign_poc_dlg: false,
+    updated_point_of_contact: '',
+    all_points_of_contact:[],
+    organization_point_of_contact: [],
 
 		/**
 		 * Files 
@@ -723,10 +828,10 @@ export default {
     watch: {
       start_date (val) {
         this.formattedStartDate = this.formatDate(this.start_date)
-	  },
-	  end_date (val){
-		this.formattedEndDate = this.formatDate(this.end_date)  
-	  }
+	    },
+      end_date (val){
+        this.formattedEndDate = this.formatDate(this.end_date)
+      }
     },
 	methods: {
 		/**
@@ -750,6 +855,7 @@ export default {
 			if(this.$refs.new_note_form.validate()){
 				var data = {
 					organizationId: this.relationship.id,
+          //TODO: Set this id to current user
 					personId: "5693164c-5da4-4d07-ad24-d9f39befc823",
 					text: this.add_note_form.text,
 					type: this.add_note_form.type.toLowerCase()
@@ -776,12 +882,6 @@ export default {
 			this.notes_type_selected.general = !this.history_switch;
 			this.notes_type_selected.contact = this.history_switch;
 		},
-		formatDate (date) {
-			if (!date) return null
-
-			const [year, month, day] = date.split('-')
-			return `${month}/${day}/${year}`
-      	},
 
 		/**
 		 * Files
@@ -809,7 +909,7 @@ export default {
 			}
 			FileDataService.delete(obj.item.id, data)
 			.then(response=>{
-				this.populateFiles(this.reltionship.id);
+				this.populateFiles(this.relationship.id);
 			})
 			.catch(e=>{
 				console.log(e);
@@ -866,7 +966,7 @@ export default {
 			.catch(e=>{console.log(e)});
 		},
 		/**
-		 * Files
+		 * Relationship
 		 **/
 		updateRelationship(){
 			/*
@@ -976,7 +1076,97 @@ export default {
 			})
 			.catch(e=>{console.log(e)});
 		},
-		updateRelationshipManager(obj){
+    updateSelectedManager(obj){
+      this.updated_relationship_manager = {
+        value: obj.value
+      };
+    },
+    updateRelationshipManager(){
+      this.assign_mgr_dlg = false;
+      let organizationId = this.relationship.id;
+
+      let data = {
+        organizationId: organizationId,
+        personId: this.updated_relationship_manager.value
+      };
+
+      if(this.relationship.relationship_managers.length != 0) {
+        let personId = this.relationship.relationship_managers[0].personId;
+        RelationshipManagerDataService.update(organizationId, personId, data)
+            .then(response => {
+              RelationshipDataService.get(this.relationship.id)
+                  .then(response => {
+                    this.relationship = response.data;
+                    this.organization_relationship_managers = response.data.relationship_managers;
+                  }).catch(e => {
+                console.log(e);
+              });
+              console.log(response);
+            })
+            .catch(e => {
+              console.log(e)
+            });
+      }else {
+        RelationshipManagerDataService.create(data)
+            .then(response=>{
+              RelationshipDataService.get(this.relationship.id)
+                  .then(response => {
+                    this.relationship = response.data;
+                    this.organization_relationship_managers = response.data.relationship_managers;
+                  }).catch(e => {
+                console.log(e);
+              });
+              console.log(response);
+            })
+            .catch(err=>{console.log(err)});
+      }
+    },
+    updateSelectedPointOfContact(obj){
+      this.updated_point_of_contact = {
+        value: obj.value
+      };
+    },
+    updatePointOfContact(){
+      this.assign_poc_dlg = false;
+      let organizationId = this.relationship.id;
+
+      let data = {
+        organizationId: organizationId,
+        personId: this.updated_point_of_contact.value
+      };
+
+      if(this.relationship.point_of_contact.length != 0) {
+        let personId = this.relationship.relationship_managers[0].personId;
+        RelationshipManagerDataService.update(organizationId, personId, data)
+            .then(response => {
+              RelationshipDataService.get(this.relationship.id)
+                  .then(response => {
+                    this.relationship = response.data;
+                    this.organization_relationship_managers = response.data.relationship_managers;
+                  }).catch(e => {
+                console.log(e);
+              });
+              console.log(response);
+            })
+            .catch(e => {
+              console.log(e)
+            });
+      }else {
+        RelationshipManagerDataService.create(data)
+            .then(response=>{
+              RelationshipDataService.get(this.relationship.id)
+                  .then(response => {
+                    this.relationship = response.data;
+                    this.organization_relationship_managers = response.data.relationship_managers;
+                  }).catch(e => {
+                console.log(e);
+              });
+              console.log(response);
+            })
+            .catch(err=>{console.log(err)});
+      }
+    },
+		updateRelationshipManagerLegacy(){
 			this.assign_mgr_dlg = false;
 			var organizationId = this.relationship.id;
 
@@ -988,7 +1178,7 @@ export default {
 
 			RelationshipManagerDataService.update(organizationId, personId, data)
 			.then(response=>{
-				PartnerDataService.get(this.relationship.id)
+				RelationshipDataService.get(this.relationship.id)
 				.then(response=>{
 					this.relationship = response.data;
 					this.organization_relationship_managers = response.data.relationship_managers;
