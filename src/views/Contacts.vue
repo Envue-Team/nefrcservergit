@@ -480,8 +480,8 @@ export default {
       this.refreshList();
       // console.log("hit");
 
+      this.refreshVolunteers();
     },
-    
     removePerson(item) {
       if(confirm("Are you sure you want to remove "+item.first_name+" "+item.last_name+" from the table?")){
         PersonDataService.delete(item.id)

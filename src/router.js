@@ -5,6 +5,8 @@ import Organization from './views/Organizations.vue'
 import Partner from './views/Partner.vue'
 import Relationship from './views/Relationship.vue'
 import Contacts from './views/Contacts.vue'
+
+import ContactInfo from './views/ContactInfo.vue'
 import Register from './views/Register.vue'
 import UserInfo from './views/UserInfo'
 import User from './views/User'
@@ -52,6 +54,16 @@ export default new Router({
       component: Contacts
       // props: true
     },
+
+    {
+      path: '/ContactInfo/:personId',
+      name: 'ContactInfo',
+      component: ContactInfo
+      // props: true
+    },
+
+
+
 
     {
       path: '/user',

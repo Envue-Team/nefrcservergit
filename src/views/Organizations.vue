@@ -21,25 +21,25 @@
         <v-row>
           <v-col class="col-5">
             <v-chip
-                  :input-value="filters.partners"
-                  @click="filters.partners = !filters.partners; filterOrganizations()"
-                  filter color="#66BB"
-          >Partners</v-chip>
+              :input-value="filters.partners"
+              @click="filters.partners = !filters.partners; filterOrganizations()"
+              filter color="#66BB"
+            >Partners</v-chip>
           <v-chip
-                  :input-value="filters.relationships"
-                  @click="filters.relationships = !filters.relationships; filterOrganizations()"
-                  filter color="deep-orange"
+            :input-value="filters.relationships"
+            @click="filters.relationships = !filters.relationships; filterOrganizations()"
+            filter color="deep-orange"
           >Relationships</v-chip>
           <v-chip
-                  :input-value="filters.public_safety"
-                  @click="filters.public_safety = !filters.public_safety; filterOrganizations()"
-                  filter color="green lighten-1"
-           >Public Safety</v-chip>
-            <v-chip
-                  :input-value="filters.my_assignments"
-                  @click="filters.my_assignments = !filters.my_assignments; filterOrganizations()"
-                  filter color="blue lighten-1"
-           >My Assignments</v-chip>
+            :input-value="filters.public_safety"
+            @click="filters.public_safety = !filters.public_safety; filterOrganizations()"
+            filter color="green lighten-1"
+          >Public Safety</v-chip>
+          <v-chip
+            :input-value="filters.my_assignments"
+            @click="filters.my_assignments = !filters.my_assignments; filterOrganizations()"
+            filter color="blue lighten-1"
+          >My Assignments</v-chip>
           </v-col>
         </v-row>
           <v-data-table
@@ -53,7 +53,6 @@
             <template v-slot:item.name="{ item }">
               <template v-if="item.relationship !== null">
                 <span class="red--text">{{ item.name }}</span>
-                <span v-if="item.public_safety"> (Public Safety)</span>
               </template>
               <template v-else-if="item.partner!==null">
                 <span class="purple--text">{{ item.name }}</span>
@@ -409,7 +408,7 @@ export default {
             this.add_organization_dlg = false
           })
           .catch(e=>{
-            console.log(e)
+            console.log(e) 
           });
         }
 

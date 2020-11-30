@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING
-    }
+    },
+    isPrimary: {
+      type: DataTypes.BOOLEAN
+    },
   });
 
   return Email;
