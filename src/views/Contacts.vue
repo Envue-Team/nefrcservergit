@@ -268,8 +268,9 @@
 </template>
 
 <script>
-import PersonDataService from "../services/PersonDataService";
+// import PersonDataService from "../services/PersonDataService";
 // import PhoneDataService from "../services/PhoneDataService";
+import ContactDataService from "@/services/ContactDataService";
 import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from '../services/PhoneDataService';
 
@@ -345,9 +346,12 @@ export default {
       // console.log(item.id+" is the ID(1)");
       },
     retrieveVolunteers() {
-      PersonDataService.getAll()
+      ContactDataService.getAll()
         .then(response => {
-          this.volunteers = response.data;
+          // console.log(response.data);
+          this.volunteers = response.data.filter(contact=>{
+            return contact.user == null;
+          });
           this.volunteers.forEach(volunteer=>{
             console.log("running");
           
@@ -389,7 +393,7 @@ export default {
     },
 
     removeAllVolunteers() {
-      PersonDataService.deleteAll()
+      ContactDataService.deleteAll()
         .then(response => {
           console.log(response.data);
           this.refreshList();
@@ -400,7 +404,7 @@ export default {
     },
     
     searchTitle() {
-      PersonDataService.findByName(this.first_name)
+      ContactDataService.findByName(this.first_name)
         .then(response => {
           this.volunteers = response.data;
           console.log(response.data);
@@ -429,7 +433,7 @@ export default {
       //   this.add_person.primaryPhone,
       // };
       data.services = this.add_person.services;
-      PersonDataService.create(data).
+      ContactDataService.create(data).
       then(response=>{
         // console.log(response);
         this.retrieveVolunteers();
@@ -484,7 +488,7 @@ export default {
     },
     removePerson(item) {
       if(confirm("Are you sure you want to remove "+item.first_name+" "+item.last_name+" from the table?")){
-        PersonDataService.delete(item.id)
+        ContactDataService.delete(item.id)
           .then(response => {
             console.log(response.data);
             this.refreshList();

@@ -61,10 +61,6 @@ export default new Router({
       component: ContactInfo
       // props: true
     },
-
-
-
-
     {
       path: '/user',
       name: 'user',
