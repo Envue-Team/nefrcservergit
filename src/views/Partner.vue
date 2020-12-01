@@ -4,9 +4,9 @@
 					
 				<v-col class="col-7"><!----------------------Left Column-------------------------->
 						<!---------------------Partner Basic Data-------------------------------->
-						<div class="text-h5 font-weight-thin">
-							{{partner.county}}
-						</div>
+<!--						<div class="text-h5 font-weight-thin">-->
+<!--							{{partner.county}}-->
+<!--						</div>-->
 						<div class="text-h3 font-weight-thin">{{partner.name}}
 						<!---------------------------------Edit Partner Dialog------------------------------->
 							<v-dialog
@@ -49,16 +49,6 @@
 										required
 										v-model="partner.name"
 										></v-text-field>
-										</v-col>
-										<v-col
-										cols="6"
-										sm="6"
-										md="6"
-										>
-										<v-checkbox
-										label="Public Safety"
-										v-model="partner.public_safety"
-										></v-checkbox>
 										</v-col>
 									</v-row>
 									<v-row>
@@ -228,17 +218,153 @@
 						<div class="text-h5 mt-3">Services<span v-if="partner.public_safety"> (Safety) </span></div>
 						<div class="text-h5 font-weight-light">{{ partner_secondary_info.services }}</div>
 						<!------------------------//Partner Services--------------------------------->
+          <!---------------------------------Assign Point of Contact Dialog------------------------------->
+          <v-dialog
+              v-if="organization_points_of_contact.length==0"
+              v-model="assign_poc_dlg"
+              max-width="600px"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-hover
+                  v-slot="{ hover }"
+                  open-delay="200"
+              >
+                <v-btn
+                    icon
+                    :elevation="hover ? 16 : 2"
+                    :class="{ 'on-hover': hover }"
+                    v-bind="attrs"
+                    v-on="on"
+                >
+                  <v-icon>
+                    mdi-pencil
+                  </v-icon>
+                </v-btn>
+              </v-hover>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Assign Point of Contact</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col
+                        cols="12"
+                        sm="12"
+                        md="12"
+                    >
+                      <v-autocomplete
+                          :items="all_points_of_contact"
+                          item-text="name"
+                          item-value="value"
+                          return-object
+                          @change="updateSelectedPointOfContact"
+                      >
+                      </v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="assign_poc_dlg=false"
+                >
+                  Close
+                </v-btn>
+                <v-btn
+                    color="blue darken-1"
+                    text
+                    v-on:click="updatePointOfContact"
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <!---------------------------------//Assign Point of Contact Dialog------------------------------>
 
-						<!-----------------------Point of Contact--------------------------------->
-						<div v-for="contact in partner.point_of_contacts" v-bind:key="contact.personId" class="mt-3">
+          <!-----------------------Point of Contact--------------------------------->
+						<div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
 							<div class="text-h5 font-weight-light">
-								<span :ref="'first_name_' + contact.personId">{{ contact.person.first_name }} </span> 
-								<span :ref="'last_name_' + contact.personId">{{ contact.person.last_name }}</span>
-							</div>  
-							<div v-for="phone in contact.person.phones" :key="phone.number" class="text-h5 font-weight-thin">
+								<span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
+								<span :ref="'last_name_' + contact.personId">{{ contact.last_name }}</span>
+                <!---------------------------------Assign Point of Contact Dialog------------------------------->
+                <v-dialog
+                    v-model="assign_poc_dlg"
+                    max-width="600px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-hover
+                        v-slot="{ hover }"
+                        open-delay="200"
+                    >
+                      <v-btn
+                          icon
+                          :elevation="hover ? 16 : 2"
+                          :class="{ 'on-hover': hover }"
+                          v-bind="attrs"
+                          v-on="on"
+                      >
+                        <v-icon>
+                          mdi-pencil
+                        </v-icon>
+                      </v-btn>
+                    </v-hover>
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">Assign Point of Contact</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col
+                              cols="12"
+                              sm="12"
+                              md="12"
+                          >
+                            <v-autocomplete
+                                :items="all_points_of_contact"
+                                item-text="name"
+                                item-value="value"
+                                return-object
+                                @change="updateSelectedPointOfContact"
+                            >
+                            </v-autocomplete>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="assign_poc_dlg=false"
+                      >
+                        Close
+                      </v-btn>
+                      <v-btn
+                          color="blue darken-1"
+                          text
+                          v-on:click="updatePointOfContact"
+                      >
+                        Save
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                <!---------------------------------//Assign Point of Contact Dialog------------------------------>
+
+              </div>
+							<div v-for="phone in contact.phones" :key="phone.number" class="text-h5 font-weight-thin">
 								<span :ref="'phone_' + phone.id">{{ phone.number }}</span>
 							</div>
-							<div v-for="email in contact.person.emails" :key="email.address" class="text-h5 font-weight-thin">
+							<div v-for="email in contact.emails" :key="email.address" class="text-h5 font-weight-thin">
 								<span :ref="'email_' + email.id">{{ email.address }}</span>
 							</div>
 						</div>	
@@ -704,6 +830,8 @@
 </template>
 <script>
 
+import PointOfContactDataService from "@/services/PointOfContactDataService";
+
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
 import PartnerDataService from "../services/PartnerDataService";
@@ -713,6 +841,8 @@ import PhoneDataService from "../services/PhoneDataService";
 import NoteDataService from "../services/NoteDataService";
 import FileDataService from "../services/FileDataService";
 import NoteDialog from "./NoteDialog"
+import ContactDataService from "@/services/ContactDataService";
+import UserDataService from "@/services/UserDataService";
 
 export default {
 	name: "partner",
@@ -743,6 +873,14 @@ export default {
       updated_relationship_manager: '',
 			all_relationship_managers:[],
 			organization_relationship_managers: [],
+
+      /**
+       * Point of Contact
+       **/
+      assign_poc_dlg: false,
+      updated_point_of_contact: '',
+      all_points_of_contact:[],
+      organization_points_of_contact: [],
 
 			/**
 			 * Files 
@@ -973,7 +1111,7 @@ export default {
 				})
 				.catch(e=>{console.log(e)});
 
-				contact.person.phones.forEach(phone=>{
+				contact.phones.forEach(phone=>{
 					const data = {
 						number: this.$refs["phone_"+phone.id][0]["innerHTML"]
 					};
@@ -984,7 +1122,7 @@ export default {
 					.catch(e=>{console.log(e)});
 				});
 				
-				contact.person.emails.forEach(email=>{
+				contact.emails.forEach(email=>{
 					const data = {
 						number: this.$refs["email_"+email.id][0]["innerHTML"]
 					};
@@ -1020,6 +1158,9 @@ export default {
 						type: note.type
 					}
 				});
+        PointOfContactDataService.getAll(response.data.id)
+            .then(this.setPOC)
+            .catch(e=>{console.log(e)});
 				this.partner = response.data;
 				this.organization_relationship_managers = response.data.relationship_managers;
 				this.populateFiles(this.partner.id);
@@ -1029,15 +1170,18 @@ export default {
 				console.log(e.message);
 			});
 		},
-
+    setPOC(res){
+      this.organization_points_of_contact = res.data;
+    },
     //Replace with a user list for fully populated assignment purposes
 		populateRelationshipManagersList(){
-			RelationshipManagerDataService.getAll()
+			UserDataService.getAll()
 			.then(response=>{
+			  console.log(response);
 				this.all_relationship_managers = response.data.map(manager=>{
 					return {
-						name: manager.person.first_name+" "+manager.person.last_name,
-						value: manager.personId
+						name: manager.first_name+" "+manager.last_name,
+						value: manager.id
 					}
 				});
 			})
@@ -1050,9 +1194,9 @@ export default {
     },
     updateRelationshipManager(){
 			this.assign_mgr_dlg = false;
-			var organizationId = this.partner.id;
+			let organizationId = this.partner.id;
 
-			var data = {
+			let data = {
 				organizationId: organizationId,
         personId: this.updated_relationship_manager.value
 			};
@@ -1061,34 +1205,65 @@ export default {
         let personId = this.partner.relationship_managers[0].personId;
         RelationshipManagerDataService.update(organizationId, personId, data)
             .then(response => {
-              PartnerDataService.get(this.partner.id)
-                  .then(response => {
-                    this.partner = response.data;
-                    this.organization_relationship_managers = response.data.relationship_managers;
-                  }).catch(e => {
-                console.log(e);
-              });
-              console.log(response);
+              this.partner.relationship_managers = response.data;
+              this.setPartner();
             })
             .catch(e => {
               console.log(e)
             });
       }else {
-			  console.log(data);
 			  RelationshipManagerDataService.create(data)
         .then(response=>{
-          PartnerDataService.get(this.partner.id)
-              .then(response => {
-                this.partner = response.data;
-                this.organization_relationship_managers = response.data.relationship_managers;
-              }).catch(e => {
-            console.log(e);
-          });
+            this.partner.relationship_managers = response.data;
+            this.setPartner();
           console.log(response);
         })
-            .catch(err=>{console.log(err)});
+        .catch(err=>{console.log(err)});
       }
 		},
+    populatePointOfContactList(){
+      ContactDataService.getAll()
+          .then(response=>{
+            this.all_points_of_contact = response.data.map(person=>{
+              return {
+                name: person.first_name+" "+person.last_name,
+                value: person.id
+              }
+            });
+          })
+          .catch(e=>{console.log(e)});
+    },
+    updateSelectedPointOfContact(obj){
+      this.updated_point_of_contact = {
+        value: obj.value
+      };
+    },
+    updatePointOfContact(){
+      this.assign_poc_dlg = false;
+      let organizationId = this.partner.id;
+
+      let data = {
+        organizationId: organizationId,
+        personId: this.updated_point_of_contact.value
+      };
+
+      if(this.organization_points_of_contact != 0) {
+        let personId = this.organization_points_of_contact[0].id;
+        PointOfContactDataService.update(organizationId, personId, data)
+            .then(response => {
+              this.setPartner();
+            })
+            .catch(e => {
+              console.log(e)
+            });
+      }else {
+        PointOfContactDataService.create(data)
+            .then(response=>{
+              console.log(response);
+            })
+            .catch(err=>{console.log(err)});
+      }
+    },
 		formatDate (date) {
 			if (!date) return null
 
@@ -1132,6 +1307,7 @@ export default {
 		this.reset();
 		this.setPartner();
 		this.populateRelationshipManagersList();
+    this.populatePointOfContactList();
 	}
 };
 </script>

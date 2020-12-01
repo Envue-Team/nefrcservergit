@@ -1090,7 +1090,7 @@ export default {
         let personId = this.relationship.relationship_managers[0].personId;
         RelationshipManagerDataService.update(organizationId, personId, data)
             .then(response => {
-              this.relationship.relations_managers = response.data;
+              this.relationship.relationship_managers = response.data;
               this.setRelationship();
             })
             .catch(e => {
@@ -1099,13 +1099,8 @@ export default {
       }else {
         RelationshipManagerDataService.create(data)
             .then(response=>{
-              RelationshipDataService.get(this.relationship.id)
-                  .then(response => {
-                    this.relationship = response.data;
-                    this.organization_relationship_managers = response.data.relationship_managers;
-                  }).catch(e => {
-                console.log(e);
-              });
+                this.relationship.relationship_managers = response.data;
+                this.setRelationship();
               console.log(response);
             })
             .catch(err=>{console.log(err)});
@@ -1155,26 +1150,6 @@ export default {
             .catch(err=>{console.log(err)});
       }
     },
-		updateRelationshipManagerLegacy(){
-			this.assign_mgr_dlg = false;
-			var organizationId = this.relationship.id;
-
-			var data = {
-				organizationId: organizationId,
-				personId: obj.value
-			};
-			var personId = this.relationship.relationship_managers[0].personId;
-
-			RelationshipManagerDataService.update(organizationId, personId, data)
-			.then(response=>{
-				RelationshipDataService.get(this.relationship.id)
-				.then(response=>{
-					this.relationship = response.data;
-					this.organization_relationship_managers = response.data.relationship_managers;
-				}).catch(e=>{console.log(e)});
-			})
-			.catch(e=>{console.log(e)});
-		},
 		formatDate (date) {
 			if (!date) return null
 
