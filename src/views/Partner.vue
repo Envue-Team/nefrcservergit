@@ -1,12 +1,14 @@
 <template>
-	<v-container>
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <div class="text-h1 red--text text--lighten-1">Partner</div>
+      </v-col>
+    </v-row>
 		<v-row><!---------------------First Container Row-------------------------------->
-					
+
 				<v-col class="col-7"><!----------------------Left Column-------------------------->
 						<!---------------------Partner Basic Data-------------------------------->
-<!--						<div class="text-h5 font-weight-thin">-->
-<!--							{{partner.county}}-->
-<!--						</div>-->
 						<div class="text-h3 font-weight-thin">{{partner.name}}
 						<!---------------------------------Edit Partner Dialog------------------------------->
 							<v-dialog
@@ -179,7 +181,7 @@
 												</v-col>
 											</v-row>
 										</v-col>
-										
+
 									</v-row>
 
 								</v-container>
@@ -205,7 +207,7 @@
 								</v-form>
 							</v-card>
 							</v-dialog>
-						<!---------------------------------//Edit Partner Dialog------------------------------> 
+						<!---------------------------------//Edit Partner Dialog------------------------------>
 						</div>
 						<div class="body-3 mt-3">
 							{{ partner.street_number }} {{ partner.street_name}}<br>
@@ -367,7 +369,7 @@
 							<div v-for="email in contact.emails" :key="email.address" class="text-h5 font-weight-thin">
 								<span :ref="'email_' + email.id">{{ email.address }}</span>
 							</div>
-						</div>	
+						</div>
 						<!-----------------------//Point of Contact--------------------------------->
 
 						<!--------------------------Relationship Management-------------------------------->
@@ -490,7 +492,7 @@
                       @change="updateSelectedManager"
 											>
 											</v-autocomplete>
-										</v-col>	
+										</v-col>
 									</v-row>
 								</v-container>
 								</v-card-text>
@@ -513,14 +515,14 @@
 								</v-card-actions>
 							</v-card>
 							</v-dialog>
-						<!---------------------------------//Assign Manager Dialog------------------------------> 
+						<!---------------------------------//Assign Manager Dialog------------------------------>
 
 						</div>
 							<div v-for="mphone in manager.person.phones" :key="mphone.number" class="text-h5 font-weight-thin">{{ mphone.number }}</div>
 							<div v-for="memail in manager.person.emails" :key="memail.address" class="text-h5 font-weight-thin"> {{ memail.address }}</div>
 						</div>
 						<!--------------------------//Relationship Management-------------------------------->
-						
+
 						<!--------------------------File List Table-------------------------------->
 <!--						<v-data-table-->
 <!--						:headers="headers"-->
@@ -658,7 +660,7 @@
 												:items="add_note_form.types"
 												v-model="add_note_form.type"
 												label="Type"
-												></v-autocomplete>											
+												></v-autocomplete>
 											</v-col>
 										</v-row>
 										<v-row>
@@ -671,7 +673,7 @@
 													:rules="note_text_rule"
 													v-model="add_note_form.text"
 												></v-textarea>
-											</v-col>	
+											</v-col>
 										</v-row>
 									</v-container>
 									</v-card-text>
@@ -695,8 +697,8 @@
 								</v-card>
 							</v-form>
 							</v-dialog>
-							<!---------------------------------//Add Note Dialog------------------------------> 
-							
+							<!---------------------------------//Add Note Dialog------------------------------>
+
 							</v-card-title>
 
 							<v-card-text class="pt-4">
@@ -708,7 +710,7 @@
 								</div>
 								</v-col>
 							</v-row>
-								
+
 								<v-divider></v-divider>
 								<v-row>
 									<v-col>
@@ -770,7 +772,7 @@
 										></v-date-picker>
 									</v-menu>
 									</v-col>
-									
+
 								</v-row>
 								<v-row style="margin-top:-30px">
 									<v-col class="col-5 offset-1">
@@ -782,7 +784,7 @@
 									</v-col>
 								</v-row>
 							</v-card-text>
-							
+
 
 							<v-divider></v-divider>
 							<v-virtual-scroll
@@ -792,7 +794,7 @@
 							>
 							<template v-slot:default="{ item }">
 								<v-list-item>
-									
+
 								<v-list-item-content>
 									<v-list-item-title class="font-weight-thin">
 										Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}
@@ -821,7 +823,7 @@
 							</v-virtual-scroll>
 						</v-card>
 						</template>
-						<!--------------------------//Notes and History-------------------------------->	
+						<!--------------------------//Notes and History-------------------------------->
 
 				</v-col><!-----------------------------//Right Column---------------------------------->
 

@@ -1,5 +1,10 @@
 <template>
 	<v-container>
+    <v-row>
+      <v-col cols="12">
+        <div class="text-h1 red--text text--lighten-1">Relationship</div>
+      </v-col>
+    </v-row>
 		<v-row><!---------------------First Container Row-------------------------------->
 					
 				<v-col class="col-7"><!----------------------Left Column-------------------------->

@@ -1,5 +1,10 @@
 <template>
-  <div class="list row">
+  <v-container>
+    <v-row>
+      <v-col cols="12">
+        <div class="text-h1 red--text text--lighten-1">Contacts</div>
+      </v-col>
+    </v-row>
     <div class="col-md-8">
       <div class="input-group mb-3">
         <v-row>
@@ -235,9 +240,9 @@
         Remove All
       </button> -->
       <br>
-      <button class="m-3 btn btn-sm btn-danger" @click="refreshList">
-        Refresh List
-      </button>
+<!--      <button class="m-3 btn btn-sm btn-danger" @click="refreshList">-->
+<!--        Refresh List-->
+<!--      </button>-->
     </div>
     <div class="col-md-6">
       <div v-if="currentVolunteer">
@@ -261,15 +266,13 @@
       </div>
       <div v-else>
         <br />
-        <p>Please click on a Volunteer...</p>
+<!--        <p>Please click on a Volunteer...</p>-->
       </div>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
-// import PersonDataService from "../services/PersonDataService";
-// import PhoneDataService from "../services/PhoneDataService";
 import ContactDataService from "@/services/ContactDataService";
 import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from '../services/PhoneDataService';
