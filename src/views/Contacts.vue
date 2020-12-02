@@ -1,71 +1,56 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <div class="text-h1 red--text text--lighten-1">Contacts</div>
-      </v-col>
-    </v-row>
-    <div class="col-md-8">
-      <div class="input-group mb-3">
+      <div class="red--text text--darken-2 page-title">Contacts</div>
         <v-row>
-          <v-col class="col-3">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Search Table"
-              single-line
-            ></v-text-field>
-          </v-col>
-        </v-row>        
-      </div>
-    </div>
-    <div class="col-md-12">
-      <h4>Contacts Table</h4>
-      <v-data-table
-        :headers="headers"
-        :items="volunteers"
-        :search="search"
-        item-key="id"
-        @click:row="nav"
-        multi-sort
-      >
-      <template v-slot:item.name="{ item }">
-        <template v-if="item.first_name !== null">
-          <button v-on:click="removePerson(item)">X</button>
-          <span class="red--text">{{ item.name }}</span>
-          <span v-if="item.public_safety"> (Public Safety)</span>
+          <v-col class="col-12">
+            <v-card outlined elevation="3 text-wrap">
+            <v-card-text>
+          <v-data-table
+            :headers="headers"
+            :items="volunteers"
+            :search="search"
+            item-key="id"
+            @click:row="nav"
+            multi-sort
+            class="text-capitalize"
+          >
+        <template v-slot:item.name="{ item }">
+          <template v-if="item.first_name !== null">
+            <span class="red--text">{{ item.name }}</span>
+            <span v-if="item.public_safety"> (Public Safety)</span>
+          </template>
+          <template v-else-if="item.partner!==null">
+            <span class="purple--text">{{ item.name }}</span>
+            <span v-if="item.public_safety"> (Public Safety)</span>
+          </template>
         </template>
-        <template v-else-if="item.partner!==null">
-          <span class="purple--text">{{ item.name }}</span>
-          <span v-if="item.public_safety"> (Public Safety)</span> 
-        </template>
-      </template>
-      <template
-        v-slot:item.address="{ item }"
-      >
-        <address>
+        <template
+          v-slot:item.address="{ item }"
+        >
+          <address>
           {{ item.address }}
-        </address>              
+        </address>
       </template>
       <template
         v-slot:item.emails="{ item }"
       >
-        <div>   
-          {{ email.address }}     
-        </div>         
+        <div>
+          {{ email.address }}
+        </div>
       </template>
       <template
           v-slot:item.phones="{ item }"
       >
-        <div >       
-          {{phone.number}}  
-        </div>         
+        <div >
+          {{phone.number}}
+        </div>
       </template>
-          <!-- <template v-slot:item.manager ="{ item }">
-            {{ item.manager }}
-
-          </template> -->
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
+      </template>
     </v-data-table>
+            </v-card-text>
+            </v-card>
         <!------------------ dialog box to add person--------------------------->
       <v-dialog
         v-model="add_person_dlg"
@@ -233,42 +218,8 @@
     </v-card>
   </v-dialog>
         <!--------------------- dialog box to add person closed-------------------->
-
-      <br>
-
-      <!-- <button class="m-3 btn btn-sm btn-danger" @click="removeAllVolunteers">
-        Remove All
-      </button> -->
-      <br>
-<!--      <button class="m-3 btn btn-sm btn-danger" @click="refreshList">-->
-<!--        Refresh List-->
-<!--      </button>-->
-    </div>
-    <div class="col-md-6">
-      <div v-if="currentVolunteer">
-        <h4>Volunteer</h4>
-        <div>
-          <label><strong>Title:</strong></label> {{ currentVolunteer.name }}
-        </div>
-        <div>
-          <label><strong>Description:</strong></label> {{ currentVolunteer.description }}
-        </div>
-        <div>
-          <label><strong>Status:</strong></label> {{ currentVolunteer.published ? "Published" : "Pending" }}
-        </div>
-
-        <a class="badge badge-warning"
-          :href="'/Volunteers/' + currentVolunteer.id"
-        >
-          Edit
-        </a>
-        <p>hit3</p>
-      </div>
-      <div v-else>
-        <br />
-<!--        <p>Please click on a Volunteer...</p>-->
-      </div>
-    </div>
+        </v-col>
+      </v-row>
   </v-container>
 </template>
 
@@ -327,6 +278,7 @@ export default {
           {text: 'Phone', value: 'phone', width: '100px' },
           {text: 'County', value: 'county', width: '80px'},
           {text: 'ZIP', value: 'zip', width: '80px'},
+          {text: 'Delete', value: 'actions', width:'1%'}
 
           //{text: 'Notes', value: 'notes', width: '160px'},
 
@@ -344,7 +296,7 @@ export default {
     methods: {
       nav(item){
         // add dialog page to display the full info 
-        this.$router.push({ path: "ContactInfo/"+item.id});
+        this.$router.push({ path: "contact/"+item.id});
       //   }
       // console.log(item.id+" is the ID(1)");
       },

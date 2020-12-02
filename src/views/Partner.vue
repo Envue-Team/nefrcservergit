@@ -1,529 +1,148 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <div class="text-h1 red--text text--lighten-1">Partner</div>
-      </v-col>
-    </v-row>
+    <div class="red--text text--darken-4 page-title">Partner</div>
 		<v-row><!---------------------First Container Row-------------------------------->
 
 				<v-col class="col-7"><!----------------------Left Column-------------------------->
-						<!---------------------Partner Basic Data-------------------------------->
-						<div class="text-h3 font-weight-thin">{{partner.name}}
-						<!---------------------------------Edit Partner Dialog------------------------------->
-							<v-dialog
-							v-model="partner_edit_dlg"
-							max-width="600px"
-							>
-							<template v-slot:activator="{ on, attrs }">
-							<v-hover
-								v-slot="{ hover }"
-								open-delay="200"
-							>
-							<v-btn
-								icon
-								:elevation="hover ? 16 : 2"
-								:class="{ 'on-hover': hover }"
-								v-bind="attrs"
-								v-on="on"
-							>
-							<v-icon>
-								mdi-pencil
-							</v-icon>
-							</v-btn>
-							</v-hover>
-							</template>
-							<v-card>
-								<v-form>
-								<v-card-title>
-								<span class="headline">Partner Information</span>
-								</v-card-title>
-								<v-card-text>
-								<v-container>
-									<v-row>
-										<v-col
-										cols="6"
-										sm="6"
-										md="6"
-									>
-										<v-text-field
-										label="Agency Name*"
-										required
-										v-model="partner.name"
-										></v-text-field>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-label>Critical Relationship Information</v-label>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-										<v-textarea
-										solo
-										v-model="partner_secondary_info.critical_relationship_information"
-										></v-textarea>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-label>Services</v-label>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-										<v-textarea
-										solo
-										v-model="partner_secondary_info.services"
-										></v-textarea>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-col
-											cols="12"
-											sm="6"
-											md="4"
-										>
-										<v-text-field
-										label="Street Number"
-										v-model="partner.street_number"
-										></v-text-field>
-									</v-col>
-									<v-col
-										cols="12"
-										sm="6"
-										md="4"
-									>
-										<v-text-field
-										label="Street Name"
-										v-model="partner.street_name"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col
-										cols="3"
-										sm="6"
-										md="4"
-									>
-										<v-text-field
-										label="City"
-										v-model="partner.city"
-										></v-text-field>
-									</v-col>
-									<v-col cols="2">
-										<v-text-field
-										label="State"
-										v-model="partner.state"
-										></v-text-field>
-									</v-col>
-									<v-col cols="3">
-										<v-text-field
-										label="Zip"
-										v-model="partner.zip"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col cols="6">
-										<v-text-field
-										label="County"
-										v-model="partner.county"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col cols="6">
-										<v-text-field
-										label="Website"
-										v-model="partner.website"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-										<div class="headline">Points of Contact</div>
-									</v-row>
-									<v-row v-for="poc in partner.point_of_contacts" :key="poc.personId">
-										<v-col class="col-12">
-											<v-row>
-												<v-col>
-													<v-text-field
-														label="First Name"
-														v-model="poc.person.first_name"
-													>
-													</v-text-field>
-												</v-col>
-												<v-col>
-													<v-text-field
-														label="Last Name"
-														v-model="poc.person.last_name"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-											<v-row v-for="phone in poc.person.phones" :key="phone.id">
-												<v-col>
-													<v-text-field
-														label="Phone"
-														v-model="phone.number"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-											<v-row v-for="email in poc.person.emails" :key="email.id">
-												<v-col>
-													<v-text-field
-														label="Email Address"
-														v-model="email.address"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-										</v-col>
+          <v-card elevation="3" class="mb-3">
+            <v-card-title>
+              <v-row>
+                <v-col>
+                    <!---------------------Partner Basic Data-------------------------------->
+                    <span class="text-h4 font-weight-thin">
+                      {{partner.name}}
+                    </span>
 
-									</v-row>
-
-								</v-container>
-								<small>*indicates required field</small>
-								</v-card-text>
-								<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="partner_edit_dlg=false"
-								>
-									Close
-								</v-btn>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="updatePartner"
-								>
-									Save
-								</v-btn>
-								</v-card-actions>
-								</v-form>
-							</v-card>
-							</v-dialog>
-						<!---------------------------------//Edit Partner Dialog------------------------------>
-						</div>
-						<div class="body-3 mt-3">
-							{{ partner.street_number }} {{ partner.street_name}}<br>
-							{{ partner.city }}, {{ partner.state }} {{ partner.zip }}
-						</div>
-						<a :href="partner.website" class="blue--text text--darken-1 body-3 mt-3">{{ partner.website }}</a>
-						<!---------------------//Partner Basic Data-------------------------------->
-
-						<!--------------------------Partner Services-------------------------------->
-						<div class="text-h5 mt-3">Services<span v-if="partner.public_safety"> (Safety) </span></div>
-						<div class="text-h5 font-weight-light">{{ partner_secondary_info.services }}</div>
-						<!------------------------//Partner Services--------------------------------->
-          <!---------------------------------Assign Point of Contact Dialog------------------------------->
-          <v-dialog
-              v-if="organization_points_of_contact.length==0"
-              v-model="assign_poc_dlg"
-              max-width="600px"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-hover
-                  v-slot="{ hover }"
-                  open-delay="200"
-              >
-                <v-btn
-                    icon
-                    :elevation="hover ? 16 : 2"
-                    :class="{ 'on-hover': hover }"
-                    v-bind="attrs"
-                    v-on="on"
-                >
-                  <v-icon>
-                    mdi-pencil
-                  </v-icon>
-                </v-btn>
-              </v-hover>
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="headline">Assign Point of Contact</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col
-                        cols="12"
-                        sm="12"
-                        md="12"
-                    >
-                      <v-autocomplete
-                          :items="all_points_of_contact"
-                          item-text="name"
-                          item-value="value"
-                          return-object
-                          @change="updateSelectedPointOfContact"
-                      >
-                      </v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="assign_poc_dlg=false"
-                >
-                  Close
-                </v-btn>
-                <v-btn
-                    color="blue darken-1"
-                    text
-                    v-on:click="updatePointOfContact"
-                >
-                  Save
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <!---------------------------------//Assign Point of Contact Dialog------------------------------>
-
-          <!-----------------------Point of Contact--------------------------------->
-						<div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
-							<div class="text-h5 font-weight-light">
-								<span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
-								<span :ref="'last_name_' + contact.personId">{{ contact.last_name }}</span>
-                <!---------------------------------Assign Point of Contact Dialog------------------------------->
-                <v-dialog
-                    v-model="assign_poc_dlg"
-                    max-width="600px"
-                >
-                  <template v-slot:activator="{ on, attrs }">
                     <v-hover
                         v-slot="{ hover }"
                         open-delay="200"
                     >
                       <v-btn
                           icon
-                          :elevation="hover ? 16 : 2"
-                          :class="{ 'on-hover': hover }"
-                          v-bind="attrs"
-                          v-on="on"
+                          :elevation="hover ? 5 : 0"
+                          @click="partner_edit_dlg=true"
                       >
                         <v-icon>
                           mdi-pencil
                         </v-icon>
                       </v-btn>
                     </v-hover>
-                  </template>
-                  <v-card>
-                    <v-card-title>
-                      <span class="headline">Assign Point of Contact</span>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-container>
-                        <v-row>
-                          <v-col
-                              cols="12"
-                              sm="12"
-                              md="12"
-                          >
-                            <v-autocomplete
-                                :items="all_points_of_contact"
-                                item-text="name"
-                                item-value="value"
-                                return-object
-                                @change="updateSelectedPointOfContact"
-                            >
-                            </v-autocomplete>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                          color="blue darken-1"
-                          text
-                          @click="assign_poc_dlg=false"
-                      >
-                        Close
-                      </v-btn>
-                      <v-btn
-                          color="blue darken-1"
-                          text
-                          v-on:click="updatePointOfContact"
-                      >
-                        Save
-                      </v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-                <!---------------------------------//Assign Point of Contact Dialog------------------------------>
 
+                  <v-card-subtitle style="margin-bottom: -30px">
+                    <address class="text-capitalize">
+                      {{ partner.street_number }} {{ partner.street_name}}
+                      {{ partner.city }}, {{ partner.state }} {{ partner.zip }}
+                      {{partner.county}} County
+                    </address>
+                    <a :href="partner.website" class="red--text text--darken-3  body-3 mt-3">{{ partner.website }}</a>
+						<!--------------------------Partner Services-------------------------------->
+						<div class="font-weight-light">{{ partner_secondary_info.services }}</div>
+						<!------------------------//Partner Services--------------------------------->
+              <!-----------------------Point of Contact--------------------------------->
+              <span v-if="organization_points_of_contact.length==0">
+                Add a contact
+                    <v-hover
+                        v-slot="{ hover }"
+                        open-delay="200"
+                    >
+                    <v-btn
+                        text
+                        icon
+                        :elevation="hover ? 5 : 0"
+                        :class="{ 'on-hover': hover }"
+                        @click="assign_poc_dlg=true"
+                    >
+                      <v-icon >
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+              </span>
+                <div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
+                <div class="font-weight-medium">
+                  <strong>
+                    <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
+                    <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>&nbsp&nbsp
+                  </strong>
+                  <v-hover
+                      v-slot="{ hover }"
+                      open-delay="200"
+                  >
+                    <v-btn
+                        text
+                        icon
+                        :elevation="hover ? 5 : 0"
+                        :class="{ 'on-hover': hover }"
+                        @click="assign_poc_dlg=true"
+                    >
+                      <v-icon >
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </div>
+                <div v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
+                  <span :ref="'phone_' + phone.id">{{ phone.number }}</span>
+                </div>
+                <div v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
+                  <span :ref="'email_' + email.id">{{ email.address }}</span>
+                </div>
               </div>
-							<div v-for="phone in contact.phones" :key="phone.number" class="text-h5 font-weight-thin">
-								<span :ref="'phone_' + phone.id">{{ phone.number }}</span>
-							</div>
-							<div v-for="email in contact.emails" :key="email.address" class="text-h5 font-weight-thin">
-								<span :ref="'email_' + email.id">{{ email.address }}</span>
-							</div>
-						</div>
-						<!-----------------------//Point of Contact--------------------------------->
-
-						<!--------------------------Relationship Management-------------------------------->
-          <div v-if="organization_relationship_managers.length == 0">
-            <!---------------------------------Assign Relationship Manager Dialog------------------------------->
-            <v-dialog
-                v-model="assign_mgr_dlg"
-                max-width="600px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-hover
-                    v-slot="{ hover }"
-                    open-delay="200"
-                >
-                  <v-btn
-                      icon
-                      :elevation="hover ? 16 : 2"
-                      :class="{ 'on-hover': hover }"
-                      v-bind="attrs"
-                      v-on="on"
+              <!-----------------------//Point of Contact--------------------------------->
+                  </v-card-subtitle>
+                </v-col>
+              </v-row>
+            </v-card-title>
+            <v-card-text>
+              <!--------------------------Organization Relationship Manager-------------------------------->
+              <span v-if="organization_relationship_managers.length == 0">
+                Assign an Organization Manager
+                  <v-hover
+                      v-slot="{ hover }"
+                      open-delay="200"
                   >
-                    <v-icon>
-                      mdi-pencil
-                    </v-icon>
-                  </v-btn>
-                </v-hover>
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="headline">Assign Relationship Manager</span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col
-                          cols="12"
-                          sm="12"
-                          md="12"
-                      >
-                        <v-autocomplete
-                            label="Relationship Manager"
-                            :items="all_relationship_managers"
-                            item-text="name"
-                            item-value="value"
-                            return-object
-                            @change="updateSelectedManager"
-                        >
-                        </v-autocomplete>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="assign_mgr_dlg=false"
+                    <v-btn
+                        icon
+                        :elevation="hover ? 5 : 0"
+                        :class="{ 'on-hover': hover }"
+                        @click="assign_mgr_dlg=true"
+                    >
+                      <v-icon>
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+              </span>
+              <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                <div class="font-weight-medium mt-3">
+                  <strong>
+                    <span :ref="'relationship_manager_' + manager.personId">
+                      {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
+                    </span>
+                  </strong>
+                  <v-hover
+                      v-slot="{ hover }"
+                      open-delay="200"
                   >
-                    Close
-                  </v-btn>
-                  <v-btn
-                      color="blue darken-1"
-                      text
-                      v-on:click="updateRelationshipManager"
-                  >
-                    Save
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            <!---------------------------------//Assign Manager Dialog------------------------------>
-          </div>
-						<div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-							<div class="text-h5 font-weight-light mt-3">
-								<span :ref="'relationship_manager_' + manager.personId">
-									{{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
-								</span>
-							<!---------------------------------Assign Relationship Manager Dialog------------------------------->
-							<v-dialog
-							v-model="assign_mgr_dlg"
-							max-width="600px"
-							>
-							<template v-slot:activator="{ on, attrs }">
-							<v-hover
-								v-slot="{ hover }"
-								open-delay="200"
-							>
-							<v-btn
-								icon
-								:elevation="hover ? 16 : 2"
-								:class="{ 'on-hover': hover }"
-								v-bind="attrs"
-								v-on="on"
-							>
-							<v-icon>
-								mdi-pencil
-							</v-icon>
-							</v-btn>
-							</v-hover>
-							</template>
-							<v-card>
-								<v-card-title>
-								<span class="headline">Assign Relationship Manager</span>
-								</v-card-title>
-								<v-card-text>
-								<v-container>
-									<v-row>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-											<v-autocomplete
-											label="Relationship Manager"
-											:items="all_relationship_managers"
-											item-text="name"
-											item-value="value"
-											return-object
-                      @change="updateSelectedManager"
-											>
-											</v-autocomplete>
-										</v-col>
-									</v-row>
-								</v-container>
-								</v-card-text>
-								<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="assign_mgr_dlg=false"
-								>
-									Close
-								</v-btn>
-								<v-btn
-									color="blue darken-1"
-									text
-									v-on:click="updateRelationshipManager"
-								>
-									Save
-								</v-btn>
-								</v-card-actions>
-							</v-card>
-							</v-dialog>
-						<!---------------------------------//Assign Manager Dialog------------------------------>
+                    <v-btn
+                        icon
+                        :elevation="hover ? 5 : 0"
+                        :class="{ 'on-hover': hover }"
+                        @click="assign_mgr_dlg=true"
+                    >
+                      <v-icon>
+                        mdi-pencil
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </div>
+                <div v-for="mphone in manager.person.phones" :key="mphone.number" class="text-h5 font-weight-thin">{{ mphone.number }}</div>
+                <div v-for="memail in manager.person.emails" :key="memail.address" class="text-h5 font-weight-thin"> {{ memail.address }}</div>
+              </div>
+              <!--------------------------//Organization Relationship Manager-------------------------------->
+            </v-card-text>
+          </v-card>
 
-						</div>
-							<div v-for="mphone in manager.person.phones" :key="mphone.number" class="text-h5 font-weight-thin">{{ mphone.number }}</div>
-							<div v-for="memail in manager.person.emails" :key="memail.address" class="text-h5 font-weight-thin"> {{ memail.address }}</div>
-						</div>
-						<!--------------------------//Relationship Management-------------------------------->
-
-						<!--------------------------File List Table-------------------------------->
 <!--						<v-data-table-->
 <!--						:headers="headers"-->
 <!--						:search="search"-->
@@ -828,7 +447,293 @@
 				</v-col><!-----------------------------//Right Column---------------------------------->
 
 		</v-row><!---------------------//First Container Row-------------------------------->
-	</v-container>
+
+
+    <!---------------------------------Edit Partner Dialog------------------------------->
+    <v-dialog
+        v-model="partner_edit_dlg"
+        max-width="600px"
+    >
+      <v-card>
+        <v-form>
+          <v-card-title>
+            <span class="headline">Partner Information</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                    cols="6"
+                    sm="6"
+                    md="6"
+                >
+                  <v-text-field
+                      label="Agency Name*"
+                      required
+                      v-model="partner.name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-label>Critical Relationship Information</v-label>
+                <v-col
+                    cols="12"
+                    sm="12"
+                    md="12"
+                >
+                  <v-textarea
+                      solo
+                      v-model="partner_secondary_info.critical_relationship_information"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-label>Services</v-label>
+                <v-col
+                    cols="12"
+                    sm="12"
+                    md="12"
+                >
+                  <v-textarea
+                      solo
+                      v-model="partner_secondary_info.services"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="Street Number"
+                      v-model="partner.street_number"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="Street Name"
+                      v-model="partner.street_name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                    cols="3"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="City"
+                      v-model="partner.city"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="2">
+                  <v-text-field
+                      label="State"
+                      v-model="partner.state"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                      label="Zip"
+                      v-model="partner.zip"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="County"
+                      v-model="partner.county"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Website"
+                      v-model="partner.website"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <div class="headline">Points of Contact</div>
+              </v-row>
+              <v-row v-for="poc in partner.point_of_contacts" :key="poc.personId">
+                <v-col class="col-12">
+                  <v-row>
+                    <v-col>
+                      <v-text-field
+                          label="First Name"
+                          v-model="poc.person.first_name"
+                      >
+                      </v-text-field>
+                    </v-col>
+                    <v-col>
+                      <v-text-field
+                          label="Last Name"
+                          v-model="poc.person.last_name"
+                      >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row v-for="phone in poc.person.phones" :key="phone.id">
+                    <v-col>
+                      <v-text-field
+                          label="Phone"
+                          v-model="phone.number"
+                      >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row v-for="email in poc.person.emails" :key="email.id">
+                    <v-col>
+                      <v-text-field
+                          label="Email Address"
+                          v-model="email.address"
+                      >
+                      </v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-col>
+
+              </v-row>
+
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="partner_edit_dlg=false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="updatePartner"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Edit Partner Dialog------------------------------>
+
+
+    <!-----------------------------------Edit Point of Contact Dialog------------------------------->
+    <v-dialog
+        v-model="assign_poc_dlg"
+        max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Assign Point of Contact</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-autocomplete
+                    :items="all_points_of_contact"
+                    item-text="name"
+                    item-value="value"
+                    return-object
+                    @change="updateSelectedPointOfContact"
+                >
+                </v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="assign_poc_dlg=false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+              color="blue darken-1"
+              text
+              v-on:click="updatePointOfContact"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Assign Point of Contact Dialog------------------------------>
+
+    <!---------------------------------Assign Relationship Manager Dialog------------------------------->
+    <v-dialog
+        v-model="assign_mgr_dlg"
+        max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Assign Relationship Manager</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-autocomplete
+                    label="Relationship Manager"
+                    :items="all_relationship_managers"
+                    item-text="name"
+                    item-value="value"
+                    return-object
+                    @change="updateSelectedManager"
+                >
+                </v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="assign_mgr_dlg=false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+              color="blue darken-1"
+              text
+              v-on:click="updateRelationshipManager"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Assign Manager Dialog------------------------------>
+
+  </v-container>
+
 </template>
 <script>
 
