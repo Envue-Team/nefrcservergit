@@ -12,9 +12,6 @@ exports.create = (req, res) => {
         return;
     }
 
-
-
-
     // Save user in the database
     //   DBUser.create(user)
     //     .then(data => {

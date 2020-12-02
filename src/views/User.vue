@@ -25,15 +25,17 @@
       >
         <template v-slot:item.name="{ item }">
           <template v-if="item.first_name !== null">
-            <button v-on:click="removePerson(item)"> X </button>
-            <a v-on:click="nav(item)"> 
-            <span class="black--text">{{ item.name }}</span>
-            <span v-if="item.public_safety"> (Public Safety)</span></a>
+            <button v-on:click="removePerson(item)">X</button>
+            <a v-on:click="nav(item)">
+              <span class="black--text">{{ item.name }}</span>
+              <span v-if="item.public_safety"> (Public Safety)</span></a
+            >
           </template>
           <template v-else-if="item.partner !== null">
-            <a v-on:click="nav(item)"> 
-            <span class="purple--text">{{ item.name }}</span>
-            <span v-if="item.public_safety"> (Public Safety)</span></a>
+            <a v-on:click="nav(item)">
+              <span class="purple--text">{{ item.name }}</span>
+              <span v-if="item.public_safety"> (Public Safety)</span></a
+            >
           </template>
         </template>
         <template v-slot:item.address="{ item }">
@@ -42,10 +44,13 @@
           </address>
         </template>
         <template v-slot:item.email="{ item }">
-          <a v-on:click="nav(item)"> 
-          <div><span class="black--text">
-            {{ item.user.email }}
-          </span></div> </a>
+          <a v-on:click="nav(item)">
+            <div>
+              <span class="black--text">
+                {{ item.user.email }}
+              </span>
+            </div>
+          </a>
         </template>
         <template v-slot:item.roles="{ item }">
           <div>
@@ -170,8 +175,9 @@
 </template>
 
 <script>
-import PersonDataService from '../services/PersonDataService';
+import PersonDataService from "../services/PersonDataService";
 import UserDataService from "../services/UserDataService";
+import UserRoleDataService from "../services/UserRoleDataService";
 
 export default {
   name: "volunteer-list",
@@ -188,6 +194,9 @@ export default {
         lastname: "",
         email: "",
         password: "",
+      },
+      add_role: {
+        roles: "",
       },
       view_person: {
         firstname: "",
@@ -229,7 +238,6 @@ export default {
             console.log("running");
 
             volunteer.name = volunteer.first_name + " " + volunteer.last_name;
-
           });
           // console.log(this.volunteers);
         })
@@ -277,19 +285,26 @@ export default {
         email: this.add_person.email,
         password: this.add_person.password,
       };
-      // var email1 = {
-      //   "address": this.add_person.primaryEmail,
-      //   // "personId":
-      // }
-      // var phone = {
-      //   person.id,
-      //   this.add_person.primaryPhone,
-      // };
+      var userData = {
+        roles: this.add_role.roles,
+      };
+
       data.services = this.add_person.services;
       UserDataService.create(data)
         .then((response) => {
-          this.refreshList();
-          return response.data.id;
+          console.log(response);
+          let data = {
+            roleId: 2,
+            userId: response.data,
+          };
+          
+          UserRoleDataService.create(data)
+            .then((resp) => {
+              this.refreshList();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((e) => {
           console.log(e);

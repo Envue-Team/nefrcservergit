@@ -116,8 +116,7 @@ export default {
       person: {
         first_name: "",
         last_name: "",
-        email: "",
-        password: "",
+
       },
       edit_person: {
         first_name: "",
