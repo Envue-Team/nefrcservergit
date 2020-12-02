@@ -164,19 +164,34 @@ export default {
   methods: {
     validate() {
       if (this.$refs.loginForm.validate()) {
+        UserDataService
+        .getByEmail(this.loginEmail)
+        .then(response=>{
+          console.log(response);
+        }).catch(e=>{
+          console.log(e);
+        });
         UserDataService.getAll()
         .then((response)=> {
-          let objectData = response.data;
+          let objectData = response
+          console.log(objectData);
         
           let emailCheck = this.emailValidate(objectData, this.loginEmail);
-
-          console.log(this.loginEmail);
+          // let userCheck = findUser(this.loginEmail, this.Password);
+          
+          let authenticatedLogin = false;
 
           if(emailCheck) {
-            console.log("It works");
+            console.log("Email is correct");
+            passwordCheck = this.passwordValidate(objectData, this.loginPassword, this.loginEmail);
+            if(passwordCheck) { 
+              console.log("User has auth");
+            } else {
+              console.log("Incorrect Password");
+            }
           } else {
-            console.log("It doesn't");
-          } 
+            console.log("Email is incorrect or does not exist");
+          }
           
         })
         .catch((err)=> {
@@ -184,8 +199,13 @@ export default {
         })
       }
     },
+    passwordValidate(objectData, password, email) {
+
+
+    },
     emailValidate(objectData, email) {
-      let objectLength = Object.keys(objectData).length;
+
+      let containsEmail = false;
       let emailArray = [];
 
       String(email);
@@ -194,34 +214,9 @@ export default {
         let printTest = objectData[Object.keys(objectData)[i]].user.email;
           emailArray.push(printTest);
       }
-
-
-      let boolean = false;
-
-      emailArray.forEach(index => {
-        console.log(index);
-        if(index == email) {
-          boolean = true;
-          return;
-          stop();
-        } else {
-          boolean = false;
-        }
-      });
-
-      console.log(boolean);
-      return boolean; 
-
-      // for(let i = 0; i <= emailArray.length; i++) {
-      //   console.log(emailArray[i]);
-      //   if(emailArray[i] == email) {
-      //     return true;
-      //     break;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-      // return true;
+      containsEmail = emailArray.includes(email);
+      console.log(containsEmail);
+      return containsEmail;
     },
     reset() {
       this.$refs.form.reset();

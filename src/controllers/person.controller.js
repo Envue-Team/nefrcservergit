@@ -139,7 +139,6 @@ exports.findOne = (req, res) => {
 };
 
 
-
 // Update a person by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
@@ -351,7 +350,8 @@ exports.userFindAll = (req, res) => {
         where: { id: { [Op.not]: null } }
       },
       'phones',
-      'emails']
+      'emails',
+    ]
   })
     .then(data => {
       res.send(data);
@@ -367,11 +367,20 @@ exports.userFindAll = (req, res) => {
 exports.userFindOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, { include: ['user', 'phones', 'emails'] }, { include: [{
-    model: DBUser,
-    include: ['roles'],
-    where: { personId: id }
-  }]}) //TODO: Take a look at this one, remove roles, findOne works just fine.
+  DBPerson.findByPk(id, 
+    { 
+      include: 
+      [
+        {
+          model: DBUser,
+          include: ['roles']
+        },
+        'phones', 
+        'emails'
+      ] 
+    }, 
+    
+  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
     .then(data => {
       res.send(data);
     })
@@ -381,6 +390,35 @@ exports.userFindOne = (req, res) => {
       });
     });
 };
+
+exports.findByEmail = (req, res) =>{
+  const email = req.params.email;
+  DBPerson.findAll( 
+    { 
+      where: {
+        email: email
+      },
+      include: 
+      [
+        {
+          model: DBUser,
+          include: ['roles']
+        },
+        'phones', 
+        'emails'
+      ] 
+    }, 
+    
+  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving person with id=" + id + " err: " + err
+      });
+    });
+}
 
 exports.userDelete = (req, res) => {
   const id = req.params.id;

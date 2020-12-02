@@ -8,6 +8,9 @@ class UserRoleDataService {
   update(userId, data) {
     return http.put(`/user_roles/${userId}`, data);
   }
+  get(userId, data) {
+    return http.get(`/user_roles/${userId}`, data);
+  }
 
 }
 

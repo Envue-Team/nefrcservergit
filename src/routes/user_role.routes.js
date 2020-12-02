@@ -14,6 +14,9 @@ module.exports = volapp => {
     // router.get("/:id", users.userFindOne);
   
     router.put("/:userId", user_roles.update);
+
+    router.get("/:userId", user_roles.findRole);
+
   
     // // // Delete a note with id
     // // router.delete("/:id", users.delete);

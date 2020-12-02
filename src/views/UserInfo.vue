@@ -99,6 +99,7 @@
           {{ edit_person.first_name + " " + edit_person.last_name }}
         </div>
         <div class="body-3 mt-3">Email: {{ edit_user.email }}</div>
+        <div class="body-3 mt-3">Role: {{ edit_user.role }}</div>
       </v-col>
     </v-row>
   </v-container>
@@ -106,6 +107,7 @@
 <script>
 import UserDataService from "../services/UserDataService";
 import RoleDataService from "../services/RoleDataService";
+import UserRoleDataService from "../services/UserRoleDataService";
 
 export default {
   data() {
@@ -125,6 +127,7 @@ export default {
       edit_user: {
         password: "",
         email: "",
+        role: "",
       },
     };
   },
@@ -149,24 +152,26 @@ export default {
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
         .then((response) => {
-          // this.notes = response.data.notes.map(note=>{
-          // 	var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
-          // 	return {
-          // 		id: note.id,
-          // 		text: note.text,
-          // 		date: date,
-          // 		author: note.person,
-          // 		type: note.type
-          // 	}
-          // });
-          // console.log(response.data);
-          console.log(response.data);
+          console.log(response.data.user.roles);
+
           this.edit_person = response.data;
           this.edit_user = response.data.user;
         })
         .catch((e) => {
-          console.log(e.message);
+          console.log(e);
         });
+    },
+    getUserRole(user) {
+      let dataUser = {
+        userId: user
+      }
+      console.log(dataUser);
+      UserRoleDataService.get(dataUser)
+      .then((response)=> {
+      })
+      .catch((e)=> {
+        console.log(e.message)
+      })
     },
     updatePerson() {
       var data = {
