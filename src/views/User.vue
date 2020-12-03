@@ -189,6 +189,7 @@ export default {
       search: "",
       currentIndex: -1,
       name: "",
+      role: "",
       add_person: {
         firstname: "",
         lastname: "",
@@ -233,11 +234,29 @@ export default {
     retrieveVolunteers() {
       UserDataService.getAll()
         .then((response) => {
+
+          // if(roleNumber = 2) {
+          //   roleName = "User";
+          // } else {roleName = "Admin";}
+
+          console.log(response.data);
           this.volunteers = response.data;
           this.volunteers.forEach((volunteer) => {
-            console.log("running");
 
             volunteer.name = volunteer.first_name + " " + volunteer.last_name;
+
+            console.log(volunteer.user.roles[0].user_roles.roleId);
+
+            let roleNumber = volunteer.user.roles[0].user_roles.roleId;
+            let roleName = "";
+
+            if(roleNumber == 2) {
+              roleName = "User"
+              } else {
+                roleName = "Admin"
+              }
+
+            volunteer.role = roleName
           });
           // console.log(this.volunteers);
         })
@@ -256,28 +275,6 @@ export default {
       this.currentVolunteer = volunteer;
       this.currentIndex = index;
     },
-
-    // removeAllVolunteers() {
-    //   PersonDataService.deleteAll()
-    //     .then((response) => {
-    //       console.log(response.data);
-    //       this.refreshList();
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // searchTitle() {
-    //   PersonDataService.findByName(this.first_name)
-    //     .then((response) => {
-    //       this.volunteers = response.data;
-    //       console.log(response.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
     addPerson() {
       var data = {
         first_name: this.add_person.firstname,
@@ -309,20 +306,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
-
-      // this.addEmail(email1, data);
-      // EmailDataService.create(email1).
-      // then(response=>{
-      //   console.log(response);
-      //   this.retrieveVolunteers();
-      //   this.add_organization_dlg = false
-      // })
-      // .catch(e=>{
-      //   console.log(e);
-      // });
       this.add_person_dlg = false;
-      // this.refreshList();
-      // console.log("hit");
     },
 
     removePerson(item) {

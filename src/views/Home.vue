@@ -60,7 +60,7 @@
                 </v-card-text>
               </v-card>
             </v-tab-item>
-            <v-tab-item>
+            <!-- <v-tab-item>
               <v-card class="px-4">
                 <v-card-text>
                   <v-form ref="registerForm" v-model="valid" lazy-validation>
@@ -141,7 +141,7 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-            </v-tab-item>
+            </v-tab-item> -->
           </v-tabs>
         </div>
       </v-dialog>
@@ -152,6 +152,7 @@
 
 <script>
 import UserDataService  from '../services/UserDataService';
+const crypto = require('crypto');
 
 export default {
 
@@ -162,67 +163,65 @@ export default {
     }
   },
   methods: {
-    validate() {
-      if (this.$refs.loginForm.validate()) {
-        UserDataService
-        .getByEmail(this.loginEmail)
+     generateSalt() {
+        return crypto.randomBytes(16).toString('base64');
+    },
+    encryptPassword(plainText, salt) {
+        return crypto
+            .createHash('sha256')
+            .update(plainText)
+            .update(salt)
+            .digest('hex')
+    },
+    testPassword(salt, originalPass, loginPassword) {
+            let password = this.encryptPassword(loginPassword, salt);
+            console.log(password);
+            return originalPass == password; 
+    },
+    checkCredentials(){
+      console.log("Success");
+        UserDataService.getByEmail(this.loginEmail)
         .then(response=>{
-          console.log(response);
+          console.log(response.data);
+          let originalPassword = response.data[0].user.password;
+          let salt = response.data[0].user.salt;
+          console.log(originalPassword);
+          console.log(salt);
+          let authenticated = this.testPassword(salt, originalPassword, this.loginPassword);
+          console.log("Authenticated: " + authenticated);
+          this.isAuthenticated = authenticated;
+          this.login();
         }).catch(e=>{
           console.log(e);
         });
+    },
+    validate() {
+      if (this.$refs.loginForm.validate()) {
+
         UserDataService.getAll()
         .then((response)=> {
-          let objectData = response
-          console.log(objectData);
-        
-          let emailCheck = this.emailValidate(objectData, this.loginEmail);
-          // let userCheck = findUser(this.loginEmail, this.Password);
-          
-          let authenticatedLogin = false;
 
-          if(emailCheck) {
-            console.log("Email is correct");
-            passwordCheck = this.passwordValidate(objectData, this.loginPassword, this.loginEmail);
-            if(passwordCheck) { 
-              console.log("User has auth");
-            } else {
-              console.log("Incorrect Password");
-            }
-          } else {
-            console.log("Email is incorrect or does not exist");
-          }
+          let objectData = response
           
+          this.checkCredentials();
         })
         .catch((err)=> {
           console.log(err);
         })
       }
     },
-    passwordValidate(objectData, password, email) {
-
-
-    },
-    emailValidate(objectData, email) {
-
-      let containsEmail = false;
-      let emailArray = [];
-
-      String(email);
-
-      for(var i in objectData) {
-        let printTest = objectData[Object.keys(objectData)[i]].user.email;
-          emailArray.push(printTest);
-      }
-      containsEmail = emailArray.includes(email);
-      console.log(containsEmail);
-      return containsEmail;
-    },
     reset() {
       this.$refs.form.reset();
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+    login() {
+      if(this.isAuthenticated) {
+        this.$router.replace({name: "user"});
+      } else {
+        console.log("Wrong password");
+      }
     }
   },
   data: () => ({
@@ -230,7 +229,7 @@ export default {
     tab: 0,
     tabs: [
         {name:"Login", icon:"mdi-account"},
-        {name:"Register", icon:"mdi-account-outline"}
+        // {name:"Register", icon:"mdi-account-outline"}
     ],
     valid: true,
     
@@ -242,6 +241,7 @@ export default {
     verify: "",
     loginPassword: "",
     loginEmail: "",
+    isAuthenticated: false,
     loginEmailRules: [
       v => !!v || "Required",
       v => /.+@.+\..+/.test(v) || "E-mail must be valid"

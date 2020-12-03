@@ -5,11 +5,10 @@
       color="primary"
       dark
     >
-      <v-spacer></v-spacer>
-
-
+        <div id="nav">
+            <router-link v-if="authenticated" to="/user" v-on:click.native="logout()" replace>Logout</router-link>
+        </div>
         <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -19,13 +18,26 @@
 </template>
 
 <script>
+import User from './views/User.vue';
 
 export default {
   name: 'App',
 
-  data: () => ({
-    //
-  }),
+    data() {
+      return {
+        authenticated: false,
+      }
+    },
+    mounted() {
+      if(!this.authenticated) {
+        this.$router.replace({ name: "home" });
+      }
+    },
+    methods: {
+      setAuthenticated(status) {
+        this.authenticated = status;
+      },
+    }
 };
 </script>
 

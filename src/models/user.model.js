@@ -5,19 +5,22 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("user", {
 
         email: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            // get(){
+            //     return () => this.getDataValue('email');
+            // }
         },
         password: {
             type: DataTypes.STRING,
-            get() {
-                return () => this.getDataValue('password');
-            }
+            // get() {
+            //     return () => this.getDataValue('password');
+            // }
         },
         salt: {
             type: DataTypes.STRING,
-            get() {
-                return () => this.getDataValue('salt');
-            }
+            // get() {
+            //     return () => this.getDataValue('salt');
+            // }
         }
 
     });
@@ -36,7 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     const setSaltAndPassword = (user) => {
         if (user.changed('password')) {
             user.salt = User.generateSalt();
-            user.password = User.encryptPassword(user.password(), user.salt());
+            // user.password = User.encryptPassword(user.password(), user.salt());
+            user.password = User.encryptPassword(user.password, user.salt);
         }
     }
     User.beforeCreate(setSaltAndPassword);

@@ -48,7 +48,7 @@ exports.update = (req, res) => {
   }
 
 
-  DBUserRole.update(req.body, {
+  DBUserRole.update(roleId, {
     where: { userId: id }
   })
     .then(num => {

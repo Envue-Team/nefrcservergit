@@ -393,16 +393,15 @@ exports.userFindOne = (req, res) => {
 
 exports.findByEmail = (req, res) =>{
   const email = req.params.email;
-  DBPerson.findAll( 
-    { 
-      where: {
-        email: email
-      },
+  DBPerson.findAll( {
       include: 
       [
         {
           model: DBUser,
-          include: ['roles']
+          include: ['roles'],
+            where: {
+              email: email
+            },
         },
         'phones', 
         'emails'
