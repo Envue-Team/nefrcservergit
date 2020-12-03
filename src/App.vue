@@ -5,9 +5,9 @@
       color="primary"
       dark
     >
-        <div id="nav">
+        <!-- <div id="nav">
             <router-link v-if="authenticated" to="/user" v-on:click.native="logout()" replace>Logout</router-link>
-        </div>
+        </div> -->
         <v-icon>mdi-open-in-new</v-icon>
     </v-app-bar>
 
@@ -23,21 +23,21 @@ import User from './views/User.vue';
 export default {
   name: 'App',
 
-    data() {
-      return {
-        authenticated: false,
-      }
-    },
-    mounted() {
-      if(!this.authenticated) {
-        this.$router.replace({ name: "home" });
-      }
-    },
-    methods: {
-      setAuthenticated(status) {
-        this.authenticated = status;
-      },
-    }
+    // data() {
+    //   return {
+    //     authenticated: false,
+    //   }
+    // },
+    // mounted() {
+    //   if(!this.authenticated) {
+    //     this.$router.replace({ name: "home" });
+    //   }
+    // },
+    // methods: {
+    //   setAuthenticated(status) {
+    //     this.authenticated = status;
+    //   },
+    // }
 };
 </script>
 

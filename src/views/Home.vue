@@ -190,7 +190,6 @@ export default {
           let authenticated = this.testPassword(salt, originalPassword, this.loginPassword);
           console.log("Authenticated: " + authenticated);
           this.isAuthenticated = authenticated;
-          this.login();
         }).catch(e=>{
           console.log(e);
         });
@@ -204,6 +203,7 @@ export default {
           let objectData = response
           
           this.checkCredentials();
+
         })
         .catch((err)=> {
           console.log(err);
