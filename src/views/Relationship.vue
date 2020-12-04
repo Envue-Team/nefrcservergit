@@ -2,14 +2,13 @@
 	<v-container>
     <div class="red--text text--darken-4 page-title">Relationship</div>
 		<v-row><!---------------------First Container Row-------------------------------->
-					
 				<v-col class="col-4"><!----------------------Left Column-------------------------->
           <v-card elevation="3" class="mb-3">
             <v-card-title>
 						    <!---------------------Relationship Basic Data-------------------------------->
-                  <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit')"><div class="font-weight-thin text-wrap" >
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit')">
                     {{relationship.name}}
-                  </div></a>
+                  </a>
             </v-card-title>
                 <v-card-subtitle style="margin-bottom: -30px">
                   <!------------------------------------Relationship Address Info------------------------------>
@@ -18,8 +17,10 @@
                     {{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}
                     {{relationship.county}} County
                   </address>
-                  <a :href="relationship.website" class="red--text text--darken-3  body-3 mt-3">{{ relationship.website }}</a>
-
+                  <a :href="relationship.website" class="red--text text--darken-3  body-3 mt-3">
+                    {{ relationship.website }}
+                  </a><br/>
+                  <span> Status: {{ relationship.relationship.status }} </span>
                 </v-card-subtitle>
                   <v-card-text >
 
@@ -35,11 +36,9 @@
             </a>
 						<div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
               <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
-                <div class="font-weight-black">
                     <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
                     <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>
-                </div>
-              </a>
+              </a><br/>
 							<span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
                   <span v-if="phone.isPrimary==true">
                     <span :ref="'phone_' + phone.id">
@@ -71,10 +70,7 @@
             </span>
 						</div>
 						<!-----------------------//Point of Contact--------------------------------->
-                </v-card-text>
-<!--              </v-col>-->
-<!--              </v-row>-->
-<!--            </v-card-title>-->
+          </v-card-text>
           </v-card>
           <v-card>
             <v-card-text>
@@ -193,10 +189,9 @@
           <v-card
               class="mx-auto"
           >
-            <v-card-title class="white--text orange darken-4">
+            <v-card-title class="white--text red darken-4">
               Notes:
 
-<!--              <v-spacer></v-spacer>-->
               <!---------------------------------Add Note Dialog------------------------------->
               <v-dialog
                   v-model="add_note_dlg"
@@ -281,8 +276,6 @@
             </v-card-title>
 
             <v-card-subtitle class="pt-4">
-<!--              <v-card-title>Relationship History</v-card-title>-->
-<!--              <v-divider></v-divider>-->
               <v-row>
                 <v-col>
                   <v-text-field
@@ -352,7 +345,7 @@
                   <v-switch
                       v-model="history_switch"
                       :label="switch_label()"
-                      color="red"
+                      color="#B71C1C"
                       hide-details
                       @change="set_notes_view"
                   ></v-switch>
@@ -486,7 +479,7 @@
             							<v-virtual-scroll
             							:items="filteredList"
             							:item-height="50"
-            							height="300"
+            							height="150"
             							>
             							<template v-slot:default="{ item }">
             								<v-list-item>
@@ -507,7 +500,7 @@
             									>
             										Open
             									<v-icon
-            										color="orange darken-4"
+            										color="red darken-4"
             										right
             									>
             										mdi-open-in-new
@@ -1115,18 +1108,13 @@
 </template>
 <script>
 
-import PartnerDataService from "@/services/PartnerDataService";
-
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
 import RelationshipDataService from "../services/RelationshipDataService";
-import PersonDataService from "../services/PersonDataService";
 import RelationshipManagerDataService from "../services/RelationshipManagerDataService";
-import PhoneDataService from "../services/PhoneDataService";
 import NoteDataService from "../services/NoteDataService";
 import FileDataService from "../services/FileDataService";
 import NoteDialog from "./NoteDialog";
-import EmailDataService from "@/services/EmailDataService";
 import UserDataService from "@/services/UserDataService";
 import ContactDataService from "@/services/ContactDataService";
 import PointOfContactDataService from "@/services/PointOfContactDataService";
@@ -1177,9 +1165,9 @@ export default {
 		 * Files 
 		 **/
 		files: [],
-        uploadedFiles: [],
-        uploadError: null,
-        currentStatus: null,
+    uploadedFiles: [],
+    uploadError: null,
+    currentStatus: null,
 		uploadFieldName: 'files',
 		file_upload: '',
 		upload_disabled: true,
@@ -1350,6 +1338,7 @@ export default {
 			const formData = new FormData();
 			formData.append('file', this.file_upload);
 			formData.append('organizationId', this.relationship.id);
+      //TODO: Set this id to current user
 			formData.append('personId',"5693164c-5da4-4d07-ad24-d9f39befc823" );
 			this.formData = formData;
 			
@@ -1398,7 +1387,7 @@ export default {
 			Update organization data
 			*/
 			this.relationship_edit_dlg = false;
-			var data = {
+			let data = {
 				"name": this.relationship.name,
 				"street_number": this.relationship.street_number,
 				"street_name": this.relationship.street_name,
@@ -1412,64 +1401,17 @@ export default {
 			}
 			RelationshipDataService.update(this.relationship.id, data)
 			.then(response=>{
-				console.log(response.data);
+				// console.log(response.data);
 			})
 			.catch(e=>{
 				console.log(e);
-			});
-
-			/*
-			Update point of contact data
-			*/
-			this.relationship.point_of_contacts.forEach(contact=>{
-				const person = {
-					first_name: this.$refs["first_name_"+contact.personId][0]["innerHTML"],
-					last_name: this.$refs["last_name_"+contact.personId][0]["innerHTML"],
-				};
-				ContactDataService.update(contact.personId, person).then(response=>{
-					console.log(response.data);
-				})
-				.catch(e=>{console.log(e)});
-
-				contact.person.phones.forEach(phone=>{
-					const data = {
-						number: this.$refs["phone_"+phone.id][0]["innerHTML"]
-					};
-
-					PhoneDataService.update(phone.id, data).then(response=>{
-						// console.log(response)
-					})
-					.catch(e=>{console.log(e)});
-				});
-				
-				contact.person.emails.forEach(email=>{
-					const data = {
-						number: this.$refs["email_"+email.id][0]["innerHTML"]
-					};
-
-					EmailDataService.update(email.id, data).then(response=>{
-						// console.log(response)
-					})
-					.catch(e=>{console.log(e)});
-				});
-			});
-
-			/*
-			Update relationship manager for partner
-			*/
-			this.relationship.relationship_managers.forEach(manager=>{
-				const data = {
-					organizationId: manager.organizationId,
-					personId: manager.personId
-				}
-				OrganizationManagerDataService.update(manager.organizationId, manager.personId, data)
 			});
 		},
 		setRelationship(){
 			RelationshipDataService.get(this.$route.params.organizationId)
 			.then(response => {
 				this.notes = response.data.notes.map(note=>{
-					var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
+					let date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
 					return {
 						id: note.id,
 						text: note.text,
@@ -1537,7 +1479,6 @@ export default {
             .then(response=>{
                 this.relationship.relationship_managers = response.data;
                 this.setRelationship();
-              console.log(response);
             })
             .catch(err=>{console.log(err)});
       }
@@ -1596,7 +1537,7 @@ export default {
 	},
 	computed:{
 		headers () {
-			var headers = [
+			let headers = [
 				{text: 'File Name',value: 'name', width: '80px'},
 				{text: 'Date', value: 'date', width: '80px'},
 				{text: 'Author', value: 'author', width: '100px'},
@@ -1608,8 +1549,8 @@ export default {
 		filteredList() {
         return this.notes.filter(note => {
           if(note.author == null) return;
-					var afterStart = true;
-					var beforeEnd = true;
+					let afterStart = true;
+					let beforeEnd = true;
 
 					const vDate = new Date(note.date).toISOString().substr(0, 10);
 					if(this.formattedStartDate !== '' && this.formattedStartDate !== null){
@@ -1630,7 +1571,6 @@ export default {
 	},
 	mounted() {
 		this.reset();
-		//Update
 		this.setRelationship();
 		this.populateRelationshipManagersList();
 		this.populatePointOfContactList();
