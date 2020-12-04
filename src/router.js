@@ -5,7 +5,6 @@ import Organization from './views/Organizations.vue'
 import Partner from './views/Partner.vue'
 import Relationship from './views/Relationship.vue'
 import Contacts from './views/Contacts.vue'
-
 import ContactInfo from './views/Contact.vue'
 import Register from './views/Register.vue'
 import User from './views/User'
@@ -17,11 +16,11 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
     {
       path: '/organizations',
       name: 'organizations',
