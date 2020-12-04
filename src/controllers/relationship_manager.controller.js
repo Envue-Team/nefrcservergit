@@ -104,8 +104,8 @@ exports.findOneOrganizationRelationshipManager = (req, res) => {
 
 // Update a relationship manager by the id in the request
 exports.update = (req, res) => {
-  data = {
-    organizationId: req.body.organiationId,
+  const data = {
+    organizationId: req.body.organizationId,
     personId: req.body.personId
   }
   DBRM.update(req.body, {

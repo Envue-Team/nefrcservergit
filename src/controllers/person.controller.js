@@ -42,54 +42,55 @@ exports.create = (req, res) => {
     });
 };
 
-exports.createPOC = (req, res) => {
-  // Validate request
-  if (!req.body.first_name) {
-    res.status(400).send({
-      message: "A person must have a first name"
-    });
-    return;
-  }
-
-  // Create a person
-  const person = {
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    street_number: req.body.street_number,
-    street_name: req.body.street_name,
-    city: req.body.city,
-    state: req.body.state,
-    zip: req.body.zip,
-    county: req.body.county,
-    // organizationId: req.body.organizationId
-  };
-
-  // Save person in the database
-  DBPerson.create(person)
-    .then(data => {
-
-      const point_of_contact = {
-        organizationId: req.body.organizationId,
-        personId: data.dataValues.id
-      }
-
-      DBPOC.create(point_of_contact).then(data => {
-        res.send(data)
-      }).catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the point of contact."
-        });
-      });
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the person."
-      });
-    });
-};
+//Point of Contact should only involve manipulating table relationships
+// exports.createPOC = (req, res) => {
+//   // Validate request
+//   if (!req.body.first_name) {
+//     res.status(400).send({
+//       message: "A person must have a first name"
+//     });
+//     return;
+//   }
+//
+//   // Create a person
+//   const person = {
+//     first_name: req.body.first_name,
+//     last_name: req.body.last_name,
+//     street_number: req.body.street_number,
+//     street_name: req.body.street_name,
+//     city: req.body.city,
+//     state: req.body.state,
+//     zip: req.body.zip,
+//     county: req.body.county,
+//     // organizationId: req.body.organizationId
+//   };
+//
+//   // Save person in the database
+//   DBPerson.create(person)
+//     .then(data => {
+//
+//       const point_of_contact = {
+//         organizationId: req.body.organizationId,
+//         personId: data.dataValues.id
+//       }
+//
+//       DBPOC.create(point_of_contact).then(data => {
+//         res.send(data)
+//       }).catch(err => {
+//         res.status(500).send({
+//           message:
+//             err.message || "Some error occurred while creating the point of contact."
+//         });
+//       });
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "Some error occurred while creating the person."
+//       });
+//     });
+// };
 
 // Retrieve all persons from the database.
 exports.findAll = (req, res) => {
@@ -107,21 +108,25 @@ exports.findAll = (req, res) => {
     });
 };
 
-// // Retrieve all persons from the database.
-// exports.findAllPOCS = (req, res) => {
-//   DBPerson.findAll({
-//     include :'phones'
-//   })
-//     .then(data => {
-//       res.send(data);
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving persons."
-//       });
-//     });
-// };
+exports.contactFindAll = (req, res) => {
+  DBPerson.findAll({
+    include: [
+      {
+        model: DBUser,
+      },
+      'phones',
+      'emails']
+  })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while retrieving persons."
+        });
+      });
+};
 
 // Find a single person with an id
 exports.findOne = (req, res) => {
@@ -137,6 +142,7 @@ exports.findOne = (req, res) => {
       });
     });
 };
+
 
 
 // Update a person by the id in the request
@@ -207,6 +213,31 @@ exports.deleteAll = (req, res) => {
 };
 
 // Delete all persons from the database.
+exports.contactDeleteAll = (req, res) => {
+  DBPerson.destroy({
+    include: [
+      {
+        model: DBUser,
+        where: {id: {[Op.is]: null}}
+      },
+      'phones',
+      'emails'],
+    where: {},
+    truncate: false
+  })
+      .then(nums => {
+        res.send({ message: `${nums} persons were deleted successfully!` });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while removing all persons."
+        });
+      });
+};
+
+
+// Delete all persons from the database.
 // exports.deleteAll = (req, res) => {
 //   DBPerson.destroy({
 //     where: {},
@@ -257,17 +288,13 @@ exports.createUser = (req, res) => {
         email: req.body.email,
         password: req.body.password
       }
+      console.log(user);
+      let userResponseData = '';
 
-      var userResponseData = '';
-
-      DBUser.create(user).then(dataUser => {
-
-        console.log('USER DATA VALUES');
-        let userID = dataUser.dataValues.id;
-        console.log(dataUser.dataValues.id);
-        res.status(200);
-        res.send(`${userID}`);
-
+      DBUser.create(user).then(data => {
+        // res.send(data)
+        console.log(data);
+        userResponseData = data;
       }).catch(err => {
         userResponseData = err.message || "Some error occurred while creating the user."
         // res.status(500).send({
@@ -275,10 +302,8 @@ exports.createUser = (req, res) => {
         //   err.message || "Some error occurred while creating the user."
         // });
       });
-
-      // console.log(userdata);
-
-      // res.send(data);
+      data.user = userResponseData;
+      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
@@ -316,7 +341,7 @@ exports.updateUser = (req, res) => {
       }
     })
     .catch(err => {
-      userResponseData = "Error updating user with id=" + id + " err: " + err;
+        userResponseData = "Error updating user with id=" + id + " err: " + err;
     });
 
   res.user = userResponseData;
@@ -333,25 +358,23 @@ exports.updateUser = (req, res) => {
       });
     }
   })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating user with id=" + id + " err: " + err
-      });
+  .catch(err => {
+    res.status(500).send({
+      message: "Error updating user with id=" + id + " err: " + err
     });
+  });
 };
 
 exports.userFindAll = (req, res) => {
   DBPerson.findAll({
-
     include: [
-      {
-        model: DBUser,
-        include: ['roles'],
-        where: { id: { [Op.not]: null } }
-      },
-      'phones',
-      'emails',
-    ]
+    {
+      model: DBUser,
+      include: ['roles'],
+      where: {id: {[Op.not]: null}}
+    }, 
+    'phones', 
+    'emails']
   })
     .then(data => {
       res.send(data);
@@ -367,20 +390,7 @@ exports.userFindAll = (req, res) => {
 exports.userFindOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, 
-    { 
-      include: 
-      [
-        {
-          model: DBUser,
-          include: ['roles']
-        },
-        'phones', 
-        'emails'
-      ] 
-    }, 
-    
-  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
+  DBPerson.findByPk(id, { include: ['user','phones', 'emails', 'roles'] })
     .then(data => {
       res.send(data);
     })
@@ -391,34 +401,6 @@ exports.userFindOne = (req, res) => {
     });
 };
 
-exports.findByEmail = (req, res) =>{
-  const email = req.params.email;
-  DBPerson.findAll( {
-      include: 
-      [
-        {
-          model: DBUser,
-          include: ['roles'],
-            where: {
-              email: email
-            },
-        },
-        'phones', 
-        'emails'
-      ] 
-    }, 
-    
-  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving person with id=" + id + " err: " + err
-      });
-    });
-}
-
 exports.userDelete = (req, res) => {
   const id = req.params.id;
 
@@ -428,17 +410,17 @@ exports.userDelete = (req, res) => {
     where: { personId: id }
   }).then(num => {
     if (num == 1) {
-      userResponseData = "person was deleted successfully!"
+        userResponseData = "person was deleted successfully!"
     } else {
-      userResponseData = `Cannot delete person with id=${id}. Maybe person was not found!`
+        userResponseData = `Cannot delete person with id=${id}. Maybe person was not found!`
     }
   })
-    .catch(err => {
-      userResponseData = "Could not delete person with id=" + id + " err: " + err
-    });
+  .catch(err => {
+    userResponseData =  "Could not delete person with id=" + id + " err: " + err
+  });
 
   res.user = userResponseData;
-
+  
   DBPerson.destroy({
     where: { id: id }
   })

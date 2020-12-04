@@ -1,22 +1,17 @@
 module.exports = volapp => {
-  const pocs = require("../controllers/person.controller.js");
+  const pocs = require("../controllers/poc.controller.js");
 
   var router = require("express").Router();
 
   //On organization added, change all to second line
   // Create a new note
-  router.post("/", pocs.createPOC);
-  // router.post("/", organizations.create);
+  router.post("/", pocs.create);
 
   // Retrieve all notes
-  router.get("/", pocs.findAll);
-
-
-  // Retrieve a single note with id
-  router.get("/:id", pocs.findOne);
+  router.get("/:organizationId", pocs.findAll);
 
   // Update a note with id
-  router.put("/:id", pocs.update);
+  router.put("/:organizationId/:personId", pocs.update);
 
   // Delete a note with id
   router.delete("/:id", pocs.delete);

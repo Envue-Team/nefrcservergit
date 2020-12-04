@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     number: {
       type: DataTypes.STRING
-    }
+    },
+    isPrimary: {
+      type: DataTypes.BOOLEAN
+    },
   });
 
   return Phone;
