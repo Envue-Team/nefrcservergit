@@ -109,7 +109,6 @@ exports.findAll = (req, res) => {
 };
 
 exports.contactFindAll = (req, res) => {
-  console.log("success");
   DBPerson.findAll({
     include: [
       {
