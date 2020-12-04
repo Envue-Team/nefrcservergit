@@ -28,26 +28,9 @@
 </template>
 
 <script>
-import User from './views/User.vue';
 
 export default {
   name: 'App',
-
-    // data() {
-    //   return {
-    //     authenticated: false,
-    //   }
-    // },
-    // mounted() {
-    //   if(!this.authenticated) {
-    //     this.$router.replace({ name: "home" });
-    //   }
-    // },
-    // methods: {
-    //   setAuthenticated(status) {
-    //     this.authenticated = status;
-    //   },
-    // }
 };
 </script>
 
