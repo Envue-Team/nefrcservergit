@@ -1,5 +1,11 @@
 <template>
   <v-container>
+      <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search Table"
+              single-line
+      ></v-text-field>
       <div class="red--text text--darken-2 page-title">Contacts</div>
         <v-row>
           <v-col class="col-12">
@@ -439,7 +445,6 @@ export default {
       this.refreshList();
       // console.log("hit");
 
-      this.refreshVolunteers();
     },
     removePerson(item) {
       if(confirm("Are you sure you want to remove "+item.first_name+" "+item.last_name+" from the table?")){
