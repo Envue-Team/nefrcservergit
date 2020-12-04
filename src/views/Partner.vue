@@ -3,141 +3,97 @@
     <div class="red--text text--darken-4 page-title">Partner</div>
 		<v-row><!---------------------First Container Row-------------------------------->
 
-				<v-col class="col-7"><!----------------------Left Column-------------------------->
+				<v-col class="col-4"><!----------------------Left Column-------------------------->
           <v-card elevation="3" class="mb-3">
             <v-card-title>
-              <v-row>
-                <v-col>
-                    <!---------------------Partner Basic Data-------------------------------->
-                    <span class="text-h4 font-weight-thin">
+                  <!---------------------Partner Basic Data-------------------------------->
+                    <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit')">
                       {{partner.name}}
-                    </span>
-
-                    <v-hover
-                        v-slot="{ hover }"
-                        open-delay="200"
-                    >
-                      <v-btn
-                          icon
-                          :elevation="hover ? 5 : 0"
-                          @click="partner_edit_dlg=true"
-                      >
-                        <v-icon>
-                          mdi-pencil
-                        </v-icon>
-                      </v-btn>
-                    </v-hover>
-
-                  <v-card-subtitle style="margin-bottom: -30px">
+                    </a>
+            </v-card-title>
+                  <v-card-subtitle>
                     <address class="text-capitalize">
                       {{ partner.street_number }} {{ partner.street_name}}
                       {{ partner.city }}, {{ partner.state }} {{ partner.zip }}
                       {{partner.county}} County
                     </address>
-                    <a :href="partner.website" class="red--text text--darken-3  body-3 mt-3">{{ partner.website }}</a>
-						<!--------------------------Partner Services-------------------------------->
+                    <a :href="partner.website" class="red--text text--darken-3  body-3 mt-3">
+                      {{ partner.website }}
+                    </a>
+            <!--------------------------Partner Services-------------------------------->
 						<div class="font-weight-light">{{ partner_secondary_info.services }}</div>
+						<div class="font-weight-bold">
+              {{ partner_secondary_info.critical_relationship_information }}
+            </div>
 						<!------------------------//Partner Services--------------------------------->
+                  </v-card-subtitle>
+            <v-card-text>
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
               <!-----------------------Point of Contact--------------------------------->
-              <span v-if="organization_points_of_contact.length==0">
-                Add a contact
-                    <v-hover
-                        v-slot="{ hover }"
-                        open-delay="200"
-                    >
-                    <v-btn
-                        text
-                        icon
-                        :elevation="hover ? 5 : 0"
-                        :class="{ 'on-hover': hover }"
-                        @click="assign_poc_dlg=true"
-                    >
-                      <v-icon >
-                        mdi-pencil
-                      </v-icon>
-                    </v-btn>
-                  </v-hover>
+                <span v-if="organization_points_of_contact.length==0">
+                  Add New Point of Contact
+                </span>
+              </a>
+              <div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
+                <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
+                  <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
+                  <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>
+                </a>
+                <br/>
+                <span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
+                  <span v-if="phone.isPrimary==true">
+                    <span :ref="'phone_' + phone.id">
+                      {{ phone.number }} (P) |
+                    </span>
+                  </span>
+							</span>
+                <span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
+                  <span v-if="phone.isPrimary==false">
+                    <span :ref="'phone_' + phone.id">
+                      {{ phone.number }}
+                    </span>
+                  </span>
               </span>
-                <div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
-                <div class="font-weight-medium">
-                  <strong>
-                    <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
-                    <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>&nbsp&nbsp
-                  </strong>
-                  <v-hover
-                      v-slot="{ hover }"
-                      open-delay="200"
-                  >
-                    <v-btn
-                        text
-                        icon
-                        :elevation="hover ? 5 : 0"
-                        :class="{ 'on-hover': hover }"
-                        @click="assign_poc_dlg=true"
-                    >
-                      <v-icon >
-                        mdi-pencil
-                      </v-icon>
-                    </v-btn>
-                  </v-hover>
-                </div>
-                <div v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
-                  <span :ref="'phone_' + phone.id">{{ phone.number }}</span>
-                </div>
-                <div v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
-                  <span :ref="'email_' + email.id">{{ email.address }}</span>
-                </div>
+                <br/>
+                <span v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
+                  <span v-if="email.isPrimary==true">
+                      <span :ref="'email_' + email.id">
+                        {{ email.address }} (P) |
+                      </span>
+                    </span>
+							</span>
+                <span v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
+                  <span v-if="email.isPrimary==false">
+                    <span :ref="'email_' + email.id">
+                      {{ email.address }}
+                    </span>
+                  </span>
+            </span>
               </div>
               <!-----------------------//Point of Contact--------------------------------->
-                  </v-card-subtitle>
-                </v-col>
-              </v-row>
-            </v-card-title>
+            </v-card-text>
+          </v-card>
+          <v-card>
             <v-card-text>
               <!--------------------------Organization Relationship Manager-------------------------------->
               <span v-if="organization_relationship_managers.length == 0">
-                Assign an Organization Manager
-                  <v-hover
-                      v-slot="{ hover }"
-                      open-delay="200"
-                  >
-                    <v-btn
-                        icon
-                        :elevation="hover ? 5 : 0"
-                        :class="{ 'on-hover': hover }"
-                        @click="assign_mgr_dlg=true"
-                    >
-                      <v-icon>
-                        mdi-pencil
-                      </v-icon>
-                    </v-btn>
-                  </v-hover>
-              </span>
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM')">
+              Assign an Organization Manager
+              </a>
+            </span>
+
               <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-                <div class="font-weight-medium mt-3">
-                  <strong>
+                <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM')">
+                  <div class="font-weight-black mt-3">
+                    <strong>
                     <span :ref="'relationship_manager_' + manager.personId">
                       {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
                     </span>
-                  </strong>
-                  <v-hover
-                      v-slot="{ hover }"
-                      open-delay="200"
-                  >
-                    <v-btn
-                        icon
-                        :elevation="hover ? 5 : 0"
-                        :class="{ 'on-hover': hover }"
-                        @click="assign_mgr_dlg=true"
-                    >
-                      <v-icon>
-                        mdi-pencil
-                      </v-icon>
-                    </v-btn>
-                  </v-hover>
-                </div>
-                <div v-for="mphone in manager.person.phones" :key="mphone.number" class="text-h5 font-weight-thin">{{ mphone.number }}</div>
-                <div v-for="memail in manager.person.emails" :key="memail.address" class="text-h5 font-weight-thin"> {{ memail.address }}</div>
+                    </strong>
+                  </div>
+                </a>
+                <div v-for="mphone in manager.person.phones" :key="mphone.number" class="font-weight-thin">{{ mphone.number }}</div>
+                <div v-for="memail in manager.person.emails" :key="memail.address" class="font-weight-thin"> {{ memail.address }}</div>
               </div>
               <!--------------------------//Organization Relationship Manager-------------------------------->
             </v-card-text>
@@ -233,15 +189,14 @@
 						<v-card
 							class="mx-auto"
 						>
-							<v-card-title class="white--text orange darken-4">
+							<v-card-title class="white--text red darken-4">
 							Notes:
 
-							<v-spacer></v-spacer>
 							<!---------------------------------Add Note Dialog------------------------------->
 							<v-dialog
 							v-model="add_note_dlg"
 							max-width="600px"
-							>
+							>e
 							<template v-slot:activator="{ on, attrs }">
 							<v-hover
 								v-slot="{ hover }"
@@ -320,96 +275,79 @@
 
 							</v-card-title>
 
-							<v-card-text class="pt-4">
-							<v-card-title>Important information</v-card-title>
-							<v-row style="margin-top: -10px; margin-bottom: 20px">
-								<v-col class="offset-1">
-									<div class="body-1 font-weight-light">
-									{{ partner_secondary_info.critical_relationship_information }}
-								</div>
-								</v-col>
-							</v-row>
-
-								<v-divider></v-divider>
+							<v-card-subtitle class="pt-4">
 								<v-row>
+                  <v-col>
+                    <v-text-field
+                        placeholder="Search"
+                        v-model="note_search"
+                        append-icon="mdi-magnify"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col class="col-3">
+                    <v-menu
+                        v-model="menu1"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="formattedStartDate"
+                            label="From"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            clearable
+                        >
+                        </v-text-field>
+                      </template>
+                      <v-date-picker
+                          v-model="start_date"
+                          @input="menu1 = false"
+                      >
+                      </v-date-picker>
+                    </v-menu>
+                  </v-col>
+                  <v-col class="col-3">
+                    <v-menu
+                        v-model="menu2"
+                        :close-on-content-click="false"
+                        transition="scale-transition"
+                    >
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-text-field
+                            v-model="formattedEndDate"
+                            label="To"
+                            prepend-icon="mdi-calendar"
+                            readonly
+                            v-bind="attrs"
+                            v-on="on"
+                            clearable
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                          v-model="end_date"
+                          @input="menu2 = false"
+                      ></v-date-picker>
+                    </v-menu>
+                  </v-col>
 									<v-col>
 										<v-switch
 										v-model="history_switch"
 										:label="switch_label()"
-										color="red"
+										color="#B71C1C"
 										hide-details
 										@change="set_notes_view"
 										></v-switch>
 									</v-col>
 								</v-row>
-									<v-row style="margin-top:-30px">
-									<v-col class="col-5">
-									<v-menu
-										v-model="menu1"
-										:close-on-content-click="false"
-										transition="scale-transition"
-									>
-										<template v-slot:activator="{ on, attrs }">
-										<v-text-field
-											v-model="formattedStartDate"
-											label="From"
-											prepend-icon="mdi-calendar"
-											readonly
-											v-bind="attrs"
-											v-on="on"
-											clearable
-										>
-										</v-text-field>
-										</template>
-										<v-date-picker
-										v-model="start_date"
-										@input="menu1 = false"
-										>
-										</v-date-picker>
-									</v-menu>
-									</v-col>
-									<v-col class="col-5">
-									<v-menu
-										v-model="menu2"
-										:close-on-content-click="false"
-										transition="scale-transition"
-									>
-										<template v-slot:activator="{ on, attrs }">
-										<v-text-field
-											v-model="formattedEndDate"
-											label="To"
-											prepend-icon="mdi-calendar"
-											readonly
-											v-bind="attrs"
-											v-on="on"
-											clearable
-										></v-text-field>
-										</template>
-										<v-date-picker
-										v-model="end_date"
-										@input="menu2 = false"
-										></v-date-picker>
-									</v-menu>
-									</v-col>
+              </v-card-subtitle>
 
-								</v-row>
-								<v-row style="margin-top:-30px">
-									<v-col class="col-5 offset-1">
-										<v-text-field
-											placeholder="Search Author"
-											v-model="note_search"
-											append-icon="mdi-magnify"
-										></v-text-field>
-									</v-col>
-								</v-row>
-							</v-card-text>
-
-
-							<v-divider></v-divider>
 							<v-virtual-scroll
 							:items="filteredList"
 							:item-height="50"
-							height="300"
+							height="150"
 							>
 							<template v-slot:default="{ item }">
 								<v-list-item>
@@ -430,7 +368,7 @@
 									>
 										Open
 									<v-icon
-										color="orange darken-4"
+										color="red darken-4"
 										right
 									>
 										mdi-open-in-new
@@ -562,49 +500,6 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
-              <v-row>
-                <div class="headline">Points of Contact</div>
-              </v-row>
-              <v-row v-for="poc in partner.point_of_contacts" :key="poc.personId">
-                <v-col class="col-12">
-                  <v-row>
-                    <v-col>
-                      <v-text-field
-                          label="First Name"
-                          v-model="poc.person.first_name"
-                      >
-                      </v-text-field>
-                    </v-col>
-                    <v-col>
-                      <v-text-field
-                          label="Last Name"
-                          v-model="poc.person.last_name"
-                      >
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row v-for="phone in poc.person.phones" :key="phone.id">
-                    <v-col>
-                      <v-text-field
-                          label="Phone"
-                          v-model="phone.number"
-                      >
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row v-for="email in poc.person.emails" :key="email.id">
-                    <v-col>
-                      <v-text-field
-                          label="Email Address"
-                          v-model="email.address"
-                      >
-                      </v-text-field>
-                    </v-col>
-                  </v-row>
-                </v-col>
-
-              </v-row>
-
             </v-container>
             <small>*indicates required field</small>
           </v-card-text>
@@ -737,19 +632,18 @@
 </template>
 <script>
 
-import PointOfContactDataService from "@/services/PointOfContactDataService";
 
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
+import PointOfContactDataService from "@/services/PointOfContactDataService";
 import PartnerDataService from "../services/PartnerDataService";
-import PersonDataService from "../services/PersonDataService";
 import RelationshipManagerDataService from "../services/RelationshipManagerDataService";
-import PhoneDataService from "../services/PhoneDataService";
 import NoteDataService from "../services/NoteDataService";
 import FileDataService from "../services/FileDataService";
 import NoteDialog from "./NoteDialog"
 import ContactDataService from "@/services/ContactDataService";
 import UserDataService from "@/services/UserDataService";
+// import OrganizationManagerDataService from "@/services/OrganizationManagerDataService";
 
 export default {
 	name: "partner",
@@ -771,7 +665,6 @@ export default {
 			partner: '',
 			partner_edit_dlg: false,
 			partner_secondary_info: '',
-			search: '',
 
 			/**
 			 * Relationship Mangers 
@@ -799,6 +692,7 @@ export default {
 			uploadFieldName: 'files',
 			file_upload: '',
 			upload_disabled: true,
+      search: '',
 
 			/**
 			 * Notes
@@ -845,6 +739,19 @@ export default {
 		}
     },
 	methods: {
+    openDialog(dlg){
+      switch(dlg){
+        case "RM":
+          this.assign_mgr_dlg = true;
+          break;
+        case "POC":
+          this.assign_poc_dlg = true;
+          break;
+        case "Edit":
+          this.partner_edit_dlg = true;
+          break;
+      }
+    },
 		/**
 		 * Notes
 		 */
@@ -984,7 +891,7 @@ export default {
 			Update organization data
 			*/
 			this.partner_edit_dlg = false;
-			var data = {
+			let data = {
 				"name": this.partner.name,
 				"street_number": this.partner.street_number,
 				"street_name": this.partner.street_name,
@@ -999,64 +906,17 @@ export default {
 			}
 			PartnerDataService.update(this.partner.id, data)
 			.then(response=>{
-				console.log(response.data);
+				// console.log(response.data);
 			})
 			.catch(e=>{
 				console.log(e);
-			});
-
-			/*
-			Update point of contact data
-			*/
-			this.partner.point_of_contacts.forEach(contact=>{
-				const person = {
-					first_name: this.$refs["first_name_"+contact.personId][0]["innerHTML"],
-					last_name: this.$refs["last_name_"+contact.personId][0]["innerHTML"],
-				};
-				PersonDataService.update(contact.personId, person).then(response=>{
-					// console.log(response.data);
-				})
-				.catch(e=>{console.log(e)});
-
-				contact.phones.forEach(phone=>{
-					const data = {
-						number: this.$refs["phone_"+phone.id][0]["innerHTML"]
-					};
-
-					PhoneDataService.update(phone.id, data).then(response=>{
-						// console.log(response)
-					})
-					.catch(e=>{console.log(e)});
-				});
-				
-				contact.emails.forEach(email=>{
-					const data = {
-						number: this.$refs["email_"+email.id][0]["innerHTML"]
-					};
-
-					EmailDataService.update(email.id, data).then(response=>{
-						// console.log(response)
-					})
-					.catch(e=>{console.log(e)});
-				});
-			});
-
-			/*
-			Update relationship manager for partner
-			*/
-			this.partner.relationship_managers.forEach(manager=>{
-				const data = {
-					organizationId: manager.organizationId,
-					personId: manager.personId
-				}
-				OrganizationManagerDataService.update(manager.organizationId, manager.personId, data)
 			});
 		},
 		setPartner(){
 			PartnerDataService.get(this.$route.params.organizationId)
 			.then(response => {
 				this.notes = response.data.notes.map(note=>{
-					var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
+					let date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
 					return {
 						id: note.id,
 						text: note.text,
@@ -1084,7 +944,6 @@ export default {
 		populateRelationshipManagersList(){
 			UserDataService.getAll()
 			.then(response=>{
-			  console.log(response);
 				this.all_relationship_managers = response.data.map(manager=>{
 					return {
 						name: manager.first_name+" "+manager.last_name,
@@ -1123,7 +982,6 @@ export default {
         .then(response=>{
             this.partner.relationship_managers = response.data;
             this.setPartner();
-          console.log(response);
         })
         .catch(err=>{console.log(err)});
       }
@@ -1180,7 +1038,7 @@ export default {
 	},
 	computed:{
 		headers () {
-			var headers = [
+			let headers = [
 				{text: 'File Name',value: 'name', width: '80px'},
 				{text: 'Date', value: 'date', width: '80px'},
 				{text: 'Author', value: 'author', width: '100px'},
@@ -1190,9 +1048,9 @@ export default {
 			return headers;
 		},
 		filteredList() {
-                return this.notes.filter(note => {
-					var afterStart = true;
-					var beforeEnd = true;
+      return this.notes.filter(note => {
+					let afterStart = true;
+					let beforeEnd = true;
 
 					const vDate = new Date(note.date).toISOString().substr(0, 10);
 					if(this.formattedStartDate !== '' && this.formattedStartDate !== null){
@@ -1208,7 +1066,7 @@ export default {
 						(afterStart && beforeEnd)
 					}
 				})
-            },		
+      },
 	},
 	mounted() {
 		this.reset();
