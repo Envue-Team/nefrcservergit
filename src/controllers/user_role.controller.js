@@ -21,6 +21,23 @@ exports.create = (req, res) => {
     });
 }
 
+exports.findRole = (req, res) => {
+
+ 
+  const id = req.body.userId;
+  
+  DBUserRole.findByPk(id)
+    .then(data => {
+      console.log(data.roleId);
+      res.send(data.roleId);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while finding user role."
+      });
+    });
+}
 
 exports.update = (req, res) => {
   const id = req.params.userId;
@@ -31,7 +48,7 @@ exports.update = (req, res) => {
   }
 
 
-  DBUserRole.update(req.body, {
+  DBUserRole.update(roleId, {
     where: { userId: id }
   })
     .then(num => {
