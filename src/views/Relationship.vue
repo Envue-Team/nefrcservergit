@@ -1581,7 +1581,8 @@ export default {
       }else {
         PointOfContactDataService.create(data)
             .then(response=>{
-              console.log(response);
+              this.setRelationship();
+              // console.log(response);
             })
             .catch(err=>{console.log(err)});
       }
