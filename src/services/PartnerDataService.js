@@ -24,7 +24,6 @@ class PartnerDataService {
   deleteAll() {
     return http.delete(`/partners`);
   }
-
 }
 
 export default new PartnerDataService();

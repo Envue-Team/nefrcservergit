@@ -159,13 +159,14 @@ exports.findAll = (req, res) => {
         model: DBNote,
         include: 'person'
       },
-      {
-        model: DBPOC,
-        include: [{
-          model: DBPerson,
-          include: ['phones', 'emails'],
-        }]
-      },
+      // {
+      //   model: DBPOC,
+      //   include: [{
+      //     model: DBPerson,
+      //     include: ['phones', 'emails'],
+      //   }
+      //   ]
+      // },
       {
         model: DBRM,
         include: [{
@@ -200,13 +201,13 @@ exports.findAllPartners = (req, res) => {
       model: DBPartner,
       where: { services : {[Op.ne]: null} }
     },
-    {
-      model: DBPOC,
-      include: [{
-        model: DBPerson,
-        include: ['phones', 'email']
-      }]
-    },
+    // {
+    //   model: DBPOC,
+    //   include: [{
+    //     model: DBPerson,
+    //     include: ['phones', 'email']
+    //   }]
+    // },
     {
       model: DBRM,
       include: [{
@@ -241,13 +242,13 @@ exports.findAllRelationships = (req, res) => {
       model: DBRelationship,
       where: { status : {[Op.ne]: null} }
     },
-    {
-      model: DBPOC,
-      include: [{
-        model: DBPerson,
-        include: ['phones', 'emails']
-      }]
-    },
+    // {
+    //   model: DBPOC,
+    //   include: [{
+    //     model: DBPerson,
+    //     include: ['phones', 'emails']
+    //   }]
+    // },
     {
       model: DBRM,
       include: [{
@@ -281,13 +282,13 @@ exports.findOne = (req, res) => {
         model: DBNote, 
         include: 'person'
       },
-    {
-      model: DBPOC,
-      include: [{
-        model: DBPerson,
-        include: ['phones', 'emails']
-      }]
-    },
+    // {
+    //   model: DBPOC,
+    //   include: [{
+    //     model: DBPerson,
+    //     include: ['phones', 'emails']
+    //   }]
+    // },
     {
       model: DBRM,
       include: [{
@@ -320,13 +321,13 @@ exports.findOnePartner = (req, res) => {
         model: DBNote,
         include: 'person'
       },
-    {
-      model: DBPOC,
-      include: [{
-        model: DBPerson,
-        include: ['phones', 'emails']
-      }]
-    },
+    // {
+    //   model: DBPOC,
+    //   include: [{
+    //     model: DBPerson,
+    //     include: ['phones', 'emails']
+    //   }]
+    // },
     {
       model: DBRM,
       include: [{
@@ -360,11 +361,8 @@ exports.findOneRelationship = (req, res) => {
         include: 'person'
       },
     {
-      model: DBPOC,
-      include: [{
-        model: DBPerson,
-        include: ['phones', 'emails']
-      }]
+      model: DBPerson,
+      include: ['phones', 'emails']
     },
     {
       model: DBRM,

@@ -1,630 +1,1121 @@
 <template>
 	<v-container>
+    <div class="red--text text--darken-4 page-title">Relationship</div>
 		<v-row><!---------------------First Container Row-------------------------------->
 					
-				<v-col class="col-7"><!----------------------Left Column-------------------------->
-						<!---------------------Partner Basic Data-------------------------------->
-						<div class="text-h5 font-weight-thin">
-							
+				<v-col class="col-4"><!----------------------Left Column-------------------------->
+          <v-card elevation="3" class="mb-3">
+            <v-card-title>
+						    <!---------------------Relationship Basic Data-------------------------------->
+                  <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit')"><div class="font-weight-thin text-wrap" >
+                    {{relationship.name}}
+                  </div></a>
+            </v-card-title>
+                <v-card-subtitle style="margin-bottom: -30px">
+                  <!------------------------------------Relationship Address Info------------------------------>
+                  <address class="text-capitalize">
+                    {{ relationship.street_number }} {{ relationship.street_name}}
+                    {{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}
+                    {{relationship.county}} County
+                  </address>
+                  <a :href="relationship.website" class="red--text text--darken-3  body-3 mt-3">{{ relationship.website }}</a>
 
+                </v-card-subtitle>
+                  <v-card-text >
+
+
+          <!---------------------//Relationship Basic Data-------------------------------->
+
+          <!-----------------------Point of Contact--------------------------------->
+          <br/>
+            <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
+              <span v-if="organization_points_of_contact.length==0">
+                Add New Point of Contact
+              </span>
+            </a>
+						<div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
+                <div class="font-weight-black">
+                    <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
+                    <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>
+                </div>
+              </a>
+							<span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
+                  <span v-if="phone.isPrimary==true">
+                    <span :ref="'phone_' + phone.id">
+                      {{ phone.number }} (P) |
+                    </span>
+                  </span>
+							</span>
+              <span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
+                  <span v-if="phone.isPrimary==false">
+                    <span :ref="'phone_' + phone.id">
+                      {{ phone.number }}
+                    </span>
+                  </span>
+              </span>
+              <br/>
+							<span v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
+                  <span v-if="email.isPrimary==true">
+                      <span :ref="'email_' + email.id">
+                        {{ email.address }} (P) |
+                      </span>
+                    </span>
+							</span>
+            <span v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
+                  <span v-if="email.isPrimary==false">
+                    <span :ref="'email_' + email.id">
+                      {{ email.address }}
+                    </span>
+                  </span>
+            </span>
 						</div>
-						<div class="text-h3 font-weight-thin">{{relationship.name}}
-						<!---------------------------------Edit Relationship Dialog------------------------------->
-							<v-dialog
-							v-model="relationship_edit_dlg"
-							max-width="600px"
-							>
-							<template v-slot:activator="{ on, attrs }">
-							<v-hover
-								v-slot="{ hover }"
-								open-delay="200"
-							>
-							<v-btn
-								icon
-								:elevation="hover ? 16 : 2"
-								:class="{ 'on-hover': hover }"
-								v-bind="attrs"
-								v-on="on"
-							>
-							<v-icon>
-								mdi-pencil
-							</v-icon>
-							</v-btn>
-							</v-hover>
-							</template>
-							<v-card>
-								<v-form>
-								<v-card-title>
-								<span class="headline">Relationship Information</span>
-								</v-card-title>
-								<v-card-text>
-								<v-container>
-									<v-row>
-										<v-col
-										cols="6"
-										sm="6"
-										md="6"
-									>
-										<v-text-field
-										label="Agency Name*"
-										required
-										v-model="relationship.name"
-										></v-text-field>
-										</v-col>
-										<v-col
-										cols="6"
-										sm="6"
-										md="6"
-										>
-										<v-checkbox
-										label="Public Safety"
-										v-model="relationship.public_safety"
-										></v-checkbox>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-label>Relationship Status</v-label>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-										<v-select
-										class="text-capitalize"
-										:items="status_options"
-										v-model="current_status">
-										</v-select>
-										</v-col>
-									</v-row>
-									<v-row>
-										<v-col
-											cols="12"
-											sm="6"
-											md="4"
-										>
-										<v-text-field
-										label="Street Number"
-										v-model="relationship.street_number"
-										></v-text-field>
-									</v-col>
-									<v-col
-										cols="12"
-										sm="6"
-										md="4"
-									>
-										<v-text-field
-										label="Street Name"
-										v-model="relationship.street_name"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col
-										cols="3"
-										sm="6"
-										md="4"
-									>
-										<v-text-field
-										label="City"
-										v-model="relationship.city"
-										></v-text-field>
-									</v-col>
-									<v-col cols="2">
-										<v-text-field
-										label="State"
-										v-model="relationship.state"
-										></v-text-field>
-									</v-col>
-									<v-col cols="3">
-										<v-text-field
-										label="Zip"
-										v-model="relationship.zip"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col cols="6">
-										<v-text-field
-										label="County"
-										v-model="relationship.county"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-									<v-col cols="6">
-										<v-text-field
-										label="Website"
-										v-model="relationship.website"
-										></v-text-field>
-									</v-col>
-									</v-row>
-									<v-row>
-										<div class="headline">Points of Contact</div>
-									</v-row>
-									<v-row v-for="poc in relationship.point_of_contacts" :key="poc.personId">
-										<v-col class="col-12">
-											<v-row>
-												<v-col>
-													<v-text-field
-														label="First Name"
-														v-model="poc.person.first_name"
-													>
-													</v-text-field>
-												</v-col>
-												<v-col>
-													<v-text-field
-														label="Last Name"
-														v-model="poc.person.last_name"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-											<v-row v-for="phone in poc.person.phones" :key="phone.id">
-												<v-col>
-													<v-text-field
-														label="Phone"
-														v-model="phone.number"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-											<v-row v-for="email in poc.person.emails" :key="email.id">
-												<v-col>
-													<v-text-field
-														label="Email Address"
-														v-model="email.address"
-													>
-													</v-text-field>
-												</v-col>
-											</v-row>
-										</v-col>
-										
-									</v-row>
-
-								</v-container>
-								<small>*indicates required field</small>
-								</v-card-text>
-								<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="relationship_edit_dlg=false"
-								>
-									Close
-								</v-btn>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="updateRelationship"
-								>
-									Save
-								</v-btn>
-								</v-card-actions>
-								</v-form>
-							</v-card>
-							</v-dialog>
-						<!---------------------------------//Edit Partner Dialog------------------------------> 
-						</div>
-						<div class="body-3 mt-3 text-capitalize">
-							{{ relationship.street_number }} {{ relationship.street_name}}<br>
-							{{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}<br>
-							{{relationship.county}} County
-						</div>
-						<a :href="relationship.website" class="blue--text text--darken-1 body-3 mt-3">{{ relationship.website }}</a>
-						<!---------------------//Partner Basic Data-------------------------------->
-
-						<!--------------------------Partner Services-------------------------------->
-						<div class="text-h5 mt-3">Services<span v-if="relationship.public_safety"> (Safety) </span></div>
-						<div class="text-h5 font-weight-light">{{ relationship_secondary_info.services }}</div>
-						<!------------------------//Partner Services--------------------------------->
-
-						<!-----------------------Point of Contact--------------------------------->
-						<div v-for="contact in relationship.point_of_contacts" v-bind:key="contact.personId" class="mt-3">
-							<div class="text-h5 font-weight-light">
-								<span :ref="'first_name_' + contact.personId">{{ contact.person.first_name }} </span> 
-								<span :ref="'last_name_' + contact.personId">{{ contact.person.last_name }}</span>
-							</div>  
-							<div v-for="phone in contact.person.phones" :key="phone.number" class="text-h5 font-weight-thin">
-								<span :ref="'phone_' + phone.id">{{ phone.number }}</span>
-							</div>
-							<div v-for="email in contact.person.emails" :key="email.address" class="text-h5 font-weight-thin">
-								<span :ref="'email_' + email.id">{{ email.address }}</span>
-							</div>
-						</div>	
 						<!-----------------------//Point of Contact--------------------------------->
+                </v-card-text>
+<!--              </v-col>-->
+<!--              </v-row>-->
+<!--            </v-card-title>-->
+          </v-card>
+          <v-card>
+            <v-card-text>
+						<!--------------------------Organization Relationship Management-------------------------------->
+            <span v-if="organization_relationship_managers.length == 0">
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM')">
+              Assign an Organization Manager
+              </a>
+            </span>
 
-						<!--------------------------Relationship Management-------------------------------->
 						<div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-							<div class="text-h5 font-weight-light mt-3">
-								<span :ref="'relationship_manager_' + manager.personId">
-									{{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
-								</span>
-							<!---------------------------------Assign Relationship Manager Dialog------------------------------->
-							<v-dialog
-							v-model="assign_mgr_dlg"
-							max-width="600px"
-							>
-							<template v-slot:activator="{ on, attrs }">
-							<v-hover
-								v-slot="{ hover }"
-								open-delay="200"
-							>
-							<v-btn
-								icon
-								:elevation="hover ? 16 : 2"
-								:class="{ 'on-hover': hover }"
-								v-bind="attrs"
-								v-on="on"
-							>
-							<v-icon>
-								mdi-pencil
-							</v-icon>
-							</v-btn>
-							</v-hover>
-							</template>
-							<v-card>
-								<v-card-title>
-								<span class="headline">Assign Relationship Manager</span>
-								</v-card-title>
-								<v-card-text>
-								<v-container>
-									<v-row>
-										<v-col
-										cols="12"
-										sm="12"
-										md="12"
-										>
-											<v-autocomplete
-											label="Relationship Manager"
-											:items="all_relationship_managers"
-											item-text="name"
-											item-value="value"
-											return-object
-											@change="updateRelationshipManager"
-											>
-											</v-autocomplete>
-										</v-col>	
-									</v-row>
-								</v-container>
-								</v-card-text>
-								<v-card-actions>
-								<v-spacer></v-spacer>
-								<v-btn
-									color="blue darken-1"
-									text
-									@click="assign_mgr_dlg=false"
-								>
-									Close
-								</v-btn>
-								<v-btn
-									color="blue darken-1"
-									text
-									v-on:click="updateRelationshipManager"
-								>
-									Save
-								</v-btn>
-								</v-card-actions>
-							</v-card>
-							</v-dialog>
-						<!---------------------------------//Assign Manager Dialog------------------------------> 
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM')">
+                <div class="font-weight-black mt-3">
+                  <strong>
+                    <span :ref="'relationship_manager_' + manager.personId">
+                      {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
+                    </span>
+                  </strong>
+                </div>
+              </a>
+							<div v-for="mphone in manager.person.phones" :key="mphone.number" class="font-weight-thin">{{ mphone.number }}</div>
+							<div v-for="memail in manager.person.emails" :key="memail.address" class="font-weight-thin"> {{ memail.address }}</div>
+						</div>
+						<!--------------------------//Organization Relationship Management-------------------------------->
+            </v-card-text>
+          </v-card>
 
-						</div>
-							<div v-for="mphone in manager.person.phones" :key="mphone.number" class="text-h5 font-weight-thin">{{ mphone.number }}</div>
-							<div v-for="memail in manager.person.emails" :key="memail.address" class="text-h5 font-weight-thin"> {{ memail.address }}</div>
-						</div>
-						<!--------------------------//Relationship Management-------------------------------->
-						
-						<!--------------------------File List Table-------------------------------->
-						<v-data-table
-						:headers="headers"
-						:search="search"
-						:items="files"
-						item-key="id"
-						multi-sort
-						>
-						<template v-slot:top>
-						<v-text-field
-						v-model="search"
-						label="Search Files"
-						class="mx-4"
-						></v-text-field>
-						</template>
-						<template v-slot:item.name="item">
-							<p>{{ item.item.name  }}</p>
-						</template>
-						<template v-slot:item.date="item">
-							<p>{{ item.item.date }}</p>
-						</template>
-						<template v-slot:item.author="item">
-							<p>{{ item.item.author }}</p>
-						</template>
-						<template v-slot:item.download="item">
-							<v-btn
-								depressed
-								small
-								@click="downloadFile(item)"
-							>
-							Download
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-arrow-down
-							</v-icon>
-							</v-btn>
-						</template>
-						<template v-slot:item.remove="item">
-							<v-btn
-								depressed
-								small
-								@click="deleteFile(item)"
-							>
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-trash-can
-							</v-icon>
-							</v-btn>
-						</template>
-						<template v-slot:footer>
-							<v-row>
-							<v-file-input
-							label="Upload new file"
-							show-size
-							counter
-							dense
-							@change="filesChange"
-							></v-file-input>
-							<v-btn
-								depressed
-								small
-								:disabled="upload_disabled"
-								@click="uploadFile"
-							>
-							Upload
-							<v-icon
-								color="orange darken-4"
-								right
-							>
-								mdi-arrow-up
-							</v-icon>
-							</v-btn>
-							</v-row>
-						</template>
-						</v-data-table>
+          <!--------------------------//Notes and History-------------------------------->
+
+          <!--------------------------File List Table-------------------------------->
+<!--						<v-data-table-->
+<!--						:headers="headers"-->
+<!--						:search="search"-->
+<!--						:items="files"-->
+<!--						item-key="id"-->
+<!--						multi-sort-->
+<!--						>-->
+<!--						<template v-slot:top>-->
+<!--						<v-text-field-->
+<!--						v-model="search"-->
+<!--						label="Search Files"-->
+<!--						class="mx-4"-->
+<!--						></v-text-field>-->
+<!--						</template>-->
+<!--						<template v-slot:item.name="item">-->
+<!--							<p>{{ item.item.name  }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.date="item">-->
+<!--							<p>{{ item.item.date }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.author="item">-->
+<!--							<p>{{ item.item.author }}</p>-->
+<!--						</template>-->
+<!--						<template v-slot:item.download="item">-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								@click="downloadFile(item)"-->
+<!--							>-->
+<!--							Download-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-arrow-down-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--						</template>-->
+<!--						<template v-slot:item.remove="item">-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								@click="deleteFile(item)"-->
+<!--							>-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-trash-can-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--						</template>-->
+<!--						<template v-slot:footer>-->
+<!--							<v-row>-->
+<!--							<v-file-input-->
+<!--							label="Upload new file"-->
+<!--							show-size-->
+<!--							counter-->
+<!--							dense-->
+<!--							@change="filesChange"-->
+<!--							></v-file-input>-->
+<!--							<v-btn-->
+<!--								depressed-->
+<!--								small-->
+<!--								:disabled="upload_disabled"-->
+<!--								@click="uploadFile"-->
+<!--							>-->
+<!--							Upload-->
+<!--							<v-icon-->
+<!--								color="orange darken-4"-->
+<!--								right-->
+<!--							>-->
+<!--								mdi-arrow-up-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--							</v-row>-->
+<!--						</template>-->
+<!--						</v-data-table>-->
 						<!--------------------------//File List Table-------------------------------->
 
 				</v-col><!----------------------//Left Column-------------------------->
+      <v-col><!--------------------------Middle Column----------------->
+        <NoteDialog v-model="showNoteDialog" :item="view_note_item"/>
+        <!--------------------------Notes and History-------------------------------->
+        <template>
+          <v-card
+              class="mx-auto"
+          >
+            <v-card-title class="white--text orange darken-4">
+              Notes:
 
-				<v-col><!---------------------------Right Column-------------------------------------->
-					<NoteDialog v-model="showNoteDialog" :item="view_note_item"/>
-					<!--------------------------Notes and History-------------------------------->
-					<template>
-						<v-card
-							class="mx-auto"
-						>
-							<v-card-title class="white--text orange darken-4">
-							Notes:
+<!--              <v-spacer></v-spacer>-->
+              <!---------------------------------Add Note Dialog------------------------------->
+              <v-dialog
+                  v-model="add_note_dlg"
+                  max-width="600px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-hover
+                      v-slot="{ hover }"
+                      open-delay="200"
+                  >
+                    <v-btn
+                        color="white"
+                        class="text--primary"
+                        fab
+                        small
+                        :elevation="hover ? 16 : 2"
+                        :class="{ 'on-hover': hover }"
+                        v-bind="attrs"
+                        v-on="on"
+                    >
+                      <v-icon>
+                        mdi-plus
+                      </v-icon>
+                    </v-btn>
+                  </v-hover>
+                </template>
+                <v-form
+                    v-model="valid_note"
+                    ref="new_note_form"
+                >
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">Note</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-row>
+                          <v-col class="col-3">
+                            <v-autocomplete
+                                :items="add_note_form.types"
+                                v-model="add_note_form.type"
+                                label="Type"
+                            ></v-autocomplete>
+                          </v-col>
+                        </v-row>
+                        <v-row>
+                          <v-col
+                              cols="12"
+                              sm="12"
+                              md="12"
+                          >
+                            <v-textarea
+                                :rules="note_text_rule"
+                                v-model="add_note_form.text"
+                            ></v-textarea>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="add_note_dlg=false"
+                      >
+                        Close
+                      </v-btn>
+                      <v-btn
+                          color="blue darken-1"
+                          text
+                          @click="addNote"
+                      >
+                        Save
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-form>
+              </v-dialog>
+              <!---------------------------------//Add Note Dialog------------------------------>
 
-							<v-spacer></v-spacer>
-							<!---------------------------------Add Note Dialog------------------------------->
-							<v-dialog
-							v-model="add_note_dlg"
-							max-width="600px"
-							>
-							<template v-slot:activator="{ on, attrs }">
-							<v-hover
-								v-slot="{ hover }"
-								open-delay="200"
-							>
-							<v-btn
-								color="white"
-								class="text--primary"
-								fab
-								small
-								:elevation="hover ? 16 : 2"
-								:class="{ 'on-hover': hover }"
-								v-bind="attrs"
-								v-on="on"
-							>
-							<v-icon>
-								mdi-plus
-							</v-icon>
-							</v-btn>
-							</v-hover>
-							</template>
-							<v-form
-								v-model="valid_note"
-								ref="new_note_form"
-							>
-								<v-card>
-									<v-card-title>
-									<span class="headline">Note</span>
-									</v-card-title>
-									<v-card-text>
-									<v-container>
-										<v-row>
-											<v-col class="col-3">
-												<v-autocomplete
-												:items="add_note_form.types"
-												v-model="add_note_form.type"
-												label="Type"
-												></v-autocomplete>											
-											</v-col>
-										</v-row>
-										<v-row>
-											<v-col
-											cols="12"
-											sm="12"
-											md="12"
-											>
-												<v-textarea
-													:rules="note_text_rule"
-													v-model="add_note_form.text"
-												></v-textarea>
-											</v-col>	
-										</v-row>
-									</v-container>
-									</v-card-text>
-									<v-card-actions>
-									<v-spacer></v-spacer>
-									<v-btn
-										color="blue darken-1"
-										text
-										@click="add_note_dlg=false"
-									>
-										Close
-									</v-btn>
-									<v-btn
-										color="blue darken-1"
-										text
-										@click="addNote"
-									>
-										Save
-									</v-btn>
-									</v-card-actions>
-								</v-card>
-							</v-form>
-							</v-dialog>
-							<!---------------------------------//Add Note Dialog------------------------------> 
-							
-							</v-card-title>
+            </v-card-title>
 
-							<v-card-text class="pt-4">
-							<v-card-title>Relationship History</v-card-title>
-								<v-divider></v-divider>
-								<v-row>
-									<v-col>
-										<v-text-field
-												placeholder="Search"
-												v-model="note_search"
-												append-icon="mdi-magnify"
-										></v-text-field>
-									</v-col>
-									<v-col>
-										<v-switch
-										v-model="history_switch"
-										:label="switch_label()"
-										color="red"
-										hide-details
-										@change="set_notes_view"
-										></v-switch>
-									</v-col>
-								</v-row>
-								<v-row>
-									<v-col
-									cols="12"
-									sm="6"
-									md="4"
-									>
-									<v-menu
-										v-model="menu1"
-										:close-on-content-click="false"
-										:nudge-right="40"
-										transition="scale-transition"
-										offset-y
-										min-width="290px"
-									>
-										<template v-slot:activator="{ on, attrs }">
-										<v-text-field
-											v-model="formattedStartDate"
-											label="Start Date"
-											prepend-icon="mdi-calendar"
-											readonly
-											v-bind="attrs"
-											v-on="on"
-											clearable
-										></v-text-field>
-										</template>
-										<v-date-picker
-										v-model="start_date"
-										@input="menu1 = false"
-										></v-date-picker>
-									</v-menu>
-									</v-col>
-									<v-col
-									cols="12"
-									sm="6"
-									md="4"
-									>
-									<v-menu
-										v-model="menu2"
-										:close-on-content-click="false"
-										:nudge-right="40"
-										transition="scale-transition"
-										offset-y
-										min-width="290px"
-									>
-										<template v-slot:activator="{ on, attrs }">
-											<!---------v-model="end_date"---------------->
-										<v-text-field
-											v-model="formattedEndDate"
-											label="End Date"
-											prepend-icon="mdi-calendar"
-											readonly
-											v-bind="attrs"
-											v-on="on"
-											clearable
-										></v-text-field>
-										</template>
-										<v-date-picker
-										v-model="end_date"
-										@input="menu2 = false"
-										></v-date-picker>
-									</v-menu>
-									</v-col>
-									<v-spacer></v-spacer>
-								</v-row>
-							</v-card-text>
-							
+            <v-card-subtitle class="pt-4">
+<!--              <v-card-title>Relationship History</v-card-title>-->
+<!--              <v-divider></v-divider>-->
+              <v-row>
+                <v-col>
+                  <v-text-field
+                      placeholder="Search"
+                      v-model="note_search"
+                      append-icon="mdi-magnify"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                  class="col-3"
+                >
+                  <v-menu
+                      v-model="menu1"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field
+                          v-model="formattedStartDate"
+                          label="Start Date"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          clearable
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                        v-model="start_date"
+                        @input="menu1 = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col
+                  class="col-3"
+                >
+                  <v-menu
+                      v-model="menu2"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      transition="scale-transition"
+                      offset-y
+                      min-width="290px"
+                  >
+                    <template v-slot:activator="{ on, attrs }">
+                      <!---------v-model="end_date"---------------->
+                      <v-text-field
+                          v-model="formattedEndDate"
+                          label="End Date"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-bind="attrs"
+                          v-on="on"
+                          clearable
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                        v-model="end_date"
+                        @input="menu2 = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-col>
+                <v-col>
+                  <v-switch
+                      v-model="history_switch"
+                      :label="switch_label()"
+                      color="red"
+                      hide-details
+                      @change="set_notes_view"
+                  ></v-switch>
+                </v-col>
+              </v-row>
+              <v-row>
+<!--                <template>-->
+<!--                  <v-tabs v-model="tab" background-color="grey lighten-4">-->
+<!--                    <v-tab-->
+<!--                        @click="set_notes_view('general')"-->
+<!--                    >-->
+<!--                      General-->
+<!--                    </v-tab>-->
+<!--                    <v-tab>-->
+<!--                      Contact-->
+<!--                    </v-tab>-->
+<!--                  </v-tabs>-->
+<!--                  <v-tabs-items :value="tab">-->
+<!--                    <v-tab-item>-->
+<!--                      General Notes-->
+<!--                      <v-card>-->
+<!--                        <v-card-text>-->
+<!--                          <v-virtual-scroll-->
+<!--                              :items="filteredList"-->
+<!--                              :item-height="50"-->
+<!--                              height="300"-->
+<!--                          >-->
+<!--                            <template v-slot:default="{ item }">-->
+<!--                              <v-list-item>-->
 
-							<v-divider></v-divider>
-							<v-virtual-scroll
-							:items="filteredList"
-							:item-height="50"
-							height="300"
-							>
-							<template v-slot:default="{ item }">
-								<v-list-item>
-									
-								<v-list-item-content>
-									<v-list-item-title class="font-weight-thin">
-										Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}
-									</v-list-item-title>
-									<v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
-								</v-list-item-content>
+<!--                                <v-list-item-content style="width: 800px">-->
+<!--                                  <v-list-item-title class="font-weight-thin">-->
+<!--                                    Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--                                  </v-list-item-title>-->
+<!--                                  <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--                                </v-list-item-content>-->
 
-								<v-list-item-action>
-									<!-------------------------------New Note Dialog------------------------------>
-									<v-btn
-										depressed
-										small
-										@click.stop="openNoteDialog(item)"
-									>
-										Open
-									<v-icon
-										color="orange darken-4"
-										right
-									>
-										mdi-open-in-new
-									</v-icon>
-									</v-btn>
-								</v-list-item-action>
-								</v-list-item>
-							</template>
-							</v-virtual-scroll>
-						</v-card>
-						</template>
+<!--                                <v-list-item-action>-->
+<!--                                  &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                                  <v-btn-->
+<!--                                      depressed-->
+<!--                                      small-->
+<!--                                      @click.stop="openNoteDialog(item)"-->
+<!--                                  >-->
+<!--                                    Open-->
+<!--                                    <v-icon-->
+<!--                                        color="orange darken-4"-->
+<!--                                        right-->
+<!--                                    >-->
+<!--                                      mdi-open-in-new-->
+<!--                                    </v-icon>-->
+<!--                                  </v-btn>-->
+<!--                                </v-list-item-action>-->
+<!--                              </v-list-item>-->
+<!--                            </template>-->
+<!--                          </v-virtual-scroll>-->
+<!--                        </v-card-text>-->
+<!--                      </v-card>-->
+<!--                    </v-tab-item>-->
+<!--                  <v-tab-item>-->
+<!--                    <v-card-text>-->
+<!--                      Contact Notes-->
+<!--                    </v-card-text>-->
+<!--                  </v-tab-item>-->
+<!--                </v-tabs-items>-->
+<!--                </template>-->
+<!--                <v-col-->
+<!--                    cols="12"-->
+<!--                    sm="6"-->
+<!--                    md="4"-->
+<!--                >-->
+<!--                  <v-menu-->
+<!--                      v-model="menu1"-->
+<!--                      :close-on-content-click="false"-->
+<!--                      :nudge-right="40"-->
+<!--                      transition="scale-transition"-->
+<!--                      offset-y-->
+<!--                      min-width="290px"-->
+<!--                  >-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      <v-text-field-->
+<!--                          v-model="formattedStartDate"-->
+<!--                          label="Start Date"-->
+<!--                          prepend-icon="mdi-calendar"-->
+<!--                          readonly-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          clearable-->
+<!--                      ></v-text-field>-->
+<!--                    </template>-->
+<!--                    <v-date-picker-->
+<!--                        v-model="start_date"-->
+<!--                        @input="menu1 = false"-->
+<!--                    ></v-date-picker>-->
+<!--                  </v-menu>-->
+<!--                </v-col>-->
+<!--                <v-col-->
+<!--                    cols="12"-->
+<!--                    sm="6"-->
+<!--                    md="4"-->
+<!--                >-->
+<!--                  <v-menu-->
+<!--                      v-model="menu2"-->
+<!--                      :close-on-content-click="false"-->
+<!--                      :nudge-right="40"-->
+<!--                      transition="scale-transition"-->
+<!--                      offset-y-->
+<!--                      min-width="290px"-->
+<!--                  >-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;v-model="end_date"&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                      <v-text-field-->
+<!--                          v-model="formattedEndDate"-->
+<!--                          label="End Date"-->
+<!--                          prepend-icon="mdi-calendar"-->
+<!--                          readonly-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          clearable-->
+<!--                      ></v-text-field>-->
+<!--                    </template>-->
+<!--                    <v-date-picker-->
+<!--                        v-model="end_date"-->
+<!--                        @input="menu2 = false"-->
+<!--                    ></v-date-picker>-->
+<!--                  </v-menu>-->
+<!--                </v-col>-->
+<!--                <v-spacer></v-spacer>-->
+              </v-row>
+            </v-card-subtitle>
+            							<v-virtual-scroll
+            							:items="filteredList"
+            							:item-height="50"
+            							height="300"
+            							>
+            							<template v-slot:default="{ item }">
+            								<v-list-item>
+
+            								<v-list-item-content>
+            									<v-list-item-title class="font-weight-thin">
+            										Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}
+            									</v-list-item-title>
+            									<v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
+            								</v-list-item-content>
+
+            								<v-list-item-action>
+            									<!-------------------------------New Note Dialog------------------------------>
+            									<v-btn
+            										depressed
+            										small
+            										@click.stop="openNoteDialog(item)"
+            									>
+            										Open
+            									<v-icon
+            										color="orange darken-4"
+            										right
+            									>
+            										mdi-open-in-new
+            									</v-icon>
+            									</v-btn>
+            								</v-list-item-action>
+            								</v-list-item>
+            							</template>
+            							</v-virtual-scroll>
+<!--            						</v-card>-->
+<!--            						</template>-->
+
+
+<!--            <v-divider></v-divider>-->
+<!--            <v-virtual-scroll-->
+<!--                :items="filteredList"-->
+<!--                :item-height="50"-->
+<!--                height="300"-->
+<!--            >-->
+<!--              <template v-slot:default="{ item }">-->
+<!--                <v-list-item>-->
+
+<!--                  <v-list-item-content>-->
+<!--                    <v-list-item-title class="font-weight-thin">-->
+<!--                      Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--                    </v-list-item-title>-->
+<!--                    <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--                  </v-list-item-content>-->
+
+<!--                  <v-list-item-action>-->
+<!--                    &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                    <v-btn-->
+<!--                        depressed-->
+<!--                        small-->
+<!--                        @click.stop="openNoteDialog(item)"-->
+<!--                    >-->
+<!--                      Open-->
+<!--                      <v-icon-->
+<!--                          color="orange darken-4"-->
+<!--                          right-->
+<!--                      >-->
+<!--                        mdi-open-in-new-->
+<!--                      </v-icon>-->
+<!--                    </v-btn>-->
+<!--                  </v-list-item-action>-->
+<!--                </v-list-item>-->
+<!--              </template>-->
+<!--            </v-virtual-scroll>-->
+          </v-card>
+        </template>
+      </v-col><!------------------------//Middle Column---------------->
+
+<!--				<v-col class="col-3">&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Right Column&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+          <!--------------------------File List Table-------------------------------->
+<!--          <v-card elevation="3">-->
+<!--            <v-data-table-->
+<!--            :headers="headers"-->
+<!--            :search="search"-->
+<!--            :items="files"-->
+<!--            item-key="id"-->
+<!--            multi-sort-->
+<!--            >-->
+<!--              <template v-slot:top>-->
+<!--                <v-text-field-->
+<!--                v-model="search"-->
+<!--                label="Search Files"-->
+<!--                class="mx-4"-->
+<!--                ></v-text-field>-->
+<!--              </template>-->
+<!--              <template v-slot:item.name="item">-->
+<!--                <p>{{ item.item.name  }}</p>-->
+<!--              </template>-->
+<!--              <template v-slot:item.date="item">-->
+<!--                <p>{{ item.item.date }}</p>-->
+<!--              </template>-->
+<!--              <template v-slot:item.author="item">-->
+<!--                <p>{{ item.item.author }}</p>-->
+<!--              </template>-->
+<!--              <template v-slot:item.download="item">-->
+<!--              <v-btn-->
+<!--                depressed-->
+<!--                small-->
+<!--                @click="downloadFile(item)"-->
+<!--              >-->
+<!--              Download-->
+<!--              <v-icon-->
+<!--                color="orange darken-4"-->
+<!--                right-->
+<!--              >-->
+<!--                mdi-arrow-down-->
+<!--              </v-icon>-->
+<!--              </v-btn>-->
+<!--            </template>-->
+<!--            <template v-slot:item.remove="item">-->
+<!--              <v-btn-->
+<!--                depressed-->
+<!--                small-->
+<!--                @click="deleteFile(item)"-->
+<!--              >-->
+<!--              <v-icon-->
+<!--                color="orange darken-4"-->
+<!--                right-->
+<!--              >-->
+<!--                mdi-trash-can-->
+<!--              </v-icon>-->
+<!--              </v-btn>-->
+<!--            </template>-->
+<!--              <template v-slot:footer>-->
+<!--                <v-row>-->
+<!--                  <v-file-input-->
+<!--                  label="Upload new file"-->
+<!--                  show-size-->
+<!--                  counter-->
+<!--                  dense-->
+<!--                  @change="filesChange"-->
+<!--                  ></v-file-input>-->
+<!--                  <v-btn-->
+<!--                    depressed-->
+<!--                    small-->
+<!--                    :disabled="upload_disabled"-->
+<!--                    @click="uploadFile"-->
+<!--                  >-->
+<!--                  Upload-->
+<!--                    <v-icon-->
+<!--                      color="orange darken-4"-->
+<!--                      right-->
+<!--                    >-->
+<!--                      mdi-arrow-up-->
+<!--                    </v-icon>-->
+<!--                  </v-btn>-->
+<!--                </v-row>-->
+<!--              </template>-->
+<!--            </v-data-table>-->
+<!--          </v-card>-->
+          <!--------------------------//File List Table-------------------------------->
+<!--					<NoteDialog v-model="showNoteDialog" :item="view_note_item"/>-->
+<!--					&lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Notes and History&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--					<template>-->
+<!--						<v-card-->
+<!--							class="mx-auto"-->
+<!--						>-->
+<!--							<v-card-title class="white&#45;&#45;text orange darken-4">-->
+<!--							Notes:-->
+
+<!--							<v-spacer></v-spacer>-->
+<!--							&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Add Note Dialog-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--							<v-dialog-->
+<!--							v-model="add_note_dlg"-->
+<!--							max-width="600px"-->
+<!--							>-->
+<!--							<template v-slot:activator="{ on, attrs }">-->
+<!--							<v-hover-->
+<!--								v-slot="{ hover }"-->
+<!--								open-delay="200"-->
+<!--							>-->
+<!--							<v-btn-->
+<!--								color="white"-->
+<!--								class="text&#45;&#45;primary"-->
+<!--								fab-->
+<!--								small-->
+<!--								:elevation="hover ? 16 : 2"-->
+<!--								:class="{ 'on-hover': hover }"-->
+<!--								v-bind="attrs"-->
+<!--								v-on="on"-->
+<!--							>-->
+<!--							<v-icon>-->
+<!--								mdi-plus-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--							</v-hover>-->
+<!--							</template>-->
+<!--							<v-form-->
+<!--								v-model="valid_note"-->
+<!--								ref="new_note_form"-->
+<!--							>-->
+<!--								<v-card>-->
+<!--									<v-card-title>-->
+<!--									<span class="headline">Note</span>-->
+<!--									</v-card-title>-->
+<!--									<v-card-text>-->
+<!--									<v-container>-->
+<!--										<v-row>-->
+<!--											<v-col class="col-3">-->
+<!--												<v-autocomplete-->
+<!--												:items="add_note_form.types"-->
+<!--												v-model="add_note_form.type"-->
+<!--												label="Type"-->
+<!--												></v-autocomplete>											-->
+<!--											</v-col>-->
+<!--										</v-row>-->
+<!--										<v-row>-->
+<!--											<v-col-->
+<!--											cols="12"-->
+<!--											sm="12"-->
+<!--											md="12"-->
+<!--											>-->
+<!--												<v-textarea-->
+<!--													:rules="note_text_rule"-->
+<!--													v-model="add_note_form.text"-->
+<!--												></v-textarea>-->
+<!--											</v-col>	-->
+<!--										</v-row>-->
+<!--									</v-container>-->
+<!--									</v-card-text>-->
+<!--									<v-card-actions>-->
+<!--									<v-spacer></v-spacer>-->
+<!--									<v-btn-->
+<!--										color="blue darken-1"-->
+<!--										text-->
+<!--										@click="add_note_dlg=false"-->
+<!--									>-->
+<!--										Close-->
+<!--									</v-btn>-->
+<!--									<v-btn-->
+<!--										color="blue darken-1"-->
+<!--										text-->
+<!--										@click="addNote"-->
+<!--									>-->
+<!--										Save-->
+<!--									</v-btn>-->
+<!--									</v-card-actions>-->
+<!--								</v-card>-->
+<!--								</v-form>-->
+<!--							</v-dialog>-->
+<!--							&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;//Add Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt; -->
+<!--							-->
+<!--							</v-card-title>-->
+
+<!--							<v-card-text class="pt-4">-->
+<!--							<v-card-title>Relationship History</v-card-title>-->
+<!--								<v-divider></v-divider>-->
+<!--								<v-row>-->
+<!--									<v-col>-->
+<!--										<v-text-field-->
+<!--												placeholder="Search"-->
+<!--												v-model="note_search"-->
+<!--												append-icon="mdi-magnify"-->
+<!--										></v-text-field>-->
+<!--									</v-col>-->
+<!--									<v-col>-->
+<!--										<v-switch-->
+<!--										v-model="history_switch"-->
+<!--										:label="switch_label()"-->
+<!--										color="red"-->
+<!--										hide-details-->
+<!--										@change="set_notes_view"-->
+<!--										></v-switch>-->
+<!--									</v-col>-->
+<!--								</v-row>-->
+<!--								<v-row>-->
+<!--									<v-col-->
+<!--									cols="12"-->
+<!--									sm="6"-->
+<!--									md="4"-->
+<!--									>-->
+<!--									<v-menu-->
+<!--										v-model="menu1"-->
+<!--										:close-on-content-click="false"-->
+<!--										:nudge-right="40"-->
+<!--										transition="scale-transition"-->
+<!--										offset-y-->
+<!--										min-width="290px"-->
+<!--									>-->
+<!--										<template v-slot:activator="{ on, attrs }">-->
+<!--										<v-text-field-->
+<!--											v-model="formattedStartDate"-->
+<!--											label="Start Date"-->
+<!--											prepend-icon="mdi-calendar"-->
+<!--											readonly-->
+<!--											v-bind="attrs"-->
+<!--											v-on="on"-->
+<!--											clearable-->
+<!--										></v-text-field>-->
+<!--										</template>-->
+<!--										<v-date-picker-->
+<!--										v-model="start_date"-->
+<!--										@input="menu1 = false"-->
+<!--										></v-date-picker>-->
+<!--									</v-menu>-->
+<!--									</v-col>-->
+<!--									<v-col-->
+<!--									cols="12"-->
+<!--									sm="6"-->
+<!--									md="4"-->
+<!--									>-->
+<!--									<v-menu-->
+<!--										v-model="menu2"-->
+<!--										:close-on-content-click="false"-->
+<!--										:nudge-right="40"-->
+<!--										transition="scale-transition"-->
+<!--										offset-y-->
+<!--										min-width="290px"-->
+<!--									>-->
+<!--										<template v-slot:activator="{ on, attrs }">-->
+<!--											&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;v-model="end_date"&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--										<v-text-field-->
+<!--											v-model="formattedEndDate"-->
+<!--											label="End Date"-->
+<!--											prepend-icon="mdi-calendar"-->
+<!--											readonly-->
+<!--											v-bind="attrs"-->
+<!--											v-on="on"-->
+<!--											clearable-->
+<!--										></v-text-field>-->
+<!--										</template>-->
+<!--										<v-date-picker-->
+<!--										v-model="end_date"-->
+<!--										@input="menu2 = false"-->
+<!--										></v-date-picker>-->
+<!--									</v-menu>-->
+<!--									</v-col>-->
+<!--									<v-spacer></v-spacer>-->
+<!--								</v-row>-->
+<!--							</v-card-text>-->
+<!--							-->
+
+<!--							<v-divider></v-divider>-->
+<!--							<v-virtual-scroll-->
+<!--							:items="filteredList"-->
+<!--							:item-height="50"-->
+<!--							height="300"-->
+<!--							>-->
+<!--							<template v-slot:default="{ item }">-->
+<!--								<v-list-item>-->
+<!--									-->
+<!--								<v-list-item-content>-->
+<!--									<v-list-item-title class="font-weight-thin">-->
+<!--										Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--									</v-list-item-title>-->
+<!--									<v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--								</v-list-item-content>-->
+
+<!--								<v-list-item-action>-->
+<!--									&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--									<v-btn-->
+<!--										depressed-->
+<!--										small-->
+<!--										@click.stop="openNoteDialog(item)"-->
+<!--									>-->
+<!--										Open-->
+<!--									<v-icon-->
+<!--										color="orange darken-4"-->
+<!--										right-->
+<!--									>-->
+<!--										mdi-open-in-new-->
+<!--									</v-icon>-->
+<!--									</v-btn>-->
+<!--								</v-list-item-action>-->
+<!--								</v-list-item>-->
+<!--							</template>-->
+<!--							</v-virtual-scroll>-->
+<!--						</v-card>-->
+<!--						</template>-->
 						<!--------------------------//Notes and History-------------------------------->	
 
-				</v-col><!-----------------------------//Right Column---------------------------------->
+<!--				</v-col>&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;//Right Column&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
 
 		</v-row><!---------------------//First Container Row-------------------------------->
+
+
+    <!---------------------------------Edit Relationship Dialog------------------------------->
+    <v-dialog
+        v-model="relationship_edit_dlg"
+        max-width="600px"
+    >
+      <v-card>
+        <v-form>
+          <v-card-title>
+            <span class="headline">Relationship Information</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                    cols="6"
+                    sm="6"
+                    md="6"
+                >
+                  <v-text-field
+                      label="Agency Name*"
+                      required
+                      v-model="relationship.name"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="3"
+                    sm="3"
+                    md="3"
+                >
+                  <v-select
+                      label="Status"
+                      class="text-capitalize"
+                      :items="status_options"
+                      v-model="current_status">
+                  </v-select>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="Street Number"
+                      v-model="relationship.street_number"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="Street Name"
+                      v-model="relationship.street_name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                    cols="3"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="City"
+                      v-model="relationship.city"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="2">
+                  <v-text-field
+                      label="State"
+                      v-model="relationship.state"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                      label="Zip"
+                      v-model="relationship.zip"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="County"
+                      v-model="relationship.county"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Website"
+                      v-model="relationship.website"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="relationship_edit_dlg=false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="updateRelationship"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Edit Relationship Dialog------------------------------>
+
+    <!---------------------------------Assign Point of Contact Dialog------------------------------->
+    <v-dialog
+        v-model="assign_poc_dlg"
+        max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Assign Point of Contact</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-autocomplete
+                    :items="all_points_of_contact"
+                    item-text="name"
+                    item-value="value"
+                    return-object
+                    @change="updateSelectedPointOfContact"
+                >
+                </v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="assign_poc_dlg=false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+              color="blue darken-1"
+              text
+              v-on:click="updatePointOfContact"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Assign Point of Contact Dialog------------------------------>
+
+
+    <!---------------------------------Assign Relationship Manager Dialog------------------------------>
+    <v-dialog
+        v-model="assign_mgr_dlg"
+        max-width="600px"
+    >
+<!--      <template v-slot:activator="{ on, attrs }">-->
+<!--        <v-hover-->
+<!--            v-slot="{ hover }"-->
+<!--            open-delay="200"-->
+<!--        >-->
+<!--          <v-btn-->
+<!--              icon-->
+<!--              :elevation="hover ? 16 : 2"-->
+<!--              :class="{ 'on-hover': hover }"-->
+<!--              v-bind="attrs"-->
+<!--              v-on="on"-->
+<!--          >-->
+<!--            <v-icon>-->
+<!--              mdi-pencil-->
+<!--            </v-icon>-->
+<!--          </v-btn>-->
+<!--        </v-hover>-->
+<!--      </template>-->
+      <v-card>
+        <v-card-title>
+          <span class="headline">Assign Relationship Manager</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-autocomplete
+                    label="Relationship Manager"
+                    :items="all_relationship_managers"
+                    item-text="name"
+                    item-value="value"
+                    return-object
+                    @change="updateSelectedManager"
+                >
+                </v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="assign_mgr_dlg=false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+              color="blue darken-1"
+              text
+              v-on:click="updateRelationshipManager"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Assign Relationship Manager Dialog------------------------------>
 	</v-container>
 </template>
 <script>
+
+import PartnerDataService from "@/services/PartnerDataService";
 
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
@@ -634,7 +1125,11 @@ import RelationshipManagerDataService from "../services/RelationshipManagerDataS
 import PhoneDataService from "../services/PhoneDataService";
 import NoteDataService from "../services/NoteDataService";
 import FileDataService from "../services/FileDataService";
-import NoteDialog from "./NoteDialog"
+import NoteDialog from "./NoteDialog";
+import EmailDataService from "@/services/EmailDataService";
+import UserDataService from "@/services/UserDataService";
+import ContactDataService from "@/services/ContactDataService";
+import PointOfContactDataService from "@/services/PointOfContactDataService";
 
 export default {
 	name: "relationship",
@@ -644,7 +1139,6 @@ export default {
 	
 	data() {
 	return {
-
 		/**
 		 * Experimental
 		 */
@@ -656,7 +1150,6 @@ export default {
 		relationship: '',
 		relationship_edit_dlg: false,
 		relationship_secondary_info: '',
-		search: '',
 
 		/**
 		 * Relationship secondary info
@@ -668,8 +1161,17 @@ export default {
 		 * Relationship Mangers 
 		 **/
 		assign_mgr_dlg: false,
+    updated_relationship_manager: '',
 		all_relationship_managers:[],
 		organization_relationship_managers: [],
+
+    /**
+     * Point of Contact
+     **/
+    assign_poc_dlg: false,
+    updated_point_of_contact: '',
+    all_points_of_contact:[],
+    organization_points_of_contact: [],
 
 		/**
 		 * Files 
@@ -717,18 +1219,34 @@ export default {
 		// end_date: ''
 		end_date: new Date().toISOString().substr(0, 10),
 		formattedStartDate: '',
-		formattedEndDate: ''
+		formattedEndDate: '',
+
+    //Tabs
+    tab: ''
 	}
 },
     watch: {
       start_date (val) {
         this.formattedStartDate = this.formatDate(this.start_date)
-	  },
-	  end_date (val){
-		this.formattedEndDate = this.formatDate(this.end_date)  
-	  }
+	    },
+      end_date (val){
+        this.formattedEndDate = this.formatDate(this.end_date)
+      }
     },
 	methods: {
+	  openDialog(dlg){
+	    switch(dlg){
+	      case "RM":
+	        this.assign_mgr_dlg = true;
+	        break;
+        case "POC":
+          this.assign_poc_dlg = true;
+          break;
+        case "Edit":
+          this.relationship_edit_dlg = true;
+          break;
+      }
+    },
 		/**
 		 * Notes
 		 */
@@ -748,9 +1266,10 @@ export default {
 		},
 		addNote(val){
 			if(this.$refs.new_note_form.validate()){
-				var data = {
+				let data = {
 					organizationId: this.relationship.id,
-					personId: "5693164c-5da4-4d07-ad24-d9f39befc823",
+          //TODO: Set this id to current user
+					personId: "cf198c20-d8f7-4e9a-8a8f-5d982be2938a",
 					text: this.add_note_form.text,
 					type: this.add_note_form.type.toLowerCase()
 				};
@@ -776,12 +1295,18 @@ export default {
 			this.notes_type_selected.general = !this.history_switch;
 			this.notes_type_selected.contact = this.history_switch;
 		},
-		formatDate (date) {
-			if (!date) return null
-
-			const [year, month, day] = date.split('-')
-			return `${month}/${day}/${year}`
-      	},
+    // set_notes_view(type){
+		//   switch(type){
+		//     case 'general':
+    //       this.notes_type_selected.general = true;
+    //       this.notes_type_selected.contact = false;
+		//       break;
+    //     case 'contact':
+    //       // this.notes_type_selected.contact = true;
+    //       // this.notes_type_selected.general = false;
+    //       break;
+    //   }
+    // },
 
 		/**
 		 * Files
@@ -809,7 +1334,7 @@ export default {
 			}
 			FileDataService.delete(obj.item.id, data)
 			.then(response=>{
-				this.populateFiles(this.reltionship.id);
+				this.populateFiles(this.relationship.id);
 			})
 			.catch(e=>{
 				console.log(e);
@@ -866,7 +1391,7 @@ export default {
 			.catch(e=>{console.log(e)});
 		},
 		/**
-		 * Files
+		 * Relationship
 		 **/
 		updateRelationship(){
 			/*
@@ -901,8 +1426,8 @@ export default {
 					first_name: this.$refs["first_name_"+contact.personId][0]["innerHTML"],
 					last_name: this.$refs["last_name_"+contact.personId][0]["innerHTML"],
 				};
-				PersonDataService.update(contact.personId, person).then(response=>{
-					// console.log(response.data);
+				ContactDataService.update(contact.personId, person).then(response=>{
+					console.log(response.data);
 				})
 				.catch(e=>{console.log(e)});
 
@@ -953,49 +1478,114 @@ export default {
 						type: note.type
 					}
 				});
-				this.relationship = response.data;
-				this.organization_relationship_managers = response.data.relationship_managers;
-				this.populateFiles(this.relationship.id);
-				this.relationship_secondary_info = response.data.relationship;
-				this.current_status = response.data.relationship.status
-				console.log(this.relationship);
+        PointOfContactDataService.getAll(response.data.id)
+            .then(this.setPOC)
+            .catch(e=>{console.log(e)});
+        this.relationship = response.data;
+        this.organization_relationship_managers = response.data.relationship_managers;
+        this.populateFiles(this.relationship.id);
+        this.relationship_secondary_info = response.data.relationship;
+        this.current_status = response.data.relationship.status;
+
+				// console.log(this.relationship);
 			})
 			.catch(e => {
 				console.log(e.message);
 			});
 		},
+    setPOC(res){
+      this.organization_points_of_contact = res.data;
+    },
 		populateRelationshipManagersList(){
-			RelationshipManagerDataService.getAll()
+			UserDataService.getAll()
 			.then(response=>{
-				this.all_relationship_managers = response.data.map(manager=>{
-					return {
-						name: manager.person.first_name+" "+manager.person.last_name,
-						value: manager.personId
-					}
+        this.all_relationship_managers = response.data.map(manager=>{
+          return {
+            name: manager.first_name+" "+manager.last_name,
+            value: manager.id
+          }
 				});
-			})
+      })
 			.catch(e=>{console.log(e)});
 		},
-		updateRelationshipManager(obj){
-			this.assign_mgr_dlg = false;
-			var organizationId = this.relationship.id;
+    updateSelectedManager(obj){
+      this.updated_relationship_manager = {
+        value: obj.value
+      };
+    },
+    updateRelationshipManager(){
+      this.assign_mgr_dlg = false;
+      let organizationId = this.relationship.id;
 
-			var data = {
-				organizationId: organizationId,
-				personId: obj.value
-			};
-			var personId = this.relationship.relationship_managers[0].personId;
+      let data = {
+        organizationId: organizationId,
+        personId: this.updated_relationship_manager.value
+      };
 
-			RelationshipManagerDataService.update(organizationId, personId, data)
-			.then(response=>{
-				PartnerDataService.get(this.relationship.id)
-				.then(response=>{
-					this.relationship = response.data;
-					this.organization_relationship_managers = response.data.relationship_managers;
-				}).catch(e=>{console.log(e)});
-			})
-			.catch(e=>{console.log(e)});
-		},
+      if(this.relationship.relationship_managers.length != 0) {
+        let personId = this.relationship.relationship_managers[0].personId;
+        RelationshipManagerDataService.update(organizationId, personId, data)
+            .then(response => {
+              this.relationship.relationship_managers = response.data;
+              this.setRelationship();
+            })
+            .catch(e => {
+              console.log(e)
+            });
+      }else {
+        RelationshipManagerDataService.create(data)
+            .then(response=>{
+                this.relationship.relationship_managers = response.data;
+                this.setRelationship();
+              console.log(response);
+            })
+            .catch(err=>{console.log(err)});
+      }
+    },
+    populatePointOfContactList(){
+      ContactDataService.getAll()
+          .then(response=>{
+            this.all_points_of_contact = response.data.map(person=>{
+              return {
+                name: person.first_name+" "+person.last_name,
+                value: person.id
+              }
+            });
+          })
+          .catch(e=>{console.log(e)});
+    },
+    updateSelectedPointOfContact(obj){
+      this.updated_point_of_contact = {
+        value: obj.value
+      };
+    },
+    updatePointOfContact(){
+      this.assign_poc_dlg = false;
+      let organizationId = this.relationship.id;
+
+      let data = {
+        organizationId: organizationId,
+        personId: this.updated_point_of_contact.value
+      };
+
+      if(this.organization_points_of_contact != 0) {
+        let personId = this.organization_points_of_contact[0].id;
+        PointOfContactDataService.update(organizationId, personId, data)
+            .then(response => {
+              this.setRelationship();
+              // console.log(response);
+            })
+            .catch(e => {
+              console.log(e)
+            });
+      }else {
+        PointOfContactDataService.create(data)
+            .then(response=>{
+              console.log(response);
+            })
+            .catch(err=>{console.log(err)});
+      }
+    },
 		formatDate (date) {
 			if (!date) return null
 
@@ -1015,7 +1605,8 @@ export default {
 			return headers;
 		},
 		filteredList() {
-                return this.notes.filter(note => {
+        return this.notes.filter(note => {
+          if(note.author == null) return;
 					var afterStart = true;
 					var beforeEnd = true;
 
@@ -1033,13 +1624,15 @@ export default {
 						(afterStart && beforeEnd)
                     }
                 })
-            },		
+            },
+
 	},
 	mounted() {
 		this.reset();
 		//Update
 		this.setRelationship();
 		this.populateRelationshipManagersList();
+		this.populatePointOfContactList();
 	}
 };
 </script>

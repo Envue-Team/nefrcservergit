@@ -6,15 +6,13 @@ import Partner from './views/Partner.vue'
 import Relationship from './views/Relationship.vue'
 import Contacts from './views/Contacts.vue'
 
-import ContactInfo from './views/ContactInfo.vue'
+import ContactInfo from './views/Contact.vue'
 import Register from './views/Register.vue'
-import UserInfo from './views/UserInfo'
 import User from './views/User'
+import Users from './views/Users'
 
 
 Vue.use(Router)
-
-
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -56,25 +54,21 @@ export default new Router({
     },
 
     {
-      path: '/ContactInfo/:personId',
-      name: 'ContactInfo',
+      path: '/contact/:personId',
+      name: 'contact',
       component: ContactInfo
       // props: true
     },
-
-
-
-
     {
-      path: '/user',
-      name: 'user',
-      component: User
+      path: '/users',
+      name: 'users',
+      component: Users
       // props: true
     },
     {
-      path: '/userinfo/:personId',
-      name: 'userinfo',
-      component: UserInfo
+      path: '/user/:personId',
+      name: 'user',
+      component: User
       // props: true
     },
   ]
