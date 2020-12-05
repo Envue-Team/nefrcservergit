@@ -22,7 +22,7 @@ class RelationshipDataService {
   }
 
   deleteAll() {
-    return http.delete(`/relationshipss`);
+    return http.delete(`/relationships`);
   }
 }
 

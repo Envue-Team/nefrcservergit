@@ -16,11 +16,13 @@ exports.create = (req, res) => {
     address: req.body.address,
     personId: req.body.personId,
     organisationId: req.body.organisationId,
+    isPrimary: req.body.isPrimary
   };
 
   // Save email number in the database
   DBEmail.create(email)
     .then(data => {
+      // console.log(data+" 1");
       res.send(data);
     })
     .catch(err => {

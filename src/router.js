@@ -5,23 +5,22 @@ import Organization from './views/Organizations.vue'
 import Partner from './views/Partner.vue'
 import Relationship from './views/Relationship.vue'
 import Contacts from './views/Contacts.vue'
+import ContactInfo from './views/Contact.vue'
 import Register from './views/Register.vue'
-import UserInfo from './views/UserInfo'
 import User from './views/User'
+import Users from './views/Users'
 
 
 Vue.use(Router)
-
-
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
     {
       path: '/organizations',
       name: 'organizations',
@@ -54,15 +53,21 @@ export default new Router({
     },
 
     {
-      path: '/user',
-      name: 'user',
-      component: User
+      path: '/contact/:personId',
+      name: 'contact',
+      component: ContactInfo
       // props: true
     },
     {
-      path: '/userinfo/:personId',
-      name: 'userinfo',
-      component: UserInfo
+      path: '/users',
+      name: 'users',
+      component: Users
+      // props: true
+    },
+    {
+      path: '/user/:personId',
+      name: 'user',
+      component: User
       // props: true
     },
   ]

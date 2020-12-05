@@ -16,6 +16,7 @@ exports.create = (req, res) => {
     number: req.body.number,
     personId: req.body.personId,
     organisationId: req.body.organisationId,
+    isPrimary: req.body.isPrimary,
   };
 
   // Save phone number in the database
