@@ -139,11 +139,14 @@
 </template>
 
 <script>
+import PersonDataService from "../services/PersonDataService";
 import UserDataService from "../services/UserDataService";
+import UserRoleDataService from "../services/UserRoleDataService";
+
 
 export default {
   name: "users",
-  data() {
+   data() {
     return {
       volunteers: [],
       add_person_dlg: false,
@@ -151,11 +154,15 @@ export default {
       search: "",
       currentIndex: -1,
       name: "",
+      role: "",
       add_person: {
         firstname: "",
         lastname: "",
         email: "",
         password: "",
+      },
+      add_role: {
+        roles: "",
       },
       view_person: {
         firstname: "",
@@ -165,11 +172,10 @@ export default {
   },
   computed: {
     headers() {
-      let headers = [
+      var headers = [
         { text: "Name", value: "name", width: "80px" },
         { text: "Email", value: "email", width: "80px" },
         { text: "Roles", value: "role", width: "100px" },
-        { text: "Delete", value: "actions", width: "2px"}
       ];
       return headers;
     },
