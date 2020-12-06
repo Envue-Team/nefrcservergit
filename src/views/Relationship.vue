@@ -6,8 +6,8 @@
           <v-card elevation="3" class="mb-3">
             <v-card-title>
 						    <!---------------------Relationship Basic Data-------------------------------->
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit')">
-                    {{relationship.name}}
+              <a class="btn font-weight-bold blue-grey--text text-capitalize" @click="openDialog('Edit')">
+                    {{ relationship.name }}
                   </a>
             </v-card-title>
                 <v-card-subtitle style="margin-bottom: -30px">
@@ -20,7 +20,7 @@
                   <a :href="relationship.website" class="red--text text--darken-3  body-3 mt-3">
                     {{ relationship.website }}
                   </a><br/>
-                  <span> Status: {{ relationship.relationship.status }} </span>
+                  <span> Status: {{ relationship_secondary_info.status }} </span>
                 </v-card-subtitle>
                   <v-card-text >
 
@@ -28,46 +28,42 @@
           <!---------------------//Relationship Basic Data-------------------------------->
 
           <!-----------------------Point of Contact--------------------------------->
-          <br/>
-            <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
-              <span v-if="organization_points_of_contact.length==0">
-                Add New Point of Contact
-              </span>
+          <br class="mt-3"/>
+            <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Add POC')">
+              Add New Point of Contact
             </a>
-						<div v-for="contact in organization_points_of_contact" v-bind:key="contact.personId" class="mt-3">
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('POC')">
+						<div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit POC', contact.id)">
                     <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
                     <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>
-              </a><br/>
-							<span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
-                  <span v-if="phone.isPrimary==true">
-                    <span :ref="'phone_' + phone.id">
-                      {{ phone.number }} (P) |
+              </a>
+              <span v-for="phone in contact.phones" :key="phone.id" class="font-weight-thin">
+                  <span :ref="'phone_' + phone.id">
+                    <span v-if="phone.isPrimary==true">
+                      <br/>{{ phone.number }}(P)
                     </span>
                   </span>
 							</span>
-              <span v-for="phone in contact.phones" :key="phone.number" class="font-weight-thin">
-                  <span v-if="phone.isPrimary==false">
-                    <span :ref="'phone_' + phone.id">
-                      {{ phone.number }}
-                    </span>
+              <span v-for="phone in contact.phones" :key="phone.id" class="font-weight-thin">
+                  <span :ref="'phone_' + phone.id">
+                    <span v-if="phone.isPrimary==false"> | </span>
+                    {{ phone.number }}
                   </span>
-              </span>
-              <br/>
-							<span v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
-                  <span v-if="email.isPrimary==true">
-                      <span :ref="'email_' + email.id">
-                        {{ email.address }} (P) |
-                      </span>
-                    </span>
 							</span>
-            <span v-for="email in contact.emails" :key="email.address" class="font-weight-thin">
-                  <span v-if="email.isPrimary==false">
-                    <span :ref="'email_' + email.id">
-                      {{ email.address }}
+              <span v-for="email in contact.emails" :key="email.id" class="font-weight-thin">
+                  <span :ref="'email_' + email.id">
+                    <span v-if="email.isPrimary==true">
+                      <br/>{{ email.address }}(P)
                     </span>
                   </span>
-            </span>
+							</span>
+              <span v-for="email in contact.emails" :key="email.id" class="font-weight-thin">
+                  <span :ref="'email_' + email.id">
+                    <span v-if="email.isPrimary==false">
+                       | {{ email.address }}
+                    </span>
+                  </span>
+							</span>
 						</div>
 						<!-----------------------//Point of Contact--------------------------------->
           </v-card-text>
@@ -183,12 +179,16 @@
 
 				</v-col><!----------------------//Left Column-------------------------->
       <v-col><!--------------------------Middle Column----------------->
+        <POCDialog
+            v-model="showPOCDialog"
+            :poc_id="update_poc_id"
+            :poc_title="poc_dlg_title"
+            :poc_dlg_action="poc_dlg_action"
+        />
         <NoteDialog v-model="showNoteDialog" :item="view_note_item"/>
         <!--------------------------Notes and History-------------------------------->
         <template>
-          <v-card
-              class="mx-auto"
-          >
+          <v-card>
             <v-card-title class="white--text red darken-4">
               Notes:
 
@@ -272,7 +272,6 @@
                 </v-form>
               </v-dialog>
               <!---------------------------------//Add Note Dialog------------------------------>
-
             </v-card-title>
 
             <v-card-subtitle class="pt-4">
@@ -966,6 +965,13 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
+              @click="openDialog('Delete')"
+              color="red darken-1"
+              text
+            >
+              Delete
+            </v-btn>
+            <v-btn
                 color="blue darken-1"
                 text
                 @click="relationship_edit_dlg=false"
@@ -985,80 +991,90 @@
     </v-dialog>
     <!---------------------------------//Edit Relationship Dialog------------------------------>
 
-    <!---------------------------------Assign Point of Contact Dialog------------------------------->
+    <!---------------------------------Delete Relationship Dialog------------------------------>
     <v-dialog
-        v-model="assign_poc_dlg"
-        max-width="600px"
+      max-width="300"
+      v-model="delete_relationship_dialog"
     >
       <v-card>
-        <v-card-title>
-          <span class="headline">Assign Point of Contact</span>
-        </v-card-title>
         <v-card-text>
-          <v-container>
-            <v-row>
-              <v-col
-                  cols="12"
-                  sm="12"
-                  md="12"
-              >
-                <v-autocomplete
-                    :items="all_points_of_contact"
-                    item-text="name"
-                    item-value="value"
-                    return-object
-                    @change="updateSelectedPointOfContact"
-                >
-                </v-autocomplete>
-              </v-col>
-            </v-row>
-          </v-container>
+          Are you sure you want to delete this relationship?
         </v-card-text>
+          <v-divider></v-divider>
         <v-card-actions>
-          <v-spacer></v-spacer>
           <v-btn
-              color="blue darken-1"
-              text
-              @click="assign_poc_dlg=false"
-          >
-            Close
+            @click="deleteRelationship"
+            text
+            color="red text-darken-1">
+            Yes
           </v-btn>
           <v-btn
-              color="blue darken-1"
-              text
-              v-on:click="updatePointOfContact"
+            @click="delete_relationship_dialog=false"
+            text
+            color="blue text-darken-1"
           >
-            Save
+            No
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!---------------------------------//Assign Point of Contact Dialog------------------------------>
+    <!---------------------------------//Delete Relationship Dialog------------------------------>
 
+    <!---------------------------------Assign Point of Contact Dialog------------------------------->
+<!--    <v-dialog-->
+<!--        v-model="assign_poc_dlg"-->
+<!--        max-width="600px"-->
+<!--    >-->
+<!--      <v-card>-->
+<!--        <v-card-title>-->
+<!--          <span class="headline">Assign Point of Contact</span>-->
+<!--        </v-card-title>-->
+<!--        <v-card-text>-->
+<!--          <v-container>-->
+<!--            <v-row>-->
+<!--              <v-col-->
+<!--                  cols="12"-->
+<!--                  sm="12"-->
+<!--                  md="12"-->
+<!--              >-->
+<!--                <v-autocomplete-->
+<!--                    :items="all_points_of_contact"-->
+<!--                    item-text="name"-->
+<!--                    item-value="value"-->
+<!--                    return-object-->
+<!--                    @change="updateSelectedPointOfContact"-->
+<!--                >-->
+<!--                </v-autocomplete>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-container>-->
+<!--        </v-card-text>-->
+<!--        <v-card-actions>-->
+<!--          <v-spacer></v-spacer>-->
+<!--          <v-btn-->
+<!--              color="blue darken-1"-->
+<!--              text-->
+<!--              @click="assign_poc_dlg=false"-->
+<!--          >-->
+<!--            Close-->
+<!--          </v-btn>-->
+<!--          <v-btn-->
+<!--              color="blue darken-1"-->
+<!--              text-->
+<!--              v-on:click="updatePointOfContact"-->
+<!--          >-->
+<!--            Save-->
+<!--          </v-btn>-->
+<!--        </v-card-actions>-->
+<!--      </v-card>-->
+<!--    </v-dialog>-->
+    <!---------------------------------//Assign Point of Contact Dialog------------------------------>
 
     <!---------------------------------Assign Relationship Manager Dialog------------------------------>
     <v-dialog
         v-model="assign_mgr_dlg"
         max-width="600px"
     >
-<!--      <template v-slot:activator="{ on, attrs }">-->
-<!--        <v-hover-->
-<!--            v-slot="{ hover }"-->
-<!--            open-delay="200"-->
-<!--        >-->
-<!--          <v-btn-->
-<!--              icon-->
-<!--              :elevation="hover ? 16 : 2"-->
-<!--              :class="{ 'on-hover': hover }"-->
-<!--              v-bind="attrs"-->
-<!--              v-on="on"-->
-<!--          >-->
-<!--            <v-icon>-->
-<!--              mdi-pencil-->
-<!--            </v-icon>-->
-<!--          </v-btn>-->
-<!--        </v-hover>-->
-<!--      </template>-->
       <v-card>
         <v-card-title>
           <span class="headline">Assign Relationship Manager</span>
@@ -1108,6 +1124,8 @@
 </template>
 <script>
 
+import PersonDataService from "@/services/PersonDataService";
+
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
 import RelationshipDataService from "../services/RelationshipDataService";
@@ -1118,15 +1136,21 @@ import NoteDialog from "./NoteDialog";
 import UserDataService from "@/services/UserDataService";
 import ContactDataService from "@/services/ContactDataService";
 import PointOfContactDataService from "@/services/PointOfContactDataService";
+import POCDialog from "./POCDialog";
+import EmailDataService from "@/services/EmailDataService";
+import PhoneDataService from "@/services/PhoneDataService";
 
 export default {
 	name: "relationship",
 	components: {
+    POCDialog,
 		NoteDialog
 	},
 	
 	data() {
 	return {
+	  confirm_delete: false,
+
 		/**
 		 * Experimental
 		 */
@@ -1138,11 +1162,12 @@ export default {
 		relationship: '',
 		relationship_edit_dlg: false,
 		relationship_secondary_info: '',
+    delete_relationship_dialog: '',
 
 		/**
 		 * Relationship secondary info
 		 */
-		status_options: ["hot", "warm", "cold"],
+		status_options: ["Hot", "Warm", "Cold"],
 		current_status: '',
 
 		/**
@@ -1156,7 +1181,14 @@ export default {
     /**
      * Point of Contact
      **/
-    assign_poc_dlg: false,
+    delete_poc_dialog: false,
+    save_poc_dialog: false,
+    showPOCDialog: false,
+    poc: {},
+    update_poc_id: '',
+    edit_contact_id: '',
+    poc_dlg_title: '',
+    poc_dlg_action: '',
     updated_point_of_contact: '',
     all_points_of_contact:[],
     organization_points_of_contact: [],
@@ -1222,16 +1254,28 @@ export default {
       }
     },
 	methods: {
-	  openDialog(dlg){
+	  openDialog(dlg, id=null){
 	    switch(dlg){
 	      case "RM":
 	        this.assign_mgr_dlg = true;
 	        break;
-        case "POC":
-          this.assign_poc_dlg = true;
+        case "Edit POC":
+          this.update_poc_id = id;
+          this.showPOCDialog = true;
+          this.poc_dlg_title = "Edit Point of Contact";
+          this.poc_dlg_action = "Edit";
+          break;
+        case "Add POC":
+          this.showPOCDialog = true;
+          this.poc_dlg_title = "Add Point of Contact";
+          this.poc_dlg_action = "Create";
           break;
         case "Edit":
           this.relationship_edit_dlg = true;
+          break;
+        case "Delete":
+          this.relationship_edit_dlg = false;
+          this.delete_relationship_dialog = true;
           break;
       }
     },
@@ -1300,13 +1344,13 @@ export default {
 		 * Files
 		 */
 		downloadFile(obj){
-			var data = {
+			let data = {
 				fileId: obj.item.id
 			}
 			FileDataService.download(obj.item.filepath, data)
 			.then(response=>{
-				var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-				var fileLink = document.createElement('a');
+				let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+				let fileLink = document.createElement('a');
 
 				fileLink.href = fileURL;
 				fileLink.setAttribute('download', 'file.pdf');
@@ -1317,7 +1361,7 @@ export default {
 			.catch(e=>{console.log(e)});
 		},
 		deleteFile(obj){
-			var data = {
+			let data = {
 				filePath: obj.item.filePath
 			}
 			FileDataService.delete(obj.item.id, data)
@@ -1382,6 +1426,18 @@ export default {
 		/**
 		 * Relationship
 		 **/
+		deleteRelationship(){
+		  RelationshipDataService.delete(this.relationship.id)
+          .then(response=>{
+            this.confirm_delete = false;
+          }).catch(e=>{
+            console.log(e)
+          });
+      this.$router.push({path: '/organizations'});
+      this.$toasted
+          .show("Organization has been successfully deleted",{theme: 'bubble'})
+          .goAway(1000);
+    },
 		updateRelationship(){
 			/*
 			Update organization data
@@ -1427,9 +1483,7 @@ export default {
         this.organization_relationship_managers = response.data.relationship_managers;
         this.populateFiles(this.relationship.id);
         this.relationship_secondary_info = response.data.relationship;
-        this.current_status = response.data.relationship.status;
-
-				// console.log(this.relationship);
+        this.current_status = this.relationship_secondary_info.status;
 			})
 			.catch(e => {
 				console.log(e.message);
@@ -1483,6 +1537,178 @@ export default {
             .catch(err=>{console.log(err)});
       }
     },
+    updateContactInfo(primary, data, service, contactId = 0){
+      data.isPrimary = primary;
+      if(contactId != 0){
+        service.update(contactId, data)
+            .then(response=>{this.setRelationship();})
+            .catch(e=>{console.log(e)});
+      }else{
+        service.create(data)
+            .then(response=>{this.setRelationship();})
+            .catch(e=>{console.log(e)});
+      }
+    },
+    confirmDeletePOCDialog(){},
+    confirmPOCChangesDialog(){},
+    deletePOC(id){
+		  PersonDataService.get(id)
+          .then(response=>{
+            let person = response.data;
+            person.phones.forEach(
+                phone=>{
+                  PhoneDataService
+                      .delete(phone.id)
+                      .catch(e=>{console.log(e)});
+                });
+
+            person.emails.forEach(
+                email=>{
+                  EmailDataService
+                      .delete(email.id)
+                      .catch(e=>{console.log(e)})});
+            return person.id;
+          }).then(id=>{
+            console.log("called");
+            PersonDataService.delete(id).catch(e=>{console.log(e)});
+            this.setRelationship();
+          })
+          .catch(e=>{console.log(e)});
+    },
+    updatePOC(id, data){
+      PersonDataService.get(id)
+          .then(response=>{
+            let person = response.data;
+            let phoneData = {};
+            if(data.primary_phone){
+              phoneData = {
+                number: data.primary_phone,
+              }
+              let primaryId = person.phones.filter(phone=>{
+                return phone.isPrimary;
+              });
+              if(primaryId.length>0){
+                this.updateContactInfo(true, phoneData, PhoneDataService, primaryId[0].id );
+              }else{
+                phoneData.personId = person.id;
+                this.updateContactInfo(true, phoneData, PhoneDataService,);
+              }
+            }
+            if(data.secondary_phone){
+              phoneData = {
+                number: data.secondary_phone,
+              }
+              let secondaryId = person.phones.filter(phone=>{
+                return phone.isPrimary==false;
+              });
+              if(secondaryId.length>0){
+                this.updateContactInfo(false, phoneData, PhoneDataService, secondaryId[0].id );
+              }else{
+                phoneData.personId = person.id;
+                this.updateContactInfo(false, phoneData, PhoneDataService, );
+              }
+            }
+
+            let emailData = {};
+            if(data.primary_email){
+              emailData = {
+                address: data.primary_email,
+              }
+              let primaryId = person.emails.filter(email=>{
+                return email.isPrimary;
+              });
+              if(primaryId.length>0){
+                this.updateContactInfo(true, emailData, EmailDataService, primaryId[0].id );
+              }else{
+                emailData.personId = person.id;
+                this.updateContactInfo(true, emailData, EmailDataService, );
+              }
+            }
+            if(data.secondary_email){
+              emailData = {
+                address: data.secondary_email,
+              }
+              let secondaryId = person.emails.filter(email=>{
+                return email.isPrimary==false;
+              });
+              if(secondaryId.length>0){
+                this.updateContactInfo(false, emailData, EmailDataService, secondaryId[0].id );
+              }else{
+                emailData.personId = person.id;
+                this.updateContactInfo(false, emailData, EmailDataService,  );
+              }
+            }
+
+          })
+          .catch(e=>{console.log(e)});
+      /**
+       * Update personal data
+       */
+		  PersonDataService.update(id, data)
+          .then(response=>{})
+          .catch(e=>{
+            console.log(e)
+          });
+    },
+    createPOC(data){
+		  PersonDataService.create(data)
+      .then(response=>{
+        let personId = response.data.id;
+        let pocData = {
+          personId: personId,
+          organizationId: this.relationship.id
+        };
+        if(data.primary_phone){
+          let phoneData = {
+            personId: personId,
+            number: data.primary_phone,
+            isPrimary: true
+          };
+          PhoneDataService.create(phoneData)
+              .then(pdresponse=>{console.log(pdresponse)})
+              .catch(e=>{console.log(e)});
+        };
+        if(data.secondary_phone) {
+          let phoneData = {
+            personId: personId,
+            number: data.secondary_phone,
+            isPrimary: false
+          };
+          PhoneDataService.create(phoneData)
+              .then(sdresponse=>{console.log(sdresponse)})
+              .catch(e=>{console.log(e)});
+        }
+        if(data.primary_email){
+          let emailData = {
+            personId: personId,
+            address: data.primary_email,
+            isPrimary: true
+          };
+          EmailDataService.create(emailData)
+              .then(emres=>{console.log(emres)})
+              .catch(e=>{console.log(e)});
+        }
+        if(data.secondary_email){
+          let emailData = {
+            personId: personId,
+            address: data.secondary_email,
+            isPrimary: false
+          };
+          EmailDataService.create(emailData)
+              .then(semailres=>{console.log(semailres)})
+              .catch(e=>{console.log(e)});
+        }
+        PointOfContactDataService.create(pocData)
+            .then(response=>{
+              console.log("POC Created:\n"+response);
+              console.log(response);
+              this.setRelationship();
+            }).catch(e=>{console.log(e)});
+      })
+    },
+    setEditContact(id){
+		  this.edit_contact_id = id;
+    },
     populatePointOfContactList(){
       ContactDataService.getAll()
           .then(response=>{
@@ -1500,7 +1726,7 @@ export default {
         value: obj.value
       };
     },
-    updatePointOfContact(){
+    addPointOfContact(){
       this.assign_poc_dlg = false;
       let organizationId = this.relationship.id;
 
@@ -1508,25 +1734,37 @@ export default {
         organizationId: organizationId,
         personId: this.updated_point_of_contact.value
       };
+      PointOfContactDataService.create(data)
+          .then(response=>{
+            this.setRelationship();
+            // console.log(response);
+          })
+          .catch(err=>{console.log(err)});
+    },
+    updatePointOfContact(){
+      this.assign_poc_dlg = false;
+      // let organizationId = this.relationship.id;
 
-      if(this.organization_points_of_contact != 0) {
-        let personId = this.organization_points_of_contact[0].id;
-        PointOfContactDataService.update(organizationId, personId, data)
-            .then(response => {
-              this.setRelationship();
-              // console.log(response);
-            })
-            .catch(e => {
-              console.log(e)
-            });
-      }else {
-        PointOfContactDataService.create(data)
-            .then(response=>{
-              this.setRelationship();
-              // console.log(response);
-            })
-            .catch(err=>{console.log(err)});
-      }
+      let data = {
+
+      };
+
+      let personId = this.organization_points_of_contact[0].id;
+      PersonDataService.update(personId, data)
+          .then(response=>{
+            this.setRelationship();
+            console.log(response)
+          }).catch(e=>{
+            console.log(e)
+          });
+      // PointOfContactDataService.update(organizationId, personId, data)
+      //     .then(response => {
+      //       this.setRelationship();
+      //       // console.log(response);
+      //     })
+      //     .catch(e => {
+      //       console.log(e)
+      //     });
     },
 		formatDate (date) {
 			if (!date) return null

@@ -11,7 +11,7 @@ module.exports = volapp => {
     router.get("/", users.userFindAll);
 
     //Retrieve user by email
-    router.get("/email/:email", users.findByEmail);
+    // router.get("/email/:email", users.findByEmail);
   
   
     // // Retrieve a single note with id
