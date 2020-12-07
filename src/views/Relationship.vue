@@ -46,8 +46,9 @@
 							</span>
               <span v-for="phone in contact.phones" :key="phone.id" class="font-weight-thin">
                   <span :ref="'phone_' + phone.id">
-                    <span v-if="phone.isPrimary==false"> | </span>
-                    {{ phone.number }}
+                    <span v-if="phone.isPrimary==false">
+                     | {{ phone.number }}
+                    </span>
                   </span>
 							</span>
               <span v-for="email in contact.emails" :key="email.id" class="font-weight-thin">

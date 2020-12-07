@@ -474,3 +474,31 @@ exports.userDelete = (req, res) => {
       });
     });
 };
+
+exports.findByEmail = (req, res) =>{
+  const email = req.params.email;
+  DBPerson.findAll( {
+        include:
+            [
+              {
+                model: DBUser,
+                include: ['roles'],
+                where: {
+                  email: email
+                },
+              },
+              'phones',
+              'emails'
+            ]
+      },
+
+  )
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving person with id=" + id + " err: " + err
+        });
+      });
+}
