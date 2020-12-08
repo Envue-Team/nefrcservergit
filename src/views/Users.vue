@@ -25,6 +25,7 @@
           class="text-capitalize"
         >
           <template v-slot:item.name="{ item }">
+            <button v-on:click="removePerson(item)">X</button>
             <template v-if="item.first_name !== null">
               <a v-on:click="nav(item)">
               <span class="black--text">  {{ item.name }}</span>
@@ -46,16 +47,16 @@
             <div><span class="black--text">
               {{ item.user.email }}
             </span></div> </a>
-          </template>
-          <template v-slot:item.roles="{ item }">
-            <div>
-              <span class="purple--text">{{ item.role }}</span>
-            </div>
-          </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
-          </template>
-        </v-data-table>
+              </template>
+              <template v-slot:item.roles="{ item }">
+                <div>
+                  <span class="purple--text">{{ item.role }}</span>
+                </div>
+              </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
+              </template>
+            </v-data-table>
           </v-card-text>
         </v-card>
         <!------------------ dialog box to add person--------------------------->
@@ -63,11 +64,11 @@
           <template v-slot:activator="{ on, attrs }">
             <v-hover v-slot="{ hover }" open-delay="200">
               <v-btn
-                text
-                :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }"
-                v-bind="attrs"
-                v-on="on"
+                  text
+                  :elevation="hover ? 16 : 2"
+                  :class="{ 'on-hover': hover }"
+                  v-bind="attrs"
+                  v-on="on"
               >
                 Add User
                 <v-icon> mdi-plus </v-icon>
@@ -84,16 +85,16 @@
                   <v-row>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                        label="First Name"
-                        required
-                        v-model="add_person.firstname"
+                          label="First Name"
+                          required
+                          v-model="add_person.firstname"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                        label="Last Name"
-                        required
-                        v-model="add_person.lastname"
+                          label="Last Name"
+                          required
+                          v-model="add_person.lastname"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6"> </v-col>
@@ -101,14 +102,14 @@
                   <v-row>
                     <v-col cols="6">
                       <v-text-field
-                        label="Email"
-                        v-model="add_person.email"
+                          label="Email"
+                          v-model="add_person.email"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
-                        label="Password"
-                        v-model="add_person.password"
+                          label="Password"
+                          v-model="add_person.password"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -132,14 +133,16 @@
         <!-- <button class="m-3 btn btn-sm btn-danger" @click="removeAllVolunteers">
           Remove All
         </button> -->
-<!--      </v-col>-->
+        <!--      </v-col>-->
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import PersonDataService from "../services/PersonDataService";
 import UserDataService from "../services/UserDataService";
+import UserRoleDataService from "../services/UserRoleDataService";
 
 export default {
   name: "users",
@@ -151,11 +154,15 @@ export default {
       search: "",
       currentIndex: -1,
       name: "",
+      role: "",
       add_person: {
         firstname: "",
         lastname: "",
         email: "",
         password: "",
+      },
+      add_role: {
+        roles: "",
       },
       view_person: {
         firstname: "",
@@ -165,12 +172,10 @@ export default {
   },
   computed: {
     headers() {
-      let headers = [
+      var headers = [
         { text: "Name", value: "name", width: "80px" },
         { text: "Email", value: "email", width: "80px" },
         { text: "Roles", value: "role", width: "100px" },
-        { text: "Delete", value: "actions", width: "2px"}
-      ];
       return headers;
     },
   },
@@ -183,19 +188,30 @@ export default {
     },
     retrieveVolunteers() {
       UserDataService.getAll()
-        .then((response) => {
-          this.volunteers = response.data;
-          this.volunteers.forEach((volunteer) => {
-            console.log("running");
+          .then((response) => {
+            console.log(response.data);
+            this.volunteers = response.data;
+            this.volunteers.forEach((volunteer) => {
 
-            volunteer.name = volunteer.first_name + " " + volunteer.last_name;
-
+              volunteer.name = volunteer.first_name + " " + volunteer.last_name;
+              console.log(volunteer.name);
+              //TODO: Review this
+              // let roleNumber = volunteer.user.roles[0].user_roles.roleId;
+              // let roleName = "";
+              //
+              // if(roleNumber == 2) {
+              //   roleName = "User"
+              // } else {
+              //   roleName = "Admin"
+              // }
+              //
+              // volunteer.role = roleName
+            });
+            // console.log(this.volunteers);
+          })
+          .catch((e) => {
+            console.log(e.message);
           });
-          // console.log(this.volunteers);
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
     },
 
     refreshList() {
@@ -208,28 +224,6 @@ export default {
       this.currentVolunteer = volunteer;
       this.currentIndex = index;
     },
-
-    // removeAllVolunteers() {
-    //   PersonDataService.deleteAll()
-    //     .then((response) => {
-    //       console.log(response.data);
-    //       this.refreshList();
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // searchTitle() {
-    //   PersonDataService.findByName(this.first_name)
-    //     .then((response) => {
-    //       this.volunteers = response.data;
-    //       console.log(response.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
     addPerson() {
       var data = {
         first_name: this.add_person.firstname,
@@ -237,56 +231,51 @@ export default {
         email: this.add_person.email,
         password: this.add_person.password,
       };
-      // var email1 = {
-      //   "address": this.add_person.primaryEmail,
-      //   // "personId":
-      // }
-      // var phone = {
-      //   person.id,
-      //   this.add_person.primaryPhone,
-      // };
+      var userData = {
+        roles: this.add_role.roles,
+      };
+
       data.services = this.add_person.services;
       UserDataService.create(data)
-        .then((response) => {
-          this.refreshList();
-          return response.data.id;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-
-      // this.addEmail(email1, data);
-      // EmailDataService.create(email1).
-      // then(response=>{
-      //   console.log(response);
-      //   this.retrieveVolunteers();
-      //   this.add_organization_dlg = false
-      // })
-      // .catch(e=>{
-      //   console.log(e);
-      // });
-      this.add_person_dlg = false;
-      // this.refreshList();
-      // console.log("hit");
-    },
-
-    removePerson(item) {
-      if (
-        confirm(
-          "Are you sure you want to remove " +
-            item.first_name +
-            " " +
-            item.last_name +
-            " from the table?"
-        )
-      ) {
-        UserDataService.delete(item.id)
           .then((response) => {
+            console.log(response);
+            let data = {
+              roleId: 2,
+              userId: response.data,
+            };
+
             this.refreshList();
+            UserRoleDataService.create(data)
+                .then((resp) => {
+                  this.refreshList();
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
           })
           .catch((e) => {
             console.log(e);
           });
+      this.add_person_dlg = false;
+    },
+
+    removePerson(item) {
+      if (
+          confirm(
+              "Are you sure you want to remove " +
+              item.first_name +
+              " " +
+              item.last_name +
+              " from the table?"
+          )
+      ) {
+        UserDataService.delete(item.id)
+            .then((response) => {
+              this.refreshList();
+            })
+            .catch((e) => {
+              console.log(e);
+            });
       }
     },
   },

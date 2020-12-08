@@ -162,8 +162,6 @@ exports.findOne = (req, res) => {
     });
 };
 
-
-
 // Update a person by the id in the request
 exports.update = (req, res) => {
   const id = req.params.id;
@@ -392,10 +390,7 @@ exports.userFindAll = (req, res) => {
       include: ['roles'],
       where: {id: {[Op.not]: null}}
     },
-    {
-      model: DBPhone,
-      order: ['isPrimary', 'DESC']
-    },
+    'phones',
     'emails']
   })
     .then(data => {
@@ -482,7 +477,7 @@ exports.userDelete = (req, res) => {
   });
 
   res.user = userResponseData;
-  
+
   DBPerson.destroy({
     where: { id: id }
   })
@@ -503,31 +498,3 @@ exports.userDelete = (req, res) => {
       });
     });
 };
-
-exports.findByEmail = (req, res) =>{
-  const email = req.params.email;
-  DBPerson.findAll( {
-        include:
-            [
-              {
-                model: DBUser,
-                include: ['roles'],
-                where: {
-                  email: email
-                },
-              },
-              'phones',
-              'emails'
-            ]
-      },
-
-  )
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error retrieving person with id=" + id + " err: " + err
-        });
-      });
-}
