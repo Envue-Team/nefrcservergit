@@ -1,15 +1,16 @@
 module.exports = {
     HOST: "localhost",
     USER: "root",
-    PASSWORD: "",
+    PASSWORD: "somepassword",
     DB: "testdb",
     dialect: "mysql",
     pool: {
-      max: 5,
-      min: 0,
-      acquire: 30000,
-      idle: 10000
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
     }
+};
 // module.exports = {
 //   HOST: "nefrc-database.cpc37xum0kyd.us-east-2.rds.amazonaws.com",
 //   USER: "nefrc_db_adming",
@@ -23,5 +24,4 @@ module.exports = {
 //     idle: 10000
 //   }
 // };
-  };
 

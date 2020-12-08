@@ -108,6 +108,34 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.findByEmail = (req, res) =>{
+  const email = req.params.email;
+  DBPerson.findAll( {
+        include:
+            [
+              {
+                model: DBUser,
+                include: ['roles'],
+                where: {
+                  email: email
+                },
+              },
+              'phones',
+              'emails'
+            ]
+      },
+
+  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving person with id=" + id + " err: " + err
+        });
+      });
+}
+
 exports.contactFindAll = (req, res) => {
   DBPerson.findAll({
     include: [
@@ -142,8 +170,6 @@ exports.findOne = (req, res) => {
       });
     });
 };
-
-
 
 // Update a person by the id in the request
 exports.update = (req, res) => {
@@ -372,8 +398,8 @@ exports.userFindAll = (req, res) => {
       model: DBUser,
       include: ['roles'],
       where: {id: {[Op.not]: null}}
-    }, 
-    'phones', 
+    },
+    'phones',
     'emails']
   })
     .then(data => {
@@ -420,7 +446,7 @@ exports.userDelete = (req, res) => {
   });
 
   res.user = userResponseData;
-  
+
   DBPerson.destroy({
     where: { id: id }
   })

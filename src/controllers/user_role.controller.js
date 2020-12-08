@@ -10,33 +10,33 @@ exports.create = (req, res) => {
   console.log(data);
 
   DBUserRole.create(data)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating user role."
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while creating user role."
+        });
       });
-    });
 }
 
 exports.findRole = (req, res) => {
 
- 
+
   const id = req.body.userId;
-  
+
   DBUserRole.findByPk(id)
-    .then(data => {
-      console.log(data.roleId);
-      res.send(data.roleId);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while finding user role."
+      .then(data => {
+        console.log(data.roleId);
+        res.send(data.roleId);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while finding user role."
+        });
       });
-    });
 }
 
 exports.update = (req, res) => {
@@ -51,20 +51,20 @@ exports.update = (req, res) => {
   DBUserRole.update(roleId, {
     where: { userId: id }
   })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "role was updated successfully."
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "role was updated successfully."
+          });
+        } else {
+          res.send({
+            message: `Cannot update person with id=${id}. Maybe person was not found or req.body is empty!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating person with id=" + id + " err: " + err
         });
-      } else {
-        res.send({
-          message: `Cannot update person with id=${id}. Maybe person was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating person with id=" + id + " err: " + err
       });
-    });
 };

@@ -47,16 +47,16 @@
             <div><span class="black--text">
               {{ item.user.email }}
             </span></div> </a>
-          </template>
-          <template v-slot:item.roles="{ item }">
-            <div>
-              <span class="purple--text">{{ item.role }}</span>
-            </div>
-          </template>
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
-          </template>
-        </v-data-table>
+              </template>
+              <template v-slot:item.roles="{ item }">
+                <div>
+                  <span class="purple--text">{{ item.role }}</span>
+                </div>
+              </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
+              </template>
+            </v-data-table>
           </v-card-text>
         </v-card>
         <!------------------ dialog box to add person--------------------------->
@@ -64,11 +64,11 @@
           <template v-slot:activator="{ on, attrs }">
             <v-hover v-slot="{ hover }" open-delay="200">
               <v-btn
-                text
-                :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }"
-                v-bind="attrs"
-                v-on="on"
+                  text
+                  :elevation="hover ? 16 : 2"
+                  :class="{ 'on-hover': hover }"
+                  v-bind="attrs"
+                  v-on="on"
               >
                 Add User
                 <v-icon> mdi-plus </v-icon>
@@ -85,16 +85,16 @@
                   <v-row>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                        label="First Name"
-                        required
-                        v-model="add_person.firstname"
+                          label="First Name"
+                          required
+                          v-model="add_person.firstname"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                        label="Last Name"
-                        required
-                        v-model="add_person.lastname"
+                          label="Last Name"
+                          required
+                          v-model="add_person.lastname"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6"> </v-col>
@@ -102,14 +102,14 @@
                   <v-row>
                     <v-col cols="6">
                       <v-text-field
-                        label="Email"
-                        v-model="add_person.email"
+                          label="Email"
+                          v-model="add_person.email"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
-                        label="Password"
-                        v-model="add_person.password"
+                          label="Password"
+                          v-model="add_person.password"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -133,7 +133,7 @@
         <!-- <button class="m-3 btn btn-sm btn-danger" @click="removeAllVolunteers">
           Remove All
         </button> -->
-<!--      </v-col>-->
+        <!--      </v-col>-->
       </v-col>
     </v-row>
   </v-container>
@@ -144,16 +144,9 @@ import PersonDataService from "../services/PersonDataService";
 import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 
-
-
 export default {
   name: "users",
-   data() {
-
-export default {
-  name: "volunteer-list",
   data() {
-
     return {
       volunteers: [],
       add_person_dlg: false,
@@ -197,13 +190,12 @@ export default {
       UserDataService.getAll()
           .then((response) => {
             console.log(response.data);
-            console.log("Running");
             this.volunteers = response.data;
             this.volunteers.forEach((volunteer) => {
 
               volunteer.name = volunteer.first_name + " " + volunteer.last_name;
               console.log(volunteer.name);
-
+              //TODO: Review this
               // let roleNumber = volunteer.user.roles[0].user_roles.roleId;
               // let roleName = "";
               //
