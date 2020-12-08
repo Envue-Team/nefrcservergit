@@ -4,6 +4,7 @@ const DBPerson = db.person;
 const DBPOC = db.pointofcontact;
 const DBUser = db.user;
 const DBRole = db.role;
+const DBPhone = db.phone;
 const Op = require('sequelize').Op;
 
 // Create and Save a new person
@@ -95,7 +96,13 @@ exports.create = (req, res) => {
 // Retrieve all persons from the database.
 exports.findAll = (req, res) => {
   DBPerson.findAll({
-    include: ['phones', 'emails']
+    include: [
+      {
+        model: DBPhone,
+        order: ['isPrimary', 'DESC']
+      },
+      'emails'
+    ]
   })
     .then(data => {
       res.send(data);
@@ -114,7 +121,10 @@ exports.contactFindAll = (req, res) => {
       {
         model: DBUser,
       },
-      'phones',
+      {
+        model: DBPhone,
+        order: ['isPrimary', 'DESC']
+      },
       'emails']
   })
       .then(data => {
@@ -132,7 +142,16 @@ exports.contactFindAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, { include: ['phones', 'emails'] })
+  DBPerson.findByPk(id,
+      { include:
+            [
+              {
+                model: DBPhone,
+                order: ['isPrimary', 'DESC']
+              },
+              'emails'
+            ]
+      })
     .then(data => {
       res.send(data);
     })
@@ -372,8 +391,11 @@ exports.userFindAll = (req, res) => {
       model: DBUser,
       include: ['roles'],
       where: {id: {[Op.not]: null}}
-    }, 
-    'phones', 
+    },
+    {
+      model: DBPhone,
+      order: ['isPrimary', 'DESC']
+    },
     'emails']
   })
     .then(data => {
@@ -390,7 +412,19 @@ exports.userFindAll = (req, res) => {
 exports.userFindOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, { include: ['user','phones', 'emails', 'rolbes'] })
+
+  DBPerson.findByPk(id,
+      {
+        include: [
+          'user',
+          {
+            model: DBPhone,
+            order: ['isPrimary', 'DESC']
+          },
+          'emails',
+          'roles'
+        ]
+      })
     .then(data => {
       res.send(data);
     })
@@ -469,3 +503,31 @@ exports.userDelete = (req, res) => {
       });
     });
 };
+
+exports.findByEmail = (req, res) =>{
+  const email = req.params.email;
+  DBPerson.findAll( {
+        include:
+            [
+              {
+                model: DBUser,
+                include: ['roles'],
+                where: {
+                  email: email
+                },
+              },
+              'phones',
+              'emails'
+            ]
+      },
+
+  )
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving person with id=" + id + " err: " + err
+        });
+      });
+}

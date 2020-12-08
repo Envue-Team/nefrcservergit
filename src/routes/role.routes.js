@@ -10,7 +10,7 @@ module.exports = volapp => {
   router.get("/", roles.findAll);
 
 
-  // // // Retrieve a single note with id
+  // // Retrieve a single note with id
   // router.get("/:id", users.userFindOne);
 
   // router.put("/:id", users.updateUser);
