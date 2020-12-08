@@ -3,6 +3,25 @@
   <div class="red--text text--darken-2 page-title">Connections</div>
   <v-row>
       <v-col class="col-12 ">
+        <v-row>
+          <v-col>
+            <v-hover
+                v-slot="{ hover }"
+                open-delay="200"
+            >
+              <v-btn
+                  text
+                  color="red"
+                  @click="add_organization_dlg=true"
+              >
+                Add New Organization
+                <v-icon>
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </v-hover>
+          </v-col>
+        </v-row>
         <v-card outlined elevation="3 text-wrap">
           <v-card-text>
         <v-row>
@@ -60,7 +79,7 @@
             >
             <template v-slot:body.append="{ item }">
               <div class="row">
-                <div class="col">
+                <div class="col" style="margin-bottom: -25px; padding: 5px">
                   <JsonExcel
                       class="btn btn-default"
                       :data="excel_data"
@@ -72,7 +91,7 @@
                       text
                       color="blue"
                     >
-                      Download Excel
+                      Download to Excel File
                     </v-btn>
                   </JsonExcel>
                 </div>
@@ -82,24 +101,6 @@
                       v-model="add_organization_dlg"
                       max-width="600px"
                   >
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-hover
-                          v-slot="{ hover }"
-                          open-delay="200"
-                      >
-                        <v-btn
-                            text
-                            color="red"
-                            v-bind="attrs"
-                            v-on="on"
-                        >
-                          Add New Organization
-                          <v-icon>
-                            mdi-plus
-                          </v-icon>
-                        </v-btn>
-                      </v-hover>
-                    </template>
                     <v-card>
                       <v-form>
                         <v-card-title>
@@ -118,16 +119,6 @@
                                     required
                                     v-model="add_organization.name"
                                 ></v-text-field>
-                              </v-col>
-                              <v-col
-                                  cols="6"
-                                  sm="6"
-                                  md="6"
-                              >
-                                <v-checkbox
-                                    label="Public Safety"
-                                    v-model="add_organization.public_safety"
-                                ></v-checkbox>
                               </v-col>
                             </v-row>
                             <!-- <v-row>
@@ -321,7 +312,6 @@ export default {
         filters:{
           partners: true, 
           relationships: true,
-          public_safety: true,
           my_assignments: false
         },
         add_organization_dlg: false,
@@ -332,7 +322,6 @@ export default {
         relationship_statuses: ["Hot", "Warm", "Cold"],
         add_organization: {
           name: '',
-          public_safety:false,
           street_number: '',
           street_name: '',
           city: '', 
@@ -430,15 +419,14 @@ export default {
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 organization.address = organization.street_number+" "+organization.street_name+"\n"+
                 organization.city+", "+organization.state+" "+organization.zip;
-                console.log(organization);
-                var manager = organization.relationship_managers[0].person;
-                var manager_data = manager.first_name+" "+manager.last_name;
+                let manager = organization.relationship_managers[0].person;
+                let manager_data = manager.first_name+" "+manager.last_name;
                 organization.manager = manager_data;
-                var phones = '';
+                let phones = '';
                 manager.phones.forEach(phone=>{
                   phones += phone.number+" \n"
                 });
-                var emails = '';
+                let emails = '';
                  manager.emails.forEach(email=>{
                   emails += email.address+" \n"
                 });
@@ -497,8 +485,7 @@ export default {
         this.organizations = this.orgCache.filter(organization=>{
           var assign = this.filters['my_assignments'] ? organization.managerId == "5693164c-5da4-4d07-ad24-d9f39befc823" : true;
           return (this.filters['partners'] && organization.partner !== null && assign) | 
-          (this.filters['relationships'] && organization.relationship !== null && assign) | 
-          (this.filters['public_safety'] && organization.public_safety && assign)
+          (this.filters['relationships'] && organization.relationship !== null && assign)
         });
         this.updateExcelFields();
       }
