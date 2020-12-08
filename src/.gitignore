@@ -1,3 +1,4 @@
 /legacy/
 /node_modules
 http-common.js
+/config
