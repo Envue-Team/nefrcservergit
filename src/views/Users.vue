@@ -25,6 +25,7 @@
           class="text-capitalize"
         >
           <template v-slot:item.name="{ item }">
+            <button v-on:click="removePerson(item)">X</button>
             <template v-if="item.first_name !== null">
               <a v-on:click="nav(item)">
               <span class="black--text">  {{ item.name }}</span>
@@ -144,9 +145,15 @@ import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 
 
+
 export default {
   name: "users",
    data() {
+
+export default {
+  name: "volunteer-list",
+  data() {
+
     return {
       volunteers: [],
       add_person_dlg: false,
@@ -176,7 +183,6 @@ export default {
         { text: "Name", value: "name", width: "80px" },
         { text: "Email", value: "email", width: "80px" },
         { text: "Roles", value: "role", width: "100px" },
-      ];
       return headers;
     },
   },
@@ -189,19 +195,31 @@ export default {
     },
     retrieveVolunteers() {
       UserDataService.getAll()
-        .then((response) => {
-          this.volunteers = response.data;
-          this.volunteers.forEach((volunteer) => {
-            console.log("running");
+          .then((response) => {
+            console.log(response.data);
+            console.log("Running");
+            this.volunteers = response.data;
+            this.volunteers.forEach((volunteer) => {
 
-            volunteer.name = volunteer.first_name + " " + volunteer.last_name;
+              volunteer.name = volunteer.first_name + " " + volunteer.last_name;
+              console.log(volunteer.name);
 
+              // let roleNumber = volunteer.user.roles[0].user_roles.roleId;
+              // let roleName = "";
+              //
+              // if(roleNumber == 2) {
+              //   roleName = "User"
+              // } else {
+              //   roleName = "Admin"
+              // }
+              //
+              // volunteer.role = roleName
+            });
+            // console.log(this.volunteers);
+          })
+          .catch((e) => {
+            console.log(e.message);
           });
-          // console.log(this.volunteers);
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
     },
 
     refreshList() {
@@ -214,28 +232,6 @@ export default {
       this.currentVolunteer = volunteer;
       this.currentIndex = index;
     },
-
-    // removeAllVolunteers() {
-    //   PersonDataService.deleteAll()
-    //     .then((response) => {
-    //       console.log(response.data);
-    //       this.refreshList();
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
-
-    // searchTitle() {
-    //   PersonDataService.findByName(this.first_name)
-    //     .then((response) => {
-    //       this.volunteers = response.data;
-    //       console.log(response.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // },
     addPerson() {
       var data = {
         first_name: this.add_person.firstname,
@@ -243,56 +239,51 @@ export default {
         email: this.add_person.email,
         password: this.add_person.password,
       };
-      // var email1 = {
-      //   "address": this.add_person.primaryEmail,
-      //   // "personId":
-      // }
-      // var phone = {
-      //   person.id,
-      //   this.add_person.primaryPhone,
-      // };
+      var userData = {
+        roles: this.add_role.roles,
+      };
+
       data.services = this.add_person.services;
       UserDataService.create(data)
-        .then((response) => {
-          this.refreshList();
-          return response.data.id;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-
-      // this.addEmail(email1, data);
-      // EmailDataService.create(email1).
-      // then(response=>{
-      //   console.log(response);
-      //   this.retrieveVolunteers();
-      //   this.add_organization_dlg = false
-      // })
-      // .catch(e=>{
-      //   console.log(e);
-      // });
-      this.add_person_dlg = false;
-      // this.refreshList();
-      // console.log("hit");
-    },
-
-    removePerson(item) {
-      if (
-        confirm(
-          "Are you sure you want to remove " +
-            item.first_name +
-            " " +
-            item.last_name +
-            " from the table?"
-        )
-      ) {
-        UserDataService.delete(item.id)
           .then((response) => {
+            console.log(response);
+            let data = {
+              roleId: 2,
+              userId: response.data,
+            };
+
             this.refreshList();
+            UserRoleDataService.create(data)
+                .then((resp) => {
+                  this.refreshList();
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
           })
           .catch((e) => {
             console.log(e);
           });
+      this.add_person_dlg = false;
+    },
+
+    removePerson(item) {
+      if (
+          confirm(
+              "Are you sure you want to remove " +
+              item.first_name +
+              " " +
+              item.last_name +
+              " from the table?"
+          )
+      ) {
+        UserDataService.delete(item.id)
+            .then((response) => {
+              this.refreshList();
+            })
+            .catch((e) => {
+              console.log(e);
+            });
       }
     },
   },
