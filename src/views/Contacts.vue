@@ -33,23 +33,28 @@
         <template
           v-slot:item.address="{ item }"
         >
+
           <address>
-          {{ item.address }}
+          <span class="black--text">{{ item.address }}</span>
         </address>
       </template>
       <template
         v-slot:item.emails="{ item }"
       >
         <div>
+        <span>
           {{ email.address }}
+        </span>
         </div>
       </template>
       <template
           v-slot:item.phones="{ item }"
       >
+        <a v-on:click="nav(item)">
         <div >
           {{phone.number}}
         </div>
+        </a>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
@@ -457,6 +462,7 @@ export default {
             console.log(e);
           });
       }
+      window.location.href="/contacts";
     },
   },
   mounted() {

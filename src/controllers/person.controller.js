@@ -390,7 +390,7 @@ exports.userFindAll = (req, res) => {
 exports.userFindOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, { include: ['user','phones', 'emails', 'roles'] })
+  DBPerson.findByPk(id, { include: ['user','phones', 'emails', 'rolbes'] })
     .then(data => {
       res.send(data);
     })
@@ -400,6 +400,34 @@ exports.userFindOne = (req, res) => {
       });
     });
 };
+
+exports.findByEmail = (req, res) =>{
+  const email = req.params.email;
+  DBPerson.findAll( {
+      include: 
+      [
+        {
+          model: DBUser,
+          include: ['roles'],
+            where: {
+              email: email
+            },
+        },
+        'phones', 
+        'emails'
+      ] 
+    }, 
+    
+  ) 
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving person with id=" + id + " err: " + err
+      });
+    });
+}
 
 exports.userDelete = (req, res) => {
   const id = req.params.id;
