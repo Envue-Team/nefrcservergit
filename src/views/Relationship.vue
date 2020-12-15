@@ -98,84 +98,84 @@
           <!--------------------------//Notes and History-------------------------------->
 
           <!--------------------------File List Table-------------------------------->
-<!--						<v-data-table-->
-<!--						:headers="headers"-->
-<!--						:search="search"-->
-<!--						:items="files"-->
-<!--						item-key="id"-->
-<!--						multi-sort-->
-<!--						>-->
-<!--						<template v-slot:top>-->
-<!--						<v-text-field-->
-<!--						v-model="search"-->
-<!--						label="Search Files"-->
-<!--						class="mx-4"-->
-<!--						></v-text-field>-->
-<!--						</template>-->
-<!--						<template v-slot:item.name="item">-->
-<!--							<p>{{ item.item.name  }}</p>-->
-<!--						</template>-->
-<!--						<template v-slot:item.date="item">-->
-<!--							<p>{{ item.item.date }}</p>-->
-<!--						</template>-->
-<!--						<template v-slot:item.author="item">-->
-<!--							<p>{{ item.item.author }}</p>-->
-<!--						</template>-->
-<!--						<template v-slot:item.download="item">-->
-<!--							<v-btn-->
-<!--								depressed-->
-<!--								small-->
-<!--								@click="downloadFile(item)"-->
-<!--							>-->
-<!--							Download-->
-<!--							<v-icon-->
-<!--								color="orange darken-4"-->
-<!--								right-->
-<!--							>-->
-<!--								mdi-arrow-down-->
-<!--							</v-icon>-->
-<!--							</v-btn>-->
-<!--						</template>-->
-<!--						<template v-slot:item.remove="item">-->
-<!--							<v-btn-->
-<!--								depressed-->
-<!--								small-->
-<!--								@click="deleteFile(item)"-->
-<!--							>-->
-<!--							<v-icon-->
-<!--								color="orange darken-4"-->
-<!--								right-->
-<!--							>-->
-<!--								mdi-trash-can-->
-<!--							</v-icon>-->
-<!--							</v-btn>-->
-<!--						</template>-->
-<!--						<template v-slot:footer>-->
-<!--							<v-row>-->
-<!--							<v-file-input-->
-<!--							label="Upload new file"-->
-<!--							show-size-->
-<!--							counter-->
-<!--							dense-->
-<!--							@change="filesChange"-->
-<!--							></v-file-input>-->
-<!--							<v-btn-->
-<!--								depressed-->
-<!--								small-->
-<!--								:disabled="upload_disabled"-->
-<!--								@click="uploadFile"-->
-<!--							>-->
-<!--							Upload-->
-<!--							<v-icon-->
-<!--								color="orange darken-4"-->
-<!--								right-->
-<!--							>-->
-<!--								mdi-arrow-up-->
-<!--							</v-icon>-->
-<!--							</v-btn>-->
-<!--							</v-row>-->
-<!--						</template>-->
-<!--						</v-data-table>-->
+						<v-data-table
+						:headers="headers"
+						:search="search"
+						:items="files"
+						item-key="id"
+						multi-sort
+						>
+						<template v-slot:top>
+						<v-text-field
+						v-model="search"
+						label="Search Files"
+						class="mx-4"
+						></v-text-field>
+						</template>
+						<template v-slot:item.name="item">
+							<p>{{ item.item.name  }}</p>
+						</template>
+						<template v-slot:item.date="item">
+							<p>{{ item.item.date }}</p>
+						</template>
+						<template v-slot:item.author="item">
+							<p>{{ item.item.author }}</p>
+						</template>
+						<template v-slot:item.download="item">
+							<v-btn
+								depressed
+								small
+								@click="downloadFile(item)"
+							>
+							Download
+							<v-icon
+								color="orange darken-4"
+								right
+							>
+								mdi-arrow-down
+							</v-icon>
+							</v-btn>
+						</template>
+						<template v-slot:item.remove="item">
+							<v-btn
+								depressed
+								small
+								@click="deleteFile(item)"
+							>
+							<v-icon
+								color="orange darken-4"
+								right
+							>
+								mdi-trash-can
+							</v-icon>
+							</v-btn>
+						</template>
+						<template v-slot:footer>
+							<v-row>
+							<v-file-input
+							label="Upload new file"
+							show-size
+							counter
+							dense
+							@change="filesChange"
+							></v-file-input>
+							<v-btn
+								depressed
+								small
+								:disabled="upload_disabled"
+								@click="uploadFile"
+							>
+							Upload
+							<v-icon
+								color="orange darken-4"
+								right
+							>
+								mdi-arrow-up
+							</v-icon>
+							</v-btn>
+							</v-row>
+						</template>
+						</v-data-table>
 						<!--------------------------//File List Table-------------------------------->
 
 				</v-col><!----------------------//Left Column-------------------------->

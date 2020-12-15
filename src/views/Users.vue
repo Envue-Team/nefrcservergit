@@ -176,6 +176,7 @@ export default {
         { text: "Name", value: "name", width: "80px" },
         { text: "Email", value: "email", width: "80px" },
         { text: "Roles", value: "role", width: "100px" },
+          ]
       return headers;
     },
   },
