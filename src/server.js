@@ -8,8 +8,6 @@ const db = require("../src/models");
 // db.sequelize.sync({force: true});
 db.sequelize .sync();
 
-// db.sequelize.sync({force: true});
-
 expapp.use(cors());
 
 // parse requests of content-type - application/json

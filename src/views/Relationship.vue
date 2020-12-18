@@ -71,15 +71,15 @@
           </v-card>
           <v-card>
             <v-card-text>
-						<!--------------------------Organization Relationship Management-------------------------------->
-            <span v-if="organization_relationship_managers.length == 0">
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM')">
-              Assign an Organization Manager
+						<!--------------------------Organization Relationship Manager-------------------------------->
+            <div>
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Add RM')">
+                Add an Organization Manager
               </a>
-            </span>
+            </div>
 
 						<div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM')">
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM', manager.personId)">
                 <div class="font-weight-black mt-3">
                   <strong>
                     <span :ref="'relationship_manager_' + manager.personId">
@@ -91,7 +91,7 @@
 							<div v-for="mphone in manager.person.phones" :key="mphone.number" class="font-weight-thin">{{ mphone.number }}</div>
 							<div v-for="memail in manager.person.emails" :key="memail.address" class="font-weight-thin"> {{ memail.address }}</div>
 						</div>
-						<!--------------------------//Organization Relationship Management-------------------------------->
+						<!--------------------------//Organization Relationship Manager-------------------------------->
             </v-card-text>
           </v-card>
 
@@ -476,40 +476,40 @@
 <!--                <v-spacer></v-spacer>-->
               </v-row>
             </v-card-subtitle>
-            							<v-virtual-scroll
-            							:items="filteredList"
-            							:item-height="50"
-            							height="150"
-            							>
-            							<template v-slot:default="{ item }">
-            								<v-list-item>
+            <v-virtual-scroll
+            :items="filteredList"
+            :item-height="50"
+            height="150"
+            >
+            <template v-slot:default="{ item }">
+              <v-list-item>
 
-            								<v-list-item-content>
-            									<v-list-item-title class="font-weight-thin">
-            										Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}
-            									</v-list-item-title>
-            									<v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
-            								</v-list-item-content>
+              <v-list-item-content>
+                <v-list-item-title class="font-weight-thin">
+                  Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}
+                </v-list-item-title>
+                <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>
+              </v-list-item-content>
 
-            								<v-list-item-action>
-            									<!-------------------------------New Note Dialog------------------------------>
-            									<v-btn
-            										depressed
-            										small
-            										@click.stop="openNoteDialog(item)"
-            									>
-            										Open
-            									<v-icon
-            										color="red darken-4"
-            										right
-            									>
-            										mdi-open-in-new
-            									</v-icon>
-            									</v-btn>
-            								</v-list-item-action>
-            								</v-list-item>
-            							</template>
-            							</v-virtual-scroll>
+              <v-list-item-action>
+                <!-------------------------------New Note Dialog------------------------------>
+                <v-btn
+                  depressed
+                  small
+                  @click.stop="openNoteDialog(item)"
+                >
+                  Open
+                <v-icon
+                  color="red darken-4"
+                  right
+                >
+                  mdi-open-in-new
+                </v-icon>
+                </v-btn>
+              </v-list-item-action>
+              </v-list-item>
+            </template>
+            </v-virtual-scroll>
 <!--            						</v-card>-->
 <!--            						</template>-->
 
@@ -980,6 +980,13 @@
               Close
             </v-btn>
             <v-btn
+                color="red darken-1"
+                text
+                @click="relationship_edit_dlg=false"
+            >
+              Delete
+            </v-btn>
+            <v-btn
                 color="blue darken-1"
                 text
                 @click="updateRelationship"
@@ -1020,6 +1027,35 @@
       </v-card>
     </v-dialog>
     <!---------------------------------//Delete Relationship Dialog------------------------------>
+
+    <!---------------------------------Delete Relationship Manager Dialog------------------------------>
+    <v-dialog
+        max-width="300"
+        v-model="delete_relationship_manager_dialog"
+    >
+      <v-card>
+        <v-card-text>
+          Are you sure you want to remove this relationship manager?
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn
+              @click="deleteRelationshipManager"
+              text
+              color="red text-darken-1">
+            Yes
+          </v-btn>
+          <v-btn
+              @click="delete_relationship_manager_dialog=false"
+              text
+              color="blue text-darken-1"
+          >
+            No
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Delete Relationship Manager Dialog------------------------------>
 
     <!---------------------------------Assign Point of Contact Dialog------------------------------->
 <!--    <v-dialog-->
@@ -1071,14 +1107,14 @@
 <!--    </v-dialog>-->
     <!---------------------------------//Assign Point of Contact Dialog------------------------------>
 
-    <!---------------------------------Assign Relationship Manager Dialog------------------------------>
+    <!---------------------------------Update Relationship Manager Dialog------------------------------>
     <v-dialog
-        v-model="assign_mgr_dlg"
+        v-model="update_mgr_dlg"
         max-width="600px"
     >
       <v-card>
         <v-card-title>
-          <span class="headline">Assign Relationship Manager</span>
+          <span class="headline">Update Relationship Manager</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -1106,9 +1142,16 @@
           <v-btn
               color="blue darken-1"
               text
-              @click="assign_mgr_dlg=false"
+              @click="update_mgr_dlg=false"
           >
             Close
+          </v-btn>
+          <v-btn
+              color="red darken-1"
+              text
+              v-on:click="deleteRelationshipManager"
+          >
+            delete
           </v-btn>
           <v-btn
               color="blue darken-1"
@@ -1120,7 +1163,58 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <!---------------------------------//Assign Relationship Manager Dialog------------------------------>
+    <!---------------------------------//Update Relationship Manager Dialog------------------------------>
+
+    <!---------------------------------Assign New Relationship Manager Dialog------------------------------>
+    <v-dialog
+        v-model="add_mgr_dlg"
+        max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">Add Relationship Manager</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                  cols="12"
+                  sm="12"
+                  md="12"
+              >
+                <v-autocomplete
+                    label="Relationship Manager"
+                    :items="all_relationship_managers"
+                    item-text="name"
+                    item-value="value"
+                    return-object
+                    @change="updateSelectedManager"
+                >
+                </v-autocomplete>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              color="blue darken-1"
+              text
+              @click="add_mgr_dlg=false"
+          >
+            Close
+          </v-btn>
+          <v-btn
+              color="blue darken-1"
+              text
+              v-on:click="addRelationshipManager"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Assign New Relationship Manager Dialog------------------------------>
 	</v-container>
 </template>
 <script>
@@ -1172,10 +1266,13 @@ export default {
 		current_status: '',
 
 		/**
-		 * Relationship Mangers 
+		 * Relationship Managers
 		 **/
-		assign_mgr_dlg: false,
+    delete_relationship_manager_dialog: false,
+		update_mgr_dlg: false,
+    add_mgr_dlg: false,
     updated_relationship_manager: '',
+    current_relationship_manager_id: '',
 		all_relationship_managers:[],
 		organization_relationship_managers: [],
 
@@ -1257,8 +1354,12 @@ export default {
 	methods: {
 	  openDialog(dlg, id=null){
 	    switch(dlg){
+	      case "Add RM":
+	        this.add_mgr_dlg = true;
+	        break;
 	      case "RM":
-	        this.assign_mgr_dlg = true;
+	        this.update_mgr_dlg = true;
+	        this.current_relationship_manager_id = id;
 	        break;
         case "Edit POC":
           this.update_poc_id = id;
@@ -1482,6 +1583,8 @@ export default {
             .catch(e=>{console.log(e)});
         this.relationship = response.data;
         this.organization_relationship_managers = response.data.relationship_managers;
+        console.log(this.organization_relationship_managers);
+        console.log(this.relationship);
         this.populateFiles(this.relationship.id);
         this.relationship_secondary_info = response.data.relationship;
         this.current_status = this.relationship_secondary_info.status;
@@ -1510,8 +1613,8 @@ export default {
         value: obj.value
       };
     },
-    updateRelationshipManager(){
-      this.assign_mgr_dlg = false;
+    addRelationshipManager(){
+      this.add_mgr_dlg = false;
       let organizationId = this.relationship.id;
 
       let data = {
@@ -1519,24 +1622,42 @@ export default {
         personId: this.updated_relationship_manager.value
       };
 
-      if(this.relationship.relationship_managers.length != 0) {
-        let personId = this.relationship.relationship_managers[0].personId;
-        RelationshipManagerDataService.update(organizationId, personId, data)
-            .then(response => {
-              this.relationship.relationship_managers = response.data;
-              this.setRelationship();
-            })
-            .catch(e => {
-              console.log(e)
-            });
-      }else {
-        RelationshipManagerDataService.create(data)
-            .then(response=>{
-                this.relationship.relationship_managers = response.data;
+      RelationshipManagerDataService.create(data)
+          .then(response=>{
+            this.relationship.relationship_managers = response.data;
+            this.setRelationship();
+          })
+          .catch(err=>{console.log(err)});
+    },
+    updateRelationshipManager(){
+      this.update_mgr_dlg = false;
+      let organizationId = this.relationship.id;
+
+      let data = {
+        organizationId: organizationId,
+        personId: this.updated_relationship_manager.value
+      };
+
+      let personId = this.current_relationship_manager_id;
+      RelationshipManagerDataService.update(organizationId, personId, data)
+          .then(response => {
+            this.relationship.relationship_managers = response.data;
+            this.setRelationship();
+          })
+          .catch(e => {
+            console.log(e)
+          });
+    },
+    deleteRelationshipManager(){
+      this.update_mgr_dlg = false;
+      RelationshipManagerDataService.delete(this.relationship.id, this.current_relationship_manager_id)
+          .then(
+              response=>{
+                console.log(response);
+
                 this.setRelationship();
-            })
-            .catch(err=>{console.log(err)});
-      }
+              })
+          .catch(e=>{console.log(e)});
     },
     updateContactInfo(primary, data, service, contactId = 0){
       data.isPrimary = primary;

@@ -5,7 +5,7 @@
       color="primary"
       dark
     >
-      <a href="/">
+      <router-link to="/">
         <v-img
             class="mx-2"
             src="../src/assets/images/redcross-logo.png"
@@ -13,13 +13,13 @@
             max-width="60%"
             contain
         ></v-img>
-      </a>
-      <a href="/" class="red--text text--darken-2 mr-3">Home</a> |
-      <a href="/contacts" class="red--text text--darken-2 mr-3 ml-3 ">Contacts</a> |
-      <a href="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</a> |
-      <a href="/users" class="red--text text--darken-2 ml-3 mr-3">Users</a>
+      </router-link>
+      <router-link to="/" class="red--text text--darken-2 mr-3">Home</router-link> |
+      <router-link to="/contacts" class="red--text text--darken-2 mr-3 ml-3 ">Contacts</router-link> |
+      <router-link to="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</router-link> |
+      <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3">Users</router-link>
       <v-spacer></v-spacer>
-      <a href="" style="color: darkred">Logout</a>
+      <router-link href="" style="color: darkred">Logout</router-link>
     </v-app-bar>
     <v-main style="background-color: rgba(45, 70, 40, 0.04)">
       <router-view/>
@@ -31,6 +31,9 @@
 
 export default {
   name: 'App',
+  created(){
+    this.$router.replace(this.$route.fullPath || '/')
+  }
 };
 </script>
 
