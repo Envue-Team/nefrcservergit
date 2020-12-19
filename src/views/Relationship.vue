@@ -15,7 +15,12 @@
                   <address class="text-capitalize">
                     {{ relationship.street_number }} {{ relationship.street_name}}
                     {{ relationship.city }}, {{ relationship.state }} {{ relationship.zip }}
-                    {{relationship.county}} County
+
+                    <br/>Counties
+                    <br/>
+                    <span v-for="county in relationship.counties" key="county.id">
+                      {{county.name}}
+                    </span>
                   </address>
                   <a :href="relationship.website" class="red--text text--darken-3  body-3 mt-3">
                     {{ relationship.website }}
@@ -864,7 +869,7 @@
     <!---------------------------------Edit Relationship Dialog------------------------------->
     <v-dialog
         v-model="relationship_edit_dlg"
-        max-width="600px"
+        max-width="1200px"
     >
       <v-card>
         <v-form>
@@ -947,17 +952,18 @@
               <v-row>
                 <v-col cols="6">
                   <v-text-field
-                      label="County"
-                      v-model="relationship.county"
+                      label="Website"
+                      v-model="relationship.website"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="6">
-                  <v-text-field
-                      label="Website"
-                      v-model="relationship.website"
-                  ></v-text-field>
+                <v-col cols="3" v-for="county in all_counties">
+                  <v-checkbox
+                    v-model="relationship_counties"
+                    :value="county"
+                    :label="county"
+                  ></v-checkbox>
                 </v-col>
               </v-row>
             </v-container>
@@ -1234,6 +1240,8 @@ import PointOfContactDataService from "@/services/PointOfContactDataService";
 import POCDialog from "./POCDialog";
 import EmailDataService from "@/services/EmailDataService";
 import PhoneDataService from "@/services/PhoneDataService";
+import CountyDataService from "@/services/CountyDataService"
+import OrganizationCountyDataService from "@/services/OrganizationCountyDataService";
 
 export default {
 	name: "relationship",
@@ -1245,6 +1253,12 @@ export default {
 	data() {
 	return {
 	  confirm_delete: false,
+    /**
+     * Counties
+     **/
+    all_counties: [],
+    relationship_counties: [],
+    unmapped_counties: [],
 
 		/**
 		 * Experimental
@@ -1558,12 +1572,24 @@ export default {
 				"status": this.current_status
 			}
 			RelationshipDataService.update(this.relationship.id, data)
-			.then(response=>{
-				// console.log(response.data);
-			})
-			.catch(e=>{
-				console.log(e);
-			});
+			.then().catch(e=>{console.log(e);});
+
+			OrganizationCountyDataService.deleteOrganizationCounties(this.relationship.id)
+          .then(response=>{
+            this.unmapped_counties.forEach(county=>{
+              if(this.relationship_counties.includes(county.name)){
+                let data = {
+                  organizationId: this.relationship.id,
+                  countyId: county.id
+                }
+                OrganizationCountyDataService.create(data)
+                    .then(response=>{
+                      this.setRelationship();
+                    }).catch(e=>{console.log(e)});
+              }
+            })
+          })
+          .catch(e=>{console.log(e)});
 		},
 		setRelationship(){
 			RelationshipDataService.get(this.$route.params.organizationId)
@@ -1578,13 +1604,15 @@ export default {
 						type: note.type
 					}
 				});
+				response.data.counties.forEach(county=>{
+				  this.relationship_counties.push(county.name);
+        });
         PointOfContactDataService.getAll(response.data.id)
             .then(this.setPOC)
             .catch(e=>{console.log(e)});
         this.relationship = response.data;
         this.organization_relationship_managers = response.data.relationship_managers;
-        console.log(this.organization_relationship_managers);
-        console.log(this.relationship);
+        this.populateCounties();
         this.populateFiles(this.relationship.id);
         this.relationship_secondary_info = response.data.relationship;
         this.current_status = this.relationship_secondary_info.status;
@@ -1593,6 +1621,16 @@ export default {
 				console.log(e.message);
 			});
 		},
+    populateCounties(){
+		  CountyDataService.getAll()
+          .then(response=>{
+            this.all_counties = response.data.map(county=>{
+              return county.name
+            });
+            this.unmapped_counties = response.data;
+          })
+          .catch(e=>{console.log(e)});
+    },
     setPOC(res){
       this.organization_points_of_contact = res.data;
     },
@@ -1879,14 +1917,6 @@ export default {
           }).catch(e=>{
             console.log(e)
           });
-      // PointOfContactDataService.update(organizationId, personId, data)
-      //     .then(response => {
-      //       this.setRelationship();
-      //       // console.log(response);
-      //     })
-      //     .catch(e => {
-      //       console.log(e)
-      //     });
     },
 		formatDate (date) {
 			if (!date) return null
@@ -1934,6 +1964,7 @@ export default {
 		this.setRelationship();
 		this.populateRelationshipManagersList();
 		this.populatePointOfContactList();
+		this.populateCounties();
 	}
 };
 </script>

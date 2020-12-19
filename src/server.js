@@ -30,6 +30,8 @@ require("../src/routes/user.routes")(expapp);
 require("../src/routes/role.routes")(expapp);
 require("../src/routes/user_role.routes")(expapp);
 require("../src/routes/contact.routes")(expapp);
+require("../src/routes/organization_county.routes")(expapp);
+require("../src/routes/county.routes")(expapp);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

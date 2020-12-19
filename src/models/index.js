@@ -35,6 +35,8 @@ db.role = require('./role.model.js')(sequelize, Sequelize);
 db.permission = require('./permission.model.js')(sequelize, Sequelize);
 db.user_roles = require('./user_roles.model.js')(sequelize, Sequelize);
 db.role_permissions = require('./role_permissions.model.js')(sequelize, Sequelize);
+db.county = require('./county.model.js')(sequelize, Sequelize);
+db.organization_county = require('./organization_county.model.js')(sequelize, Sequelize);
 
 //Relationship building
 db.organization.hasMany(db.note, {onDelete: 'CASCADE'});
@@ -45,8 +47,6 @@ db.organization.hasOne(db.partner, {onDelete: 'CASCADE'});
 db.partner.belongsTo(db.organization);
 db.organization.hasOne(db.relationship, {onDelete: 'CASCADE'});
 db.relationship.belongsTo(db.organization);
-// db.organization.hasMany(db.person);
-// db.person.belongsTo(db.organization);
 db.organization.hasMany(db.phone, {onDelete: 'CASCADE'});
 db.phone.belongsTo(db.organization);
 db.person.hasMany(db.phone, {onDelete: 'CASCADE'});
@@ -55,10 +55,6 @@ db.organization.hasMany(db.email, {onDelete: 'CASCADE'});
 db.email.belongsTo(db.organization);
 db.person.hasMany(db.email, {onDelete: 'CASCADE'});
 db.email.belongsTo(db.person);
-// db.organization.hasMany(db.pointofcontact, {onDelete: 'CASCADE'});
-// db.pointofcontact.belongsTo(db.organization);
-// db.person.hasMany(db.pointofcontact, {onDelete: 'CASCADE'});
-// db.pointofcontact.belongsTo(db.person);
 db.organization.belongsToMany(db.person, {through: db.pointofcontact});
 db.person.belongsToMany(db.organization, {through: db.pointofcontact});
 db.organization.hasMany(db.relationshipmanager, {onDelete: 'CASCADE'});
@@ -73,6 +69,7 @@ db.user.belongsTo(db.person);
 db.person.hasOne(db.user);
 db.user.belongsToMany(db.role, { through: db.user_roles });
 db.permission.belongsToMany(db.role, { through: db.role_permissions});
-
+db.organization.belongsToMany(db.county, {through: db.organization_county});
+db.county.belongsToMany(db.organization, {through: db.organization_county});
 
 module.exports = db;

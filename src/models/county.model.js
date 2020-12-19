@@ -1,10 +1,11 @@
 module.exports = (sequelize, DataTypes) => {
     const County = sequelize.define("county", {
         id: {
-            type: DataTypes.UUID,
+            type: DataTypes.INTEGER,
             primaryKey: true,
-            defaultValue: DataTypes.UUIDV4,
-            allowNull: false
+            autoIncrement: true,
+            allowNull: false,
+            defaultValue: DataTypes.INTEGER.random
         },
         name: {
             type: DataTypes.STRING

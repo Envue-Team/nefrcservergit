@@ -19,7 +19,7 @@
       <router-link to="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</router-link> |
       <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3">Users</router-link>
       <v-spacer></v-spacer>
-      <router-link href="" style="color: darkred">Logout</router-link>
+      <router-link to="" style="color: darkred">Logout</router-link>
     </v-app-bar>
     <v-main style="background-color: rgba(45, 70, 40, 0.04)">
       <router-view/>
