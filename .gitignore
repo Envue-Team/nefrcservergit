@@ -1,4 +1,5 @@
 /node_modules/
 /uploads/
 /src/http-common.js
+/config
 

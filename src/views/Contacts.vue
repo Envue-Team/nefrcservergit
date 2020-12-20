@@ -319,8 +319,7 @@ export default {
             return contact.user == null;
           });
           this.volunteers.forEach(volunteer=>{
-            console.log("running");
-          
+            console.log(volunteer);
             volunteer.address = volunteer.street_number+" "+volunteer.street_name+"\n"
             +volunteer.city+", "+volunteer.state+" "+volunteer.zip;
 
@@ -338,6 +337,8 @@ export default {
                 phones += phone.number+"\n";
               } 
             });
+            //do the same for organizations that is done with phones
+            
             volunteer.phone = phones;
           });
           // console.log(this.volunteers);
@@ -431,6 +432,7 @@ export default {
         EmailDataService.create(email2);
         PhoneDataService.create(phone);
         PhoneDataService.create(phone2);
+        this.retrieveVolunteers();
       })
       .catch(e=>{
         console.log(e);
@@ -456,14 +458,15 @@ export default {
         ContactDataService.delete(item.id)
           .then(response => {
             console.log(response.data);
+            window.location.href="/contacts";
             this.refreshList();
           })
           .catch(e => {
             console.log(e);
           });
       }
-      window.location.href="/contacts";
     },
+    
   },
   mounted() {
     this.retrieveVolunteers();
