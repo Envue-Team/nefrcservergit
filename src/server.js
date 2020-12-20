@@ -8,8 +8,6 @@ const db = require("../src/models");
 // db.sequelize.sync({force: true});
 db.sequelize .sync();
 
-// db.sequelize.sync({force: true});
-
 expapp.use(cors());
 
 // parse requests of content-type - application/json
@@ -32,6 +30,8 @@ require("../src/routes/user.routes")(expapp);
 require("../src/routes/role.routes")(expapp);
 require("../src/routes/user_role.routes")(expapp);
 require("../src/routes/contact.routes")(expapp);
+require("../src/routes/organization_county.routes")(expapp);
+require("../src/routes/county.routes")(expapp);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

@@ -7,9 +7,9 @@
     </v-row>
     <v-row class="text-center">
       <v-col class="cols-7">
-        <a class="text-h4 grey--text text--darken-2" href="/contacts">Contacts | </a>
-        <a class="text-h4 grey--text text--darken-2" href="/organizations">Connections | </a>
-        <a class="text-h4 grey--text text--darken-2" href="/users">Users</a>
+        <router-link class="text-h4 grey--text text--darken-2" to="/contacts">Contacts | </router-link>
+        <router-link class="text-h4 grey--text text--darken-2" to="/organizations">Connections | </router-link>
+        <router-link class="text-h4 grey--text text--darken-2" to="/users">Users</router-link>
       </v-col>
     </v-row>
   </v-container>

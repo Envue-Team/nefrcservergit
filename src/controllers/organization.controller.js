@@ -1,12 +1,13 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const db = require("../models");
 const DBOrganization = db.organization;
-const DBPOC = db.pointofcontact;
+// const DBPOC = db.pointofcontact;
 const DBRM = db.relationshipmanager;
 const DBPerson = db.person;
 const DBPartner = db.partner;
 const DBRelationship = db.relationship;
 const DBNote = db.note;
+// const DBCounty = db.county;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new organization
@@ -155,18 +156,11 @@ exports.findAll = (req, res) => {
       'relationship',
       'phones',
       'emails',
+      'counties',
       {
         model: DBNote,
-        include: 'person'
+        include: 'person',
       },
-      // {
-      //   model: DBPOC,
-      //   include: [{
-      //     model: DBPerson,
-      //     include: ['phones', 'emails'],
-      //   }
-      //   ]
-      // },
       {
         model: DBRM,
         include: [{
@@ -193,21 +187,15 @@ exports.findAllPartners = (req, res) => {
     include :[
       'phones',
       'emails',
+      'counties',
       {
         model: DBNote,
-        include:'person'
+        include:'person',
       },
     {
       model: DBPartner,
       where: { services : {[Op.ne]: null} }
     },
-    // {
-    //   model: DBPOC,
-    //   include: [{
-    //     model: DBPerson,
-    //     include: ['phones', 'email']
-    //   }]
-    // },
     {
       model: DBRM,
       include: [{
@@ -234,21 +222,16 @@ exports.findAllRelationships = (req, res) => {
     include :[
       'phones',
       'emails',
+      'counties',
       {
         model: DBNote,
         include: 'person'
+
       },
     {
       model: DBRelationship,
       where: { status : {[Op.ne]: null} }
     },
-    // {
-    //   model: DBPOC,
-    //   include: [{
-    //     model: DBPerson,
-    //     include: ['phones', 'emails']
-    //   }]
-    // },
     {
       model: DBRM,
       include: [{
@@ -256,7 +239,8 @@ exports.findAllRelationships = (req, res) => {
         include: ['phones', 'emails']
       }]
     }
-    ]
+    ],
+    order: [models.Note, 'createdAt', 'DESC'],
   })
     .then(data => {
       res.send(data);
@@ -278,17 +262,11 @@ exports.findOne = (req, res) => {
       'emails',
       'phones',
       'partner',
+      'counties',
       {
         model: DBNote, 
-        include: 'person'
+        include: 'person',
       },
-    // {
-    //   model: DBPOC,
-    //   include: [{
-    //     model: DBPerson,
-    //     include: ['phones', 'emails']
-    //   }]
-    // },
     {
       model: DBRM,
       include: [{
@@ -317,17 +295,11 @@ exports.findOnePartner = (req, res) => {
       'emails',
       'phones',
       'partner',
+      'counties',
       {
         model: DBNote,
-        include: 'person'
+        include: 'person',
       },
-    // {
-    //   model: DBPOC,
-    //   include: [{
-    //     model: DBPerson,
-    //     include: ['phones', 'emails']
-    //   }]
-    // },
     {
       model: DBRM,
       include: [{
@@ -356,6 +328,7 @@ exports.findOneRelationship = (req, res) => {
       'phones',
       'emails',
       'relationship',
+      'counties',
       {
         model: DBNote, 
         include: 'person'
@@ -371,7 +344,7 @@ exports.findOneRelationship = (req, res) => {
         include: ['phones', 'emails']
       }]
     }
-    ]
+    ],
   })
     .then(data => {
       res.send(data);

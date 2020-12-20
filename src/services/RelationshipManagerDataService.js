@@ -17,8 +17,8 @@ class RelationshipManagerDataService {
     return http.put(`/relationship_managers/${organizationId}/${personId}`, data);
   }
 
-  delete(id) {
-    return http.delete(`/relationship_managers/${id}`);
+  delete(organizationId, personId) {
+    return http.delete(`/relationship_managers/${organizationId}/${personId}`);
   }
 
   deleteAll() {
