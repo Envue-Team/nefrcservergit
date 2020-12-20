@@ -28,12 +28,16 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
-  // created(){
-  //   this.$router.replace(this.$route.fullPath || '/')
-  // }
+
+  mounted() { //TODO: Fix this issue: When this is uncommented, cannot view users dashboard only displays login screen again.
+    if(!this.$authenticated) {
+      this.$router.replace({ name: "login" });
+    }
+  },
+ }
+
 };
 </script>
 
