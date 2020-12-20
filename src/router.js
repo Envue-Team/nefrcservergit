@@ -9,6 +9,7 @@ import ContactInfo from './views/Contact.vue'
 import Register from './views/Register.vue'
 import User from './views/User'
 import Users from './views/Users'
+import Login from './views/Login'
 
 
 Vue.use(Router)
@@ -18,6 +19,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/home',
       name: 'home',
       component: Home
     },

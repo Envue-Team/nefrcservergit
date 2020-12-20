@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="red--text text--darken-4 page-title">Users</div>
+    <div align="center" class="red--text text--darken-4 page-title">Users</div>
     <v-row>
 
       <v-col class="col-12">
@@ -25,7 +25,6 @@
           class="text-capitalize"
         >
           <template v-slot:item.name="{ item }">
-            <button v-on:click="removePerson(item)">X</button>
             <template v-if="item.first_name !== null">
               <a v-on:click="nav(item)">
               <span class="black--text">  {{ item.name }}</span>
@@ -113,6 +112,15 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-text-field
+                          label="Phone"
+                          v-model="add_person.phone"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+
                 </v-container>
                 <small>*indicates required field</small>
               </v-card-text>
@@ -140,9 +148,10 @@
 </template>
 
 <script>
-import PersonDataService from "../services/PersonDataService";
 import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
+import PhoneDataService from "@/services/PhoneDataService";
+import EmailDataService from "@/services/EmailDataService";
 
 export default {
   name: "users",
@@ -160,6 +169,7 @@ export default {
         lastname: "",
         email: "",
         password: "",
+        phone: "",
       },
       add_role: {
         roles: "",
@@ -176,6 +186,8 @@ export default {
         { text: "Name", value: "name", width: "80px" },
         { text: "Email", value: "email", width: "80px" },
         { text: "Roles", value: "role", width: "100px" },
+        {text: 'Delete', value: 'actions', width: '1%'}
+      ]
       return headers;
     },
   },
@@ -196,16 +208,17 @@ export default {
               volunteer.name = volunteer.first_name + " " + volunteer.last_name;
               console.log(volunteer.name);
               //TODO: Review this
-              // let roleNumber = volunteer.user.roles[0].user_roles.roleId;
-              // let roleName = "";
-              //
-              // if(roleNumber == 2) {
-              //   roleName = "User"
-              // } else {
-              //   roleName = "Admin"
-              // }
-              //
-              // volunteer.role = roleName
+              let roleNumber = volunteer.user.roles[0].id
+              let roleName = "";
+
+              console.log(roleNumber);
+              if(roleNumber == 2) {
+                roleName = "User"
+              } else {
+                roleName = "Admin"
+              }
+              console.log(roleName);
+              volunteer.role = roleName
             });
             // console.log(this.volunteers);
           })
@@ -238,13 +251,28 @@ export default {
       data.services = this.add_person.services;
       UserDataService.create(data)
           .then((response) => {
-            console.log(response);
+
+            console.log(response.data.personId);
+
             let data = {
+              userId: response.data.userId,
               roleId: 2,
-              userId: response.data,
             };
 
-            this.refreshList();
+            let phoneData = {
+              personId: response.data.personId,
+              number: this.add_person.phone,
+              isPrimary: true
+            }
+            let emailData = {
+              personId: response.data.personId,
+              address: this.add_person.email,
+              isPrimary: true
+            }
+
+            PhoneDataService.create(phoneData);
+            EmailDataService.create(emailData);
+
             UserRoleDataService.create(data)
                 .then((resp) => {
                   this.refreshList();
@@ -252,6 +280,9 @@ export default {
                 .catch((err) => {
                   console.log(err);
                 });
+
+
+            this.refreshList();
           })
           .catch((e) => {
             console.log(e);

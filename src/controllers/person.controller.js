@@ -303,15 +303,24 @@ exports.createUser = (req, res) => {
         // organizationId: req.body.organizationId,
         personId: data.dataValues.id,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        phone: req.body.phone
       }
       console.log(user);
       let userResponseData = '';
 
-      DBUser.create(user).then(data => {
-        // res.send(data)
-        console.log(data);
-        userResponseData = data;
+      DBUser.create(user).then(dataUser => {
+        console.log('USER DATA VALUES');
+        let userID = dataUser.dataValues.id;
+        let personId = dataUser.dataValues.personId;
+
+        var sendData = {
+          userId: userID,
+          personId: personId
+        }
+
+        res.status(200);
+        res.json(sendData);
       }).catch(err => {
         userResponseData = err.message || "Some error occurred while creating the user."
         // res.status(500).send({
@@ -320,7 +329,6 @@ exports.createUser = (req, res) => {
         // });
       });
       data.user = userResponseData;
-      res.send(data);
     })
     .catch(err => {
       res.status(500).send({
@@ -407,19 +415,20 @@ exports.userFindAll = (req, res) => {
 exports.userFindOne = (req, res) => {
   const id = req.params.id;
 
-
-  DBPerson.findByPk(id,
-      {
-        include: [
-          'user',
-          {
-            model: DBPhone,
-            order: ['isPrimary', 'DESC']
-          },
-          'emails',
-          'roles'
-        ]
-      })
+  DBPerson.findByPk(id, 
+    { 
+      include: 
+      [
+        {
+          model: DBUser,
+          include: ['roles']
+        },
+        'phones', 
+        'emails'
+      ] 
+    }, 
+    
+  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
     .then(data => {
       res.send(data);
     })
