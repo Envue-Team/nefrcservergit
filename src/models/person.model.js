@@ -31,7 +31,9 @@ module.exports = (sequelize, DataTypes) => {
     county: {
       type: DataTypes.STRING
     },
-    
+    person_notes: {
+      type: DataTypes.TEXT
+    },
     });
 
   return Person;
