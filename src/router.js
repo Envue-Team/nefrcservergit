@@ -1,20 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Organization from './views/Organizations.vue'
-import Partner from './views/Partner.vue'
-import Relationship from './views/Relationship.vue'
+import Organizations from './views/Organizations.vue'
+import Organization from './views/Organization.vue'
 import Contacts from './views/Contacts.vue'
-import ContactInfo from './views/Contact.vue'
+import Contact from './views/Contact.vue'
 import Register from './views/Register.vue'
 import User from './views/User'
 import Users from './views/Users'
 
-
 Vue.use(Router)
 export default new Router({
   mode: 'history',
-  // mode: 'hash',
   base: process.env.BASE_URL,
   routes: [
     {
@@ -23,53 +20,39 @@ export default new Router({
       component: Home
     },
     {
-      path: '/organizations',
-      name: 'organizations',
-      component: Organization
-    },
-    {
       path: '/register',
       name: 'register',
       component: Register
     },
     {
-      path: '/partner/:organizationId',
-      name: 'partner',
-      component: Partner,
-      props: true
+      path: '/organizations',
+      name: 'organizations',
+      component: Organizations
     },
-
     {
-      path: '/relationship/:organizationId',
-      name: 'relationship',
-      component: Relationship
-      // props: true
+      path: '/organization/:organizationId',
+      name: 'organization',
+      component: Organization
     },
-
     {
       path: '/contacts',
       name: 'contacts',
       component: Contacts
-      // props: true
     },
-
     {
       path: '/contact/:personId',
       name: 'contact',
-      component: ContactInfo
-      // props: true
+      component: Contact
     },
     {
       path: '/users',
       name: 'users',
       component: Users
-      // props: true
     },
     {
       path: '/user/:personId',
       name: 'user',
       component: User
-      // props: true
     },
   ]
 })

@@ -31,9 +31,9 @@
 
 export default {
   name: 'App',
-  created(){
-    this.$router.replace(this.$route.fullPath || '/')
-  }
+  // created(){
+  //   this.$router.replace(this.$route.fullPath || '/')
+  // }
 };
 </script>
 

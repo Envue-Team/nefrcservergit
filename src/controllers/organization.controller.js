@@ -159,7 +159,7 @@ exports.findAll = (req, res) => {
       'counties',
       {
         model: DBNote,
-        include: 'person'
+        include: 'person',
       },
       {
         model: DBRM,
@@ -190,7 +190,7 @@ exports.findAllPartners = (req, res) => {
       'counties',
       {
         model: DBNote,
-        include:'person'
+        include:'person',
       },
     {
       model: DBPartner,
@@ -226,6 +226,7 @@ exports.findAllRelationships = (req, res) => {
       {
         model: DBNote,
         include: 'person'
+
       },
     {
       model: DBRelationship,
@@ -238,7 +239,8 @@ exports.findAllRelationships = (req, res) => {
         include: ['phones', 'emails']
       }]
     }
-    ]
+    ],
+    order: [models.Note, 'createdAt', 'DESC'],
   })
     .then(data => {
       res.send(data);
@@ -263,7 +265,7 @@ exports.findOne = (req, res) => {
       'counties',
       {
         model: DBNote, 
-        include: 'person'
+        include: 'person',
       },
     {
       model: DBRM,
@@ -296,7 +298,7 @@ exports.findOnePartner = (req, res) => {
       'counties',
       {
         model: DBNote,
-        include: 'person'
+        include: 'person',
       },
     {
       model: DBRM,
@@ -342,7 +344,7 @@ exports.findOneRelationship = (req, res) => {
         include: ['phones', 'emails']
       }]
     }
-    ]
+    ],
   })
     .then(data => {
       res.send(data);

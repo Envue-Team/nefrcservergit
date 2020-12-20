@@ -6,7 +6,7 @@ class OrganizationDataService {
   }
 
   get(id) {
-    return http.get(`/oganizations/${id}`);
+    return http.get(`/organizations/${id}`);
   }
 
   create(data) {

@@ -201,7 +201,680 @@
             :poc_title="poc_dlg_title"
             :poc_dlg_action="poc_dlg_action"
         />
+<!--        <NoteDialog v-model="showNoteDialog" :item="view_note_item"/>-->
+<!--        &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Notes and History&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--        <template>-->
+<!--          <v-card>-->
+<!--            <v-card-title class="white&#45;&#45;text red darken-4">-->
+<!--              Notes:-->
 
+<!--              &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Add Note Dialog-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--              <v-dialog-->
+<!--                  v-model="add_note_dlg"-->
+<!--                  max-width="600px"-->
+<!--              >-->
+<!--                <template v-slot:activator="{ on, attrs }">-->
+<!--                  <v-hover-->
+<!--                      v-slot="{ hover }"-->
+<!--                      open-delay="200"-->
+<!--                  >-->
+<!--                    <v-btn-->
+<!--                        color="white"-->
+<!--                        class="text&#45;&#45;primary"-->
+<!--                        fab-->
+<!--                        small-->
+<!--                        :elevation="hover ? 16 : 2"-->
+<!--                        :class="{ 'on-hover': hover }"-->
+<!--                        v-bind="attrs"-->
+<!--                        v-on="on"-->
+<!--                    >-->
+<!--                      <v-icon>-->
+<!--                        mdi-plus-->
+<!--                      </v-icon>-->
+<!--                    </v-btn>-->
+<!--                  </v-hover>-->
+<!--                </template>-->
+<!--                <v-form-->
+<!--                    v-model="valid_note"-->
+<!--                    ref="new_note_form"-->
+<!--                >-->
+<!--                  <v-card>-->
+<!--                    <v-card-title>-->
+<!--                      <span class="headline">Note</span>-->
+<!--                    </v-card-title>-->
+<!--                    <v-card-text>-->
+<!--                      <v-container>-->
+<!--                        <v-row>-->
+<!--                          <v-col class="col-3">-->
+<!--                            <v-autocomplete-->
+<!--                                :items="add_note_form.types"-->
+<!--                                v-model="add_note_form.type"-->
+<!--                                label="Type"-->
+<!--                            ></v-autocomplete>-->
+<!--                          </v-col>-->
+<!--                        </v-row>-->
+<!--                        <v-row>-->
+<!--                          <v-col-->
+<!--                              cols="12"-->
+<!--                              sm="12"-->
+<!--                              md="12"-->
+<!--                          >-->
+<!--                            <v-textarea-->
+<!--                                :rules="note_text_rule"-->
+<!--                                v-model="add_note_form.text"-->
+<!--                            ></v-textarea>-->
+<!--                          </v-col>-->
+<!--                        </v-row>-->
+<!--                      </v-container>-->
+<!--                    </v-card-text>-->
+<!--                    <v-card-actions>-->
+<!--                      <v-spacer></v-spacer>-->
+<!--                      <v-btn-->
+<!--                          color="blue darken-1"-->
+<!--                          text-->
+<!--                          @click="add_note_dlg=false"-->
+<!--                      >-->
+<!--                        Close-->
+<!--                      </v-btn>-->
+<!--                      <v-btn-->
+<!--                          color="blue darken-1"-->
+<!--                          text-->
+<!--                          @click="addNote"-->
+<!--                      >-->
+<!--                        Save-->
+<!--                      </v-btn>-->
+<!--                    </v-card-actions>-->
+<!--                  </v-card>-->
+<!--                </v-form>-->
+<!--              </v-dialog>-->
+<!--              &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;//Add Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--            </v-card-title>-->
+
+<!--            <v-card-subtitle class="pt-4">-->
+<!--              <v-row>-->
+<!--                <v-col>-->
+<!--                  <v-text-field-->
+<!--                      placeholder="Search"-->
+<!--                      v-model="note_search"-->
+<!--                      append-icon="mdi-magnify"-->
+<!--                  ></v-text-field>-->
+<!--                </v-col>-->
+<!--                <v-col-->
+<!--                  class="col-3"-->
+<!--                >-->
+<!--                  <v-menu-->
+<!--                      v-model="menu1"-->
+<!--                      :close-on-content-click="false"-->
+<!--                      :nudge-right="40"-->
+<!--                      transition="scale-transition"-->
+<!--                      offset-y-->
+<!--                      min-width="290px"-->
+<!--                  >-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      <v-text-field-->
+<!--                          v-model="formattedStartDate"-->
+<!--                          label="Start Date"-->
+<!--                          prepend-icon="mdi-calendar"-->
+<!--                          readonly-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          clearable-->
+<!--                      ></v-text-field>-->
+<!--                    </template>-->
+<!--                    <v-date-picker-->
+<!--                        v-model="start_date"-->
+<!--                        @input="menu1 = false"-->
+<!--                    ></v-date-picker>-->
+<!--                  </v-menu>-->
+<!--                </v-col>-->
+<!--                <v-col-->
+<!--                  class="col-3"-->
+<!--                >-->
+<!--                  <v-menu-->
+<!--                      v-model="menu2"-->
+<!--                      :close-on-content-click="false"-->
+<!--                      :nudge-right="40"-->
+<!--                      transition="scale-transition"-->
+<!--                      offset-y-->
+<!--                      min-width="290px"-->
+<!--                  >-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;v-model="end_date"&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                      <v-text-field-->
+<!--                          v-model="formattedEndDate"-->
+<!--                          label="End Date"-->
+<!--                          prepend-icon="mdi-calendar"-->
+<!--                          readonly-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          clearable-->
+<!--                      ></v-text-field>-->
+<!--                    </template>-->
+<!--                    <v-date-picker-->
+<!--                        v-model="end_date"-->
+<!--                        @input="menu2 = false"-->
+<!--                    ></v-date-picker>-->
+<!--                  </v-menu>-->
+<!--                </v-col>-->
+<!--                <v-col>-->
+<!--                  <v-switch-->
+<!--                      v-model="history_switch"-->
+<!--                      :label="switch_label()"-->
+<!--                      color="#B71C1C"-->
+<!--                      hide-details-->
+<!--                      @change="set_notes_view"-->
+<!--                  ></v-switch>-->
+<!--                </v-col>-->
+<!--              </v-row>-->
+<!--              <v-row>-->
+<!--                <template>-->
+<!--                  <v-tabs v-model="tab" background-color="grey lighten-4">-->
+<!--                    <v-tab-->
+<!--                        @click="set_notes_view('general')"-->
+<!--                    >-->
+<!--                      General-->
+<!--                    </v-tab>-->
+<!--                    <v-tab>-->
+<!--                      Contact-->
+<!--                    </v-tab>-->
+<!--                  </v-tabs>-->
+<!--                  <v-tabs-items :value="tab">-->
+<!--                    <v-tab-item>-->
+<!--                      General Notes-->
+<!--                      <v-card>-->
+<!--                        <v-card-text>-->
+<!--                          <v-virtual-scroll-->
+<!--                              :items="filteredList"-->
+<!--                              :item-height="50"-->
+<!--                              height="300"-->
+<!--                          >-->
+<!--                            <template v-slot:default="{ item }">-->
+<!--                              <v-list-item>-->
+
+<!--                                <v-list-item-content style="width: 800px">-->
+<!--                                  <v-list-item-title class="font-weight-thin">-->
+<!--                                    Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--                                  </v-list-item-title>-->
+<!--                                  <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--                                </v-list-item-content>-->
+
+<!--                                <v-list-item-action>-->
+<!--                                  &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                                  <v-btn-->
+<!--                                      depressed-->
+<!--                                      small-->
+<!--                                      @click.stop="openNoteDialog(item)"-->
+<!--                                  >-->
+<!--                                    Open-->
+<!--                                    <v-icon-->
+<!--                                        color="orange darken-4"-->
+<!--                                        right-->
+<!--                                    >-->
+<!--                                      mdi-open-in-new-->
+<!--                                    </v-icon>-->
+<!--                                  </v-btn>-->
+<!--                                </v-list-item-action>-->
+<!--                              </v-list-item>-->
+<!--                            </template>-->
+<!--                          </v-virtual-scroll>-->
+<!--                        </v-card-text>-->
+<!--                      </v-card>-->
+<!--                    </v-tab-item>-->
+<!--                  <v-tab-item>-->
+<!--                    <v-card-text>-->
+<!--                      Contact Notes-->
+<!--                    </v-card-text>-->
+<!--                  </v-tab-item>-->
+<!--                </v-tabs-items>-->
+<!--                </template>-->
+<!--                <v-col-->
+<!--                    cols="12"-->
+<!--                    sm="6"-->
+<!--                    md="4"-->
+<!--                >-->
+<!--                  <v-menu-->
+<!--                      v-model="menu1"-->
+<!--                      :close-on-content-click="false"-->
+<!--                      :nudge-right="40"-->
+<!--                      transition="scale-transition"-->
+<!--                      offset-y-->
+<!--                      min-width="290px"-->
+<!--                  >-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      <v-text-field-->
+<!--                          v-model="formattedStartDate"-->
+<!--                          label="Start Date"-->
+<!--                          prepend-icon="mdi-calendar"-->
+<!--                          readonly-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          clearable-->
+<!--                      ></v-text-field>-->
+<!--                    </template>-->
+<!--                    <v-date-picker-->
+<!--                        v-model="start_date"-->
+<!--                        @input="menu1 = false"-->
+<!--                    ></v-date-picker>-->
+<!--                  </v-menu>-->
+<!--                </v-col>-->
+<!--                <v-col-->
+<!--                    cols="12"-->
+<!--                    sm="6"-->
+<!--                    md="4"-->
+<!--                >-->
+<!--                  <v-menu-->
+<!--                      v-model="menu2"-->
+<!--                      :close-on-content-click="false"-->
+<!--                      :nudge-right="40"-->
+<!--                      transition="scale-transition"-->
+<!--                      offset-y-->
+<!--                      min-width="290px"-->
+<!--                  >-->
+<!--                    <template v-slot:activator="{ on, attrs }">-->
+<!--                      &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;v-model="end_date"&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                      <v-text-field-->
+<!--                          v-model="formattedEndDate"-->
+<!--                          label="End Date"-->
+<!--                          prepend-icon="mdi-calendar"-->
+<!--                          readonly-->
+<!--                          v-bind="attrs"-->
+<!--                          v-on="on"-->
+<!--                          clearable-->
+<!--                      ></v-text-field>-->
+<!--                    </template>-->
+<!--                    <v-date-picker-->
+<!--                        v-model="end_date"-->
+<!--                        @input="menu2 = false"-->
+<!--                    ></v-date-picker>-->
+<!--                  </v-menu>-->
+<!--                </v-col>-->
+<!--                <v-spacer></v-spacer>-->
+<!--              </v-row>-->
+<!--            </v-card-subtitle>-->
+<!--            <v-virtual-scroll-->
+<!--            :items="filteredList"-->
+<!--            :item-height="50"-->
+<!--            height="150"-->
+<!--            >-->
+<!--            <template v-slot:default="{ item }">-->
+<!--              <v-list-item>-->
+
+<!--              <v-list-item-content>-->
+<!--                <v-list-item-title class="font-weight-thin">-->
+<!--                  Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--                </v-list-item-title>-->
+<!--                <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--              </v-list-item-content>-->
+
+<!--              <v-list-item-action>-->
+<!--                &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                <v-btn-->
+<!--                  depressed-->
+<!--                  small-->
+<!--                  @click.stop="openNoteDialog(item)"-->
+<!--                >-->
+<!--                  Open-->
+<!--                <v-icon-->
+<!--                  color="red darken-4"-->
+<!--                  right-->
+<!--                >-->
+<!--                  mdi-open-in-new-->
+<!--                </v-icon>-->
+<!--                </v-btn>-->
+<!--              </v-list-item-action>-->
+<!--              </v-list-item>-->
+<!--            </template>-->
+<!--            </v-virtual-scroll>-->
+<!--            						</v-card>-->
+<!--            						</template>-->
+
+
+<!--            <v-divider></v-divider>-->
+<!--            <v-virtual-scroll-->
+<!--                :items="filteredList"-->
+<!--                :item-height="50"-->
+<!--                height="300"-->
+<!--            >-->
+<!--              <template v-slot:default="{ item }">-->
+<!--                <v-list-item>-->
+
+<!--                  <v-list-item-content>-->
+<!--                    <v-list-item-title class="font-weight-thin">-->
+<!--                      Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--                    </v-list-item-title>-->
+<!--                    <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--                  </v-list-item-content>-->
+
+<!--                  <v-list-item-action>-->
+<!--                    &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--                    <v-btn-->
+<!--                        depressed-->
+<!--                        small-->
+<!--                        @click.stop="openNoteDialog(item)"-->
+<!--                    >-->
+<!--                      Open-->
+<!--                      <v-icon-->
+<!--                          color="orange darken-4"-->
+<!--                          right-->
+<!--                      >-->
+<!--                        mdi-open-in-new-->
+<!--                      </v-icon>-->
+<!--                    </v-btn>-->
+<!--                  </v-list-item-action>-->
+<!--                </v-list-item>-->
+<!--              </template>-->
+<!--            </v-virtual-scroll>-->
+<!--          </v-card>-->
+<!--        </template>-->
+<!--      </v-col>-->
+              <!------------------------//Middle Column---------------->
+
+<!--				<v-col class="col-3">&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Right Column&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+          <!--------------------------File List Table-------------------------------->
+<!--          <v-card elevation="3">-->
+<!--            <v-data-table-->
+<!--            :headers="headers"-->
+<!--            :search="search"-->
+<!--            :items="files"-->
+<!--            item-key="id"-->
+<!--            multi-sort-->
+<!--            >-->
+<!--              <template v-slot:top>-->
+<!--                <v-text-field-->
+<!--                v-model="search"-->
+<!--                label="Search Files"-->
+<!--                class="mx-4"-->
+<!--                ></v-text-field>-->
+<!--              </template>-->
+<!--              <template v-slot:item.name="item">-->
+<!--                <p>{{ item.item.name  }}</p>-->
+<!--              </template>-->
+<!--              <template v-slot:item.date="item">-->
+<!--                <p>{{ item.item.date }}</p>-->
+<!--              </template>-->
+<!--              <template v-slot:item.author="item">-->
+<!--                <p>{{ item.item.author }}</p>-->
+<!--              </template>-->
+<!--              <template v-slot:item.download="item">-->
+<!--              <v-btn-->
+<!--                depressed-->
+<!--                small-->
+<!--                @click="downloadFile(item)"-->
+<!--              >-->
+<!--              Download-->
+<!--              <v-icon-->
+<!--                color="orange darken-4"-->
+<!--                right-->
+<!--              >-->
+<!--                mdi-arrow-down-->
+<!--              </v-icon>-->
+<!--              </v-btn>-->
+<!--            </template>-->
+<!--            <template v-slot:item.remove="item">-->
+<!--              <v-btn-->
+<!--                depressed-->
+<!--                small-->
+<!--                @click="deleteFile(item)"-->
+<!--              >-->
+<!--              <v-icon-->
+<!--                color="orange darken-4"-->
+<!--                right-->
+<!--              >-->
+<!--                mdi-trash-can-->
+<!--              </v-icon>-->
+<!--              </v-btn>-->
+<!--            </template>-->
+<!--              <template v-slot:footer>-->
+<!--                <v-row>-->
+<!--                  <v-file-input-->
+<!--                  label="Upload new file"-->
+<!--                  show-size-->
+<!--                  counter-->
+<!--                  dense-->
+<!--                  @change="filesChange"-->
+<!--                  ></v-file-input>-->
+<!--                  <v-btn-->
+<!--                    depressed-->
+<!--                    small-->
+<!--                    :disabled="upload_disabled"-->
+<!--                    @click="uploadFile"-->
+<!--                  >-->
+<!--                  Upload-->
+<!--                    <v-icon-->
+<!--                      color="orange darken-4"-->
+<!--                      right-->
+<!--                    >-->
+<!--                      mdi-arrow-up-->
+<!--                    </v-icon>-->
+<!--                  </v-btn>-->
+<!--                </v-row>-->
+<!--              </template>-->
+<!--            </v-data-table>-->
+<!--          </v-card>-->
+          <!--------------------------//File List Table-------------------------------->
+<!--					<NoteDialog v-model="showNoteDialog" :item="view_note_item"/>-->
+<!--					&lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Notes and History&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--					<template>-->
+<!--						<v-card-->
+<!--							class="mx-auto"-->
+<!--						>-->
+<!--							<v-card-title class="white&#45;&#45;text orange darken-4">-->
+<!--							Notes:-->
+
+<!--							<v-spacer></v-spacer>-->
+<!--							&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;Add Note Dialog-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--							<v-dialog-->
+<!--							v-model="add_note_dlg"-->
+<!--							max-width="600px"-->
+<!--							>-->
+<!--							<template v-slot:activator="{ on, attrs }">-->
+<!--							<v-hover-->
+<!--								v-slot="{ hover }"-->
+<!--								open-delay="200"-->
+<!--							>-->
+<!--							<v-btn-->
+<!--								color="white"-->
+<!--								class="text&#45;&#45;primary"-->
+<!--								fab-->
+<!--								small-->
+<!--								:elevation="hover ? 16 : 2"-->
+<!--								:class="{ 'on-hover': hover }"-->
+<!--								v-bind="attrs"-->
+<!--								v-on="on"-->
+<!--							>-->
+<!--							<v-icon>-->
+<!--								mdi-plus-->
+<!--							</v-icon>-->
+<!--							</v-btn>-->
+<!--							</v-hover>-->
+<!--							</template>-->
+<!--							<v-form-->
+<!--								v-model="valid_note"-->
+<!--								ref="new_note_form"-->
+<!--							>-->
+<!--								<v-card>-->
+<!--									<v-card-title>-->
+<!--									<span class="headline">Note</span>-->
+<!--									</v-card-title>-->
+<!--									<v-card-text>-->
+<!--									<v-container>-->
+<!--										<v-row>-->
+<!--											<v-col class="col-3">-->
+<!--												<v-autocomplete-->
+<!--												:items="add_note_form.types"-->
+<!--												v-model="add_note_form.type"-->
+<!--												label="Type"-->
+<!--												></v-autocomplete>											-->
+<!--											</v-col>-->
+<!--										</v-row>-->
+<!--										<v-row>-->
+<!--											<v-col-->
+<!--											cols="12"-->
+<!--											sm="12"-->
+<!--											md="12"-->
+<!--											>-->
+<!--												<v-textarea-->
+<!--													:rules="note_text_rule"-->
+<!--													v-model="add_note_form.text"-->
+<!--												></v-textarea>-->
+<!--											</v-col>	-->
+<!--										</v-row>-->
+<!--									</v-container>-->
+<!--									</v-card-text>-->
+<!--									<v-card-actions>-->
+<!--									<v-spacer></v-spacer>-->
+<!--									<v-btn-->
+<!--										color="blue darken-1"-->
+<!--										text-->
+<!--										@click="add_note_dlg=false"-->
+<!--									>-->
+<!--										Close-->
+<!--									</v-btn>-->
+<!--									<v-btn-->
+<!--										color="blue darken-1"-->
+<!--										text-->
+<!--										@click="addNote"-->
+<!--									>-->
+<!--										Save-->
+<!--									</v-btn>-->
+<!--									</v-card-actions>-->
+<!--								</v-card>-->
+<!--								</v-form>-->
+<!--							</v-dialog>-->
+<!--							&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;//Add Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt; -->
+<!--							-->
+<!--							</v-card-title>-->
+
+<!--							<v-card-text class="pt-4">-->
+<!--							<v-card-title>Relationship History</v-card-title>-->
+<!--								<v-divider></v-divider>-->
+<!--								<v-row>-->
+<!--									<v-col>-->
+<!--										<v-text-field-->
+<!--												placeholder="Search"-->
+<!--												v-model="note_search"-->
+<!--												append-icon="mdi-magnify"-->
+<!--										></v-text-field>-->
+<!--									</v-col>-->
+<!--									<v-col>-->
+<!--										<v-switch-->
+<!--										v-model="history_switch"-->
+<!--										:label="switch_label()"-->
+<!--										color="red"-->
+<!--										hide-details-->
+<!--										@change="set_notes_view"-->
+<!--										></v-switch>-->
+<!--									</v-col>-->
+<!--								</v-row>-->
+<!--								<v-row>-->
+<!--									<v-col-->
+<!--									cols="12"-->
+<!--									sm="6"-->
+<!--									md="4"-->
+<!--									>-->
+<!--									<v-menu-->
+<!--										v-model="menu1"-->
+<!--										:close-on-content-click="false"-->
+<!--										:nudge-right="40"-->
+<!--										transition="scale-transition"-->
+<!--										offset-y-->
+<!--										min-width="290px"-->
+<!--									>-->
+<!--										<template v-slot:activator="{ on, attrs }">-->
+<!--										<v-text-field-->
+<!--											v-model="formattedStartDate"-->
+<!--											label="Start Date"-->
+<!--											prepend-icon="mdi-calendar"-->
+<!--											readonly-->
+<!--											v-bind="attrs"-->
+<!--											v-on="on"-->
+<!--											clearable-->
+<!--										></v-text-field>-->
+<!--										</template>-->
+<!--										<v-date-picker-->
+<!--										v-model="start_date"-->
+<!--										@input="menu1 = false"-->
+<!--										></v-date-picker>-->
+<!--									</v-menu>-->
+<!--									</v-col>-->
+<!--									<v-col-->
+<!--									cols="12"-->
+<!--									sm="6"-->
+<!--									md="4"-->
+<!--									>-->
+<!--									<v-menu-->
+<!--										v-model="menu2"-->
+<!--										:close-on-content-click="false"-->
+<!--										:nudge-right="40"-->
+<!--										transition="scale-transition"-->
+<!--										offset-y-->
+<!--										min-width="290px"-->
+<!--									>-->
+<!--										<template v-slot:activator="{ on, attrs }">-->
+<!--											&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;v-model="end_date"&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--										<v-text-field-->
+<!--											v-model="formattedEndDate"-->
+<!--											label="End Date"-->
+<!--											prepend-icon="mdi-calendar"-->
+<!--											readonly-->
+<!--											v-bind="attrs"-->
+<!--											v-on="on"-->
+<!--											clearable-->
+<!--										></v-text-field>-->
+<!--										</template>-->
+<!--										<v-date-picker-->
+<!--										v-model="end_date"-->
+<!--										@input="menu2 = false"-->
+<!--										></v-date-picker>-->
+<!--									</v-menu>-->
+<!--									</v-col>-->
+<!--									<v-spacer></v-spacer>-->
+<!--								</v-row>-->
+<!--							</v-card-text>-->
+<!--							-->
+
+<!--							<v-divider></v-divider>-->
+<!--							<v-virtual-scroll-->
+<!--							:items="filteredList"-->
+<!--							:item-height="50"-->
+<!--							height="300"-->
+<!--							>-->
+<!--							<template v-slot:default="{ item }">-->
+<!--								<v-list-item>-->
+<!--									-->
+<!--								<v-list-item-content>-->
+<!--									<v-list-item-title class="font-weight-thin">-->
+<!--										Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
+<!--									</v-list-item-title>-->
+<!--									<v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
+<!--								</v-list-item-content>-->
+
+<!--								<v-list-item-action>-->
+<!--									&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+<!--									<v-btn-->
+<!--										depressed-->
+<!--										small-->
+<!--										@click.stop="openNoteDialog(item)"-->
+<!--									>-->
+<!--										Open-->
+<!--									<v-icon-->
+<!--										color="orange darken-4"-->
+<!--										right-->
+<!--									>-->
+<!--										mdi-open-in-new-->
+<!--									</v-icon>-->
+<!--									</v-btn>-->
+<!--								</v-list-item-action>-->
+<!--								</v-list-item>-->
+<!--							</template>-->
+<!--							</v-virtual-scroll>-->
+<!--						</v-card>-->
+<!--						</template>-->
+						<!--------------------------//Notes and History-------------------------------->	
+
+<!--				</v-col>&lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;//Right Column&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+<!--		</v-row>-->
     <!---------------------//First Container Row-------------------------------->
 
     <!---------------------------------Add Note Dialog------------------------------->
@@ -461,6 +1134,56 @@
     </v-dialog>
     <!---------------------------------//Delete Relationship Manager Dialog------------------------------>
 
+    <!---------------------------------Assign Point of Contact Dialog------------------------------->
+<!--    <v-dialog-->
+<!--        v-model="assign_poc_dlg"-->
+<!--        max-width="600px"-->
+<!--    >-->
+<!--      <v-card>-->
+<!--        <v-card-title>-->
+<!--          <span class="headline">Assign Point of Contact</span>-->
+<!--        </v-card-title>-->
+<!--        <v-card-text>-->
+<!--          <v-container>-->
+<!--            <v-row>-->
+<!--              <v-col-->
+<!--                  cols="12"-->
+<!--                  sm="12"-->
+<!--                  md="12"-->
+<!--              >-->
+<!--                <v-autocomplete-->
+<!--                    :items="all_points_of_contact"-->
+<!--                    item-text="name"-->
+<!--                    item-value="value"-->
+<!--                    return-object-->
+<!--                    @change="updateSelectedPointOfContact"-->
+<!--                >-->
+<!--                </v-autocomplete>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-container>-->
+<!--        </v-card-text>-->
+<!--        <v-card-actions>-->
+<!--          <v-spacer></v-spacer>-->
+<!--          <v-btn-->
+<!--              color="blue darken-1"-->
+<!--              text-->
+<!--              @click="assign_poc_dlg=false"-->
+<!--          >-->
+<!--            Close-->
+<!--          </v-btn>-->
+<!--          <v-btn-->
+<!--              color="blue darken-1"-->
+<!--              text-->
+<!--              v-on:click="updatePointOfContact"-->
+<!--          >-->
+<!--            Save-->
+<!--          </v-btn>-->
+<!--        </v-card-actions>-->
+<!--      </v-card>-->
+<!--    </v-dialog>-->
+    <!---------------------------------//Assign Point of Contact Dialog------------------------------>
+
     <!---------------------------------Update Relationship Manager Dialog------------------------------>
     <v-dialog
         v-model="update_mgr_dlg"
@@ -569,8 +1292,6 @@
       </v-card>
     </v-dialog>
     <!---------------------------------//Assign New Relationship Manager Dialog------------------------------>
-      </v-col>
-    </v-row>
   </v-container>
 </template>
 <script>
