@@ -32,13 +32,13 @@ export default {
   name: 'App',
 
   mounted() { //TODO: Fix this issue: When this is uncommented, cannot view users dashboard only displays login screen again.
-    if(!this.$authenticated) {
-      this.$router.replace({ name: "login" });
-    }
+    // if(!this.$authenticated) {
+    //   this.$router.replace({ name: "login" });
+    // }
   },
  }
 
-};
+// };
 </script>
 
 
