@@ -35,9 +35,7 @@
             Note: {{latest_note.text}}
           </v-card-subtitle>
           <v-card-text >
-
-
-            <!---------------------//Organization Basic Data-------------------------------->
+          <!---------------------//Organization Basic Data-------------------------------->
 
             <!-----------------------Point of Contact--------------------------------->
             <br class="mt-3"/>
@@ -107,8 +105,12 @@
           </v-card-text>
         </v-card>
 
-        <!--------------------------//-------------------------------->
+      </v-col><!----------------------//Left Column-------------------------->
 
+      <v-col><!--------------------------Middle Column----------------->
+      <v-card elevation="3" class="mb-3">
+        <v-row>
+        <v-col>
         <!--------------------------File List Table-------------------------------->
         <v-data-table
             :headers="headers"
@@ -164,336 +166,209 @@
           </template>
           <template v-slot:footer>
             <v-row>
-              <v-file-input
-                  label="Upload new file"
-                  show-size
-                  counter
-                  dense
-                  @change="filesChange"
-              ></v-file-input>
-              <v-btn
-                  depressed
-                  small
-                  :disabled="upload_disabled"
-                  @click="uploadFile"
-              >
-                Upload
-                <v-icon
-                    color="orange darken-4"
-                    right
+              <v-col cols="7">
+                <v-file-input
+                    label="Upload new file"
+                    show-size
+                    counter
+                    dense
+                    @change="filesChange"
+                ></v-file-input>
+              </v-col>
+              <v-col>
+                <v-btn
+                    depressed
+                    small
+                    :disabled="upload_disabled"
+                    @click="uploadFile"
                 >
-                  mdi-arrow-up
-                </v-icon>
-              </v-btn>
+                  Upload
+                  <v-icon
+                      color="orange darken-4"
+                      right
+                  >
+                    mdi-arrow-up
+                  </v-icon>
+                </v-btn>
+              </v-col>
             </v-row>
           </template>
         </v-data-table>
         <!--------------------------//File List Table-------------------------------->
-
-      </v-col><!----------------------//Left Column-------------------------->
-
-      <v-col><!--------------------------Middle Column----------------->
-        <POCDialog
-            v-model="showPOCDialog"
-            :poc_id="update_poc_id"
-            :poc_title="poc_dlg_title"
-            :poc_dlg_action="poc_dlg_action"
-        />
-
-        <!---------------------//First Container Row-------------------------------->
-
-        <NoteDialog
-          v-model="add_note_dlg"
-
-        />
-        <!---------------------------------Edit Organization Dialog------------------------------->
-        <v-dialog
-            v-model="organization_edit_dlg"
-            max-width="1200px"
-        >
-          <v-card>
-            <v-form>
-              <v-card-title>
-                <span class="headline">Relationship Information</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col
-                        cols="6"
-                        sm="6"
-                        md="6"
-                    >
-                      <v-text-field
-                          label="Agency Name*"
-                          required
-                          v-model="organization.name"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                    >
-                      <v-text-field
-                          label="Street Number"
-                          v-model="organization.street_number"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col
-                        cols="12"
-                        sm="6"
-                        md="4"
-                    >
-                      <v-text-field
-                          label="Street Name"
-                          v-model="organization.street_name"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col
-                        cols="3"
-                        sm="6"
-                        md="4"
-                    >
-                      <v-text-field
-                          label="City"
-                          v-model="organization.city"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="2">
-                      <v-text-field
-                          label="State"
-                          v-model="organization.state"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="3">
-                      <v-text-field
-                          label="Zip"
-                          v-model="organization.zip"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="6">
-                      <v-text-field
-                          label="Website"
-                          v-model="organization.website"
-                      ></v-text-field>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="3" v-for="county in all_counties">
-                      <v-checkbox
-                          v-model="organization_counties"
-                          :value="county"
-                          :label="county"
-                      ></v-checkbox>
-                    </v-col>
-                  </v-row>
-                </v-container>
-                <small>*indicates required field</small>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="organization_edit_dlg=false"
-                >
-                  Close
-                </v-btn>
-                <v-btn
-                    @click="openDialog('Delete')"
-                    color="red darken-1"
-                    text
-                >
-                  Delete
-                </v-btn>
-                <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="updateOrganization"
-                >
-                  Save
-                </v-btn>
-              </v-card-actions>
-            </v-form>
-          </v-card>
-        </v-dialog>
-        <!---------------------------------//Edit Organization Dialog------------------------------>
-
-        <!---------------------------------Delete Organization Dialog------------------------------>
-        <v-dialog
-            max-width="300"
-            v-model="delete_organization_dialog"
-        >
-          <v-card>
-            <v-card-text>
-              Are you sure you want to delete this organization?
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-btn
-                  @click="deleteOrganization"
-                  text
-                  color="red text-darken-1">
-                Yes
-              </v-btn>
-              <v-btn
-                  @click="delete_organization_dialog=false"
-                  text
-                  color="blue text-darken-1"
-              >
-                No
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <!---------------------------------//Delete Organization Dialog------------------------------>
-
-        <!---------------------------------Delete Relationship Manager Dialog------------------------------>
-        <v-dialog
-            max-width="300"
-            v-model="delete_relationship_manager_dialog"
-        >
-          <v-card>
-            <v-card-text>
-              Are you sure you want to remove this relationship manager?
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-btn
-                  @click="deleteRelationshipManager"
-                  text
-                  color="red text-darken-1">
-                Yes
-              </v-btn>
-              <v-btn
-                  @click="delete_relationship_manager_dialog=false"
-                  text
-                  color="blue text-darken-1"
-              >
-                No
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <!---------------------------------//Delete Relationship Manager Dialog------------------------------>
-
-        <!---------------------------------Update Relationship Manager Dialog------------------------------>
-        <v-dialog
-            v-model="update_mgr_dlg"
-            max-width="600px"
-        >
-          <v-card>
-            <v-card-title>
-              <span class="headline">Update Relationship Manager</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                      cols="12"
-                      sm="12"
-                      md="12"
-                  >
-                    <v-autocomplete
-                        label="Relationship Manager"
-                        :items="all_relationship_managers"
-                        item-text="name"
-                        item-value="value"
-                        return-object
-                        @change="updateSelectedManager"
-                    >
-                    </v-autocomplete>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="update_mgr_dlg=false"
-              >
-                Close
-              </v-btn>
-              <v-btn
-                  color="red darken-1"
-                  text
-                  v-on:click="deleteRelationshipManager"
-              >
-                delete
-              </v-btn>
-              <v-btn
-                  color="blue darken-1"
-                  text
-                  v-on:click="updateRelationshipManager"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <!---------------------------------//Update Relationship Manager Dialog------------------------------>
-
-        <!---------------------------------Assign New Relationship Manager Dialog------------------------------>
-        <v-dialog
-            v-model="add_mgr_dlg"
-            max-width="600px"
-        >
-          <v-card>
-            <v-card-title>
-              <span class="headline">Add Relationship Manager</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                      cols="12"
-                      sm="12"
-                      md="12"
-                  >
-                    <v-autocomplete
-                        label="Relationship Manager"
-                        :items="all_relationship_managers"
-                        item-text="name"
-                        item-value="value"
-                        return-object
-                        @change="updateSelectedManager"
-                    >
-                    </v-autocomplete>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="add_mgr_dlg=false"
-              >
-                Close
-              </v-btn>
-              <v-btn
-                  color="blue darken-1"
-                  text
-                  v-on:click="addRelationshipManager"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <!---------------------------------//Assign New Relationship Manager Dialog------------------------------>
-      </v-col>
+        </v-col>
+        </v-row>
+      </v-card>
+      </v-col><!--------------------------//Middle Column----------------->
     </v-row>
+    <!--------------------------Dialogs-------------------------------->
+    <POCDialog
+        v-model="showPOCDialog"
+        :poc_id="update_poc_id"
+        :poc_title="poc_dlg_title"
+        :poc_dlg_action="poc_dlg_action"
+    />
+    <RelationshipManagerDialog
+        v-model="showRMDialog"
+        :all_relationship_managers="all_relationship_managers"
+        :current_relationship_manager_id="current_relationship_manager_id"
+        :rm_title="rm_dlg_title"
+        :rm_dlg_action="rm_dlg_action"
+        :relationship_manager="current_relationship_manager"
+    />
+
+    <NoteDialog
+        v-model="add_note_dlg"
+    />
+
+    <!---------------------------------Edit Organization Dialog------------------------------->
+    <v-dialog
+        v-model="organization_edit_dlg"
+        max-width="1200px"
+    >
+      <v-card>
+        <v-form>
+          <v-card-title>
+            <span class="headline">Relationship Information</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col
+                    cols="6"
+                    sm="6"
+                    md="6"
+                >
+                  <v-text-field
+                      label="Agency Name*"
+                      required
+                      v-model="organization.name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="Street Number"
+                      v-model="organization.street_number"
+                  ></v-text-field>
+                </v-col>
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="Street Name"
+                      v-model="organization.street_name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col
+                    cols="3"
+                    sm="6"
+                    md="4"
+                >
+                  <v-text-field
+                      label="City"
+                      v-model="organization.city"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="2">
+                  <v-text-field
+                      label="State"
+                      v-model="organization.state"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                      label="Zip"
+                      v-model="organization.zip"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Website"
+                      v-model="organization.website"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="3" v-for="county in all_counties">
+                  <v-checkbox
+                      v-model="organization_counties"
+                      :value="county"
+                      :label="county"
+                  ></v-checkbox>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="organization_edit_dlg=false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+                @click="openDialog('Delete')"
+                color="red darken-1"
+                text
+            >
+              Delete
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="updateOrganization"
+            >
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Edit Organization Dialog------------------------------>
+
+    <!---------------------------------Delete Organization Dialog------------------------------>
+    <v-dialog
+        max-width="300"
+        v-model="delete_organization_dialog"
+    >
+      <v-card>
+        <v-card-text>
+          Are you sure you want to delete this organization?
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-btn
+              @click="deleteOrganization"
+              text
+              color="red text-darken-1">
+            Yes
+          </v-btn>
+          <v-btn
+              @click="delete_organization_dialog=false"
+              text
+              color="blue text-darken-1"
+          >
+            No
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Delete Organization Dialog------------------------------>
+    <!--------------------------//Dialogs-------------------------------->
   </v-container>
 </template>
 <script>
@@ -508,6 +383,7 @@ import OrganizationDataService from "@/services/OrganizationDataService";
 import NoteDataService from "../services/NoteDataService";
 import FileDataService from "../services/FileDataService";
 import NoteDialog from "./NoteDialog";
+import RelationshipManagerDialog from "@/views/RelationshipManagerDialog";
 import UserDataService from "@/services/UserDataService";
 import ContactDataService from "@/services/ContactDataService";
 import PointOfContactDataService from "@/services/PointOfContactDataService";
@@ -517,15 +393,13 @@ import PhoneDataService from "@/services/PhoneDataService";
 import CountyDataService from "@/services/CountyDataService"
 import OrganizationCountyDataService from "@/services/OrganizationCountyDataService";
 
-//TODO: Remove notes as a list
-//TODO: Change dialogs to raw organization format
 //TODO: Sanitize and validate form input
-//TODO: Populate POC dialog on open
 export default {
   name: "organization",
   components: {
     POCDialog,
-    NoteDialog
+    NoteDialog,
+    RelationshipManagerDialog
   },
 
   data() {
@@ -551,8 +425,12 @@ export default {
       delete_relationship_manager_dialog: false,
       update_mgr_dlg: false,
       add_mgr_dlg: false,
+      showRMDialog: false,
+      rm_dlg_action: '',
+      rm_dlg_title: '',
       updated_relationship_manager: '',
       current_relationship_manager_id: '',
+      current_relationship_manager: {},
       all_relationship_managers:[],
       organization_relationship_managers: [],
 
@@ -598,11 +476,22 @@ export default {
     openDialog(dlg, id=null){
       switch(dlg){
         case "Add RM":
-          this.add_mgr_dlg = true;
+          this.rm_dlg_action = 'Create';
+          this.rm_dlg_title = "Assign Relationship Manager";
+          this.current_relationship_manager_id = '';
+          this.showRMDialog = true;
           break;
         case "RM":
-          this.update_mgr_dlg = true;
+          PersonDataService.get(id)
+              .then(response=>{
+                console.log(response.data);
+                this.current_relationship_manager = response.data;
+              })
+              .catch(e=>{console.log(e)});
+          this.rm_dlg_title = "Change Relationship Manager";
           this.current_relationship_manager_id = id;
+          this.rm_dlg_action = 'Edit';
+          this.showRMDialog = true;
           break;
         case "Edit POC":
           this.update_poc_id = id;
@@ -627,14 +516,11 @@ export default {
     /**
      * Notes
      */
-    addNote(){
-      let data = {
-        organizationId: this.organization.id,
-        //TODO: Set this id to current user
-        personId: "9de1a7e1-8801-4024-9475-050644867c5b",
-        text: this.add_note_form.text,
-        type: 'general'
-      };
+    addNote(data){
+      data.organizationId = this.organization.id;
+      //TODO: Set this id to current user
+      data.personId = "9de1a7e1-8801-4024-9475-050644867c5b";
+      data.type = 'general';
       NoteDataService.create(data).then(response=>{
         this.setOrganization(this.organization.id);
       }).catch(e=>{console.log(e)});
@@ -703,6 +589,7 @@ export default {
       this.formData = '';
       this.upload_disabled=true;
       this.populateFiles(this.organization.id);
+      this.reset();
     },
     filesChange(files) {
       // handle file changes
@@ -835,14 +722,9 @@ export default {
         value: obj.value
       };
     },
-    addRelationshipManager(){
-      this.add_mgr_dlg = false;
-      let organizationId = this.organization.id;
-
-      let data = {
-        organizationId: organizationId,
-        personId: this.updated_relationship_manager.value
-      };
+    addRelationshipManager(data){
+      this.showRMDialog = false;
+      data.organizationId = this.organization.id;
 
       RelationshipManagerDataService.create(data)
           .then(response=>{
@@ -851,17 +733,11 @@ export default {
           })
           .catch(err=>{console.log(err)});
     },
-    updateRelationshipManager(){
-      this.update_mgr_dlg = false;
-      let organizationId = this.organization.id;
+    updateRelationshipManager(data, id){
+      this.showRMDialog = false;
+      data.organizationId = this.organization.id;
 
-      let data = {
-        organizationId: organizationId,
-        personId: this.updated_relationship_manager.value
-      };
-
-      let personId = this.current_relationship_manager_id;
-      RelationshipManagerDataService.update(organizationId, personId, data)
+      RelationshipManagerDataService.update(this.organization.id, id, data)
           .then(response => {
             this.organization.relationship_managers = response.data;
             this.setOrganization();
@@ -870,13 +746,11 @@ export default {
             console.log(e)
           });
     },
-    deleteRelationshipManager(){
-      this.update_mgr_dlg = false;
-      RelationshipManagerDataService.delete(this.organization.id, this.current_relationship_manager_id)
+    deleteRelationshipManager(id){
+      this.showRMDialog = false;
+      RelationshipManagerDataService.delete(this.organization.id, id)
           .then(
               response=>{
-                console.log(response);
-
                 this.setOrganization();
               })
           .catch(e=>{console.log(e)});
@@ -893,8 +767,6 @@ export default {
             .catch(e=>{console.log(e)});
       }
     },
-    confirmDeletePOCDialog(){},
-    confirmPOCChangesDialog(){},
     deletePOC(id){
       PersonDataService.get(id)
           .then(response=>{

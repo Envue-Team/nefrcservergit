@@ -216,7 +216,6 @@ import PersonDataService from "@/services/PersonDataService";
 export default {
   props: {
     value: Boolean,
-    // poc: Object,
     poc_id: String,
     poc_title: String,
     poc_dlg_action: String

@@ -2,11 +2,11 @@
   <v-container>
   <!---------------------------------Add Note Dialog------------------------------->
   <v-dialog
-      v-model="show"
       max-width="600px"
+      v-model="show"
   >
-    <v-form>
-      <v-card>
+    <v-card>
+      <v-form>
         <v-card-title>
           <span class="headline">Organization Note</span>
         </v-card-title>
@@ -19,7 +19,7 @@
                   md="12"
               >
                 <v-textarea
-                    v-model="add_note_form.text"
+                    v-model="text"
                 ></v-textarea>
               </v-col>
             </v-row>
@@ -30,7 +30,7 @@
           <v-btn
               color="blue darken-1"
               text
-              @click="add_note_dlg=false"
+              @click.stop="show=false"
           >
             Close
           </v-btn>
@@ -42,8 +42,8 @@
             Save
           </v-btn>
         </v-card-actions>
-      </v-card>
-    </v-form>
+      </v-form>
+    </v-card>
   </v-dialog>
   <!---------------------------------//Add Note Dialog------------------------------>
   </v-container>
@@ -51,20 +51,33 @@
 
 <script>
   export default {
+    data(){
+      return {
+        text: '',
+      }
+    },
     props: {
       value: Boolean,
       item: Object
 	  },
+    methods:{
+      addNote(){
+        let data = {
+          text: this.text,
+        };
+        this.$emit('input', false);
+        this.$parent.addNote(data);
+      },
+    },
 		computed: {
-			show: {
-			get () {
-				return this.value
-			},
-			set (value) {
-				this.$emit('input', value)
-			}
-	},
-
-  }
+        show: {
+          get () {
+            return this.value
+          },
+          set (value) {
+            this.$emit('input', value)
+          }
+      },
+    }
   };
 </script>
