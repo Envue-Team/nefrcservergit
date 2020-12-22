@@ -14,7 +14,7 @@
             contain
         ></v-img>
       </router-link>
-      <router-link to="/" class="red--text text--darken-2 mr-3">Home</router-link> |
+      <router-link to="/home" class="red--text text--darken-2 mr-3">Home</router-link> |
       <router-link to="/contacts" class="red--text text--darken-2 mr-3 ml-3 ">Contacts</router-link> |
       <router-link to="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</router-link> |
       <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3">Users</router-link>
@@ -36,8 +36,6 @@ export default {
       this.$router.replace({ name: "login" });
     }
   },
- }
-
 };
 </script>
 
