@@ -35,8 +35,10 @@ export default {
     // if(!this.$authenticated) {
     //   this.$router.replace({ name: "login" });
     // }
-  }
-}
+  },
+ }
+
+// };
 </script>
 
 

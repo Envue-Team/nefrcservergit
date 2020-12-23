@@ -259,6 +259,7 @@ export default {
         state: '', 
         zip: '',
         county: '',
+        organization: '',
         primaryPhone: '',
         secondaryPhone: '',
         primaryEmail: '',
@@ -273,6 +274,7 @@ export default {
         state: '', 
         zip: '',
         county: '',
+        organization: '',
         primaryPhone: '',
         secondaryPhone: '',
         primaryEmail: '',
@@ -288,7 +290,7 @@ export default {
           {text: 'Email', value: 'email', width: '80px'},
           {text: 'Phone', value: 'phone', width: '100px' },
           {text: 'County', value: 'county', width: '80px'},
-          {text: 'ZIP', value: 'zip', width: '80px'},
+          {text: 'Organization', value: 'organization_names', width: '80px'},
           {text: 'Delete', value: 'actions', width:'1%'}
 
           //{text: 'Notes', value: 'notes', width: '160px'},
@@ -319,7 +321,6 @@ export default {
             return contact.user == null;
           });
           this.volunteers.forEach(volunteer=>{
-            console.log(volunteer);
             volunteer.address = volunteer.street_number+" "+volunteer.street_name+"\n"
             +volunteer.city+", "+volunteer.state+" "+volunteer.zip;
 
@@ -338,7 +339,12 @@ export default {
               } 
             });
             //do the same for organizations that is done with phones
-            
+            var organization_names = '';
+            volunteer.organizations.forEach(organization=>{
+                organization_names += organization.name+"\n";
+              });
+            volunteer.email = emails;
+            volunteer.organization_names = organization_names;
             volunteer.phone = phones;
           });
           // console.log(this.volunteers);
