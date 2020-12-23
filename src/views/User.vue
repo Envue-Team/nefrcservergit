@@ -77,6 +77,7 @@
                                 <v-col cols="6">
                                   <v-text-field
                                     label="Password"
+                                    type="password"
                                     v-model="edit_user.password"
                                   ></v-text-field>
                                 </v-col>
@@ -93,6 +94,12 @@
                                     >
                                       {{ view_role.role }}
                                     </v-autocomplete>
+                                  </v-col>
+                                  <v-col cols="6">
+                                    <v-text-field
+                                        label="Phone"
+                                        v-model="edit_contact.phone"
+                                    ></v-text-field>
                                   </v-col>
                                 </v-row>
                               </v-row>
@@ -136,6 +143,7 @@ import RoleDataService from "../services/RoleDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 import EmailDataService from "@/services/EmailDataService";
 import PhoneDataService from "@/services/PhoneDataService";
+const crypto = require('crypto');
 
 export default {
   data() {
@@ -161,6 +169,13 @@ export default {
       },
       view_role: {
         role: "",
+      },
+      edit_contact: {
+        phone: "",
+      },
+      contact_id: {
+        phone: "",
+        email: "",
       }
     };
   },
@@ -211,6 +226,11 @@ export default {
           this.edit_role.userId = response.data.user.id;
           this.edit_person = response.data;
           this.edit_user = response.data.user;
+          this.edit_contact.phone = response.data.phones[0].number;
+
+          this.contact_id.phone = response.data.phones[0].id;
+          this.contact_id.email = response.data.emails[0].id;
+
           if(userRole == 2) {
             this.view_role.role = "User";
           } else {this.view_role.role = "Admin"}
@@ -219,17 +239,43 @@ export default {
           console.log(e);
         });
     },
+  generateSalt() {
+      return crypto.randomBytes(16).toString('base64');
+    },
+    encryptPassword(plainText, salt) {
+      return crypto
+          .createHash('sha256')
+          .update(plainText)
+          .update(salt)
+          .digest('hex')
+    },
     updatePerson() {
+
+      let salt = this.generateSalt();
+      let password = this.encryptPassword(this.edit_user.password, salt)
+
       var data = {
         first_name: this.edit_person.first_name,
         last_name: this.edit_person.last_name,
         email: this.edit_user.email,
-        password: this.edit_user.password,
+        password: password,
+        salt: salt
       };
       console.log(data);
       var personID = this.$route.params.personId;
       //data.services = this.add_person.services;
 
+      var updatePhone = {
+        number: this.edit_contact.phone,
+        isPrimary: true
+      }
+      var updateEmail = {
+        address: this.edit_user.email,
+        isPrimary: true
+      }
+
+      PhoneDataService.update( this.contact_id.phone, updatePhone);
+      EmailDataService.update(this.contact_id.email, updateEmail);
 
       UserDataService.update(personID, data)
         .then((response) => {

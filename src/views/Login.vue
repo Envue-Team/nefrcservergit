@@ -258,7 +258,7 @@ export default {
     show1: false,
     rules: {
       required: value => !!value || "Required.",
-      min: v => (v && v.length >= 5) || "Min 5 characters"
+      min: v => (v && v.length >= 1) || "Min 5 characters"
     }
   })
 };

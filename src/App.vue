@@ -14,12 +14,18 @@
             contain
         ></v-img>
       </router-link>
-      <router-link to="/" class="red--text text--darken-2 mr-3">Home</router-link> |
+      <router-link to="/home" class="red--text text--darken-2 mr-3">Home</router-link> |
       <router-link to="/contacts" class="red--text text--darken-2 mr-3 ml-3 ">Contacts</router-link> |
       <router-link to="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</router-link> |
       <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3">Users</router-link>
       <v-spacer></v-spacer>
-      <router-link to="" style="color: darkred">Logout</router-link>
+      <v-btn
+          depressed
+          color="red"
+          v-on:click="logout"
+      >
+        Log Out
+      </v-btn>
     </v-app-bar>
     <v-main style="background-color: rgba(45, 70, 40, 0.04)">
       <router-view/>
@@ -32,14 +38,19 @@ export default {
   name: 'App',
 
   mounted() { //TODO: Fix this issue: When this is uncommented, cannot view users dashboard only displays login screen again.
-    // if(!this.$authenticated) {
-    //   this.$router.replace({ name: "login" });
-    // }
+    if(!this.$authenticated) {
+      this.$router.replace({ name: "login" });
+    }
   },
- }
+  methods: {
+    logout() {
+      this.$authenticated = false;
+      this.$session.destroy();
+      this.$router.replace({ name: "login" });
+    }
+  }
+};
 
-// };
-</script>
 
 
 <style>

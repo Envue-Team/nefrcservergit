@@ -27,21 +27,20 @@ exports.create = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     county: req.body.county,
-    person_notes: req.body.person_notes,
     // organizationId: req.body.organizationId
   };
 
   // Save person in the database
   DBPerson.create(person)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the person."
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while creating the person."
+        });
       });
-    });
 };
 
 //Point of Contact should only involve manipulating table relationships
@@ -106,15 +105,15 @@ exports.findAll = (req, res) => {
       'emails'
     ]
   })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving persons."
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while retrieving persons."
+        });
       });
-    });
 };
 
 exports.contactFindAll = (req, res) => {
@@ -156,14 +155,14 @@ exports.findOne = (req, res) => {
               'emails'
             ]
       })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving person with id=" + id + " err: " + err
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving person with id=" + id + " err: " + err
+        });
       });
-    });
 };
 
 // Update a person by the id in the request
@@ -173,22 +172,22 @@ exports.update = (req, res) => {
   DBPerson.update(req.body, {
     where: { id: id }
   })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "person was updated successfully."
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "person was updated successfully."
+          });
+        } else {
+          res.send({
+            message: `Cannot update person with id=${id}. Maybe person was not found or req.body is empty!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating person with id=" + id + " err: " + err
         });
-      } else {
-        res.send({
-          message: `Cannot update person with id=${id}. Maybe person was not found or req.body is empty!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error updating person with id=" + id + " err: " + err
       });
-    });
 };
 
 // Delete a person with the specified id in the request
@@ -198,22 +197,22 @@ exports.delete = (req, res) => {
   DBPerson.destroy({
     where: { id: id }
   })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "person was deleted successfully!"
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "person was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete person with id=${id}. Maybe person was not found!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Could not delete person with id=" + id + " err: " + err
         });
-      } else {
-        res.send({
-          message: `Cannot delete person with id=${id}. Maybe person was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete person with id=" + id + " err: " + err
       });
-    });
 };
 
 // Delete all persons from the database.
@@ -222,15 +221,15 @@ exports.deleteAll = (req, res) => {
     where: {},
     truncate: false
   })
-    .then(nums => {
-      res.send({ message: `${nums} persons were deleted successfully!` });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all persons."
+      .then(nums => {
+        res.send({ message: `${nums} persons were deleted successfully!` });
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while removing all persons."
+        });
       });
-    });
 };
 
 // Delete all persons from the database.
@@ -301,45 +300,45 @@ exports.createUser = (req, res) => {
 
   // Save person in the database
   DBPerson.create(person)
-    .then(data => {
+      .then(data => {
 
-      const user = {
-        // organizationId: req.body.organizationId,
-        personId: data.dataValues.id,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone
-      }
-      console.log(user);
-      let userResponseData = '';
-
-      DBUser.create(user).then(dataUser => {
-        console.log('USER DATA VALUES');
-        let userID = dataUser.dataValues.id;
-        let personId = dataUser.dataValues.personId;
-
-        var sendData = {
-          userId: userID,
-          personId: personId
+        const user = {
+          // organizationId: req.body.organizationId,
+          personId: data.dataValues.id,
+          email: req.body.email,
+          password: req.body.password,
+          phone: req.body.phone
         }
+        console.log(user);
+        let userResponseData = '';
 
-        res.status(200);
-        res.json(sendData);
-      }).catch(err => {
-        userResponseData = err.message || "Some error occurred while creating the user."
-        // res.status(500).send({
-        //   message:
-        //   err.message || "Some error occurred while creating the user."
-        // });
+        DBUser.create(user).then(dataUser => {
+          console.log('USER DATA VALUES');
+          let userID = dataUser.dataValues.id;
+          let personId = dataUser.dataValues.personId;
+
+          var sendData = {
+            userId: userID,
+            personId: personId
+          }
+
+          res.status(200);
+          res.json(sendData);
+        }).catch(err => {
+          userResponseData = err.message || "Some error occurred while creating the user."
+          // res.status(500).send({
+          //   message:
+          //   err.message || "Some error occurred while creating the user."
+          // });
+        });
+        data.user = userResponseData;
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while creating the person."
+        });
       });
-      data.user = userResponseData;
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the person."
-      });
-    });
 };
 
 exports.updateUser = (req, res) => {
@@ -361,17 +360,17 @@ exports.updateUser = (req, res) => {
   DBUser.update(req.body, {
     where: { personId: id }
   })
-    .then(num => {
-      if (num == 1) {
-        userResponseData = "User was updated successfully";
-      } else {
-        userResponseData = `Cannot update user with id=${id}. Maybe person was not found or req.body is empty!`;
+      .then(num => {
+        if (num == 1) {
+          userResponseData = "User was updated successfully";
+        } else {
+          userResponseData = `Cannot update user with id=${id}. Maybe person was not found or req.body is empty!`;
 
-      }
-    })
-    .catch(err => {
+        }
+      })
+      .catch(err => {
         userResponseData = "Error updating user with id=" + id + " err: " + err;
-    });
+      });
 
   res.user = userResponseData;
   DBPerson.update(person, {
@@ -387,88 +386,88 @@ exports.updateUser = (req, res) => {
       });
     }
   })
-  .catch(err => {
-    res.status(500).send({
-      message: "Error updating user with id=" + id + " err: " + err
-    });
-  });
+      .catch(err => {
+        res.status(500).send({
+          message: "Error updating user with id=" + id + " err: " + err
+        });
+      });
 };
 
 exports.userFindAll = (req, res) => {
   DBPerson.findAll({
     include: [
-    {
-      model: DBUser,
-      include: ['roles'],
-      where: {id: {[Op.not]: null}}
-    },
-    'phones',
-    'emails']
+      {
+        model: DBUser,
+        include: ['roles'],
+        where: {id: {[Op.not]: null}}
+      },
+      'phones',
+      'emails']
   })
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving persons."
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+              err.message || "Some error occurred while retrieving persons."
+        });
       });
-    });
 };
 
 exports.userFindOne = (req, res) => {
   const id = req.params.id;
 
-  DBPerson.findByPk(id, 
-    { 
-      include: 
-      [
-        {
-          model: DBUser,
-          include: ['roles']
-        },
-        'phones', 
-        'emails'
-      ] 
-    }, 
-    
+  DBPerson.findByPk(id,
+      {
+        include:
+            [
+              {
+                model: DBUser,
+                include: ['roles']
+              },
+              'phones',
+              'emails'
+            ]
+      },
+
   ) //TODO: Take a look at this one, remove roles, findOne works just fine.
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving person with id=" + id + " err: " + err
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving person with id=" + id + " err: " + err
+        });
       });
-    });
 };
 
 exports.findByEmail = (req, res) =>{
   const email = req.params.email;
   DBPerson.findAll( {
-      include: 
-      [
-        {
-          model: DBUser,
-          include: ['roles'],
-            where: {
-              email: email
-            },
-        },
-        'phones', 
-        'emails'
-      ] 
-    }, 
-    
-  ) 
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Error retrieving person with id=" + id + " err: " + err
+        include:
+            [
+              {
+                model: DBUser,
+                include: ['roles'],
+                where: {
+                  email: email
+                },
+              },
+              'phones',
+              'emails'
+            ]
+      },
+
+  )
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving person with id=" + id + " err: " + err
+        });
       });
-    });
 }
 
 exports.userDelete = (req, res) => {
@@ -480,34 +479,34 @@ exports.userDelete = (req, res) => {
     where: { personId: id }
   }).then(num => {
     if (num == 1) {
-        userResponseData = "person was deleted successfully!"
+      userResponseData = "person was deleted successfully!"
     } else {
-        userResponseData = `Cannot delete person with id=${id}. Maybe person was not found!`
+      userResponseData = `Cannot delete person with id=${id}. Maybe person was not found!`
     }
   })
-  .catch(err => {
-    userResponseData =  "Could not delete person with id=" + id + " err: " + err
-  });
+      .catch(err => {
+        userResponseData =  "Could not delete person with id=" + id + " err: " + err
+      });
 
   res.user = userResponseData;
 
   DBPerson.destroy({
     where: { id: id }
   })
-    .then(num => {
-      if (num == 1) {
-        res.send({
-          message: "person was deleted successfully!"
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "person was deleted successfully!"
+          });
+        } else {
+          res.send({
+            message: `Cannot delete person with id=${id}. Maybe person was not found!`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Could not delete person with id=" + id + " err: " + err
         });
-      } else {
-        res.send({
-          message: `Cannot delete person with id=${id}. Maybe person was not found!`
-        });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({
-        message: "Could not delete person with id=" + id + " err: " + err
       });
-    });
 };
