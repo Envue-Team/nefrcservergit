@@ -32,7 +32,7 @@
                 @click="add_note_dlg=true">
               Update Note
             </v-btn>
-            Note: {{latest_note.text}}
+            <!-- Note: {{latest_note.text}} -->
           </v-card-subtitle>
           <v-card-text >
           <!---------------------//Organization Basic Data-------------------------------->
@@ -524,7 +524,7 @@ export default {
       NoteDataService.create(data).then(response=>{
         this.setOrganization(this.organization.id);
       }).catch(e=>{console.log(e)});
-      this.add_note_form.text = '';
+      // this.add_note_form.text = '';
       this.add_note_dlg=false;
     },
 
