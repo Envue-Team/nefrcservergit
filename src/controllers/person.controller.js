@@ -101,6 +101,7 @@ exports.findAll = (req, res) => {
         model: DBPhone,
         order: ['isPrimary', 'DESC']
       },
+      'organizations',
       'emails'
     ]
   })
@@ -125,6 +126,7 @@ exports.contactFindAll = (req, res) => {
         model: DBPhone,
         order: ['isPrimary', 'DESC']
       },
+      'organizations',
       'emails']
   })
       .then(data => {
@@ -149,6 +151,7 @@ exports.findOne = (req, res) => {
                 model: DBPhone,
                 order: ['isPrimary', 'DESC']
               },
+              'organizations',
               'emails'
             ]
       })

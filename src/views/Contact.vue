@@ -685,7 +685,7 @@ export default {
         //             beforeEnd = new Date(this.formattedEndDate).toISOString().substr(0,10) > vDate;
         //         }
         //         if(this.notes_type_selected[note.type]){
-        //             return (note.author.first_name.toLowerCase().includes(this.note_search.toLowerCase()) ||
+        //             return (note.thor.first_name.toLowerCase().includes(this.note_search.toLowerCase()) ||
         //             note.author.last_name.toLowerCase().includes(this.note_search.toLowerCase())) &&
         //             (afterStart && beforeEnd)
         //         }
