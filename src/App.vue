@@ -19,7 +19,13 @@
       <router-link to="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</router-link> |
       <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3">Users</router-link>
       <v-spacer></v-spacer>
-      <router-link to="" style="color: darkred">Logout</router-link>
+      <v-btn
+          depressed
+          color="red"
+          v-on:click="logout"
+      >
+        Log Out
+      </v-btn>
     </v-app-bar>
     <v-main style="background-color: rgba(45, 70, 40, 0.04)">
       <router-view/>
@@ -36,6 +42,13 @@ export default {
       this.$router.replace({ name: "login" });
     }
   },
+  methods: {
+    logout() {
+      this.$authenticated = false;
+      this.$session.destroy();
+      this.$router.replace({ name: "login" });
+    }
+  }
 };
 </script>
 
