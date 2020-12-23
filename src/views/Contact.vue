@@ -284,7 +284,9 @@
                           {{ edit_person.city }}, {{ edit_person.state }} {{ edit_person.zip }}<br/>
                           {{edit_person.county+" County"}}<br/>
                         </address>
-                        Alternate Contact Info
+                        Affiliated Organizations: {{edit_person.organization_names}}
+                        <br/>
+                        Alternate Contact Info:
                         {{edit_person.secondaryPhone}}
                         {{edit_person.secondaryEmail}}
                       </v-card-text>
@@ -467,6 +469,7 @@ export default {
                 state: '', 
                 zip: '',
                 county: '',
+                organization_names: '',
                 primaryPhone: '',
                 secondaryPhone: '',
                 primaryEmail: '',
@@ -530,6 +533,7 @@ export default {
 				// });
                 // console.log(response.data);
                 this.edit_person = response.data;
+                console.log(response+" is the response");
                 response.data.phones.forEach(phone => {
                     if(phone.isPrimary) {
                         this.edit_person.primaryPhone = phone.number;
@@ -549,6 +553,11 @@ export default {
                         this.edit_person.secondaryEmail = email.address;
                         this.email2Id = email.id;
                     }
+                });
+                this.edit_person.organization_names = '';
+                response.data.organizations.forEach(organization=>{
+                    this.edit_person.organization_names += organization.name+"\n";
+                    console.log(this.edit_person.organization_names);
                 });
 			})
 			.catch(e => {
@@ -685,7 +694,7 @@ export default {
         //             beforeEnd = new Date(this.formattedEndDate).toISOString().substr(0,10) > vDate;
         //         }
         //         if(this.notes_type_selected[note.type]){
-        //             return (note.author.first_name.toLowerCase().includes(this.note_search.toLowerCase()) ||
+        //             return (note.thor.first_name.toLowerCase().includes(this.note_search.toLowerCase()) ||
         //             note.author.last_name.toLowerCase().includes(this.note_search.toLowerCase())) &&
         //             (afterStart && beforeEnd)
         //         }
