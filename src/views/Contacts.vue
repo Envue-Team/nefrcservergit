@@ -406,6 +406,8 @@ export default {
         zip: this.add_person.zip,
         county: this.add_person.county,
       };
+      //validation with regexs
+      
       // var email1 = {
       //   "address": this.add_person.primaryEmail,
       //   // "personId":
@@ -415,44 +417,42 @@ export default {
       //   this.add_person.primaryPhone,
       // };
       data.services = this.add_person.services;
-      ContactDataService.create(data)
-        .then((response) => {
-          // console.log(response);
-          this.retrieveVolunteers();
-          this.add_organization_dlg = false;
-          return response.data.id;
-        })
-        .then((id) => {
-          console.log(id);
-          var email = {
-            personId: id,
-            address: this.add_person.primaryEmail,
-            isPrimary: true,
-          };
-          var email2 = {
-            personId: id,
-            address: this.add_person.secondaryEmail,
-            isPrimary: false,
-          };
-          var phone = {
-            personId: id,
-            number: this.add_person.primaryPhone,
-            isPrimary: true,
-          };
-          var phone2 = {
-            personId: id,
-            number: this.add_person.secondaryPhone,
-            isPrimary: false,
-          };
-          EmailDataService.create(email);
-          EmailDataService.create(email2);
-          PhoneDataService.create(phone);
-          PhoneDataService.create(phone2);
-          this.retrieveVolunteers();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      ContactDataService.create(data).
+      then(response=>{
+        // console.log(response);
+        this.retrieveVolunteers();
+        this.add_organization_dlg = false;
+        return response.data.id;
+      }).then(id=>{
+        var email = {
+          personId: id,
+          address: this.add_person.primaryEmail,
+          isPrimary: true
+        };
+        var email2 = {
+          personId: id,
+          address: this.add_person.secondaryEmail,
+          isPrimary: false
+        };
+        var phone = {
+          personId: id,
+          number: this.add_person.primaryPhone,
+          isPrimary: true
+        };
+        var phone2 = {
+          personId: id,
+          number: this.add_person.secondaryPhone,
+          isPrimary: false
+        }
+        EmailDataService.create(email);
+        EmailDataService.create(email2);
+        PhoneDataService.create(phone);
+        PhoneDataService.create(phone2);
+        this.retrieveVolunteers();
+      })
+      .catch(e=>{
+        console.log(e);
+      });
 
       // this.addEmail(email1, data);
       // EmailDataService.create(email1).
@@ -468,6 +468,7 @@ export default {
       this.refreshList();
       // console.log("hit");
     },
+    
     removePerson(item) {
       if (
         confirm(

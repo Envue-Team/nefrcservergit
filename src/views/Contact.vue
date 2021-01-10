@@ -501,105 +501,106 @@ export default {
       },
     };
   },
-  methods: {
-    showDialog() {
-      this.edit_person_dlg = true;
-    },
-    setPerson() {
-      PersonDataService.get(this.$route.params.personId)
-        .then((response) => {
-          // this.notes = response.data.notes.map(note=>{
-          // 	var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
-          // 	return {
-          // 		id: note.id,
-          // 		text: note.text,
-          // 		date: date,
-          // 		author: note.person,
-          // 		type: note.type
-          // 	}
-          // });
-          // console.log(response.data);
-          this.edit_person = response.data;
-          console.log(response + " is the response");
-          response.data.phones.forEach((phone) => {
-            if (phone.isPrimary) {
-              this.edit_person.primaryPhone = phone.number;
-              this.phoneId = phone.id;
-            } else {
-              this.edit_person.secondaryPhone = phone.number;
-              this.phone2Id = phone.id;
-            }
-          });
-          response.data.emails.forEach((email) => {
-            if (email.isPrimary) {
-              this.edit_person.primaryEmail = email.address;
-              this.emailId = email.id;
-            } else {
-              this.edit_person.secondaryEmail = email.address;
-              this.email2Id = email.id;
-            }
-          });
-          this.edit_person.organization_names = "";
-          response.data.organizations.forEach((organization) => {
-            this.edit_person.organization_names += organization.name + "\n";
-            console.log(this.edit_person.organization_names);
-          });
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
-    },
-    updatePerson() {
-      var data = {
-        first_name: this.edit_person.first_name,
-        last_name: this.edit_person.last_name,
-        street_number: this.edit_person.street_number,
-        street_name: this.edit_person.street_name,
-        city: this.edit_person.city,
-        state: this.edit_person.state,
-        zip: this.edit_person.zip,
-        county: this.edit_person.county,
-      };
-      console.log(data);
-      var personID = this.$route.params.personId;
-      //data.services = this.add_person.services;
-      PersonDataService.update(personID, data)
-        .then((response) => {
-          // console.log(response);
-          //this.retrieveVolunteers();
-          return response.data.id;
-        })
-        .then((id) => {
-          console.log(id);
-          var email = {
-            address: this.edit_person.primaryEmail,
-            isPrimary: true,
-          };
-          var email2 = {
-            address: this.edit_person.secondaryEmail,
-            isPrimary: false,
-          };
-          var phone = {
-            number: this.edit_person.primaryPhone,
-            isPrimary: true,
-          };
-          var phone2 = {
-            number: this.edit_person.secondaryPhone,
-            isPrimary: false,
-          };
-          console.log(phone2);
-          EmailDataService.update(this.emailId, email);
-          EmailDataService.update(this.email2Id, email2);
-          PhoneDataService.update(this.phoneId, phone);
-          PhoneDataService.update(this.phone2Id, phone2).then((response) => {
-            console.log(response);
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      this.edit_person_dlg = false;
-    },
+    methods: {
+        showDialog() {
+            this.edit_person_dlg = true;
+        },
+        setPerson() {
+            PersonDataService.get(this.$route.params.personId)
+			.then(response => {
+				// this.notes = response.data.notes.map(note=>{
+				// 	var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
+				// 	return {
+				// 		id: note.id,
+				// 		text: note.text,
+				// 		date: date,
+				// 		author: note.person,
+				// 		type: note.type
+				// 	}
+				// });
+                // console.log(response.data);
+                this.edit_person = response.data;
+                console.log(response);
+                response.data.phones.forEach(phone => {
+                    if(phone.isPrimary) {
+                        this.edit_person.primaryPhone = phone.number;
+                        this.phoneId = phone.id;
+                    }
+                    else {
+                        this.edit_person.secondaryPhone = phone.number;
+                        this.phone2Id = phone.id;
+                    }
+                });
+                response.data.emails.forEach(email => {
+                    if(email.isPrimary) {
+                        this.edit_person.primaryEmail = email.address;
+                        this.emailId = email.id;
+                    }
+                    else {
+                        this.edit_person.secondaryEmail = email.address;
+                        this.email2Id = email.id;
+                    }
+                });
+                this.edit_person.organization_names = '';
+                response.data.organizations.forEach(organization=>{
+                    this.edit_person.organization_names += organization.name+"\n";
+                });
+			})
+			.catch(e => {
+				console.log(e.message);
+            });
+        },
+        updatePerson() {
+            var data = {
+                "first_name": this.edit_person.first_name,
+                "last_name": this.edit_person.last_name,
+                "street_number": this.edit_person.street_number,
+                "street_name": this.edit_person.street_name,
+                "city": this.edit_person.city,
+                "state":this.edit_person.state,
+                "zip":this.edit_person.zip,
+                "county":this.edit_person.county,
+            };
+            console.log(data);
+            var personID = this.$route.params.personId;
+            //data.services = this.add_person.services;
+            PersonDataService.update(personID, data).
+            then(response=>{
+                // console.log(response);
+                //this.retrieveVolunteers();
+                return response.data.id;
+            })
+            .then(id=>{
+                console.log(id);
+                var email = {
+                    address: this.edit_person.primaryEmail,
+                    isPrimary: true
+                };
+                var email2 = {
+                    address: this.edit_person.secondaryEmail,
+                    isPrimary: false
+                };
+                var phone = {
+                    number: this.edit_person.primaryPhone,
+                    isPrimary: true
+                };
+                var phone2 = {
+                    number: this.edit_person.secondaryPhone,
+                    isPrimary: false
+                }
+                console.log(phone2);
+                EmailDataService.update(this.emailId, email);
+                EmailDataService.update(this.email2Id, email2);
+                PhoneDataService.update(this.phoneId, phone);
+                PhoneDataService.update(this.phone2Id, phone2).then(response => {
+                console.log(response)
+                });
+            })
+            .catch(e=>{
+                console.log(e);
+            });            
+            this.edit_person_dlg = false;
+        },
 
     //note methods
 
