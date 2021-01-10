@@ -44,7 +44,7 @@
                         </v-hover>
                       </template>
                       <v-card>
-                        <v-form>
+                        <v-form v-model="valid" lazy-validation>
                           <v-card-title>
                             <span class="headline">User Information</span>
                           </v-card-title>
@@ -56,6 +56,7 @@
                                     label="First Name"
                                     required
                                     v-model="edit_person.first_name"
+                                    :rules="nameRules"
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="6" sm="6" md="6">
@@ -63,6 +64,7 @@
                                     label="Last Name"
                                     required
                                     v-model="edit_person.last_name"
+                                    :rules="nameRules"
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="6" sm="6" md="6"> </v-col>
@@ -72,6 +74,7 @@
                                   <v-text-field
                                     label="Email"
                                     v-model="edit_user.email"
+                                    :rules="emailRules"
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="6">
@@ -99,6 +102,7 @@
                                     <v-text-field
                                         label="Phone"
                                         v-model="edit_contact.phone"
+                                        :rules="phoneRules"
                                     ></v-text-field>
                                   </v-col>
                                 </v-row>
@@ -118,6 +122,7 @@
                             <v-btn
                               color="blue darken-1"
                               text
+                              :disabled="!valid"
                               @click="updatePerson"
                             >
                               Save
@@ -176,7 +181,24 @@ export default {
       contact_id: {
         phone: "",
         email: "",
-      }
+      },
+      nameRules: [
+        v => !!v || "Required",
+        v => /\D\S$/.test(v) || "No white or empty spaces",
+      ],
+      emailRules: [
+        v => !!v || "Required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      phoneRules: [
+        v => !!v || "Required",
+        v => /\S\d$/.test(v) || "Phone number must be valid",
+      ],
+      show1: false,
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 1) || "Min 5 characters",
+      },
     };
   },
   methods: {

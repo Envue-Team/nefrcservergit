@@ -51,15 +51,16 @@ export default {
 };
 </script>
 
+
 <style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  .page-title{
-    font-family: "Roboto", sans-serif;
-    margin-left: -50px;
-    font-size: 2.45em;
-  }
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.page-title{
+  font-family: "Roboto", sans-serif;
+  margin-left: -50px;
+  font-size: 2.45em;
+}
 </style>

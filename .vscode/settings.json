@@ -1,5 +1,0 @@
-{
-	"javascript.suggestionActions.enabled": false,
-	"editor.parameterHints.enabled": false,
-	"editor.suggestSelection": "recentlyUsedByPrefix"
-}
