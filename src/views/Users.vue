@@ -2,50 +2,54 @@
   <v-container>
     <div align="center" class="red--text text--darken-4 page-title">Users</div>
     <v-row>
-
       <v-col class="col-12">
         <v-card elevation="3 text-wrap">
           <v-card-text>
-          <v-row>
-            <v-col class="col-6">
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search Table"
-                single-line
-              ></v-text-field>
-            </v-col>
-          </v-row>
-        <v-data-table
-          :headers="headers"
-          :items="volunteers"
-          :search="search"
-          item-key="id"
-          multi-sort
-          class="text-capitalize"
-        >
-          <template v-slot:item.name="{ item }">
-            <template v-if="item.first_name !== null">
-              <a v-on:click="nav(item)">
-              <span class="black--text">  {{ item.name }}</span>
-              <span v-if="item.public_safety"> (Public Safety)</span></a>
-            </template>
-            <template v-else-if="item.partner !== null">
-              <a v-on:click="nav(item)">
-              <span class="purple--text">{{ item.name }}</span>
-              <span v-if="item.public_safety"> (Public Safety)</span></a>
-            </template>
-          </template>
-          <template v-slot:item.address="{ item }">
-            <address>
-              {{ item.address }}
-            </address>
-          </template>
-          <template v-slot:item.email="{ item }">
-            <a v-on:click="nav(item)">
-            <div><span class="black--text">
-              {{ item.user.email }}
-            </span></div> </a>
+            <v-row>
+              <v-col class="col-6">
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search Table"
+                  single-line
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-data-table
+              :headers="headers"
+              :items="volunteers"
+              :search="search"
+              item-key="id"
+              multi-sort
+              class="text-capitalize"
+            >
+              <template v-slot:item.name="{ item }">
+                <template v-if="item.first_name !== null">
+                  <a v-on:click="nav(item)">
+                    <span class="black--text"> {{ item.name }}</span>
+                    <span v-if="item.public_safety"> (Public Safety)</span></a
+                  >
+                </template>
+                <template v-else-if="item.partner !== null">
+                  <a v-on:click="nav(item)">
+                    <span class="purple--text">{{ item.name }}</span>
+                    <span v-if="item.public_safety"> (Public Safety)</span></a
+                  >
+                </template>
+              </template>
+              <template v-slot:item.address="{ item }">
+                <address>
+                  {{ item.address }}
+                </address>
+              </template>
+              <template v-slot:item.email="{ item }">
+                <a v-on:click="nav(item)">
+                  <div>
+                    <span class="black--text">
+                      {{ item.user.email }}
+                    </span>
+                  </div>
+                </a>
               </template>
               <template v-slot:item.roles="{ item }">
                 <div>
@@ -63,11 +67,11 @@
           <template v-slot:activator="{ on, attrs }">
             <v-hover v-slot="{ hover }" open-delay="200">
               <v-btn
-                  text
-                  :elevation="hover ? 16 : 2"
-                  :class="{ 'on-hover': hover }"
-                  v-bind="attrs"
-                  v-on="on"
+                text
+                :elevation="hover ? 16 : 2"
+                :class="{ 'on-hover': hover }"
+                v-bind="attrs"
+                v-on="on"
               >
                 Add User
                 <v-icon> mdi-plus </v-icon>
@@ -75,7 +79,7 @@
             </v-hover>
           </template>
           <v-card>
-            <v-form>
+            <v-form v-model="valid" lazy-validation>
               <v-card-title>
                 <span class="headline">Add User</span>
               </v-card-title>
@@ -84,16 +88,18 @@
                   <v-row>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                          label="First Name"
-                          required
-                          v-model="add_person.firstname"
+                        required
+                        label="First Name"
+                        v-model="add_person.firstname"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                          label="Last Name"
-                          required
-                          v-model="add_person.lastname"
+                        label="Last Name"
+                        required
+                        v-model="add_person.lastname"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6"> </v-col>
@@ -101,35 +107,40 @@
                   <v-row>
                     <v-col cols="6">
                       <v-text-field
-                          label="Email"
-                          v-model="add_person.email"
+                        label="Email"
+                        v-model="add_person.email"
+                        :rules="emailRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
-                          label="Password"
-                          v-model="add_person.password"
+                        label="Password"
+                        v-model="add_person.password"
                       ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col cols="6">
                       <v-text-field
-                          label="Phone"
-                          v-model="add_person.phone"
+                        label="Phone"
+                        v-model="add_person.phone"
+                        :rules="phoneRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
-
                 </v-container>
                 <small>*indicates required field</small>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="add_person_dlg = false">
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="add_person_dlg = false"
+                >
                   Close
                 </v-btn>
-                <v-btn color="blue darken-1" text @click="addPerson">
+                <v-btn color="blue darken-1" text @click="addPerson" :disabled="!valid">
                   Save
                 </v-btn>
               </v-card-actions>
@@ -178,6 +189,23 @@ export default {
         firstname: "",
         lastname: "",
       },
+      nameRules: [
+        v => !!v || "Required",
+        v => /\D\S$/.test(v) || "No white or empty spaces",
+      ],
+      emailRules: [
+        v => !!v || "Required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      phoneRules: [
+        v => !!v || "Required",
+        v => /\S\d$/.test(v) || "Phone number must be valid",
+      ],
+      show1: false,
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 1) || "Min 5 characters",
+      },
     };
   },
   computed: {
@@ -186,8 +214,8 @@ export default {
         { text: "Name", value: "name", width: "80px" },
         { text: "Email", value: "email", width: "80px" },
         { text: "Roles", value: "role", width: "100px" },
-        {text: 'Delete', value: 'actions', width: '1%'}
-      ]
+        { text: "Delete", value: "actions", width: "1%" },
+      ];
       return headers;
     },
   },
@@ -200,31 +228,30 @@ export default {
     },
     retrieveVolunteers() {
       UserDataService.getAll()
-          .then((response) => {
-            console.log(response.data);
-            this.volunteers = response.data;
-            this.volunteers.forEach((volunteer) => {
+        .then((response) => {
+          console.log(response.data);
+          this.volunteers = response.data;
+          this.volunteers.forEach((volunteer) => {
+            volunteer.name = volunteer.first_name + " " + volunteer.last_name;
+            console.log(volunteer.name);
+            //TODO: Review this
+            let roleNumber = volunteer.user.roles[0].id;
+            let roleName = "";
 
-              volunteer.name = volunteer.first_name + " " + volunteer.last_name;
-              console.log(volunteer.name);
-              //TODO: Review this
-              let roleNumber = volunteer.user.roles[0].id
-              let roleName = "";
-
-              console.log(roleNumber);
-              if(roleNumber == 2) {
-                roleName = "User"
-              } else {
-                roleName = "Admin"
-              }
-              console.log(roleName);
-              volunteer.role = roleName
-            });
-            // console.log(this.volunteers);
-          })
-          .catch((e) => {
-            console.log(e.message);
+            console.log(roleNumber);
+            if (roleNumber == 2) {
+              roleName = "User";
+            } else {
+              roleName = "Admin";
+            }
+            console.log(roleName);
+            volunteer.role = roleName;
           });
+          // console.log(this.volunteers);
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
     },
 
     refreshList() {
@@ -250,63 +277,61 @@ export default {
 
       data.services = this.add_person.services;
       UserDataService.create(data)
-          .then((response) => {
+        .then((response) => {
+          console.log(response.data.personId);
 
-            console.log(response.data.personId);
+          let data = {
+            userId: response.data.userId,
+            roleId: 2,
+          };
 
-            let data = {
-              userId: response.data.userId,
-              roleId: 2,
-            };
+          let phoneData = {
+            personId: response.data.personId,
+            number: this.add_person.phone,
+            isPrimary: true,
+          };
+          let emailData = {
+            personId: response.data.personId,
+            address: this.add_person.email,
+            isPrimary: true,
+          };
 
-            let phoneData = {
-              personId: response.data.personId,
-              number: this.add_person.phone,
-              isPrimary: true
-            }
-            let emailData = {
-              personId: response.data.personId,
-              address: this.add_person.email,
-              isPrimary: true
-            }
+          PhoneDataService.create(phoneData);
+          EmailDataService.create(emailData);
 
-            PhoneDataService.create(phoneData);
-            EmailDataService.create(emailData);
+          UserRoleDataService.create(data)
+            .then((resp) => {
+              this.refreshList();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
 
-            UserRoleDataService.create(data)
-                .then((resp) => {
-                  this.refreshList();
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-
-
-            this.refreshList();
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+          this.refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
       this.add_person_dlg = false;
     },
 
     removePerson(item) {
       if (
-          confirm(
-              "Are you sure you want to remove " +
-              item.first_name +
-              " " +
-              item.last_name +
-              " from the table?"
-          )
+        confirm(
+          "Are you sure you want to remove " +
+            item.first_name +
+            " " +
+            item.last_name +
+            " from the table?"
+        )
       ) {
         UserDataService.delete(item.id)
-            .then((response) => {
-              this.refreshList();
-            })
-            .catch((e) => {
-              console.log(e);
-            });
+          .then((response) => {
+            this.refreshList();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       }
     },
   },

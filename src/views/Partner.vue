@@ -221,6 +221,7 @@
 							<v-form
 								v-model="valid_note"
 								ref="new_note_form"
+                lazy-validation
 							>
 								<v-card>
 									<v-card-title>
@@ -393,7 +394,7 @@
         max-width="600px"
     >
       <v-card>
-        <v-form>
+        <v-form v-model="valid" lazy-validation>
           <v-card-title>
             <span class="headline">Partner Information</span>
           </v-card-title>
@@ -409,6 +410,7 @@
                       label="Agency Name*"
                       required
                       v-model="partner.name"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -422,6 +424,7 @@
                   <v-textarea
                       solo
                       v-model="partner_secondary_info.critical_relationship_information"
+                      :rules="nameRules"
                   ></v-textarea>
                 </v-col>
               </v-row>
@@ -435,6 +438,7 @@
                   <v-textarea
                       solo
                       v-model="partner_secondary_info.services"
+                      :rules="nameRules"
                   ></v-textarea>
                 </v-col>
               </v-row>
@@ -447,6 +451,7 @@
                   <v-text-field
                       label="Street Number"
                       v-model="partner.street_number"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
                 <v-col
@@ -457,6 +462,7 @@
                   <v-text-field
                       label="Street Name"
                       v-model="partner.street_name"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -469,18 +475,21 @@
                   <v-text-field
                       label="City"
                       v-model="partner.city"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="2">
                   <v-text-field
                       label="State"
                       v-model="partner.state"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="3">
                   <v-text-field
                       label="Zip"
                       v-model="partner.zip"
+                      :rules="zipRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -489,6 +498,7 @@
                   <v-text-field
                       label="County"
                       v-model="partner.county"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -497,6 +507,7 @@
                   <v-text-field
                       label="Website"
                       v-model="partner.website"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -515,6 +526,7 @@
             <v-btn
                 color="blue darken-1"
                 text
+                :disabled="!valid"
                 @click="updatePartner"
             >
               Save
@@ -727,7 +739,28 @@ export default {
 			start_date: '',
 			end_date: '',
 			formattedStartDate: '',
-			formattedEndDate: ''
+      formattedEndDate: '',
+      nameRules: [
+        v => !!v || "Required",
+        v => /\D\S$/.test(v) || "No white or empty spaces",
+      ],
+      emailRules: [
+        v => !!v || "Required",
+        v => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      phoneRules: [
+        v => !!v || "Required",
+        v => /\S\d$/.test(v) || "Phone number must be valid",
+      ],
+      zipRules: [
+        (v) => !!v || "Required",
+        (v) => /\S\d$/.test(v) || "Zip number must be valid",
+      ],
+      show1: false,
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 1) || "Min 5 characters",
+      },
 		}
 	},
     watch: {

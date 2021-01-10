@@ -6,7 +6,7 @@
         v-model="show"
     >
       <v-card>
-        <v-form>
+        <v-form v-model="valid" lazy-validation>
           <v-card-title>
             <span class="headline">{{poc_title}}</span>
           </v-card-title>
@@ -22,6 +22,7 @@
                       label="First Name*"
                       required
                       v-model="first_name"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
                 <v-col
@@ -33,6 +34,7 @@
                       label="Last Name*"
                       required
                       v-model="last_name"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -45,6 +47,7 @@
                   <v-text-field
                       label="Street Number"
                       v-model="street_number"
+                      :rules="streetNumberRules"
                   ></v-text-field>
                 </v-col>
                 <v-col
@@ -55,6 +58,7 @@
                   <v-text-field
                       label="Street Name"
                       v-model="street_name"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -67,18 +71,21 @@
                   <v-text-field
                       label="City"
                       v-model="city"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="2">
                   <v-text-field
                       label="State"
                       v-model="state"
+                      :rules="nameRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="3">
                   <v-text-field
                       label="Zip"
                       v-model="zip"
+                      :rules="zipRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -88,12 +95,14 @@
                       required
                       label="Primary Phone"
                       v-model="primary_phone"
+                      :rules="phoneRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
                       label="Secondary Phone"
                       v-model="secondary_phone"
+                      :rules="phoneRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -103,12 +112,14 @@
                       required
                       label="Primary Email"
                       v-model="primary_email"
+                      :rules="emailRules"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="6">
                   <v-text-field
                       label="Secondary Email"
                       v-model="secondary_email"
+                      :rules="emailRules"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -128,6 +139,7 @@
                 v-show="poc_dlg_action=='Create'"
                 color="blue darken-1"
                 text
+                :disabled="!valid"
                 @click="createPOC"
             >
               Save
@@ -136,6 +148,7 @@
                 v-show="poc_dlg_action=='Edit'"
                 color="blue darken-1"
                 text
+                :disabled="!valid"
                 @click="openDialog('Update')"
             >
               Edit
@@ -237,8 +250,37 @@ export default {
       primary_phone: '',
       secondary_phone: '',
       primary_email: '',
-      secondary_email: ''
+      secondary_email: '',
+      
+      nameRules: [
+        (v) => !!v || "Required",
+        (v) => /\D\S$/.test(v) || "No white or empty spaces",
+      ],
+      emailRules: [
+        (v) => !!v || "Required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      phoneRules: [
+        (v) => !!v || "Required",
+        (v) => /\S\d$/.test(v) || "Phone number must be valid",
+      ],
+      streetNumberRules: [
+        (v) => !!v || "Required",
+        (v) => /\S\d$/.test(v) || "Street number must be valid",
+      ],
+
+      zipRules: [
+        (v) => !!v || "Required",
+        (v) => /\S\d$/.test(v) || "Zip number must be valid",
+      ],
+
+      show1: false,
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 1) || "Min 5 characters",
+      },
     }
+    
   },
   methods:{
     openDialog(dlg){
