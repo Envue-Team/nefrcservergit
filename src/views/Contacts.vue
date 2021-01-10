@@ -397,6 +397,8 @@ export default {
         "zip":this.add_person.zip,
         "county":this.add_person.county,
       };
+      //validation with regexs
+      
       // var email1 = {
       //   "address": this.add_person.primaryEmail,
       //   // "personId": 
@@ -413,7 +415,6 @@ export default {
         this.add_organization_dlg = false;
         return response.data.id;
       }).then(id=>{
-        console.log(id);
         var email = {
           personId: id,
           address: this.add_person.primaryEmail,
@@ -459,6 +460,7 @@ export default {
       // console.log("hit");
 
     },
+    
     removePerson(item) {
       if(confirm("Are you sure you want to remove "+item.first_name+" "+item.last_name+" from the table?")){
         ContactDataService.delete(item.id)
