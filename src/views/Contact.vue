@@ -533,7 +533,7 @@ export default {
 				// });
                 // console.log(response.data);
                 this.edit_person = response.data;
-                console.log(response+" is the response");
+                console.log(response);
                 response.data.phones.forEach(phone => {
                     if(phone.isPrimary) {
                         this.edit_person.primaryPhone = phone.number;
@@ -557,7 +557,6 @@ export default {
                 this.edit_person.organization_names = '';
                 response.data.organizations.forEach(organization=>{
                     this.edit_person.organization_names += organization.name+"\n";
-                    console.log(this.edit_person.organization_names);
                 });
 			})
 			.catch(e => {
