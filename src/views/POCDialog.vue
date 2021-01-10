@@ -92,6 +92,7 @@
               <v-row>
                 <v-col cols="6">
                   <v-text-field
+                      required
                       label="Primary Phone"
                       v-model="primary_phone"
                       :rules="phoneRules"
@@ -108,6 +109,7 @@
               <v-row>
                 <v-col cols="6">
                   <v-text-field
+                      required
                       label="Primary Email"
                       v-model="primary_email"
                       :rules="emailRules"

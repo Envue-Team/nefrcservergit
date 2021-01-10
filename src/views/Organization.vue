@@ -1,321 +1,563 @@
 <template>
   <v-container>
-    <div class="red--text text--darken-4 page-title">Organization</div>
-    <v-row
-      ><!---------------------First Container Row-------------------------------->
-      <v-col class="col-4"
-        ><!----------------------Left Column-------------------------->
-        <v-card elevation="3" class="mb-3">
-          <v-card-title>
-            <!---------------------Organization Basic Data-------------------------------->
-            <a
-              class="btn font-weight-bold blue-grey--text text-capitalize"
-              @click="openDialog('Edit')"
-            >
-              {{ organization.name }}
-            </a>
-          </v-card-title>
-          <v-card-subtitle style="margin-bottom: -30px">
-            <!------------------------------------Organization Address Info------------------------------>
-            <address class="text-capitalize">
-              {{ organization.street_number }} {{ organization.street_name }}
-              {{ organization.city }}, {{ organization.state }}
-              {{ organization.zip }}
-
-              <br />Counties
-              <br />
-              <span v-for="county in organization.counties" :key="county.id">
-                {{ county.name }}
-              </span>
-            </address>
-            <a
-              :href="organization.website"
-              class="red--text text--darken-3 body-3 mt-3"
-            >
-              {{ organization.website }}
-            </a>
-            <br />
-            <v-btn text color="blue darken-1" @click="add_note_dlg = true">
-              Update Note
-            </v-btn>
-            <!-- Note: {{latest_note.text}} -->
-          </v-card-subtitle>
-          <v-card-text>
-            <!---------------------//Organization Basic Data-------------------------------->
-
-            <!-----------------------Point of Contact--------------------------------->
-            <br class="mt-3" />
-            <a
-              class="btn font-weight-bold blue-grey--text"
-              @click="openDialog('Add POC')"
-            >
-              Add New Point of Contact
-            </a>
-            <div
-              v-for="contact in organization_points_of_contact"
-              v-bind:key="contact.id"
-            >
-              <a
-                class="btn font-weight-bold blue-grey--text"
-                @click="openDialog('Edit POC', contact.id)"
+    <a class="btn display-4 font-weight-bold blue-grey--text text-capitalize" @click="openDialog('Edit')">
+      {{ organization.name }}
+    </a><br/>
+    <a :href="organization.website" class="red--text text--darken-3">
+      {{ organization.website }}
+    </a><span v-if="organization.phones != ''"> | {{ organization.phones[0].number}}</span>
+    <address class="text-capitalize">
+      {{ organization.street_number }} {{ organization.street_name}}
+      {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
+      <br/>
+      <span v-for="county in organization.counties" :key="county.id">
+                  {{county.name}}
+                </span>
+    </address>
+    <v-row><!---------------------First Container Row-------------------------------->
+      <v-col class="col-9"><!----------------------Left Column-------------------------->
+        <v-row><!----Notes--->
+          <v-col>
+            <v-card elevation="3" max-width="100%" class="d-inline-flex" color="light-grey" style="border-radius: 5px;">
+            <v-container style="max-width: 200px">
+              <v-card
+                  style="margin-top:-20px; border-radius: 3% 10%; margin-left:-15px; padding: 10px"
+                  color="blue darken-3"
               >
-                <span :ref="'first_name_' + contact.personId"
-                  >{{ contact.first_name }}
-                </span>
-                <span :ref="'last_name_' + contact.personId"
-                  >{{ contact.last_name }}
-                </span>
-              </a>
-              <span v-for="phone in contact.phones" class="font-weight-thin">
-                <span :ref="'phone_' + phone.id">
-                  <span v-if="phone.isPrimary == true">
-                    <br />{{ phone.number }}(P)
+                <v-toolbar-title class="white--text">Important Notes</v-toolbar-title>
+              </v-card>
+            </v-container>
+            <v-card-text>
+             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="contact_note_dlg=true">
+               Last Contact Made
+             </a><br/>
+             {{ organization.last_contact }}<br/>
+             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="op_action_dlg=true">
+               Opportunities/Actions Needed to Improve Profile
+             </a><br/>
+              {{ organization.action }}<br/>
+             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="add_note_dlg=true">
+               Note
+             </a><br/>
+              {{ organization.notes }}
+           </v-card-text>
+          </v-card>
+          </v-col>
+        </v-row>
+        <v-row><!----Data---->
+          <v-col>
+            <v-card elevation="3" class="d-inline-flex" style="border-radius: 5px;">
+              <v-container style="max-width: 150px">
+                <v-card
+                    style="margin-top:-20px; border-radius: 3% 10%; margin-left:-15px; padding: 10px"
+                    color="green darken-3"
+                >
+                <v-toolbar-title class="white--text">Information</v-toolbar-title>
+              </v-card>
+              </v-container>
+                <v-card-text>
+                  <strong>National DCS MOU Partner:</strong> {{ organization.mou }}<br/>
+                  <strong>Organization Service:</strong> {{ organization.service }}<br/>
+                  <strong>Lines of Business</strong>
+                  <br/>
+                  <span v-for="lob in organization.line_of_businesses" :key="lob.id">
+                      {{lob.name}}
                   </span>
-                </span>
-              </span>
-              <span v-for="phone in contact.phones" class="font-weight-thin">
-                <span :ref="'phone_' + phone.id">
-                  <span v-if="phone.isPrimary == false">
-                    | {{ phone.number }}
+                  <br/> ARC Relationship
+                  <span v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                      {{arcrel.name}}
                   </span>
-                </span>
-              </span>
-              <span v-for="email in contact.emails" class="font-weight-thin">
-                <span :ref="'email_' + email.id">
-                  <span v-if="email.isPrimary == true">
-                    <br />{{ email.address }}(P)
+                  <br/><strong>Agency Types</strong>
+                  <span v-for="agtype in organization.agency_types" :key="agtype.id">
+                      {{agtype.name}}
                   </span>
-                </span>
-              </span>
-              <span v-for="email in contact.emails" class="font-weight-thin">
-                <span :ref="'email_' + email.id">
-                  <span v-if="email.isPrimary == false">
-                    | {{ email.address }}
-                  </span>
-                </span>
-              </span>
-            </div>
-            <!-----------------------//Point of Contact--------------------------------->
-          </v-card-text>
-        </v-card>
-        <v-card>
-          <v-card-text>
-            <!--------------------------Organization Relationship Manager-------------------------------->
-            <div>
-              <a
-                class="btn font-weight-bold blue-grey--text"
-                @click="openDialog('Add RM')"
-              >
-                Add an Organization Manager
-              </a>
-            </div>
+                  <br/><strong>Service</strong>
+                  {{ organization.service }}
 
-            <div
-              v-for="manager in organization_relationship_managers"
-              v-bind:key="manager.id"
-            >
-              <a
-                class="btn font-weight-bold blue-grey--text"
-                @click="openDialog('RM', manager.personId)"
-              >
-                <div class="font-weight-black mt-3">
-                  <strong>
-                    <span :ref="'relationship_manager_' + manager.personId">
-                      {{ manager.person.first_name }}
-                      {{ manager.person.last_name }} (Relationship Manager)
-                    </span>
-                  </strong>
-                </div>
-              </a>
-              <div
-                v-for="mphone in manager.person.phones"
-                :key="mphone.number"
-                class="font-weight-thin"
-              >
-                {{ mphone.number }}
-              </div>
-              <div
-                v-for="memail in manager.person.emails"
-                :key="memail.address"
-                class="font-weight-thin"
-              >
-                {{ memail.address }}
-              </div>
-            </div>
-            <!--------------------------//Organization Relationship Manager-------------------------------->
-          </v-card-text>
-        </v-card> </v-col
-      ><!----------------------//Left Column-------------------------->
-
-      <v-col
-        ><!--------------------------Middle Column----------------->
-        <v-card elevation="3" class="mb-3">
-          <v-row>
-            <v-col>
-              <!--------------------------File List Table-------------------------------->
-              <v-data-table
+                </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row><!----Table---->
+          <v-card elevation="3" class="mb-3">
+            <!--------------------------File List Table-------------------------------->
+            <v-data-table
                 :headers="headers"
                 :search="search"
                 :items="files"
                 item-key="id"
                 multi-sort
-              >
-                <template v-slot:top>
-                  <v-text-field
+            >
+              <template v-slot:top>
+                <v-text-field
                     v-model="search"
                     label="Search Files"
                     class="mx-4"
-                  ></v-text-field>
-                </template>
-                <template v-slot:item.name="item">
-                  <p>{{ item.item.name }}</p>
-                </template>
-                <template v-slot:item.date="item">
-                  <p>{{ item.item.date }}</p>
-                </template>
-                <template v-slot:item.author="item">
-                  <p>{{ item.item.author }}</p>
-                </template>
-                <template v-slot:item.download="item">
-                  <v-btn depressed small @click="downloadFile(item)">
-                    Download
-                    <v-icon color="orange darken-4" right>
-                      mdi-arrow-down
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <template v-slot:item.remove="item">
-                  <v-btn depressed small @click="deleteFile(item)">
-                    <v-icon color="orange darken-4" right>
-                      mdi-trash-can
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <template v-slot:footer>
-                  <v-row>
-                    <v-col cols="7">
-                      <v-file-input
+                ></v-text-field>
+              </template>
+              <template v-slot:item.name="item">
+                <p>{{ item.item.name  }}</p>
+              </template>
+              <template v-slot:item.date="item">
+                <p>{{ item.item.date }}</p>
+              </template>
+              <template v-slot:item.author="item">
+                <p>{{ item.item.author }}</p>
+              </template>
+              <template v-slot:item.download="item">
+                <v-btn
+                    depressed
+                    small
+                    @click="downloadFile(item)"
+                >
+                  Download
+                  <v-icon
+                      color="orange darken-4"
+                      right
+                  >
+                    mdi-arrow-down
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-slot:item.remove="item">
+                <v-btn
+                    depressed
+                    small
+                    @click="deleteFile(item)"
+                >
+                  <v-icon
+                      color="orange darken-4"
+                      right
+                  >
+                    mdi-trash-can
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-slot:footer>
+                <v-row>
+                  <v-col cols="7">
+                    <v-file-input
                         label="Upload new file"
                         show-size
                         counter
                         dense
                         @change="filesChange"
-                      ></v-file-input>
-                    </v-col>
-                    <v-col>
-                      <v-btn
+                    ></v-file-input>
+                  </v-col>
+                  <v-col>
+                    <v-btn
                         depressed
                         small
                         :disabled="upload_disabled"
                         @click="uploadFile"
+                    >
+                      Upload
+                      <v-icon
+                          color="orange darken-4"
+                          right
                       >
-                        Upload
-                        <v-icon color="orange darken-4" right>
-                          mdi-arrow-up
-                        </v-icon>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </template>
-              </v-data-table>
-              <!--------------------------//File List Table-------------------------------->
-            </v-col>
-          </v-row>
-        </v-card> </v-col
-      ><!--------------------------//Middle Column----------------->
+                        mdi-arrow-up
+                      </v-icon>
+                    </v-btn>
+                  </v-col>
+                </v-row>
+              </template>
+            </v-data-table>
+            <!--------------------------//File List Table-------------------------------->
+          </v-card>
+        </v-row>
+      </v-col><!----------------------//Left Column-------------------------->
+
+      <v-col><!--------------------------Middle Column----------------->
+        <v-card elevation="3" class="mb-3">
+          <v-toolbar
+            color="purple darken-2"
+          >
+            <v-toolbar-title
+            class="white--text"
+            >Contact Info</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <!-----------------------Point of Contact--------------------------------->
+            <div>
+              <strong>Organization Contact Protocol:<br/></strong> {{ organization.contact_protocol }}<br/>
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Add POC')">
+                Add New Point of Contact
+              </a>
+            </div>
+            <div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit POC', contact.id)">
+                <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
+                <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>
+              </a>
+              <span v-for="phone in contact.phones" class="font-weight-thin">
+                  <span :ref="'phone_' + phone.id">
+                    <span v-if="phone.isPrimary==true">
+                      <br/>{{ phone.number }}(P)
+                    </span>
+                  </span>
+							</span>
+              <span v-for="phone in contact.phones" class="font-weight-thin">
+                  <span :ref="'phone_' + phone.id">
+                    <span v-if="phone.isPrimary==false">
+                     | {{ phone.number }}
+                    </span>
+                  </span>
+							</span>
+              <span v-for="email in contact.emails" class="font-weight-thin">
+                  <span :ref="'email_' + email.id">
+                    <span v-if="email.isPrimary==true">
+                      <br/>{{ email.address }}(P)
+                    </span>
+                  </span>
+							</span>
+              <span v-for="email in contact.emails" class="font-weight-thin">
+                  <span :ref="'email_' + email.id">
+                    <span v-if="email.isPrimary==false">
+                       | {{ email.address }}
+                    </span>
+                  </span>
+							</span>
+            </div>
+            <!-----------------------//Point of Contact--------------------------------->
+          </v-card-text>
+        </v-card>
+        <v-card elevation="3" class="mb-3">
+<!--          <v-container style="max-width: 130px; margin-left: -15px">-->
+<!--            <v-card-->
+<!--                style="margin-top:-20px; border-radius: 3% 10%;  padding: 10px"-->
+<!--                color="purple darken-3"-->
+<!--            >-->
+<!--              <v-toolbar-title class="white--text">Manager</v-toolbar-title>-->
+<!--            </v-card>-->
+<!--          </v-container>-->
+          <v-toolbar
+              color="purple darken-2"
+          >
+            <v-toolbar-title
+                class="white--text"
+            >Relationship Manager</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text>
+            <!--------------------------Organization Relationship Manager-------------------------------->
+            <div>
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Add RM')">
+                Add an Organization Manager
+              </a>
+            </div>
+            <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM', manager.personId)">
+                <div class="font-weight-black mt-3">
+                  <strong>
+                    <span :ref="'relationship_manager_' + manager.personId">
+                      {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
+                    </span>
+                  </strong>
+                </div>
+              </a>
+              <div v-for="mphone in manager.person.phones" :key="mphone.number" class="font-weight-thin">{{ mphone.number }}</div>
+              <div v-for="memail in manager.person.emails" :key="memail.address" class="font-weight-thin"> {{ memail.address }}</div>
+            </div>
+            <!--------------------------//Organization Relationship Manager-------------------------------->
+          </v-card-text>
+        </v-card>
+      </v-col><!--------------------------//Middle Column----------------->
     </v-row>
     <!--------------------------Dialogs-------------------------------->
     <POCDialog
-      v-model="showPOCDialog"
-      :poc_id="update_poc_id"
-      :poc_title="poc_dlg_title"
-      :poc_dlg_action="poc_dlg_action"
+        v-model="showPOCDialog"
+        :poc_id="update_poc_id"
+        :poc_title="poc_dlg_title"
+        :poc_dlg_action="poc_dlg_action"
     />
     <RelationshipManagerDialog
-      v-model="showRMDialog"
-      :all_relationship_managers="all_relationship_managers"
-      :current_relationship_manager_id="current_relationship_manager_id"
-      :rm_title="rm_dlg_title"
-      :rm_dlg_action="rm_dlg_action"
-      :relationship_manager="current_relationship_manager"
+        v-model="showRMDialog"
+        :all_relationship_managers="all_relationship_managers"
+        :current_relationship_manager_id="current_relationship_manager_id"
+        :rm_title="rm_dlg_title"
+        :rm_dlg_action="rm_dlg_action"
+        :relationship_manager="current_relationship_manager"
     />
+    <!-------------------------- Note Dialog------------------------>
+    <v-dialog
+        v-model="add_note_dlg"
+        max-width="300px"
+    >
+      <v-card>
+        <v-form>
+          <v-card-title>
+            <span class="headline">Organization Note</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-text-field
+                    label="Notes"
+                    v-model="organization.notes"
+                ></v-text-field>
+              </v-row>
+            </v-container>
+            <v-card-actions>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="add_note_dlg=false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="updateOrganization"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card-text>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!--------------------------//Note Dialog------------------------>
 
-    <NoteDialog v-model="add_note_dlg" />
+    <!--------------------------Last Contact Note Dialog------------------------>
+    <v-dialog
+      v-model="contact_note_dlg"
+      max-width="300px"
+    >
+      <v-card>
+        <v-form>
+          <v-card-title>
+            <span class="headline">Last Contact Made</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-text-field
+                    label="Last Contact"
+                    v-model="organization.last_contact"
+                ></v-text-field>
+              </v-row>
+            </v-container>
+            <v-card-actions>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="contact_note_dlg=false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="updateOrganization"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card-text>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!--------------------------//Last Contact Note Dialog------------------------>
+
+    <!-----------------------------Op Action Dialog------------------------------------------>
+    <v-dialog
+        v-model="op_action_dlg"
+        max-width="300px"
+    >
+      <v-card>
+        <v-form>
+          <v-card-title>
+            <span class="headline">Opportunities/Actions for Improvement</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-text-field
+                    label="Last Contact"
+                    v-model="organization.action"
+                ></v-text-field>
+              </v-row>
+            </v-container>
+            <v-card-actions>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="op_action_dlg=false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="updateOrganization"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card-text>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!--------------------------//Op Action Dialog------------------------>
 
     <!---------------------------------Edit Organization Dialog------------------------------->
-    <v-dialog v-model="organization_edit_dlg" max-width="1200px">
+    <v-dialog
+        v-model="organization_edit_dlg"
+        max-width="1200px"
+    >
       <v-card>
-        <v-form v-model="valid" lazy-validation>
+        <v-form>
           <v-card-title>
             <span class="headline">Relationship Information</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="6" sm="6" md="6">
+                <v-col
+                    cols="6"
+                    sm="6"
+                    md="6"
+                >
                   <v-text-field
-                    label="Agency Name*"
-                    required
-                    v-model="organization.name"
-                    :rules="nameRules"
+                      label="Agency Name*"
+                      required
+                      v-model="organization.name"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="12" sm="6" md="4">
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
                   <v-text-field
-                    label="Street Number"
-                    v-model="organization.street_number"
-                    :rules="streetNumberRules"
+                      label="Street Number"
+                      required
+                      v-model="organization.street_number"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="12" sm="6" md="4">
+                <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                >
                   <v-text-field
-                    label="Street Name"
-                    v-model="organization.street_name"
-                    :rules="nameRules"
+                      label="Street Name"
+                      required
+                      v-model="organization.street_name"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="3" sm="6" md="4">
+                <v-col
+                    cols="3"
+                    sm="6"
+                    md="4"
+                >
                   <v-text-field
-                    label="City"
-                    v-model="organization.city"
-                    :rules="nameRules"
+                      label="City"
+                      required
+                      v-model="organization.city"
                   ></v-text-field>
                 </v-col>
                 <v-col cols="2">
-                  <v-text-field
-                    label="State"
+                  <v-select
+                    required
+                    :items="states"
                     v-model="organization.state"
-                    :rules="nameRules"
-                  ></v-text-field>
+                    label="State"
+                  >
+                  </v-select>
                 </v-col>
                 <v-col cols="3">
                   <v-text-field
-                    label="Zip"
-                    v-model="organization.zip"
-                    :rules="zipRules"
+                      label="Zip"
+                      required
+                      v-model="organization.zip"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="6">
                   <v-text-field
-                    label="Website"
-                    v-model="organization.website"
+                      label="Website"
+                      v-model="organization.website"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Number"
+                      v-model="organization.phones[0].number"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="3" v-for="county in all_counties">
-                  <v-checkbox
+                <v-col cols="6">
+                  <v-select
+                    multiple
+                    required
                     v-model="organization_counties"
-                    :value="county"
-                    :label="county"
-                  ></v-checkbox>
+                    :items="all_counties"
+                    label="Counties"
+                  >
+                  </v-select>
                 </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-select
+                    :items="mou_options"
+                    required
+                    v-model="organization.mou"
+                    label="National DCS MOU Partner"
+                  >
+                  </v-select>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-select
+                      multiple
+                      required
+                      v-model="organization_lines_of_business"
+                      :items="all_lines_of_business"
+                      label="Line of Business"
+                  >
+                  </v-select>
+                </v-col>
+                <v-col>
+                  <v-select
+                      multiple
+                      required
+                      v-model="organization_arc_relationships"
+                      :items="all_arc_relationships"
+                      label="Arc Relationships"
+                  >
+                  </v-select>
+                </v-col>
+                <v-col>
+                  <v-select
+                      multiple
+                      v-model="organization_agency_types"
+                      :items="all_agency_types"
+                      label="Agency Types"
+                  >
+                  </v-select>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-textarea
+                  v-model="organization.contact_protocol"
+                  label="Organization Contact Protocol"
+                ></v-textarea>
+              </v-row>
+              <v-row>
+                <v-textarea
+                    v-model="organization.service"
+                    label="Services"
+                ></v-textarea>
               </v-row>
             </v-container>
             <small>*indicates required field</small>
@@ -323,16 +565,24 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-              color="blue darken-1"
-              text
-              @click="organization_edit_dlg = false"
+                color="blue darken-1"
+                text
+                @click="organization_edit_dlg=false"
             >
               Close
             </v-btn>
-            <v-btn @click="openDialog('Delete')" color="red darken-1" text>
+            <v-btn
+                @click="openDialog('Delete')"
+                color="red darken-1"
+                text
+            >
               Delete
             </v-btn>
-            <v-btn color="blue darken-1" text @click="updateOrganization" :disabled="!valid">
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="updateOrganization"
+            >
               Save
             </v-btn>
           </v-card-actions>
@@ -342,20 +592,26 @@
     <!---------------------------------//Edit Organization Dialog------------------------------>
 
     <!---------------------------------Delete Organization Dialog------------------------------>
-    <v-dialog max-width="300" v-model="delete_organization_dialog">
+    <v-dialog
+        max-width="300"
+        v-model="delete_organization_dialog"
+    >
       <v-card>
         <v-card-text>
           Are you sure you want to delete this organization?
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn @click="deleteOrganization" text color="red text-darken-1">
+          <v-btn
+              @click="deleteOrganization"
+              text
+              color="red text-darken-1">
             Yes
           </v-btn>
           <v-btn
-            @click="delete_organization_dialog = false"
-            text
-            color="blue text-darken-1"
+              @click="delete_organization_dialog=false"
+              text
+              color="blue text-darken-1"
           >
             No
           </v-btn>
@@ -367,10 +623,12 @@
   </v-container>
 </template>
 <script>
-const STATUS_INITIAL = 0,
-  STATUS_SAVING = 1,
-  STATUS_SUCCESS = 2,
-  STATUS_FAILED = 3;
+
+
+
+import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOfBusinessDataService";
+
+const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
 import PersonDataService from "@/services/PersonDataService";
 import RelationshipManagerDataService from "../services/RelationshipManagerDataService";
@@ -385,8 +643,13 @@ import PointOfContactDataService from "@/services/PointOfContactDataService";
 import POCDialog from "./POCDialog";
 import EmailDataService from "@/services/EmailDataService";
 import PhoneDataService from "@/services/PhoneDataService";
-import CountyDataService from "@/services/CountyDataService";
+import CountyDataService from "@/services/CountyDataService"
 import OrganizationCountyDataService from "@/services/OrganizationCountyDataService";
+import LineOfBusinessDataService from "@/services/LineOfBusinessDataService";
+import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRelationshipDataService";
+import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
+import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
+import AgencyTypeDataService from "@/services/AgencyTypeDataService";
 
 //TODO: Sanitize and validate form input
 export default {
@@ -394,7 +657,7 @@ export default {
   components: {
     POCDialog,
     NoteDialog,
-    RelationshipManagerDialog,
+    RelationshipManagerDialog
   },
 
   data() {
@@ -408,11 +671,62 @@ export default {
       unmapped_counties: [],
 
       /**
+       * States
+       **/
+      organization_state:'',
+      states:[
+        "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT",
+        "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID",
+        "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+        "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND",
+        "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+        "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+        "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV",
+        "WY"
+      ],
+
+      /**
+       * MOU
+       **/
+      mou_options:["Yes", "No", "Maybe"],
+
+      /**
+       * Contact Note
+       **/
+      contact_note_dlg: false,
+
+      /**
+       * Opportunity Action Dialog
+       **/
+      op_action_dlg: false,
+
+      /**
+       * Line of Business
+       **/
+      all_lines_of_business: [],
+      organization_lines_of_business: [],
+      unmapped_lines_of_business: [],
+
+      /**
+       * Arc Relationship
+       **/
+      all_arc_relationships: [],
+      organization_arc_relationships: [],
+      unmapped_arc_relationships: [],
+
+      /**
+       * Agency Type
+       **/
+      all_agency_types: [],
+      organization_agency_types: [],
+      unmapped_agency_types: [],
+
+      /**
        * Organization
        */
-      organization: "",
+      organization: '',
       organization_edit_dlg: false,
-      delete_organization_dialog: "",
+      delete_organization_dialog: '',
 
       /**
        * Relationship Managers
@@ -421,12 +735,12 @@ export default {
       update_mgr_dlg: false,
       add_mgr_dlg: false,
       showRMDialog: false,
-      rm_dlg_action: "",
-      rm_dlg_title: "",
-      updated_relationship_manager: "",
-      current_relationship_manager_id: "",
+      rm_dlg_action: '',
+      rm_dlg_title: '',
+      updated_relationship_manager: '',
+      current_relationship_manager_id: '',
       current_relationship_manager: {},
-      all_relationship_managers: [],
+      all_relationship_managers:[],
       organization_relationship_managers: [],
 
       /**
@@ -436,12 +750,12 @@ export default {
       save_poc_dialog: false,
       showPOCDialog: false,
       poc: {},
-      update_poc_id: "",
-      edit_contact_id: "",
-      poc_dlg_title: "",
-      poc_dlg_action: "",
-      updated_point_of_contact: "",
-      all_points_of_contact: [],
+      update_poc_id: '',
+      edit_contact_id: '',
+      poc_dlg_title: '',
+      poc_dlg_action: '',
+      updated_point_of_contact: '',
+      all_points_of_contact:[],
       organization_points_of_contact: [],
 
       /**
@@ -451,70 +765,40 @@ export default {
       uploadedFiles: [],
       uploadError: null,
       currentStatus: null,
-      uploadFieldName: "files",
-      file_upload: "",
+      uploadFieldName: 'files',
+      file_upload: '',
       upload_disabled: true,
-      search: "",
+      search: '',
 
       /**
        * Notes
        **/
-      latest_note: "",
+      latest_note: '',
       add_note_dlg: false,
       valid_note: true,
       add_note_form: {
-        text: "",
+        text: '',
       },
-      nameRules: [
-        (v) => !!v || "Required",
-        (v) => /\D\S$/.test(v) || "No white or empty spaces",
-      ],
-      emailRules: [
-        (v) => !!v || "Required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
-      phoneRules: [
-        (v) => !!v || "Required",
-        (v) => /\S\d$/.test(v) || "Phone number must be valid",
-      ],
-      streetNumberRules: [
-        (v) => !!v || "Required",
-        (v) => /\S\d$/.test(v) || "Street number must be valid",
-      ],
-
-      zipRules: [
-        (v) => !!v || "Required",
-        (v) => /\S\d$/.test(v) || "Zip number must be valid",
-      ],
-
-      show1: false,
-      rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => (v && v.length >= 1) || "Min 5 characters",
-      },
-    };
+    }
   },
   methods: {
-    openDialog(dlg, id = null) {
-      switch (dlg) {
+    openDialog(dlg, id=null){
+      switch(dlg){
         case "Add RM":
-          this.rm_dlg_action = "Create";
+          this.rm_dlg_action = 'Create';
           this.rm_dlg_title = "Assign Relationship Manager";
-          this.current_relationship_manager_id = "";
+          this.current_relationship_manager_id = '';
           this.showRMDialog = true;
           break;
         case "RM":
           PersonDataService.get(id)
-            .then((response) => {
-              console.log(response.data);
-              this.current_relationship_manager = response.data;
-            })
-            .catch((e) => {
-              console.log(e);
-            });
+              .then(response=>{
+                this.current_relationship_manager = response.data;
+              })
+              .catch(e=>{console.log(e)});
           this.rm_dlg_title = "Change Relationship Manager";
           this.current_relationship_manager_id = id;
-          this.rm_dlg_action = "Edit";
+          this.rm_dlg_action = 'Edit';
           this.showRMDialog = true;
           break;
         case "Edit POC":
@@ -533,62 +817,57 @@ export default {
           break;
         case "Delete":
           this.organization_edit_dlg = false;
-          this.delete_relationship_dialog = true;
+          this.delete_organization_dialog = true;
           break;
       }
     },
+
     /**
      * Notes
      */
-    addNote(data) {
+    addNote(data){
       data.organizationId = this.organization.id;
       //TODO: Set this id to current user
       data.personId = "9de1a7e1-8801-4024-9475-050644867c5b";
-      data.type = "general";
-      NoteDataService.create(data)
-        .then((response) => {
-          this.setOrganization(this.organization.id);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      data.type = 'general';
+      NoteDataService.create(data).then(response=>{
+        this.setOrganization(this.organization.id);
+      }).catch(e=>{console.log(e)});
       // this.add_note_form.text = '';
-      this.add_note_dlg = false;
+      this.add_note_dlg=false;
     },
 
     /**
      * Files
      */
-    downloadFile(obj) {
+    downloadFile(obj){
       let data = {
-        fileId: obj.item.id,
-      };
+        fileId: obj.item.id
+      }
       FileDataService.download(obj.item.filepath, data)
-        .then((response) => {
-          let fileURL = window.URL.createObjectURL(new Blob([response.data]));
-          let fileLink = document.createElement("a");
+          .then(response=>{
+            let fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            let fileLink = document.createElement('a');
 
-          fileLink.href = fileURL;
-          fileLink.setAttribute("download", "file.pdf");
-          document.body.appendChild(fileLink);
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'file.pdf');
+            document.body.appendChild(fileLink);
 
-          fileLink.click();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+            fileLink.click();
+          })
+          .catch(e=>{console.log(e)});
     },
-    deleteFile(obj) {
+    deleteFile(obj){
       let data = {
-        filePath: obj.item.filePath,
-      };
+        filePath: obj.item.filePath
+      }
       FileDataService.delete(obj.item.id, data)
-        .then((response) => {
-          this.populateFiles(this.organization.id);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response=>{
+            this.populateFiles(this.organization.id);
+          })
+          .catch(e=>{
+            console.log(e);
+          });
     },
     reset() {
       // reset form to initial state
@@ -598,26 +877,26 @@ export default {
     },
     uploadFile() {
       const formData = new FormData();
-      formData.append("file", this.file_upload);
-      formData.append("organizationId", this.organization.id);
+      formData.append('file', this.file_upload);
+      formData.append('organizationId', this.organization.id);
       //TODO: Set this id to current user
-      formData.append("personId", "9de1a7e1-8801-4024-9475-050644867c5b");
+      formData.append('personId',"9de1a7e1-8801-4024-9475-050644867c5b" );
       this.formData = formData;
 
       // upload data to the server
       this.currentStatus = STATUS_SAVING;
 
       FileDataService.upload(this.formData)
-        .then((x) => {
-          this.uploadedFiles = [].concat(x);
-          this.currentStatus = STATUS_SUCCESS;
-        })
-        .catch((err) => {
-          this.uploadError = err.response;
-          this.currentStatus = STATUS_FAILED;
-        });
-      this.formData = "";
-      this.upload_disabled = true;
+          .then(x => {
+            this.uploadedFiles = [].concat(x);
+            this.currentStatus = STATUS_SUCCESS;
+          })
+          .catch(err => {
+            this.uploadError = err.response;
+            this.currentStatus = STATUS_FAILED;
+          });
+      this.formData = '';
+      this.upload_disabled=true;
       this.populateFiles(this.organization.id);
       this.reset();
     },
@@ -626,491 +905,504 @@ export default {
       this.file_upload = files;
       this.upload_disabled = false;
     },
-    populateFiles(id) {
+    populateFiles(id){
       FileDataService.getAll(id)
-        .then((response) => {
-          this.files = response.data.map((file) => {
-            let date = Intl.DateTimeFormat("en-US").format(
-              new Date(file.createdAt)
-            );
-            return {
-              filepath: file.filePath.substr(
-                file.filePath.indexOf("/") + 1,
-                file.filePath.length
-              ),
-              date: date,
-              author: file.person.first_name + " " + file.person.last_name,
-              name: file.fileName,
-              id: file.id,
-            };
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response=>{
+            this.files = response.data.map(file=>{
+              let date = Intl.DateTimeFormat('en-US').format(new Date(file.createdAt));
+              return{
+                filepath: file.filePath.substr(file.filePath.indexOf("/")+1, file.filePath.length),
+                date: date,
+                author: file.person.first_name +" "+file.person.last_name,
+                name: file.fileName,
+                id: file.id
+              }
+            });
+          })
+          .catch(e=>{console.log(e)});
     },
     /**
      * Organization
      **/
-    deleteOrganization() {
+    deleteOrganization(){
       OrganizationDataService.delete(this.organization.id)
-        .then((response) => {
-          this.confirm_delete = false;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      this.$router.push({ path: "/organizations" }).catch((err) => {
-        console.log(err);
-      });
+          .then(response=>{
+            this.confirm_delete = false;
+          })
+          .catch(e=>{console.log(e)});
+      this.$router.push({path: '/organizations'}).catch(err=>{console.log(err)});
       this.$toasted
-        .show("Organization has been successfully deleted", { theme: "bubble" })
-        .goAway(1000);
+          .show("Organization has been successfully deleted",{theme: 'bubble'})
+          .goAway(1000);
     },
-    updateOrganization() {
+    updateOrganization(){
       /*
      Update organization data
      */
       this.organization_edit_dlg = false;
       let data = {
-        name: this.organization.name,
-        street_number: this.organization.street_number,
-        street_name: this.organization.street_name,
-        city: this.organization.city,
-        state: this.organization.state,
-        zip: this.organization.zip,
-        county: this.organization.county,
-        website: this.organization.website,
-      };
+        "name": this.organization.name,
+        "street_number": this.organization.street_number,
+        "street_name": this.organization.street_name,
+        "city": this.organization.city,
+        "state": this.organization.state,
+        "zip": this.organization.zip,
+        "county": this.organization.county,
+        "website": this.organization.website,
+        "mou": this.organization.mou,
+        "contact_protocol": this.organization.contact_protocol,
+        "last_contact": this.organization.last_contact,
+        "service": this.organization.service,
+        "notes": this.organization.notes,
+        "action": this.organization.action
+      }
       OrganizationDataService.update(this.organization.id, data)
-        .then()
-        .catch((e) => {
-          console.log(e);
-        });
+          .then()
+          .catch(e=>{console.log(e)});
+      PhoneDataService.update(this.organization.phones[0].id, {number: this.organization.phones[0].number})
+          .then()
+          .catch(e=>{console.log(e)});
 
-      OrganizationCountyDataService.deleteOrganizationCounties(
-        this.organization.id
-      )
-        .then((response) => {
-          this.unmapped_counties.forEach((county) => {
-            if (this.organization_counties.includes(county.name)) {
-              let data = {
-                organizationId: this.organization.id,
-                countyId: county.id,
-              };
-              OrganizationCountyDataService.create(data)
-                .then((response) => {
-                  this.setOrganization();
-                })
-                .catch((e) => {
-                  console.log(e);
-                });
-            }
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+      OrganizationCountyDataService.deleteOrganizationCounties(this.organization.id)
+          .then(response=>{
+            this.unmapped_counties.forEach(county=>{
+              if(this.organization_counties.includes(county.name)){
+                let data = {
+                  organizationId: this.organization.id,
+                  countyId: county.id
+                }
+                OrganizationCountyDataService.create(data)
+                    .then(response=>{
+                      this.setOrganization();
+                    }).catch(e=>{console.log(e)});
+              }
+            })
+          })
+          .catch(e=>{console.log(e)});
+      OrganizationLineOfBusinessDataService.deleteOrganizationLinesOfBusiness(this.organization.id)
+          .then(response=>{
+            this.unmapped_lines_of_business.forEach(line_of_business=>{
+              if(this.organization_lines_of_business.includes(line_of_business.name)){
+                let data = {
+                  organizationId: this.organization.id,
+                  lineOfBusinessId: line_of_business.id
+                }
+                OrganizationLineOfBusinessDataService.create(data)
+                    .then(response=>{
+                      this.setOrganization();
+                    }).catch(e=>{console.log(e)});
+              }
+            })
+          })
+          .catch(e=>{console.log(e)});
+
+      OrganizationArcRelationshipDataService.deleteOrganizationArcRelationships(this.organization.id)
+          .then(response=>{
+            this.unmapped_arc_relationships.forEach(arc_relationship=>{
+              if(this.organization_arc_relationships.includes(arc_relationship.name)){
+                let data = {
+                  organizationId: this.organization.id,
+                  arcRelationshipId: arc_relationship.id
+                }
+                OrganizationArcRelationshipDataService.create(data)
+                    .then(response=>{
+                      this.setOrganization();
+                    }).catch(e=>{console.log(e)});
+              }
+            })
+          })
+          .catch(e=>{console.log(e)});
+      OrganizationAgencyTypeDataService.deleteOrganizationAgencyTypes(this.organization.id)
+          .then(response=>{
+            this.unmapped_agency_types.forEach(agency_type=>{
+              if(this.organization_agency_types.includes(agency_type.name)){
+                let data = {
+                  organizationId: this.organization.id,
+                  agencyTypeId: agency_type.id
+                }
+                OrganizationAgencyTypeDataService.create(data)
+                    .then(response=>{
+                      this.setOrganization();
+                    }).catch(e=>{console.log(e)});
+              }
+            })
+          })
+          .catch(e=>{console.log(e)});
     },
-    setOrganization() {
+    setOrganization(){
       OrganizationDataService.get(this.$route.params.organizationId)
-        .then((response) => {
-          this.notes = response.data.notes.map((note) => {
-            let date = Intl.DateTimeFormat("en-US").format(
-              new Date(note.createdAt)
-            );
-            let dateCreated = new Date(note.createdAt);
-            return {
-              id: note.id,
-              text: note.text,
-              date: date,
-              author: note.person,
-              type: note.type,
-              createdAt: dateCreated,
-            };
-          });
-          this.notes.sort((a, b) => b.createdAt - a.createdAt);
-          this.latest_note = this.notes[0];
-          response.data.counties.forEach((county) => {
-            this.organization_counties.push(county.name);
-          });
-          PointOfContactDataService.getAll(response.data.id)
-            .then(this.setPOC)
-            .catch((e) => {
-              console.log(e);
+          .then(response=>{
+            // this.notes = response.data.notes.map(note=>{
+            //   let date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
+            //   let dateCreated = new Date(note.createdAt);
+            //   return {
+            //     id: note.id,
+            //     text: note.text,
+            //     date: date,
+            //     author: note.person,
+            //     type: note.type,
+            //     createdAt: dateCreated
+            //   }
+            // });
+            // this.notes.sort((a,b)=>b.createdAt-a.createdAt);
+            // this.latest_note = this.notes[0];
+            response.data.counties.forEach(county=>{
+              this.organization_counties.push(county.name);
             });
-          this.organization = response.data;
-          this.organization_relationship_managers =
-            response.data.relationship_managers;
-          this.populateCounties();
-          this.populateFiles(this.organization.id);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+            response.data.line_of_businesses.forEach(lob=>{
+              this.organization_lines_of_business.push(lob.name);
+            });
+            response.data.arc_relationships.forEach(arcrel=>{
+              this.organization_arc_relationships.push(arcrel.name);
+            });
+            response.data.agency_types.forEach(agtype=>{
+              this.organization_agency_types.push(agtype.name);
+            });
+            PointOfContactDataService.getAll(response.data.id)
+                .then(this.setPOC)
+                .catch(e=>{console.log(e)});
+            this.organization = response.data;
+            if(this.organization.phones.length==0){
+              this.organization.phones[0] = '';
+            }
+            this.organization_state = response.data.state;
+            this.organization_relationship_managers = response.data.relationship_managers;
+            this.populateFiles(this.organization.id);
+          })
+          .catch(e=>{console.log(e)});
+      this.add_note_dlg = false;
+      this.contact_note_dlg = false;
+      this.op_action_dlg = false;
     },
-    populateCounties() {
+    populateCounties(){
       CountyDataService.getAll()
-        .then((response) => {
-          this.all_counties = response.data.map((county) => {
-            return county.name;
-          });
-          this.unmapped_counties = response.data;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response=>{
+            this.all_counties = response.data.map(county=>{
+              return county.name
+            });
+            this.unmapped_counties = response.data;
+          })
+          .catch(e=>{console.log(e)});
     },
-    setPOC(res) {
+    populateLinesOfBusiness(){
+      LineOfBusinessDataService.getAll()
+          .then(response=>{
+            this.all_lines_of_business = response.data.map(lob=>{
+              return lob.name
+            });
+            this.unmapped_lines_of_business = response.data;
+          })
+          .catch(e=>{console.log(e)});
+    },
+    populateArcRelationships(){
+      ArcRelationshipDataService.getAll()
+          .then(response=>{
+            this.all_arc_relationships = response.data.map(arcrel=>{
+              return arcrel.name
+            });
+            this.unmapped_arc_relationships = response.data;
+          })
+          .catch(e=>{console.log(e)});
+    },
+    populateAgencyTypes(){
+      AgencyTypeDataService.getAll()
+          .then(response=>{
+            this.all_agency_types = response.data.map(agtype=>{
+              return agtype.name
+            });
+            this.unmapped_agency_types = response.data;
+          })
+          .catch(e=>{console.log(e)});
+    },
+    setPOC(res){
       this.organization_points_of_contact = res.data;
     },
-    populateRelationshipManagersList() {
+    populateRelationshipManagersList(){
       UserDataService.getAll()
-        .then((response) => {
-          this.all_relationship_managers = response.data.map((manager) => {
-            return {
-              name: manager.first_name + " " + manager.last_name,
-              value: manager.id,
-            };
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response=>{
+            this.all_relationship_managers = response.data.map(manager=>{
+              return {
+                name: manager.first_name+" "+manager.last_name,
+                value: manager.id
+              }
+            });
+          })
+          .catch(e=>{console.log(e)});
     },
-    updateSelectedManager(obj) {
+    updateSelectedManager(obj){
       this.updated_relationship_manager = {
-        value: obj.value,
+        value: obj.value
       };
     },
-    addRelationshipManager(data) {
+    addRelationshipManager(data){
       this.showRMDialog = false;
       data.organizationId = this.organization.id;
 
       RelationshipManagerDataService.create(data)
-        .then((response) => {
-          this.organization.relationship_managers = response.data;
-          this.setOrganization();
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then(response=>{
+            this.organization.relationship_managers = response.data;
+            this.setOrganization();
+          })
+          .catch(err=>{console.log(err)});
     },
-    updateRelationshipManager(data, id) {
+    updateRelationshipManager(data, id){
       this.showRMDialog = false;
       data.organizationId = this.organization.id;
 
       RelationshipManagerDataService.update(this.organization.id, id, data)
-        .then((response) => {
-          this.organization.relationship_managers = response.data;
-          this.setOrganization();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response => {
+            this.organization.relationship_managers = response.data;
+            this.setOrganization();
+          })
+          .catch(e => {
+            console.log(e)
+          });
     },
-    deleteRelationshipManager(id) {
+    deleteRelationshipManager(id){
       this.showRMDialog = false;
       RelationshipManagerDataService.delete(this.organization.id, id)
-        .then((response) => {
-          this.setOrganization();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(
+              response=>{
+                this.setOrganization();
+              })
+          .catch(e=>{console.log(e)});
     },
-    updateContactInfo(primary, data, service, contactId = 0) {
+    updateContactInfo(primary, data, service, contactId = 0){
       data.isPrimary = primary;
-      if (contactId != 0) {
-        service
-          .update(contactId, data)
-          .then((response) => {
-            this.setOrganization();
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      } else {
-        service
-          .create(data)
-          .then((response) => {
-            this.setOrganization();
-          })
-          .catch((e) => {
-            console.log(e);
-          });
+      if(contactId != 0){
+        service.update(contactId, data)
+            .then(response=>{this.setOrganization();})
+            .catch(e=>{console.log(e)});
+      }else{
+        service.create(data)
+            .then(response=>{this.setOrganization();})
+            .catch(e=>{console.log(e)});
       }
     },
-    deletePOC(id) {
+    deletePOC(id){
       PersonDataService.get(id)
-        .then((response) => {
-          let person = response.data;
-          person.phones.forEach((phone) => {
-            PhoneDataService.delete(phone.id).catch((e) => {
-              console.log(e);
-            });
-          });
+          .then(response=>{
+            let person = response.data;
+            person.phones.forEach(
+                phone=>{
+                  PhoneDataService
+                      .delete(phone.id)
+                      .catch(e=>{console.log(e)});
+                });
 
-          person.emails.forEach((email) => {
-            EmailDataService.delete(email.id).catch((e) => {
-              console.log(e);
-            });
-          });
-          return person.id;
-        })
-        .then((id) => {
-          console.log("called");
-          PersonDataService.delete(id).catch((e) => {
-            console.log(e);
-          });
-          this.setOrganization();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+            person.emails.forEach(
+                email=>{
+                  EmailDataService
+                      .delete(email.id)
+                      .catch(e=>{console.log(e)})});
+            return person.id;
+          }).then(id=>{
+        console.log("called");
+        PersonDataService.delete(id).catch(e=>{console.log(e)});
+        this.setOrganization();
+      })
+          .catch(e=>{console.log(e)});
     },
-    updatePOC(id, data) {
+    updatePOC(id, data){
       PersonDataService.get(id)
-        .then((response) => {
-          let person = response.data;
-          let phoneData = {};
-          if (data.primary_phone) {
-            phoneData = {
-              number: data.primary_phone,
-            };
-            let primaryId = person.phones.filter((phone) => {
-              return phone.isPrimary;
-            });
-            if (primaryId.length > 0) {
-              this.updateContactInfo(
-                true,
-                phoneData,
-                PhoneDataService,
-                primaryId[0].id
-              );
-            } else {
-              phoneData.personId = person.id;
-              this.updateContactInfo(true, phoneData, PhoneDataService);
+          .then(response=>{
+            let person = response.data;
+            let phoneData = {};
+            if(data.primary_phone){
+              phoneData = {
+                number: data.primary_phone,
+              }
+              let primaryId = person.phones.filter(phone=>{
+                return phone.isPrimary;
+              });
+              if(primaryId.length>0){
+                this.updateContactInfo(true, phoneData, PhoneDataService, primaryId[0].id );
+              }else{
+                phoneData.personId = person.id;
+                this.updateContactInfo(true, phoneData, PhoneDataService,);
+              }
             }
-          }
-          if (data.secondary_phone) {
-            phoneData = {
-              number: data.secondary_phone,
-            };
-            let secondaryId = person.phones.filter((phone) => {
-              return phone.isPrimary == false;
-            });
-            if (secondaryId.length > 0) {
-              this.updateContactInfo(
-                false,
-                phoneData,
-                PhoneDataService,
-                secondaryId[0].id
-              );
-            } else {
-              phoneData.personId = person.id;
-              this.updateContactInfo(false, phoneData, PhoneDataService);
+            if(data.secondary_phone){
+              phoneData = {
+                number: data.secondary_phone,
+              }
+              let secondaryId = person.phones.filter(phone=>{
+                return phone.isPrimary==false;
+              });
+              if(secondaryId.length>0){
+                this.updateContactInfo(false, phoneData, PhoneDataService, secondaryId[0].id );
+              }else{
+                phoneData.personId = person.id;
+                this.updateContactInfo(false, phoneData, PhoneDataService, );
+              }
             }
-          }
 
-          let emailData = {};
-          if (data.primary_email) {
-            emailData = {
-              address: data.primary_email,
-            };
-            let primaryId = person.emails.filter((email) => {
-              return email.isPrimary;
-            });
-            if (primaryId.length > 0) {
-              this.updateContactInfo(
-                true,
-                emailData,
-                EmailDataService,
-                primaryId[0].id
-              );
-            } else {
-              emailData.personId = person.id;
-              this.updateContactInfo(true, emailData, EmailDataService);
+            let emailData = {};
+            if(data.primary_email){
+              emailData = {
+                address: data.primary_email,
+              }
+              let primaryId = person.emails.filter(email=>{
+                return email.isPrimary;
+              });
+              if(primaryId.length>0){
+                this.updateContactInfo(true, emailData, EmailDataService, primaryId[0].id );
+              }else{
+                emailData.personId = person.id;
+                this.updateContactInfo(true, emailData, EmailDataService, );
+              }
             }
-          }
-          if (data.secondary_email) {
-            emailData = {
-              address: data.secondary_email,
-            };
-            let secondaryId = person.emails.filter((email) => {
-              return email.isPrimary == false;
-            });
-            if (secondaryId.length > 0) {
-              this.updateContactInfo(
-                false,
-                emailData,
-                EmailDataService,
-                secondaryId[0].id
-              );
-            } else {
-              emailData.personId = person.id;
-              this.updateContactInfo(false, emailData, EmailDataService);
+            if(data.secondary_email){
+              emailData = {
+                address: data.secondary_email,
+              }
+              let secondaryId = person.emails.filter(email=>{
+                return email.isPrimary==false;
+              });
+              if(secondaryId.length>0){
+                this.updateContactInfo(false, emailData, EmailDataService, secondaryId[0].id );
+              }else{
+                emailData.personId = person.id;
+                this.updateContactInfo(false, emailData, EmailDataService,  );
+              }
             }
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+
+          })
+          .catch(e=>{console.log(e)});
       /**
        * Update personal data
        */
       PersonDataService.update(id, data)
-        .then()
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-    createPOC(data) {
-      PersonDataService.create(data).then((response) => {
-        let personId = response.data.id;
-        let pocData = {
-          personId: personId,
-          organizationId: this.organization.id,
-        };
-        if (data.primary_phone) {
-          let phoneData = {
-            personId: personId,
-            number: data.primary_phone,
-            isPrimary: true,
-          };
-          PhoneDataService.create(phoneData)
-            .then((pdresponse) => {
-              console.log(pdresponse);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        }
-        if (data.secondary_phone) {
-          let phoneData = {
-            personId: personId,
-            number: data.secondary_phone,
-            isPrimary: false,
-          };
-          PhoneDataService.create(phoneData)
-            .then((sdresponse) => {
-              console.log(sdresponse);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        }
-        if (data.primary_email) {
-          let emailData = {
-            personId: personId,
-            address: data.primary_email,
-            isPrimary: true,
-          };
-          EmailDataService.create(emailData)
-            .then((emres) => {
-              console.log(emres);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        }
-        if (data.secondary_email) {
-          let emailData = {
-            personId: personId,
-            address: data.secondary_email,
-            isPrimary: false,
-          };
-          EmailDataService.create(emailData)
-            .then((semailres) => {
-              console.log(semailres);
-            })
-            .catch((e) => {
-              console.log(e);
-            });
-        }
-        PointOfContactDataService.create(pocData)
-          .then((response) => {
-            console.log("POC Created:\n" + response);
-            console.log(response);
-            this.setOrganization();
-          })
-          .catch((e) => {
-            console.log(e);
+          .then()
+          .catch(e=>{
+            console.log(e)
           });
-      });
     },
-    setEditContact(id) {
+    createPOC(data){
+      PersonDataService.create(data)
+          .then(response=>{
+            let personId = response.data.id;
+            let pocData = {
+              personId: personId,
+              organizationId: this.organization.id
+            };
+            if(data.primary_phone){
+              let phoneData = {
+                personId: personId,
+                number: data.primary_phone,
+                isPrimary: true
+              };
+              PhoneDataService.create(phoneData)
+                  .then(pdresponse=>{console.log(pdresponse)})
+                  .catch(e=>{console.log(e)});
+            };
+            if(data.secondary_phone) {
+              let phoneData = {
+                personId: personId,
+                number: data.secondary_phone,
+                isPrimary: false
+              };
+              PhoneDataService.create(phoneData)
+                  .then(sdresponse=>{console.log(sdresponse)})
+                  .catch(e=>{console.log(e)});
+            }
+            if(data.primary_email){
+              let emailData = {
+                personId: personId,
+                address: data.primary_email,
+                isPrimary: true
+              };
+              EmailDataService.create(emailData)
+                  .then(emres=>{console.log(emres)})
+                  .catch(e=>{console.log(e)});
+            }
+            if(data.secondary_email){
+              let emailData = {
+                personId: personId,
+                address: data.secondary_email,
+                isPrimary: false
+              };
+              EmailDataService.create(emailData)
+                  .then(semailres=>{console.log(semailres)})
+                  .catch(e=>{console.log(e)});
+            }
+            PointOfContactDataService.create(pocData)
+                .then(response=>{
+                  console.log("POC Created:\n"+response);
+                  console.log(response);
+                  this.setOrganization();
+                }).catch(e=>{console.log(e)});
+          })
+    },
+    setEditContact(id){
       this.edit_contact_id = id;
     },
-    populatePointOfContactList() {
+    populatePointOfContactList(){
       ContactDataService.getAll()
-        .then((response) => {
-          this.all_points_of_contact = response.data.map((person) => {
-            return {
-              name: person.first_name + " " + person.last_name,
-              value: person.id,
-            };
-          });
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response=>{
+            this.all_points_of_contact = response.data.map(person=>{
+              return {
+                name: person.first_name+" "+person.last_name,
+                value: person.id
+              }
+            });
+          })
+          .catch(e=>{console.log(e)});
     },
-    updateSelectedPointOfContact(obj) {
+    updateSelectedPointOfContact(obj){
       this.updated_point_of_contact = {
-        value: obj.value,
+        value: obj.value
       };
     },
-    addPointOfContact() {
+    addPointOfContact(){
       this.assign_poc_dlg = false;
       let organizationId = this.organization.id;
 
       let data = {
         organizationId: organizationId,
-        personId: this.updated_point_of_contact.value,
+        personId: this.updated_point_of_contact.value
       };
       PointOfContactDataService.create(data)
-        .then((response) => {
-          this.setOrganization();
-          // console.log(response);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .then(response=>{
+            this.setOrganization();
+            // console.log(response);
+          })
+          .catch(err=>{console.log(err)});
     },
-    updatePointOfContact() {
+    updatePointOfContact(){
       this.assign_poc_dlg = false;
 
-      let data = {};
+      let data = {
+
+      };
 
       let personId = this.organization_points_of_contact[0].id;
       PersonDataService.update(personId, data)
-        .then((response) => {
-          this.setOrganization();
-          console.log(response);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then(response=>{
+            this.setOrganization();
+            console.log(response)
+          }).catch(e=>{
+            console.log(e)
+          });
     },
-    formatDate(date) {
-      if (!date) return null;
+    formatDate (date) {
+      if (!date) return null
 
-      const [year, month, day] = date.split("-");
-      return `${month}/${day}/${year}`;
+      const [year, month, day] = date.split('-')
+      return `${month}/${day}/${year}`
     },
   },
-  computed: {
-    headers() {
+  computed:{
+    headers () {
       let headers = [
-        { text: "File Name", value: "name", width: "80px" },
-        { text: "Date", value: "date", width: "80px" },
-        { text: "Author", value: "author", width: "100px" },
-        { text: "", value: "download", width: "100px" },
-        { text: "", value: "remove", width: "100px" },
-      ];
+        {text: 'File Name',value: 'name', width: '80px'},
+        {text: 'Date', value: 'date', width: '80px'},
+        {text: 'Author', value: 'author', width: '100px'},
+        {text: '', value: 'download', width: '100px' },
+        {text: '', value: 'remove', width: '100px'}
+      ]
       return headers;
-    },
+    }
   },
   mounted() {
     this.reset();
@@ -1118,7 +1410,10 @@ export default {
     this.populateRelationshipManagersList();
     this.populatePointOfContactList();
     this.populateCounties();
-  },
+    this.populateLinesOfBusiness();
+    this.populateArcRelationships();
+    this.populateAgencyTypes();
+  }
 };
 </script>
 
