@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class OrganizationContactDataService {
+class OrganizationCountyDataService {
     getAll() {
         return http.get(`organization_counties`);
     }
@@ -30,4 +30,4 @@ class OrganizationContactDataService {
     }
 }
 
-export default new OrganizationContactDataService();
+export default new OrganizationCountyDataService();

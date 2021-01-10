@@ -31,7 +31,13 @@ exports.create = (req, res) => {
     website: req.body.website,
     county: req.body.county,
     public_safety: req.body.public_safety,
-    gendata: req.body.gendata
+    gendata: req.body.gendata,
+    mou: req.body.mou,
+    contact_protocol: req.body.contact_protocol,
+    last_contact: req.body.last_contact,
+    service: req.body.service,
+    notes: req.body.notes,
+    action: req.body.action
   };
 
   // Save new organization in the database
@@ -68,8 +74,13 @@ exports.createPartner = (req, res) => {
     website: req.body.website,
     county: req.body.county,
     public_safety: req.body.public_safety,
-    gendata: req.body.gendata
-    
+    gendata: req.body.gendata,
+    mou: req.body.mou,
+    contact_protocol: req.body.contact_protocol,
+    last_contact: req.body.last_contact,
+    service: req.body.service,
+    notes: req.body.notes,
+    action: req.body.action
   };
 
   // Save new organization in the database
@@ -119,7 +130,13 @@ exports.createRelationship = (req, res) => {
     website: req.body.website,
     county: req.body.county,
     public_safety: req.body.public_safety,
-    gendata: req.body.gendata
+    gendata: req.body.gendata,
+    mou: req.body.mou,
+    contact_protocol: req.body.contact_protocol,
+    last_contact: req.body.last_contact,
+    service: req.body.service,
+    notes: req.body.notes,
+    action: req.body.action
   };
 
   // Save new organization in the database
@@ -157,14 +174,17 @@ exports.findAll = (req, res) => {
       'phones',
       'emails',
       'counties',
-      {
-        model: DBNote,
-        include: 'person',
-      },
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      // {
+      //   model: DBNote,
+      //   include: 'person',
+      // },
       {
         model: DBRM,
         include: [{
-          model: DBPerson, 
+          model: DBPerson,
           include: ['phones', 'emails'],
         }]
       }
@@ -176,7 +196,7 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving persons."
+          err.message || "Some error occurred while retrieving organizations."
       });
     });
 };
@@ -188,10 +208,13 @@ exports.findAllPartners = (req, res) => {
       'phones',
       'emails',
       'counties',
-      {
-        model: DBNote,
-        include:'person',
-      },
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      // {
+      //   model: DBNote,
+      //   include:'person',
+      // },
     {
       model: DBPartner,
       where: { services : {[Op.ne]: null} }
@@ -223,11 +246,14 @@ exports.findAllRelationships = (req, res) => {
       'phones',
       'emails',
       'counties',
-      {
-        model: DBNote,
-        include: 'person'
-
-      },
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      // {
+      //   model: DBNote,
+      //   include: 'person'
+      //
+      // },
     {
       model: DBRelationship,
       where: { status : {[Op.ne]: null} }
@@ -240,7 +266,7 @@ exports.findAllRelationships = (req, res) => {
       }]
     }
     ],
-    order: [models.Note, 'createdAt', 'DESC'],
+    // order: [models.Note, 'createdAt', 'DESC'],
   })
     .then(data => {
       res.send(data);
@@ -263,10 +289,13 @@ exports.findOne = (req, res) => {
       'phones',
       'partner',
       'counties',
-      {
-        model: DBNote, 
-        include: 'person',
-      },
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      // {
+      //   model: DBNote,
+      //   include: 'person',
+      // },
     {
       model: DBRM,
       include: [{
@@ -281,7 +310,7 @@ exports.findOne = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving person with id=" + id +" err: "+err
+        message: "Error retrieving organization with id=" + id +" err: "+err
       });
     });
 };
@@ -296,10 +325,13 @@ exports.findOnePartner = (req, res) => {
       'phones',
       'partner',
       'counties',
-      {
-        model: DBNote,
-        include: 'person',
-      },
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      // {
+      //   model: DBNote,
+      //   include: 'person',
+      // },
     {
       model: DBRM,
       include: [{
@@ -329,10 +361,13 @@ exports.findOneRelationship = (req, res) => {
       'emails',
       'relationship',
       'counties',
-      {
-        model: DBNote, 
-        include: 'person'
-      },
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      // {
+      //   model: DBNote,
+      //   include: 'person'
+      // },
     {
       model: DBPerson,
       include: ['phones', 'emails']
@@ -388,7 +423,6 @@ exports.updatePartner = (req, res) => {
     services: req.body.services,
     critical_relationship_information: req.body.critical_relationship_information 
   };
-console.log(partner);
   DBPartner.update(partner, {
     where: {organizationId: id}
   })
@@ -444,13 +478,13 @@ exports.updateRelationship = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot update partner with organizationId=${id}. Maybe organization was not found or req.body is empty!`
+          message: `Cannot update relationship with organizationId=${id}. Maybe organization was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating partner with organizationId=" + id + " err: " + err
+        message: "Error updating relationship with organizationId=" + id + " err: " + err
       });
     });
 
@@ -489,7 +523,7 @@ exports.delete = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete organiation with id=${id}. Maybe organization was not found!`
+          message: `Cannot delete organization with id=${id}. Maybe organization was not found!`
         });
       }
     })
@@ -507,12 +541,12 @@ exports.deleteAll = (req, res) => {
     truncate: false
   })
     .then(nums => {
-      res.send({ message: `${nums} persons were deleted successfully!` });
+      res.send({ message: `${nums} organizations were deleted successfully!` });
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while removing all persons."
+          err.message || "Some error occurred while removing all organizations."
       });
     });
 };

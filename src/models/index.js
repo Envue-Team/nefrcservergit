@@ -37,10 +37,16 @@ db.user_roles = require('./user_roles.model.js')(sequelize, Sequelize);
 db.role_permissions = require('./role_permissions.model.js')(sequelize, Sequelize);
 db.county = require('./county.model.js')(sequelize, Sequelize);
 db.organization_county = require('./organization_county.model.js')(sequelize, Sequelize);
+db.line_of_business = require('./line_of_business.js')(sequelize, Sequelize);
+db.organization_lines_of_busines = require('./organization_lines_of_business.model.js')(sequelize, Sequelize);
+db.arc_relationship = require('./arc_relationship.model')(sequelize, Sequelize);
+db.agency_type = require('./agency_type.model')(sequelize, Sequelize);
+db.organization_agency_type = require('./organization_agency_type.model')(sequelize, Sequelize);
+db.organization_arc_relationship = require('./organization_arc_relationship.model')(sequelize, Sequelize);
 
 //Relationship building
-db.organization.hasMany(db.note, {onDelete: 'CASCADE'});
-db.note.belongsTo(db.organization);
+// db.organization.hasMany(db.note, {onDelete: 'CASCADE'});
+// db.note.belongsTo(db.organization);
 db.person.hasMany(db.note);
 db.note.belongsTo(db.person);
 db.organization.hasOne(db.partner, {onDelete: 'CASCADE'});
@@ -71,5 +77,11 @@ db.user.belongsToMany(db.role, { through: db.user_roles });
 db.permission.belongsToMany(db.role, { through: db.role_permissions});
 db.organization.belongsToMany(db.county, {through: db.organization_county});
 db.county.belongsToMany(db.organization, {through: db.organization_county});
+db.organization.belongsToMany(db.line_of_business, {through: db.organization_lines_of_busines});
+db.line_of_business.belongsToMany(db.organization, {through: db.organization_lines_of_busines});
+db.organization.belongsToMany(db.arc_relationship, {through: db.organization_arc_relationship});
+db.arc_relationship.belongsToMany(db.organization, {through: db.organization_arc_relationship});
+db.organization.belongsToMany(db.agency_type, {through: db.organization_agency_type});
+db.agency_type.belongsToMany(db.organization, {through: db.organization_agency_type});
 
 module.exports = db;

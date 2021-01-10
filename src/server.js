@@ -32,6 +32,12 @@ require("../src/routes/user_role.routes")(expapp);
 require("../src/routes/contact.routes")(expapp);
 require("../src/routes/organization_county.routes")(expapp);
 require("../src/routes/county.routes")(expapp);
+require("../src/routes/line_of_business.routes")(expapp);
+require("../src/routes/organization_line_of_business.routes")(expapp);
+require("../src/routes/agency_type.routes")(expapp);
+require("../src/routes/organization_agency_type.routes")(expapp);
+require("../src/routes/arc_relationship.routes")(expapp);
+require("../src/routes/organization_arc_relationship.routes")(expapp);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
