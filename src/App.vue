@@ -36,21 +36,20 @@
 <script>
 export default {
   name: 'App',
-
-  mounted() { //TODO: Fix this issue: When this is uncommented, cannot view users dashboard only displays login screen again.
-    if(!this.$authenticated) {
-      this.$router.replace({ name: "login" });
-    }
-  },
-  methods: {
-    logout() {
-      this.$authenticated = false;
-      this.$session.destroy();
-      this.$router.replace({ name: "login" });
-    }
-  }
+  // mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
+  //   if(!this.$authenticated) {
+  //     this.$router.replace({ name: "login" });
+  //   }
+  // },
+  // methods: {
+  //   logout() {
+  //     this.$authenticated = false;
+  //     this.$session.destroy();
+  //     this.$router.replace({ name: "login" });
+  //   }
+  // }
 };
-
+</script>
 
 
 <style>
