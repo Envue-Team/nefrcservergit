@@ -71,6 +71,9 @@
                 {{ item.address }}
               </address>
           </template>
+          <template v-slot:item.county="{ item }">
+            {{ item.counties }}
+          </template>
           <template v-slot:item.manager ="{ item }">
             {{ item.manager }}
           </template>
@@ -80,14 +83,124 @@
     </v-col>
   </v-row>
   <!---------------------------------Add Organization Dialog------------------------------->
+<!--  <v-dialog-->
+<!--      v-model="add_organization_dlg"-->
+<!--      max-width="600px"-->
+<!--  >-->
+<!--    <v-card>-->
+<!--      <v-form>-->
+<!--        <v-card-title>-->
+<!--          <span class="headline">Organization Information</span>-->
+<!--        </v-card-title>-->
+<!--        <v-card-text>-->
+<!--          <v-container>-->
+<!--            <v-row>-->
+<!--              <v-col-->
+<!--                  cols="6"-->
+<!--                  sm="6"-->
+<!--                  md="6"-->
+<!--              >-->
+<!--                <v-text-field-->
+<!--                    label="Agency Name*"-->
+<!--                    required-->
+<!--                    v-model="add_organization.name"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--              <v-col-->
+<!--                  cols="12"-->
+<!--                  sm="6"-->
+<!--                  md="4"-->
+<!--              >-->
+<!--                <v-text-field-->
+<!--                    label="Street Number"-->
+<!--                    v-model="add_organization.street_number"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--              <v-col-->
+<!--                  cols="12"-->
+<!--                  sm="6"-->
+<!--                  md="4"-->
+<!--              >-->
+<!--                <v-text-field-->
+<!--                    label="Street Name"-->
+<!--                    v-model="add_organization.street_name"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--              <v-col-->
+<!--                  cols="3"-->
+<!--                  sm="6"-->
+<!--                  md="4"-->
+<!--              >-->
+<!--                <v-text-field-->
+<!--                    label="City"-->
+<!--                    v-model="add_organization.city"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--              <v-col cols="2">-->
+<!--                <v-text-field-->
+<!--                    label="State"-->
+<!--                    v-model="add_organization.state"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--              <v-col cols="3">-->
+<!--                <v-text-field-->
+<!--                    label="Zip"-->
+<!--                    v-model="add_organization.zip"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--              <v-col cols="6">-->
+<!--                <v-text-field-->
+<!--                    label="County"-->
+<!--                    v-model="add_organization.county"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--            <v-row>-->
+<!--              <v-col cols="6">-->
+<!--                <v-text-field-->
+<!--                    label="Website"-->
+<!--                    v-model="add_organization.website"-->
+<!--                ></v-text-field>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-container>-->
+<!--          <small>*indicates required field</small>-->
+<!--        </v-card-text>-->
+<!--        <v-card-actions>-->
+<!--          <v-spacer></v-spacer>-->
+<!--          <v-btn-->
+<!--              color="blue darken-1"-->
+<!--              text-->
+<!--              @click="add_organization_dlg=false"-->
+<!--          >-->
+<!--            Close-->
+<!--          </v-btn>-->
+<!--          <v-btn-->
+<!--              color="blue darken-1"-->
+<!--              text-->
+<!--              @click="addOrganization"-->
+<!--          >-->
+<!--            Save-->
+<!--          </v-btn>-->
+<!--        </v-card-actions>-->
+<!--      </v-form>-->
+<!--    </v-card>-->
+<!--  </v-dialog>-->
+  <!---------------------------------Add Organization Dialog------------------------------->
   <v-dialog
       v-model="add_organization_dlg"
-      max-width="600px"
+      max-width="1200px"
   >
     <v-card>
       <v-form>
         <v-card-title>
-          <span class="headline">Organization Information</span>
+          <span class="headline">Add Organization</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -99,8 +212,8 @@
               >
                 <v-text-field
                     label="Agency Name*"
-                    required
                     v-model="add_organization.name"
+                    required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -113,6 +226,7 @@
                 <v-text-field
                     label="Street Number"
                     v-model="add_organization.street_number"
+                    required
                 ></v-text-field>
               </v-col>
               <v-col
@@ -123,6 +237,7 @@
                 <v-text-field
                     label="Street Name"
                     v-model="add_organization.street_name"
+                    required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -135,26 +250,23 @@
                 <v-text-field
                     label="City"
                     v-model="add_organization.city"
+                    required
                 ></v-text-field>
               </v-col>
               <v-col cols="2">
-                <v-text-field
-                    label="State"
+                <v-select
+                    required
+                    :items="states"
                     v-model="add_organization.state"
-                ></v-text-field>
+                    label="State"
+                >
+                </v-select>
               </v-col>
               <v-col cols="3">
                 <v-text-field
                     label="Zip"
                     v-model="add_organization.zip"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6">
-                <v-text-field
-                    label="County"
-                    v-model="add_organization.county"
+                    required
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -165,6 +277,76 @@
                     v-model="add_organization.website"
                 ></v-text-field>
               </v-col>
+              <v-col cols="6">
+                <v-text-field
+                    label="Number"
+                    v-model="add_organization.phone"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="6">
+                <v-select
+                    multiple
+                    required
+                    :items="all_counties"
+                    v-model="add_organization.county"
+                    label="Counties"
+                >
+                </v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select
+                    :items="mou_options"
+                    v-model="add_organization.mou"
+                    required
+                    label="National DCS MOU Partner"
+                >
+                </v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-select
+                    multiple
+                    required
+                    :items="all_lines_of_business"
+                    v-model="add_organization.line_of_business"
+                    label="Line of Business"
+                >
+                </v-select>
+              </v-col>
+              <v-col>
+                <v-select
+                    multiple
+                    required
+                    :items="all_arc_relationships"
+                    v-model="add_organization.arc_relationship"
+                    label="Arc Relationships"
+                >
+                </v-select>
+              </v-col>
+              <v-col>
+                <v-select
+                    multiple
+                    :items="all_agency_types"
+                    v-model="add_organization.agency_type"
+                    label="Agency Types"
+                >
+                </v-select>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-textarea
+                  label="Organization Contact Protocol"
+              ></v-textarea>
+            </v-row>
+            <v-row>
+              <v-textarea
+                  label="Services"
+              ></v-textarea>
             </v-row>
           </v-container>
           <small>*indicates required field</small>
@@ -198,6 +380,15 @@ import OrganizationDataService from "../services/OrganizationDataService";
 import PartnerDataService from "../services/PartnerDataService";
 import RelationshipDataService from "../services/RelationshipDataService";
 import JsonExcel from "vue-json-excel";
+import CountyDataService from "@/services/CountyDataService";
+import LineOfBusinessDataService from "@/services/LineOfBusinessDataService";
+import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
+import AgencyTypeDataService from "@/services/AgencyTypeDataService";
+import PhoneDataService from "@/services/PhoneDataService";
+import OrganizationCountyDataService from "@/services/OrganizationCountyDataService";
+import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOfBusinessDataService";
+import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRelationshipDataService";
+import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
 
 export default {
   name: "organizations",
@@ -206,8 +397,56 @@ export default {
   },
     data() {
       return {
+        /**
+         * Counties
+         **/
+        all_counties: [],
+        organization_counties: [],
+        unmapped_counties: [],
+
+        /**
+         * States
+         **/
+        organization_state:'',
+        states:[
+          "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT",
+          "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID",
+          "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+          "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND",
+          "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+          "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+          "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV",
+          "WY"
+        ],
+
+        /**
+         * MOU
+         **/
+        mou_options:["Yes", "No", "Maybe"],
         excel_fields:{},
         excel_data:[],
+
+        /**
+         * Line of Business
+         **/
+        all_lines_of_business: [],
+        organization_lines_of_business: [],
+        unmapped_lines_of_business: [],
+
+        /**
+         * Arc Relationship
+         **/
+        all_arc_relationships: [],
+        organization_arc_relationships: [],
+        unmapped_arc_relationships: [],
+
+        /**
+         * Agency Type
+         **/
+        all_agency_types: [],
+        organization_agency_types: [],
+        unmapped_agency_types: [],
+
         /**
          * Excel Download
          */
@@ -230,32 +469,55 @@ export default {
         orgCache: [],
         organization_types: ["Relationship", "Partner"],
         relationship_statuses: ["Hot", "Warm", "Cold"],
-        add_organization: {
-          name: '',
-          street_number: '',
-          street_name: '',
-          city: '', 
-          state: '', 
-          zip: '',
-          county: '',
-          website: '',
-          poc: {
-            phone: '',
-            email:''
-          },
+        add_organization:{
+          "name": '',
+          "street_number": '',
+          "street_name": '',
+          "city": '',
+          "state": '',
+          "zip": '',
+          "county": '',
+          "website": '',
+          "mou": '',
+          "contact_protocol": '',
+          "last_contact": '',
+          "service": '',
+          "notes": '',
+          "action": '',
+          "phone": '',
+          "line_of_business":'',
+          "agency_type":'',
+          "arc_relationship":''
+
+        },
+        // add_organization: {
+        //   name: '',
+        //   street_number: '',
+        //   street_name: '',
+        //   city: '',
+        //   state: '',
+        //   zip: '',
+        //   county: '',
+        //   website: '',
+        //   poc: {
+        //     phone: '',
+        //     email:''
+        //   },
           type:'',
           critical_relationship_information: '', 
           services: '', 
           status: ''
-        }
-      };
+        // }
+      }
     },
    computed: {
       headers () {
         let headers = [
           {text: 'Name',value: 'name'},
           {text: 'Address', value: 'address'},
-          {text: 'County', value: 'county' },
+          {text: 'City', value: 'city'},
+          {text: 'Zip', value: 'zip'},
+          {text: 'County', value: 'county_display' },
           {text: 'Manager', value: 'manager'},
           {text: '', value:''}
         ]
@@ -284,43 +546,90 @@ export default {
       },
       addOrganization(){
           let data = {
-            "name": this.add_organization.name,
-            "street_number": this.add_organization.street_number,
-            "street_name": this.add_organization.street_name,
-            "city": this.add_organization.city,
-            "state":this.add_organization.state,
-            "zip":this.add_organization.zip,
-            "website":this.add_organization.website
+              "name": this.add_organization.name,
+              "street_number": this.add_organization.street_number,
+              "street_name": this.add_organization.street_name,
+              "city": this.add_organization.city,
+              "state": this.add_organization.state,
+              "zip": this.add_organization.zip,
+              // "county": this.add_organization.county,
+              "website": this.add_organization.website,
+              "mou": this.add_organization.mou,
+              "contact_protocol": this.add_organization.contact_protocol,
+              "last_contact": this.add_organization.last_contact,
+              "service": this.add_organization.service,
+              "notes": this.add_organization.notes,
+              "action": this.add_organization.action
           };
-        if(this.add_organization.type=='Partner'){
-          data.services = this.add_organization.services;
-          data.critical_relationship_information = this.add_organization.critical_relationship_information;
-          PartnerDataService.create(data).
-          then(response=>{
-            this.retrieveOrganizations();
-            this.add_organization_dlg = false
-          })
-          .catch(e=>{
-            console.log(e);
-          });
-        }else if (this.add_organization.type=='Relationship'){
-          data.status = this.add_organization.status;
-          RelationshipDataService.create(data).
-          then(response=>{
-            console.log(response);
-            this.retrieveOrganizations();
-            this.add_organization_dlg = false
-          })
-          .catch(e=>{
+          OrganizationDataService.create(data)
+              .then(response=>{
+                let id = response.data.id;
+
+                //Update phone
+                PhoneDataService.create({
+                  organizationId: id,
+                  number: this.add_organization.phone,
+                  isPrimary: true
+                }).catch(e=>{console.log(e)});
+
+                //Update counties
+                this.add_organization.county.forEach(county=>{
+                  this.unmapped_counties.filter(ucounty => {
+                    if(ucounty.name == county){
+                      OrganizationCountyDataService.create({
+                        organizationId: id,
+                        countyId: ucounty.id
+                      }).then().catch(e=>{console.log(e)});
+                    }
+                  })
+                });
+
+                //Update line of business
+                this.add_organization.line_of_business.forEach(lob=>{
+                  this.unmapped_lines_of_business.filter(ulob=>{
+                    if(ulob.name == lob){
+                      OrganizationLineOfBusinessDataService.create({
+                        organizationId: id,
+                        lineOfBusinessId: ulob.id
+                      }).then().catch(e=>{console.log(e)});
+                    }
+                  });
+                });
+
+                //Update arc relationship
+                this.add_organization.arc_relationship.forEach(rel=>{
+                  this.unmapped_arc_relationships.filter(urel=>{
+                    if(urel.name == rel){
+                      OrganizationArcRelationshipDataService.create({
+                        organizationId: id,
+                        arcRelationshipId: urel.id
+                      }).then().catch(e=>{console.log(e)});
+                    }
+                  });
+                });
+
+                //Update agency data
+                this.add_organization.agency_type.forEach(type=>{
+                  this.unmapped_agency_types.filter(utype=>{
+                    if(utype.name == type){
+                      OrganizationAgencyTypeDataService.create({
+                        organizationId: id,
+                        agencyTypeId: utype.id
+                      });
+                    }
+                  })
+                });
+              })
+              .catch(e=> {
             console.log(e)
           });
-        }
-
+          this.add_organization_dlg = false;
       },
       retrieveOrganizations() {
         OrganizationDataService.getAll()
           .then(response => {
             this.orgCache = response.data;
+            console.log(this.orgCache);
             this.orgCache.forEach(organization=>{
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 organization.address = organization.street_number+" "+organization.street_name+"\n"+
@@ -356,6 +665,12 @@ export default {
             this.organizations.forEach(organization=>{
               organization.address = organization.street_number+" "+organization.street_name+"\n"+
                     organization.city+", "+organization.state+" "+organization.zip;
+              organization.county_display = '';
+              organization.counties.forEach(county=>{
+                organization.county_display += county.name + ", ";
+              });
+              organization.county_display = organization.county_display
+                  .substr(0,organization.county_display.length-2);
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 let manager = organization.relationship_managers[0].person;
                 let manager_data = manager.first_name+" "+manager.last_name;
@@ -387,6 +702,46 @@ export default {
           });
 
       },
+      populateCounties(){
+        CountyDataService.getAll()
+            .then(response=>{
+              this.all_counties = response.data.map(county=>{
+                return county.name
+              });
+              this.unmapped_counties = response.data;
+            })
+            .catch(e=>{console.log(e)});
+      },
+      populateLinesOfBusiness(){
+        LineOfBusinessDataService.getAll()
+            .then(response=>{
+              this.all_lines_of_business = response.data.map(lob=>{
+                return lob.name
+              });
+              this.unmapped_lines_of_business = response.data;
+            })
+            .catch(e=>{console.log(e)});
+      },
+      populateArcRelationships(){
+        ArcRelationshipDataService.getAll()
+            .then(response=>{
+              this.all_arc_relationships = response.data.map(arcrel=>{
+                return arcrel.name
+              });
+              this.unmapped_arc_relationships = response.data;
+            })
+            .catch(e=>{console.log(e)});
+      },
+      populateAgencyTypes(){
+        AgencyTypeDataService.getAll()
+            .then(response=>{
+              this.all_agency_types = response.data.map(agtype=>{
+                return agtype.name
+              });
+              this.unmapped_agency_types = response.data;
+            })
+            .catch(e=>{console.log(e)});
+      },
       filterOrganizations(){
         this.organizations = this.orgCache.filter(organization=>{
           var assign = this.filters['my_assignments'] ? organization.managerId == "5693164c-5da4-4d07-ad24-d9f39befc823" : true;
@@ -398,6 +753,10 @@ export default {
     },
     mounted() {
       this.retrieveOrganizations();
+      this.populateCounties();
+      this.populateArcRelationships();
+      this.populateLinesOfBusiness();
+      this.populateAgencyTypes();
     }
 };
 </script>

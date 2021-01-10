@@ -85,6 +85,7 @@
               <v-row>
                 <v-col cols="6">
                   <v-text-field
+                      required
                       label="Primary Phone"
                       v-model="primary_phone"
                   ></v-text-field>
@@ -99,6 +100,7 @@
               <v-row>
                 <v-col cols="6">
                   <v-text-field
+                      required
                       label="Primary Email"
                       v-model="primary_email"
                   ></v-text-field>

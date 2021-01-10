@@ -36,7 +36,6 @@
 <script>
 export default {
   name: 'App',
-
   mounted() { //TODO: Fix this issue: When this is uncommented, cannot view users dashboard only displays login screen again.
     if(!this.$authenticated) {
       this.$router.replace({ name: "login" });
@@ -50,18 +49,17 @@ export default {
     }
   }
 };
-
-
+</script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-.page-title{
-  font-family: "Roboto", sans-serif;
-  margin-left: -50px;
-  font-size: 2.45em;
-}
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .page-title{
+    font-family: "Roboto", sans-serif;
+    margin-left: -50px;
+    font-size: 2.45em;
+  }
 </style>

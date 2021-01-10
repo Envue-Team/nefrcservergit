@@ -34,6 +34,24 @@ module.exports = (sequelize, DataTypes) => {
       public_safety:{
         type:DataTypes.BOOLEAN,
         defaultValue: false
+      },
+      mou:{
+          type:DataTypes.STRING
+      },
+      contact_protocol:{
+          type: DataTypes.STRING
+      },
+      last_contact: {
+          type: DataTypes.STRING
+      },
+      service: {
+          type: DataTypes.STRING
+      },
+      notes: {
+          type: DataTypes.STRING
+      },
+      action: {
+          type: DataTypes.STRING
       }
     }
   );
