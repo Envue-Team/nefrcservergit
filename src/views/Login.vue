@@ -173,25 +173,17 @@ export default {
     },
     testPassword(salt, originalPass, loginPassword) {
       let password = this.encryptPassword(loginPassword, salt);
-      console.log(password);
-      console.log(originalPass);
       return originalPass == password;
     },
     checkCredentials(){
-      console.log("Success");
       UserDataService.getByEmail(this.loginEmail)
           .then(response=>{
-            console.log(response.data);
             let originalPassword = response.data[0].user.password;
             let salt = response.data[0].user.salt;
 
             this.UserId = response.data[0].user.id;
             this.UserRole = response.data[0].user.roles[0].id;
-
-            console.log(originalPassword);
-            console.log(salt);
             let authenticated = this.testPassword(salt, originalPassword, this.loginPassword);
-            console.log("Authenticated: " + authenticated);
             this.$authenticated = authenticated;
             this.login();
           }).catch(e=>{
@@ -203,7 +195,6 @@ export default {
         UserDataService.getAll()
             .then((response)=> {
               let objectData = response
-              console.log(objectData);
               this.checkCredentials();
             })
             .catch((err)=> {

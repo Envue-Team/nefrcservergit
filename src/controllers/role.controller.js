@@ -16,3 +16,22 @@ exports.findAll = (req, res) => {
         });
 };
 
+// Find a single role by id
+exports.findOne = (req, res) => {
+    console.log("called");
+    let id = req.params.roleId;
+    DBRole.findByPk(id, {
+        include :[
+            'permissions',
+        ]
+    })
+        .then(data => {
+            console.log(data);
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving role with id=" + id +" err: "+err
+            });
+        });
+};

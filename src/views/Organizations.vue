@@ -397,6 +397,9 @@ export default {
   },
     data() {
       return {
+        isOwner: false,
+        permissions: [],
+
         /**
          * Counties
          **/
@@ -751,6 +754,107 @@ export default {
         this.updateExcelFields();
       }
     },
+  verifyAccess(type){
+    switch(type){
+      case 'read':
+        if(this.permissions.includes('readAllOrgs')){
+          return true;
+        } else {
+          return false;
+        }
+        break;
+      case 'update':
+        console.log(this.permissions);
+        console.log(this.permissions.includes('editOwnOrgs'));
+        console.log(this.isOwner);
+        if(this.permissions.includes('editAllOrgs')){
+          return true;
+        }else if(this.permissions.includes('editOwnOrgs') && this.isOwner){
+          return true;
+        }else{
+          return false;
+        }
+        break;
+      case 'delete':
+        if(this.permissions.includes('deleteAllOrgs')){
+          return true;
+        }else if(this.permissions.includes('deleteOwnOrgs') && this.isOwner){
+          return true;
+        }else{
+          return false;
+        }
+        break;
+      case 'reassign':
+        return this.permissions.includes('reassignAccountOwner');
+        break;
+      case 'create':
+        return this.permissions.includes('createOrgs');
+        break;
+      default:
+        return false;
+    }
+  },
+  /**
+   * Access
+   */
+  verifyAccess(type){
+    switch(type){
+      case 'read':
+        if(this.permissions.includes('readAllOrgs')){
+          return true;
+        } else {
+          return false;
+        }
+        break;
+      case 'update':
+        console.log(this.permissions);
+        console.log(this.permissions.includes('editOwnOrgs'));
+        console.log(this.isOwner);
+        if(this.permissions.includes('editAllOrgs')){
+          return true;
+        }else if(this.permissions.includes('editOwnOrgs') && this.isOwner){
+          return true;
+        }else{
+          return false;
+        }
+        break;
+      case 'delete':
+        if(this.permissions.includes('deleteAllOrgs')){
+          return true;
+        }else if(this.permissions.includes('deleteOwnOrgs') && this.isOwner){
+          return true;
+        }else{
+          return false;
+        }
+        break;
+      case 'reassign':
+        return this.permissions.includes('reassignAccountOwner');
+        break;
+      default:
+        return false;
+    }
+  },
+  /**
+   * Access
+   */
+  setPagePermissions(){
+    let currentRole = this.$session.get("userRole");
+    RoleDataService.get(currentRole)
+        .then(response=>{
+          this.permissions = response.data.permissions.map(permission=>{return permission.name});
+          console.log(this.permissions);
+        })
+        .catch(e=>{console.log(e)});
+  },
+  setPagePermissions(){
+    let currentRole = this.$session.get("userRole");
+    RoleDataService.get(currentRole)
+        .then(response=>{
+          this.permissions = response.data.permissions.map(permission=>{return permission.name});
+          console.log(this.permissions);
+        })
+        .catch(e=>{console.log(e)});
+  },
     mounted() {
       this.retrieveOrganizations();
       this.populateCounties();
