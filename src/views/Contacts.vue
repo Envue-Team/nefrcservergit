@@ -315,6 +315,7 @@ export default {
       // console.log(item.id+" is the ID(1)");
     },
     retrieveVolunteers() {
+      // console.log(this.$session.getAll());
       ContactDataService.getAll()
         .then((response) => {
           // console.log(response.data);
