@@ -415,31 +415,87 @@ exports.userFindAll = (req, res) => {
       });
 };
 
+// exports.userFindOne = (req, res) => {
+//   const id = req.params.id;
+//
+//   DBPerson.findByPk(id,
+//       {
+//         include:
+//             [
+//               {
+//                 model: DBUser,
+//                 include: ['roles']
+//               },
+//               'phones',
+//               'emails'
+//             ]
+//       },
+//
+//   ) //TODO: Take a look at this one, remove roles, findOne works just fine.
+//       .then(data => {
+//         res.send(data);
+//       })
+//       .catch(err => {
+//         res.status(500).send({
+//           message: "Error retrieving person with id=" + id + " err: " + err
+//         });
+//       });
+// };
+
 exports.userFindOne = (req, res) => {
-  const id = req.params.id;
+    const id = req.params.id;
 
-  DBPerson.findByPk(id,
-      {
-        include:
-            [
-              {
-                model: DBUser,
-                include: ['roles']
-              },
-              'phones',
-              'emails'
-            ]
-      },
+    DBPerson.findByPk(id,
+        {
+            include:
+                [
+                    {
+                        model: DBUser,
+                        include: ['roles']
+                    },
+                    'phones',
+                    'emails'
+                ]
+        },
 
-  ) //TODO: Take a look at this one, remove roles, findOne works just fine.
-      .then(data => {
-        res.send(data);
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Error retrieving person with id=" + id + " err: " + err
+    ) //TODO: Take a look at this one, remove roles, findOne works just fine.
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving person with id=" + id + " err: " + err
+            });
         });
-      });
+};
+
+exports.userFindOneByUserId = (req, res) => {
+    const id = req.params.id;
+
+    DBUser.findByPk(id,
+        {
+            include:
+                [
+                    {
+                        model: DBPerson,
+                        include: [
+                            'phones',
+                            'emails'
+                        ]
+                    },
+                    'roles'
+                ]
+        },
+
+    ) //TODO: Take a look at this one, remove roles, findOne works just fine.
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving person with id=" + id + " err: " + err
+            });
+        });
 };
 
 exports.findByEmail = (req, res) =>{

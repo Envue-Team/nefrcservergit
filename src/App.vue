@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import RoleDataService from './services/RoleDataService';
 export default {
   name: 'App',
   // mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE

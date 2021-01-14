@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:premerge" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update organization add and edit per arc request">
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Default_Changelist/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_1_10_21,_5_30_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_1_10_21__5_30_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_5_20,_10_25_AM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_12_5_20__10_25_AM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/css/app.2fff4bec.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/css/chunk-vendors.c6782bcf.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/img/redcross-logo.277e8730.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/js/app.a04228d9.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/js/app.a04228d9.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/js/chunk-vendors.87ff001c.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/js/chunk-vendors.87ff001c.js.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/role_permission.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/routes/role_permission.routes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/RolePermissionDataService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/db.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/person.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/person.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/role.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/role.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/role.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/role.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/user.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/RoleDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/RoleDataService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/UserDataService.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/UserDataService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package.json" />
+        <option value="Vue Single File Component" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Rebase.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="INTERACTIVE" />
+      </set>
+    </option>
+    <option name="NEW_BASE" value="origin/premerge" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="89f7346d84a5e3e4a5f9791cef1d070795a37a84" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitRewordedCommitMessages">
+    <option name="onto" value="a771426c269826ff31e117bf1501f376677d0782" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/Envue-Team/nefrcservergit" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1kxoMmFagCudcSDuZBnMqcd8G8K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/views" />
+      <recent name="$PROJECT_DIR$/src/services" />
+      <recent name="$PROJECT_DIR$/src/routes" />
+      <recent name="$PROJECT_DIR$/src/controllers" />
+      <recent name="$PROJECT_DIR$/src/models" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="node src/server.js" />
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/server.js" working-dir="$PROJECT_DIR$/src">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.server.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="" />
+      <created>1606651557994</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606651557994</updated>
+      <workItem from="1606651559103" duration="29947000" />
+      <workItem from="1606763614965" duration="64102000" />
+      <workItem from="1606916634013" duration="1940000" />
+      <workItem from="1606919726915" duration="96233000" />
+      <workItem from="1607251830438" duration="3651000" />
+      <workItem from="1607256279740" duration="607000" />
+      <workItem from="1607257305972" duration="2937000" />
+      <workItem from="1607261048330" duration="12017000" />
+      <workItem from="1607273640299" duration="9000" />
+      <workItem from="1607276370647" duration="1249000" />
+      <workItem from="1607357355111" duration="13200000" />
+      <workItem from="1607632948268" duration="714000" />
+      <workItem from="1608154149584" duration="69590000" />
+      <workItem from="1608470247616" duration="42475000" />
+      <workItem from="1609258264193" duration="58002000" />
+      <workItem from="1610295768607" duration="12053000" />
+      <workItem from="1610314507372" duration="3433000" />
+      <workItem from="1610318109857" duration="40945000" />
+    </task>
+    <task id="LOCAL-00001" summary="Pre master merge">
+      <created>1606756858867</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1606756858867</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Tie organization contacts to contacts side&#10;Tie organization relationship managers to users side">
+      <created>1606835432544</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1606835432544</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update Partner page for relationship page capabilities">
+      <created>1606840094131</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1606840094131</updated>
+    </task>
+    <task id="LOCAL-00004" summary="General updates throughout the application">
+      <created>1606841193415</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1606841193415</updated>
+    </task>
+    <task id="LOCAL-00005" summary="GUI Update">
+      <created>1606953166357</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1606953166360</updated>
+    </task>
+    <task id="LOCAL-00006" summary="GUI Update">
+      <created>1606953178761</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1606953178761</updated>
+    </task>
+    <task id="LOCAL-00007" summary="GUI Update">
+      <created>1606953191026</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1606953191026</updated>
+    </task>
+    <task id="LOCAL-00008" summary="New GUI">
+      <created>1607032473033</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607032473033</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update relationship new contact">
+      <created>1607041941128</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607041941128</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update home page to show links">
+      <created>1607068185211</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1607068185211</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update partner and relationship pages for better code and higher standardization">
+      <created>1607074595734</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1607074595734</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add contact edit/add/update information to organization">
+      <created>1607272841721</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1607272841721</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Multiple contacts assignable to organization">
+      <created>1607357790028</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1607357790028</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Multiple relationship managers assignable to organization">
+      <created>1608316660601</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1608316660601</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add counties to organizations">
+      <created>1608397797185</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1608397797185</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Committing for pull. Clean up code">
+      <created>1608483463649</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1608483463649</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Extract Relationship dialog out">
+      <created>1608669793700</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1608669793700</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update organization add and edit per arc request">
+      <created>1610314788185</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1610314788185</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="1" />
+        <option value="3" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="roots">
+                    <value>
+                      <list>
+                        <option value="$PROJECT_DIR$" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="premerge" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Pre master merge" />
+    <MESSAGE value="Tie organization contacts to contacts side&#10;Tie organization relationship managers to users side" />
+    <MESSAGE value="Update Partner page for relationship page capabilities" />
+    <MESSAGE value="General updates throughout the application" />
+    <MESSAGE value="GUI Update" />
+    <MESSAGE value="New GUI" />
+    <MESSAGE value="Update relationship new contact" />
+    <MESSAGE value="Update home page to show links" />
+    <MESSAGE value="Update partner and relationship pages for better code and higher standardization" />
+    <MESSAGE value="Add contact edit/add/update information to organization" />
+    <MESSAGE value="Multiple contacts assignable to organization" />
+    <MESSAGE value="Multiple relationship managers assignable to organization" />
+    <MESSAGE value="Add counties to organizations" />
+    <MESSAGE value="Committing for pull. Clean up code" />
+    <MESSAGE value="Extract Relationship dialog out" />
+    <MESSAGE value="Update organization add and edit per arc request" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update organization add and edit per arc request" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="330" y="193" key="#Notifications/0.24.1366.744@0.24.1366.744" timestamp="1606763721174" />
+    <state x="126" y="24" key="#Project_Structure" timestamp="1607041743211">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="126" y="24" key="#Project_Structure/0.24.1366.744@0.24.1366.744" timestamp="1607041743211" />
+    <state x="240" y="178" width="876" height="406" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609806374428">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="240" y="178" width="876" height="406" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1366.711@0.27.1366.711" timestamp="1609806374428" />
+    <state x="444" y="24" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1606651871055">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="444" y="24" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.24.1366.744@0.24.1366.744" timestamp="1606651871055" />
+    <state x="416" y="129" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610317733881">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="416" y="129" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610317733881" />
+    <state x="99" y="96" width="1168" height="548" key="DiffContextDialog" timestamp="1610317538168">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396010" />
+    <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1610317538168" />
+    <state x="183" y="69" key="Git.Interactive.Rebase.Dialog" timestamp="1606761986402">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="183" y="69" key="Git.Interactive.Rebase.Dialog/0.24.1366.744@0.24.1366.744" timestamp="1606761986402" />
+    <state width="1312" height="183" key="GridCell.Tab.0.bottom" timestamp="1607258408009">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state width="1312" height="183" key="GridCell.Tab.0.bottom/0.24.1366.744@0.24.1366.744" timestamp="1607258408009" />
+    <state width="1312" height="183" key="GridCell.Tab.0.center" timestamp="1607258408008">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state width="1312" height="183" key="GridCell.Tab.0.center/0.24.1366.744@0.24.1366.744" timestamp="1607258408008" />
+    <state width="1312" height="183" key="GridCell.Tab.0.left" timestamp="1607258408008">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state width="1312" height="183" key="GridCell.Tab.0.left/0.24.1366.744@0.24.1366.744" timestamp="1607258408008" />
+    <state width="1312" height="183" key="GridCell.Tab.0.right" timestamp="1607258408009">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state width="1312" height="183" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1607258408009" />
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog" timestamp="1606761420373">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1606761420373" />
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1606761992543">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1606761992543" />
+    <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog" timestamp="1610320141241">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="391" y="33" key="RollbackChangesDialog/0.24.1366.744@0.24.1366.744" timestamp="1607165711434" />
+    <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610320141241" />
+    <state x="147" y="27" key="SettingsEditor" timestamp="1610395648666">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="147" y="34" key="SettingsEditor/0.24.1366.744@0.24.1366.744" timestamp="1607256288631" />
+    <state x="147" y="27" key="SettingsEditor/0.27.1366.711@0.27.1366.711" timestamp="1610395648666" />
+    <state x="99" y="96" width="1168" height="573" key="ShowDiffWithBranchDialog" timestamp="1607258396011">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="99" y="96" width="1168" height="573" key="ShowDiffWithBranchDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396011" />
+    <state width="498" height="449" key="SwitcherDM" timestamp="1606656867556">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1610314812757">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1610314812757" />
+    <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
+    <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182518985" />
+    <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
+    <state x="100" y="96" width="1116" height="547" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1610316135542">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258156616" />
+    <state x="100" y="96" width="1116" height="547" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610316135542" />
+    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609795701495">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="410" y="295" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.744@0.24.1366.744" timestamp="1607256387911" />
+    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1609795701495" />
+    <state x="116" y="24" width="726" height="744" key="find.popup" timestamp="1606775410164">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="116" y="24" width="726" height="744" key="find.popup/0.24.1366.744@0.24.1366.744" timestamp="1606775410164" />
+    <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610317806397">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="332" y="43" key="git4idea.branch.GitSmartOperationDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182791613" />
+    <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog/0.27.1366.711@0.27.1366.711" timestamp="1610317806397" />
+    <state x="492" y="286" width="529" height="211" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1610315593853">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="492" y="295" key="git4idea.remote.GitConfigureRemotesDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182533657" />
+    <state x="492" y="286" width="529" height="211" key="git4idea.remote.GitConfigureRemotesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610315593853" />
+    <state x="386" y="275" key="git4idea.ui.GitResetDialog" timestamp="1607182969333">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="386" y="275" key="git4idea.ui.GitResetDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182969333" />
+    <state x="0" y="27" width="1356" height="711" key="new project wizard" timestamp="1610318891564">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="0" y="27" width="1356" height="711" key="new project wizard/0.27.1366.711@0.27.1366.711" timestamp="1610318891564" />
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1608389904636">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1608389904636" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1610573303274">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="321" y="89" width="719" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1607209765083" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1610573303274" />
+  </component>
+</project>
