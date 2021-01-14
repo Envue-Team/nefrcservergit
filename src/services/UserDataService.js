@@ -9,6 +9,10 @@ class UserDataService {
     return http.get(`/users/${id}`);
   }
 
+  getByUserId(id){
+    return http.get(`/users/byUserId/${id}`);
+  }
+
   getByEmail(email) {
     return http.get(`/users/email/${email}`);
   }

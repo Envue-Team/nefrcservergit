@@ -16,6 +16,9 @@ module.exports = volapp => {
   
     // // Retrieve a single note with id
     router.get("/:id", users.userFindOne);
+
+    //Retrieve user by user id
+    router.get("/byUserId/:id", users.userFindOneByUserId);
   
     router.put("/:id", users.updateUser);
   
