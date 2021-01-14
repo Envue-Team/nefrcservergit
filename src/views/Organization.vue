@@ -1,8 +1,13 @@
 <template>
   <v-container>
+    <span v-if="verifyAccess('update')">
     <a class="btn display-4 font-weight-bold blue-grey--text text-capitalize" @click="openDialog('Edit')">
       {{ organization.name }}
     </a><br/>
+    </span>
+    <span v-else class=" display-4 font-weight-bold blue-grey--text text-capitalize">
+            {{ organization.name }}
+    </span>
     <a :href="organization.website" class="red--text text--darken-3">
       {{ organization.website }}
     </a><span v-if="organization.phones != ''"> | {{ organization.phones[0].number}}</span>
@@ -28,19 +33,40 @@
               </v-card>
             </v-container>
             <v-card-text>
+            <span v-if="verifyAccess('update')">
              <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="contact_note_dlg=true">
                Last Contact Made
              </a><br/>
-             {{ organization.last_contact }}<br/>
+            </span>
+            <span v-else>
+              <span class="font-weight-bold text-capitalize grey--text text--darken-2">
+                 Last Contact Made
+              </span><br/>
+            </span>
+            {{ organization.last_contact }}<br/>
+            <span v-if="verifyAccess('update')">
              <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="op_action_dlg=true">
                Opportunities/Actions Needed to Improve Profile
              </a><br/>
-              {{ organization.action }}<br/>
-             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="add_note_dlg=true">
-               Note
-             </a><br/>
-              {{ organization.notes }}
-           </v-card-text>
+            </span>
+            <span v-else>
+              <span class="btn font-weight-bold text-capitalize grey--text text--darken-2">
+               Opportunities/Actions Needed to Improve Profile
+              </span><br/>
+            </span>
+            {{ organization.action }}<br/>
+            <span v-if="verifyAccess('update')">
+               <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="add_note_dlg=true">
+                 Note
+               </a><br/>
+            </span>
+            <span v-else>
+               <span class="btn font-weight-bold text-capitalize grey--text text--darken-2">
+                 Note
+               </span><br/>
+            </span>
+            {{ organization.notes }}
+            </v-card-text>
           </v-card>
           </v-col>
         </v-row>
@@ -181,7 +207,7 @@
             <!-----------------------Point of Contact--------------------------------->
             <div>
               <strong>Organization Contact Protocol:<br/></strong> {{ organization.contact_protocol }}<br/>
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Add POC')">
+              <a v-show="verifyAccess('update')" class="btn font-weight-bold blue-grey--text" @click="openDialog('Add POC')">
                 Add New Point of Contact
               </a>
             </div>
@@ -241,12 +267,12 @@
           <v-card-text>
             <!--------------------------Organization Relationship Manager-------------------------------->
             <div>
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Add RM')">
+              <a v-show="verifyAccess('reassign')" class="btn font-weight-bold blue-grey--text" @click="openDialog('Add RM')">
                 Add an Organization Manager
               </a>
             </div>
             <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('RM', manager.personId)">
+              <a  v-if="verifyAccess('reassign')" class="btn font-weight-bold blue-grey--text" @click="openDialog('RM', manager.personId)">
                 <div class="font-weight-black mt-3">
                   <strong>
                     <span :ref="'relationship_manager_' + manager.personId">
@@ -255,6 +281,15 @@
                   </strong>
                 </div>
               </a>
+              <span  v-else class="btn font-weight-bold blue-grey--text">
+                <div class="font-weight-black mt-3">
+                  <strong>
+                    <span :ref="'relationship_manager_' + manager.personId">
+                      {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
+                    </span>
+                  </strong>
+                </div>
+              </span>
               <div v-for="mphone in manager.person.phones" :key="mphone.number" class="font-weight-thin">{{ mphone.number }}</div>
               <div v-for="memail in manager.person.emails" :key="memail.address" class="font-weight-thin"> {{ memail.address }}</div>
             </div>
@@ -409,7 +444,7 @@
       <v-card>
         <v-form>
           <v-card-title>
-            <span class="headline">Relationship Information</span>
+            <span class="headline">Organization Information</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -650,6 +685,8 @@ import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRe
 import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
 import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
+import RolePermisssionDataService from "@/services/RolePermissionDataService";
+import RoleDataService from "../services/RoleDataService";
 
 //TODO: Sanitize and validate form input
 export default {
@@ -662,6 +699,8 @@ export default {
 
   data() {
     return {
+      isOwner: false,
+      permissions: [],
       confirm_delete: false,
       /**
        * Counties
@@ -1068,6 +1107,7 @@ export default {
             this.organization_state = response.data.state;
             this.organization_relationship_managers = response.data.relationship_managers;
             this.populateFiles(this.organization.id);
+            this.setOwnerStatus();
           })
           .catch(e=>{console.log(e)});
       this.add_note_dlg = false;
@@ -1380,7 +1420,6 @@ export default {
       PersonDataService.update(personId, data)
           .then(response=>{
             this.setOrganization();
-            console.log(response)
           }).catch(e=>{
             console.log(e)
           });
@@ -1390,6 +1429,67 @@ export default {
 
       const [year, month, day] = date.split('-')
       return `${month}/${day}/${year}`
+    },
+    /**
+     * Access
+     */
+    verifyAccess(type){
+      switch(type){
+        case 'read':
+          if(this.permissions.includes('readAllOrgs')){
+            return true;
+          } else {
+            return false;
+          }
+          break;
+        case 'update':
+          console.log(this.permissions);
+          console.log(this.permissions.includes('editOwnOrgs'));
+          console.log(this.isOwner);
+          if(this.permissions.includes('editAllOrgs')){
+            return true;
+          }else if(this.permissions.includes('editOwnOrgs') && this.isOwner){
+            return true;
+          }else{
+            return false;
+          }
+          break;
+        case 'delete':
+          if(this.permissions.includes('deleteAllOrgs')){
+            return true;
+          }else if(this.permissions.includes('deleteOwnOrgs') && this.isOwner){
+            return true;
+          }else{
+            return false;
+          }
+          break;
+        case 'reassign':
+          return this.permissions.includes('reassignAccountOwner');
+          break;
+        default:
+          return false;
+      }
+    },
+    setPagePermissions(){
+      let currentRole = this.$session.get("userRole");
+      RoleDataService.get(currentRole)
+          .then(response=>{
+            this.permissions = response.data.permissions.map(permission=>{return permission.name});
+            console.log(this.permissions);
+          })
+          .catch(e=>{console.log(e)});
+    },
+    setOwnerStatus(){
+      let userId = this.$session.get("userID");
+        UserDataService.getByUserId(userId)
+          .then(response=>{
+            let currUserId = response.data.person.id;
+            let managerIds  = this.organization.relationship_managers.map(manager=>{
+              return manager.person.id;
+            });
+            this.isOwner = managerIds.includes(currUserId);
+          })
+          .catch(e=> {console.log(e)});
     },
   },
   computed:{
@@ -1413,6 +1513,7 @@ export default {
     this.populateLinesOfBusiness();
     this.populateArcRelationships();
     this.populateAgencyTypes();
+    this.setPagePermissions();
   }
 };
 </script>

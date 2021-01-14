@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import RoleDataService from './services/RoleDataService';
 export default {
   name: 'App',
   // mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
@@ -45,9 +46,9 @@ export default {
     logout() {
       this.$authenticated = false;
       this.$session.destroy();
-      this.$router.replace({ name: "login" });
-    }
-  }
+      this.$router.replace({name: "login"});
+    },
+  },
 };
 </script>
 

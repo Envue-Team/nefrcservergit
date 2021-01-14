@@ -83,5 +83,7 @@ db.organization.belongsToMany(db.arc_relationship, {through: db.organization_arc
 db.arc_relationship.belongsToMany(db.organization, {through: db.organization_arc_relationship});
 db.organization.belongsToMany(db.agency_type, {through: db.organization_agency_type});
 db.agency_type.belongsToMany(db.organization, {through: db.organization_agency_type});
+db.role.belongsToMany(db.permission, {through: db.role_permissions});
+db.permission.belongsToMany(db.role, {through: db.role_permissions});
 
 module.exports = db;
