@@ -251,18 +251,17 @@ export default {
       secondary_phone: '',
       primary_email: '',
       secondary_email: '',
-      
+
       nameRules: [
-        (v) => !!v || "Required",
-        (v) => /\D\S$/.test(v) || "No white or empty spaces",
+        v => !!v || 'A contact name is required',
       ],
       emailRules: [
         (v) => !!v || "Required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+        v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'Please, input a valid email address'
       ],
       phoneRules: [
-        (v) => !!v || "Required",
-        (v) => /\S\d$/.test(v) || "Phone number must be valid",
+        v => !!v || 'Phone number is required',
+        v => /^(1-)?\d{3}-\d{3}-\d{4}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
       ],
       streetNumberRules: [
         (v) => !!v || "Required",
@@ -270,8 +269,8 @@ export default {
       ],
 
       zipRules: [
-        (v) => !!v || "Required",
-        (v) => /\S\d$/.test(v) || "Zip number must be valid",
+        v => !!v || 'A zip code is required',
+        v => /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(v) || 'Please, input a valid zip code'
       ],
 
       show1: false,
