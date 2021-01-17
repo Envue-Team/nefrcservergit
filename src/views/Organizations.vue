@@ -2,7 +2,7 @@
 <v-container>
   <div class="red--text text--darken-2 page-title">Connections</div>
   <v-row>
-      <v-col class="col-12 ">
+      <v-col>
         <v-row v-show="verifyAccess('create')">
           <v-col>
             <v-hover
@@ -473,7 +473,11 @@ export default {
           {text: 'Zip', value: 'zip'},
           {text: 'County', value: 'county_display' },
           {text: 'Manager', value: 'manager'},
-          {text: '', value:''}
+          {text: 'MOU', value: 'mou'},
+          {text: 'Line of Business', value: 'lob'},
+          {text: 'Services', value: 'service'},
+          {text: 'Agency Type', value: 'type'},
+          {text: 'Relationship', value: 'arc_rel'}
         ]
         if(this.filters.partners){
           headers.push({text: "Services", value:'partner.services'});
@@ -598,6 +602,7 @@ export default {
             this.orgCache = response.data;
             console.log(this.orgCache);
             this.orgCache.forEach(organization=>{
+              //Format managers for table
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 organization.address = organization.street_number+" "+organization.street_name+"\n"+
                 organization.city+", "+organization.state+" "+organization.zip;
@@ -638,6 +643,21 @@ export default {
               });
               organization.county_display = organization.county_display
                   .substr(0,organization.county_display.length-2);
+              organization.lob = '';
+              organization.line_of_businesses.forEach(lob=>{
+                organization.lob += lob.name + "\n";
+              });
+              organization.lob = organization.lob.substr(0, organization.lob.length-2);
+              organization.type = '';
+              organization.agency_types.forEach(type=>{
+                organization.type += type.name + "\n";
+              });
+              organization.type = organization.type.substr(0, organization.type.length-2);
+              organization.arc_rel = '';
+              organization.arc_relationships.forEach(arc_rel=>{
+                organization.arc_rel += arc_rel.name + "\n";
+              });
+              organization.arc_rel = organization.arc_rel.substr(0, organization.arc_rel.length-2);
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 let manager = organization.relationship_managers[0].person;
                 let manager_data = manager.first_name+" "+manager.last_name;
