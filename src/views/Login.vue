@@ -4,12 +4,12 @@
       <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
         <div>
           <v-tabs
-              v-model="tab"
-              show-arrows
-              background-color="red"
-              icons-and-text
-              dark
-              grow
+            v-model="tab"
+            show-arrows
+            background-color="red"
+            icons-and-text
+            dark
+            grow
           >
             <v-tabs-slider color="purple darken-4"></v-tabs-slider>
             <v-tab v-for="i in tabs" :key="i.name">
@@ -23,34 +23,41 @@
                     <v-row>
                       <v-col cols="12">
                         <v-text-field
-                            v-model="loginEmail"
-                            :rules="loginEmailRules"
-                            label="E-mail"
-                            required
+                          v-model="loginEmail"
+                          :rules="loginEmailRules"
+                          label="E-mail"
+                          required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
-                            v-model="loginPassword"
-                            :append-icon="show1 ? 'eye' : 'eye-off'"
-                            :rules="[rules.required, rules.min]"
-                            :type="show1 ? 'text' : 'password'"
-                            name="input-10-1"
-                            label="Password"
-                            hint="At least 8 characters"
-                            counter
-                            @click:append="show1 = !show1"
+                          v-model="loginPassword"
+                          :append-icon="show1 ? 'eye' : 'eye-off'"
+                          :rules="[rules.required, rules.min]"
+                          :type="show1 ? 'text' : 'password'"
+                          name="input-10-1"
+                          label="Password"
+                          hint="At least 8 characters"
+                          counter
+                          @click:append="show1 = !show1"
                         ></v-text-field>
+                        <v-alert
+                          v-if="FailedLogin"
+                          color="red"
+                          dense
+                          dismissible
+                          type="error"
+                        >Invalid Credentials</v-alert>
                       </v-col>
                       <v-col class="d-flex" cols="12" sm="6" xsm="12"> </v-col>
                       <v-spacer></v-spacer>
                       <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
                         <v-btn
-                            x-large
-                            block
-                            :disabled="!valid"
-                            color="success"
-                            @click="validate"
+                          x-large
+                          block
+                          :disabled="!valid"
+                          color="success"
+                          @click="validate"
                         >
                           Login
                         </v-btn>
@@ -60,15 +67,15 @@
                 </v-card-text>
               </v-card>
             </v-tab-item>
-            <!-- <v-tab-item>
+            <v-tab-item>
               <v-card class="px-4">
                 <v-card-text>
-                  <v-form ref="registerForm" v-model="valid" lazy-validation>
+                  <v-form v-model="valid" lazy-validation>
                     <v-row>
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
                           v-model="FirstName"
-                          :rules="[rules.required]"
+                          :rules="nameRules"
                           label="First Name"
                           maxlength="20"
                           required
@@ -77,7 +84,7 @@
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
                           v-model="LastName"
-                          :rules="[rules.required]"
+                          :rules="nameRules"
                           label="Last Name"
                           maxlength="20"
                           required
@@ -85,18 +92,19 @@
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
-                          v-model="UserId"
-                          :rules="[rules.required]"
-                          label="User ID"
+                          v-model="Email"
+                          :rules="emailRules"
+                          label="Email"
                           maxlength="20"
                           required
                         ></v-text-field>
                       </v-col>
-                      <v-col cols="12">
+                      <v-col cols="12" sm="6" md="6">
                         <v-text-field
-                          v-model="Email"
-                          :rules="emailRules"
-                          label="E-mail"
+                          v-model="Phone"
+                          :rules="phoneRules"
+                          label="Phone"
+                          maxlength="20"
                           required
                         ></v-text-field>
                       </v-col>
@@ -133,7 +141,7 @@
                           block
                           :disabled="!valid"
                           color="success"
-                          @click="validate"
+                          @click="register"
                           >Register</v-btn
                         >
                       </v-col>
@@ -141,7 +149,7 @@
                   </v-form>
                 </v-card-text>
               </v-card>
-            </v-tab-item> -->
+            </v-tab-item>
           </v-tabs>
         </div>
       </v-dialog>
@@ -151,55 +159,66 @@
 
 
 <script>
-import UserDataService  from '../services/UserDataService';
-const crypto = require('crypto');
+import UserDataService from "../services/UserDataService";
+import UserRoleDataService from "../services/UserRoleDataService";
+import PhoneDataService from "@/services/PhoneDataService";
+import EmailDataService from "@/services/EmailDataService";
+
+const crypto = require("crypto");
 export default {
-  name: 'Login',
+  name: "Login",
   computed: {
     passwordMatch() {
       return () => this.Password === this.verify || "Password must match";
-    }
+    },
   },
   methods: {
     generateSalt() {
-      return crypto.randomBytes(16).toString('base64');
+      return crypto.randomBytes(16).toString("base64");
     },
     encryptPassword(plainText, salt) {
       return crypto
-          .createHash('sha256')
-          .update(plainText)
-          .update(salt)
-          .digest('hex')
+        .createHash("sha256")
+        .update(plainText)
+        .update(salt)
+        .digest("hex");
     },
     testPassword(salt, originalPass, loginPassword) {
       let password = this.encryptPassword(loginPassword, salt);
       return originalPass == password;
     },
-    checkCredentials(){
+    checkCredentials() {
       UserDataService.getByEmail(this.loginEmail)
-          .then(response=>{
-            let originalPassword = response.data[0].user.password;
-            let salt = response.data[0].user.salt;
+        .then((response) => {
+          console.log(response);
+          let originalPassword = response.data[0].user.password;
+          let salt = response.data[0].user.salt;
 
-            this.UserId = response.data[0].user.id;
-            this.UserRole = response.data[0].user.roles[0].id;
-            let authenticated = this.testPassword(salt, originalPassword, this.loginPassword);
-            this.$authenticated = authenticated;
-            this.login();
-          }).catch(e=>{
-        console.log(e);
-      });
+          this.UserId = response.data[0].user.id;
+          this.UserRole = response.data[0].user.roles[0].id;
+          let authenticated = this.testPassword(
+            salt,
+            originalPassword,
+            this.loginPassword
+          );
+          this.$authenticated = authenticated;
+          this.login();
+        })
+        .catch((e) => {
+          this.FailedLogin = true;
+          console.log(e);
+        });
     },
     validate() {
       if (this.$refs.loginForm.validate()) {
         UserDataService.getAll()
-            .then((response)=> {
-              let objectData = response
-              this.checkCredentials();
-            })
-            .catch((err)=> {
-              console.log(err);
-            })
+          .then((response) => {
+            let objectData = response;
+            this.checkCredentials();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
     },
     reset() {
@@ -209,26 +228,78 @@ export default {
       this.$refs.form.resetValidation();
     },
     login() {
-      if(this.$authenticated) {
-
+      this.error = true;
+      if (this.$authenticated) {
         this.$session.start();
-        this.$session.set('userID', this.UserId);
-        this.$session.set('userRole', this.UserRole);
-        this.$router.replace({name: "home"});
+        this.$session.set("userID", this.UserId);
+        this.$session.set("userRole", this.UserRole);
+        this.$router.replace({ name: "home" });
       } else {
-        console.log("Wrong password");
+        console.log("Test");
+        this.FailedLogin = true;
       }
-    }
+    },
+    register() {
+      var data = {
+        first_name: this.add_person.firstname,
+        last_name: this.add_person.lastname,
+        email: this.add_person.email,
+        password: this.add_person.password,
+      };
+      var userData = {
+        roles: this.add_role.roles,
+      };
+
+      data.services = this.add_person.services;
+      UserDataService.create(data)
+        .then((response) => {
+          console.log(response.data.personId);
+
+          let data = {
+            userId: response.data.userId,
+            roleId: 2,
+          };
+
+          let phoneData = {
+            personId: response.data.personId,
+            number: this.add_person.phone,
+            isPrimary: true,
+          };
+          let emailData = {
+            personId: response.data.personId,
+            address: this.add_person.email,
+            isPrimary: true,
+          };
+
+          PhoneDataService.create(phoneData);
+          EmailDataService.create(emailData);
+
+          UserRoleDataService.create(data)
+            .then((resp) => {
+              this.refreshList();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          this.refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      this.add_person_dlg = false;
+    },
   },
   data: () => ({
     dialog: true,
     tab: 0,
     tabs: [
-      {name:"Login", icon:"mdi-account"},
-      // {name:"Register", icon:"mdi-account-outline"}
+      { name: "Login", icon: "mdi-account" },
+      { name: "Register", icon: "mdi-account-outline" },
     ],
     valid: true,
 
+    FailedLogin: false,
     FirstName: "",
     UserId: "",
     UserRole: "",
@@ -238,19 +309,27 @@ export default {
     verify: "",
     loginPassword: "",
     loginEmail: "",
+    phoneRules: [
+      (v) => !!v || "Required",
+      (v) => /\S\d$/.test(v) || "Phone number must be valid",
+    ],
+    nameRules: [
+      (v) => !!v || "Required",
+      (v) => /\D\S$/.test(v) || "No white or empty spaces",
+    ],
     loginEmailRules: [
-      v => !!v || "Required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      (v) => !!v || "Required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
     emailRules: [
-      v => !!v || "Required",
-      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+      (v) => !!v || "Required",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
     show1: false,
     rules: {
-      required: value => !!value || "Required.",
-      min: v => (v && v.length >= 1) || "Min 5 characters"
-    }
-  })
+      required: (value) => !!value || "Required.",
+      min: (v) => (v && v.length >= 1) || "Min 5 characters",
+    },
+  }),
 };
 </script>
