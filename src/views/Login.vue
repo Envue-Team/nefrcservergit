@@ -211,6 +211,7 @@ export default {
           let salt = response.data[0].user.salt;
 
           this.UserId = response.data[0].user.id;
+          this.PersonId = response.data[0].id
           this.UserRole = response.data[0].user.roles[0].id;
           let authenticated = this.testPassword(
             salt,
@@ -247,6 +248,7 @@ export default {
       this.error = true;
       if (this.$authenticated) {
         this.$session.start();
+        this.$session.set("personId", this.PersonId);
         this.$session.set("userID", this.UserId);
         this.$session.set("userRole", this.UserRole);
         this.$router.replace({ name: "home" });
@@ -315,6 +317,7 @@ export default {
     RegisteredUser: "",
     FirstName: "",
     UserId: "",
+    PersonId: "",
     UserRole: "",
     LastName: "",
     Email: "",
