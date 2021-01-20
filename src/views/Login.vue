@@ -47,7 +47,8 @@
                           dense
                           dismissible
                           type="error"
-                        >Invalid Credentials</v-alert>
+                          >Invalid Credentials</v-alert
+                        >
                       </v-col>
                       <v-col class="d-flex" cols="12" sm="6" xsm="12"> </v-col>
                       <v-spacer></v-spacer>
@@ -116,7 +117,6 @@
                           :type="show1 ? 'text' : 'Password'"
                           name="input-10-1"
                           label="Password"
-                          hint="At least 8 characters"
                           counter
                           @click:append="show1 = !show1"
                         ></v-text-field>
@@ -125,14 +125,30 @@
                         <v-text-field
                           block
                           v-model="verify"
-                          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                           :rules="[rules.required, passwordMatch]"
-                          :type="show1 ? 'text' : 'Password'"
+                          :type="show2 ? 'text' : 'Password'"
                           name="input-10-1"
                           label="Confirm Password"
                           counter
-                          @click:append="show1 = !show1"
+                          @click:append="show2 = !show2"
                         ></v-text-field>
+                      <v-alert
+                        v-if="RegisteredUser"
+                        color="green"
+                        dense
+                        dismissible
+                        type="success"
+                        >Successfully Registered</v-alert
+                      >
+                        <!-- <v-alert
+                        v-if="!RegisteredUser"
+                        color="red"
+                        dense
+                        dismissible
+                        type="alert"
+                        >Something went wrong, please contact your admin</v-alert
+                      > -->
                       </v-col>
                       <v-spacer></v-spacer>
                       <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
@@ -241,16 +257,12 @@ export default {
     },
     register() {
       var data = {
-        first_name: this.add_person.firstname,
-        last_name: this.add_person.lastname,
-        email: this.add_person.email,
-        password: this.add_person.password,
-      };
-      var userData = {
-        roles: this.add_role.roles,
+        first_name: this.FirstName,
+        last_name: this.LastName,
+        email: this.Email,
+        password: this.Password,
       };
 
-      data.services = this.add_person.services;
       UserDataService.create(data)
         .then((response) => {
           console.log(response.data.personId);
@@ -262,12 +274,12 @@ export default {
 
           let phoneData = {
             personId: response.data.personId,
-            number: this.add_person.phone,
+            number: this.Phone,
             isPrimary: true,
           };
           let emailData = {
             personId: response.data.personId,
-            address: this.add_person.email,
+            address: this.Email,
             isPrimary: true,
           };
 
@@ -276,10 +288,10 @@ export default {
 
           UserRoleDataService.create(data)
             .then((resp) => {
-              this.refreshList();
+              this.RegisteredUser = true;
             })
             .catch((err) => {
-              console.log(err);
+              this.RegisteredUser = false;
             });
 
           this.refreshList();
@@ -300,6 +312,7 @@ export default {
     valid: true,
 
     FailedLogin: false,
+    RegisteredUser: "",
     FirstName: "",
     UserId: "",
     UserRole: "",
@@ -309,6 +322,7 @@ export default {
     verify: "",
     loginPassword: "",
     loginEmail: "",
+    Phone: "",
     phoneRules: [
       (v) => !!v || "Required",
       (v) => /\S\d$/.test(v) || "Phone number must be valid",
@@ -326,6 +340,7 @@ export default {
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
     show1: false,
+    show2: false,
     rules: {
       required: (value) => !!value || "Required.",
       min: (v) => (v && v.length >= 1) || "Min 5 characters",
