@@ -105,92 +105,94 @@
           </v-col>
         </v-row>
         <v-row><!----Table---->
-          <v-card elevation="3" class="mb-3">
-            <!--------------------------File List Table-------------------------------->
-            <v-data-table
-                :headers="headers"
-                :search="search"
-                :items="files"
-                item-key="id"
-                multi-sort
-            >
-              <template v-slot:top>
-                <v-text-field
-                    v-model="search"
-                    label="Search Files"
-                    class="mx-4"
-                ></v-text-field>
-              </template>
-              <template v-slot:item.name="item">
-                <p>{{ item.item.name  }}</p>
-              </template>
-              <template v-slot:item.date="item">
-                <p>{{ item.item.date }}</p>
-              </template>
-              <template v-slot:item.author="item">
-                <p>{{ item.item.author }}</p>
-              </template>
-              <template v-slot:item.download="item">
-                <v-btn
-                    depressed
-                    small
-                    @click="downloadFile(item)"
-                >
-                  Download
-                  <v-icon
-                      color="orange darken-4"
-                      right
+          <v-col>
+            <v-card elevation="3" class="mb-3">
+              <!--------------------------File List Table-------------------------------->
+              <v-data-table
+                  :headers="headers"
+                  :search="search"
+                  :items="files"
+                  item-key="id"
+                  multi-sort
+              >
+                <template v-slot:top>
+                  <v-text-field
+                      v-model="search"
+                      label="Search Files"
+                      class="mx-4"
+                  ></v-text-field>
+                </template>
+                <template v-slot:item.name="item">
+                  <p>{{ item.item.name  }}</p>
+                </template>
+                <template v-slot:item.date="item">
+                  <p>{{ item.item.date }}</p>
+                </template>
+                <template v-slot:item.author="item">
+                  <p>{{ item.item.author }}</p>
+                </template>
+                <template v-slot:item.download="item">
+                  <v-btn
+                      depressed
+                      small
+                      @click="downloadFile(item)"
                   >
-                    mdi-arrow-down
-                  </v-icon>
-                </v-btn>
-              </template>
-              <template v-slot:item.remove="item">
-                <v-btn
-                    depressed
-                    small
-                    @click="deleteFile(item)"
-                >
-                  <v-icon
-                      color="orange darken-4"
-                      right
-                  >
-                    mdi-trash-can
-                  </v-icon>
-                </v-btn>
-              </template>
-              <template v-slot:footer>
-                <v-row>
-                  <v-col cols="7">
-                    <v-file-input
-                        label="Upload new file"
-                        show-size
-                        counter
-                        dense
-                        @change="filesChange"
-                    ></v-file-input>
-                  </v-col>
-                  <v-col>
-                    <v-btn
-                        depressed
-                        small
-                        :disabled="upload_disabled"
-                        @click="uploadFile"
+                    Download
+                    <v-icon
+                        color="orange darken-4"
+                        right
                     >
-                      Upload
-                      <v-icon
-                          color="orange darken-4"
-                          right
+                      mdi-arrow-down
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <template v-slot:item.remove="item">
+                  <v-btn
+                      depressed
+                      small
+                      @click="deleteFile(item)"
+                  >
+                    <v-icon
+                        color="orange darken-4"
+                        right
+                    >
+                      mdi-trash-can
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <template v-slot:footer>
+                  <v-row>
+                    <v-col cols="7">
+                      <v-file-input
+                          label="Upload new file"
+                          show-size
+                          counter
+                          dense
+                          @change="filesChange"
+                      ></v-file-input>
+                    </v-col>
+                    <v-col>
+                      <v-btn
+                          depressed
+                          small
+                          :disabled="upload_disabled"
+                          @click="uploadFile"
                       >
-                        mdi-arrow-up
-                      </v-icon>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </template>
-            </v-data-table>
-            <!--------------------------//File List Table-------------------------------->
-          </v-card>
+                        Upload
+                        <v-icon
+                            color="orange darken-4"
+                            right
+                        >
+                          mdi-arrow-up
+                        </v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </template>
+              </v-data-table>
+              <!--------------------------//File List Table-------------------------------->
+            </v-card>
+          </v-col>
         </v-row>
       </v-col><!----------------------//Left Column-------------------------->
 
@@ -249,14 +251,6 @@
           </v-card-text>
         </v-card>
         <v-card elevation="3" class="mb-3">
-<!--          <v-container style="max-width: 130px; margin-left: -15px">-->
-<!--            <v-card-->
-<!--                style="margin-top:-20px; border-radius: 3% 10%;  padding: 10px"-->
-<!--                color="purple darken-3"-->
-<!--            >-->
-<!--              <v-toolbar-title class="white--text">Manager</v-toolbar-title>-->
-<!--            </v-card>-->
-<!--          </v-container>-->
           <v-toolbar
               color="purple darken-2"
           >
@@ -511,7 +505,7 @@
                   >
                   </v-select>
                 </v-col>
-                <v-col cols="3">
+                <v-col cols="2">
                   <v-text-field
                       label="Zip"
                       required
