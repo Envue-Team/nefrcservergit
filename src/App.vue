@@ -152,13 +152,14 @@ export default {
       'navDialog': false,
       'group': null,
       permissions: [],
-
+      userRole:false
     }
   },
   methods: {
     logout() {
       this.$authenticated = false;
       this.$session.destroy();
+
       this.$router.replace({name: "login"});
     },
     /**
@@ -189,7 +190,15 @@ export default {
   },
   mounted(){
     this.setPagePermissions();
+
+    findUserRole() {
+      let userRole = this.$session.get("userRole");
+      if(userRole == 1) {
+        this.userRole = true;
+      }
+    }
   },
+
 };
 </script>
 

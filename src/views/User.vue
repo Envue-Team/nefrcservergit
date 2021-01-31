@@ -77,13 +77,13 @@
                                     :rules="emailRules"
                                   ></v-text-field>
                                 </v-col>
-                                <v-col cols="6">
+                                <!-- <v-col cols="6">
                                   <v-text-field
                                     label="Password"
                                     type="password"
                                     v-model="edit_user.password"
                                   ></v-text-field>
-                                </v-col>
+                                </v-col> -->
                               </v-row>
                               <v-row>
                                 <v-row>
@@ -165,7 +165,7 @@ export default {
         last_name: "",
       },
       edit_user: {
-        password: "",
+        // password: "",
         email: "",
       },
       edit_role: {
@@ -273,15 +273,15 @@ export default {
     },
     updatePerson() {
 
-      let salt = this.generateSalt();
-      let password = this.encryptPassword(this.edit_user.password, salt)
+      // let salt = this.generateSalt();
+      // let password = this.encryptPassword(this.edit_user.password, salt)
 
       var data = {
         first_name: this.edit_person.first_name,
         last_name: this.edit_person.last_name,
         email: this.edit_user.email,
-        password: password,
-        salt: salt
+        // password: password,
+        // salt: salt
       };
       console.log(data);
       var personID = this.$route.params.personId;

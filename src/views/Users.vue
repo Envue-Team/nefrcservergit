@@ -128,6 +128,9 @@
                       ></v-text-field>
                     </v-col>
                   </v-row>
+
+                  <!-- make an input field for roles -->
+                
                 </v-container>
                 <small>*indicates required field</small>
               </v-card-text>
