@@ -1,6 +1,14 @@
 <template>
-<v-container>
-  <div class="red--text text--darken-2 page-title">Connections</div>
+  <v-container>
+  <v-row>
+    <v-col
+      sm="12"
+      md="6"
+      lg="6"
+    >
+      <div class="red--text text--darken-2 page-title">Connections</div>
+    </v-col>
+  </v-row>
   <v-row>
       <v-col>
         <v-row v-show="verifyAccess('create')">
@@ -84,20 +92,20 @@
   </v-row>
   <v-dialog
       v-model="add_organization_dlg"
-      max-width="1200px"
+      max-width="700px"
   >
     <v-card>
       <v-form ref="form" v-model="valid">
         <v-card-title>
-          <span class="headline">Add Organization</span>
+          <span class="headline">Add a New Organization</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col
-                  cols="6"
-                  sm="6"
-                  md="6"
+                  cols="8"
+                  sm="8"
+                  md="8"
               >
                 <v-text-field
                     label="*Agency Name"
@@ -109,21 +117,21 @@
             </v-row>
             <v-row>
               <v-col
-                  cols="12"
-                  sm="6"
+                  cols="4"
+                  sm="12"
                   md="4"
               >
                 <v-text-field
-                    label="*Street Number*"
+                    label="*St Number"
                     v-model="add_organization.street_number"
                     required
                     :rules="streetNumberRule"
                 ></v-text-field>
               </v-col>
               <v-col
-                  cols="12"
-                  sm="6"
-                  md="4"
+                  cols="6"
+                  sm="12"
+                  md="6"
               >
                 <v-text-field
                     label="*Street Name"
@@ -134,9 +142,9 @@
             </v-row>
             <v-row>
               <v-col
-                  cols="3"
-                  sm="6"
-                  md="4"
+                  cols="5"
+                  sm="12"
+                  md="5"
               >
                 <v-text-field
                     label="*City"
@@ -145,7 +153,11 @@
                     :rules="streetNameRule"
                 ></v-text-field>
               </v-col>
-              <v-col cols="2">
+              <v-col
+                  cols="3"
+                  sm="12"
+                  md="3"
+              >
                 <v-select
                     required
                     :items="states"
@@ -155,7 +167,11 @@
                 >
                 </v-select>
               </v-col>
-              <v-col cols="3">
+              <v-col
+                  cols="3"
+                  sm="12"
+                  md="3"
+              >
                 <v-text-field
                     label="*Zip"
                     v-model="add_organization.zip"
@@ -165,22 +181,32 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="6">
+              <v-col
+                  cols="4"
+                  sm="12"
+                  md="4"
+              >
                 <v-text-field
                     label="Website"
                     v-model="add_organization.website"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6">
+              <v-col
+                  cols="3"
+                  sm="12"
+                  md="3"
+              >
                 <v-text-field
-                    label="Phone Number"
+                    label="Phone"
                     v-model="add_organization.phone"
                     :rules="businessPhoneRule"
                 ></v-text-field>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col cols="6">
+              <v-col
+                  cols="4"
+                  sm="12"
+                  md="4"
+              >
                 <v-select
                     multiple
                     required
@@ -193,19 +219,27 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                  cols="4"
+                  sm="12"
+                  md="4"
+              >
                 <v-select
                     :items="mou_options"
                     v-model="add_organization.mou"
                     required
-                    label="*National DCS MOU Partner?"
+                    label="*MOU Partner?"
                     :rules="mouRule"
                 >
                 </v-select>
               </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
+              <v-col
+                  cols="5"
+                  sm="12"
+                  md="5"
+              >
                 <v-select
                     multiple
                     required
@@ -216,7 +250,13 @@
                 >
                 </v-select>
               </v-col>
-              <v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                  cols="5"
+                  sm="12"
+                  md="5"
+              >
                 <v-select
                     multiple
                     required
@@ -227,7 +267,11 @@
                 >
                 </v-select>
               </v-col>
-              <v-col>
+              <v-col
+                  cols="5"
+                  sm="12"
+                  md="5"
+              >
                 <v-select
                     multiple
                     required
@@ -239,16 +283,28 @@
                 </v-select>
               </v-col>
             </v-row>
-            <v-row>
-              <v-textarea
-                  label="Organization Contact Protocol"
-              ></v-textarea>
-            </v-row>
-            <v-row>
-              <v-textarea
-                  label="*Services"
-                  :rules="serviceDescriptionRule"
-              ></v-textarea>
+            <v-row class="mt-3">
+              <v-col
+                  cols="5"
+                  sm="12"
+                  md="5"
+              >
+                <v-textarea
+                    rows="2"
+                    label="Contact Protocol"
+                ></v-textarea>
+              </v-col>
+              <v-col
+                  cols="5"
+                  sm="12"
+                  md="5"
+              >
+                <v-textarea
+                    rows="2"
+                    label="*Services"
+                    :rules="serviceDescriptionRule"
+                ></v-textarea>
+              </v-col>
             </v-row>
           </v-container>
           <small>*indicates required field</small>

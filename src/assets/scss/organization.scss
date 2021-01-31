@@ -1,0 +1,22 @@
+
+$breakpoints:(
+        'x-small': (max-width: 767px),
+        'small': (min-width: 767px),
+        'medium': (min-width: 992px),
+        'large': (min-width: 1200px)
+)!default;
+
+@mixin respond-to($breakpoint){
+  @if map-has-key($breakpoints, $breakpoint){
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+}
+
+.details-font{
+  font-size: 2em;
+  @include respond-to('x-small'){
+    font-size: 1.5em;
+  }
+}

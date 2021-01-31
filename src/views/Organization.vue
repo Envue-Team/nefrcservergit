@@ -1,56 +1,160 @@
 <template>
   <v-container>
-    <span v-if="verifyAccess('update')">
-    <a class="btn display-4 font-weight-bold blue-grey--text text-capitalize" @click="openDialog('Edit')">
-      {{ organization.name }}
-    </a><br/>
-    </span>
-    <span v-else class=" display-4 font-weight-bold blue-grey--text text-capitalize">
-            {{ organization.name }}
-    </span>
-    <a :href="organization.website" class="red--text text--darken-3">
-      {{ organization.website }}
-    </a><span v-if="organization.phones != ''"> | {{ organization.phones[0].number}}</span>
-    <address class="text-capitalize">
-      {{ organization.street_number }} {{ organization.street_name}}
-      {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
-      <br/>
-      <span v-for="county in organization.counties" :key="county.id">
-                  {{county.name}}
-                </span>
-    </address>
+    <span class="hidden-md-and-down">
+      <span v-if="verifyAccess('update')">
+        <a class="btn text-md-h2 text-sm-h5 font-weight-bold blue-grey--text text-capitalize" @click="openDialog('Edit')">
+          {{ organization.name }}
+        </a><br/>
+        </span>
+        <span v-else class="text-md-h2 text-sm-h5 font-weight-bold blue-grey--text text-capitalize">
+                {{ organization.name }}<br/>
+        </span>
+        <a :href="organization.website" class="red--text text--darken-3">
+          {{ organization.website }}
+        </a><span v-if="organization.phones != ''"> | {{ organization.phones[0].number}}</span>
+        <address class="text-capitalize">
+          {{ organization.street_number }} {{ organization.street_name}}
+          {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
+          <br/>
+          <span v-for="county in organization.counties" :key="county.id">
+            {{county.name}}
+          </span>
+        </address>
+      </span>
     <v-row><!---------------------First Container Row-------------------------------->
-      <v-col class="col-9"><!----------------------Left Column-------------------------->
+      <!---------------------------------Small Screen------------------------------------->
+      <v-col
+          class="hidden-md-and-up"
+          cols="12"
+      >
+        <v-card>
+          <v-toolbar
+              color="grey darken-3"
+          >
+            <v-toolbar-title
+                class="white--text"
+            >
+               <span v-if="verifyAccess('update')">
+                <a class="btn text-md-h2 text-sm-h5 text-capitalize" @click="openDialog('Edit')">
+                  {{ organization.name }}
+                </a><br/>
+                </span>
+                <span v-else class="text-md-h2 text-sm-h5 text-capitalize">
+                  {{ organization.name }}<br/>
+                </span>
+            </v-toolbar-title>
+          </v-toolbar>
+          <v-card-title>
+
+            <v-card-subtitle>
+              <a :href="organization.website" class="red--text text--darken-3">
+                {{ organization.website }}
+              </a><span v-if="organization.phones != ''"><br/> | {{ organization.phones[0].number}}</span>
+              <br/>
+              {{ organization.street_number }} {{ organization.street_name}}
+              {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
+              <br/>
+              <span v-for="county in organization.counties" :key="county.id">
+                {{county.name}}
+              </span>
+            </v-card-subtitle>
+          </v-card-title>
+          <v-card-title>Notes</v-card-title>
+          <v-card-text>
+            <span v-if="verifyAccess('update')">
+             <a class="btn" @click="contact_note_dlg=true">
+               <strong>Last Contact Made</strong>
+             </a><br/>
+            </span>
+            <span v-else>
+              <strong>
+                 Last Contact Made
+              </strong>
+              <br/>
+            </span>
+            {{ organization.last_contact }}<br/>
+            <span v-if="verifyAccess('update')">
+             <a class="btn text-capitalize grey--text text--darken-2 details-font" @click="op_action_dlg=true">
+               Opportunities/Actions Needed to Improve Profile
+             </a>
+            </span>
+            <span v-else>
+              <strong>
+               Opportunities/Actions Needed to Improve Profile:
+              </strong>
+            </span>
+            {{ organization.action }}<br/>
+            <span v-if="verifyAccess('update')">
+               <a class="btn" @click="add_note_dlg=true">
+                 <strong>Note: </strong>
+               </a>
+            </span>
+            <span v-else>
+               <strong>
+                 Note:
+               </strong>
+            </span>
+            {{ organization.notes }}
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-title>Information</v-card-title>
+          <v-card-text>
+            <strong>National DCS MOU Partner:</strong> {{ organization.mou }}<br/>
+            <strong>Organization Service:</strong> {{ organization.service }}<br/>
+            <strong>Lines of Business</strong>
+            <br/>
+            <span v-for="lob in organization.line_of_businesses" :key="lob.id">
+                      {{lob.name}}
+                  </span>
+            <br/> ARC Relationship
+            <span v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                      {{arcrel.name}}
+                  </span>
+            <br/><strong>Agency Types</strong>
+            <span v-for="agtype in organization.agency_types" :key="agtype.id">
+                      {{agtype.name}}
+                  </span>
+            <br/><strong>Service</strong>
+            {{ organization.service }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <!---------------------------------//Small Screen------------------------------------->
+
+
+      <v-col cols="9"><!----------------------Left Column-------------------------->
         <v-row><!----Notes--->
-          <v-col>
+          <v-col
+            class="hidden-md-and-down"
+          >
             <v-card elevation="3" max-width="100%" class="d-inline-flex" color="light-grey" style="border-radius: 5px;">
             <v-container style="max-width: 200px">
               <v-card
-                  style="margin-top:-20px; border-radius: 3% 10%; margin-left:-15px; padding: 10px"
+                  style="margin-top:-12px; border-radius: 3% 10%; margin-left:-15px; padding: 10px"
                   color="blue darken-3"
               >
                 <v-toolbar-title class="white--text">Important Notes</v-toolbar-title>
               </v-card>
             </v-container>
-            <v-card-text>
+            <v-card-text style="width: 1200px">
             <span v-if="verifyAccess('update')">
-             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="contact_note_dlg=true">
+             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2 details-font" @click="contact_note_dlg=true">
                Last Contact Made
              </a><br/>
             </span>
             <span v-else>
-              <span class="font-weight-bold text-capitalize grey--text text--darken-2">
+              <span class="text-capitalize grey--text text--darken-2 details-font">
                  Last Contact Made
               </span><br/>
             </span>
             {{ organization.last_contact }}<br/>
             <span v-if="verifyAccess('update')">
-             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" @click="op_action_dlg=true">
+             <a class="btn font-weight-bold text-capitalize grey--text text--darken-2" style="font-size: 2em" @click="op_action_dlg=true">
                Opportunities/Actions Needed to Improve Profile
              </a><br/>
             </span>
             <span v-else>
-              <span class="btn font-weight-bold text-capitalize grey--text text--darken-2">
+              <span class="btn font-weight-bold text-capitalize grey--text text--darken-2" style="font-size: 2em">
                Opportunities/Actions Needed to Improve Profile
               </span><br/>
             </span>
@@ -71,17 +175,19 @@
           </v-col>
         </v-row>
         <v-row><!----Data---->
-          <v-col>
+          <v-col
+              class="hidden-md-and-down"
+          >
             <v-card elevation="3" class="d-inline-flex" style="border-radius: 5px;">
-              <v-container style="max-width: 150px">
+              <v-container style="max-width: 200px">
                 <v-card
-                    style="margin-top:-20px; border-radius: 3% 10%; margin-left:-15px; padding: 10px"
+                    style="margin-top:-12px; border-radius: 3% 10%; margin-left:-15px; padding: 10px"
                     color="green darken-3"
                 >
                 <v-toolbar-title class="white--text">Information</v-toolbar-title>
               </v-card>
               </v-container>
-                <v-card-text>
+                <v-card-text style="width: 1200px">
                   <strong>National DCS MOU Partner:</strong> {{ organization.mou }}<br/>
                   <strong>Organization Service:</strong> {{ organization.service }}<br/>
                   <strong>Lines of Business</strong>
@@ -104,97 +210,103 @@
             </v-card>
           </v-col>
         </v-row>
-        <v-row><!----Table---->
-          <v-card elevation="3" class="mb-3">
-            <!--------------------------File List Table-------------------------------->
-            <v-data-table
-                :headers="headers"
-                :search="search"
-                :items="files"
-                item-key="id"
-                multi-sort
-            >
-              <template v-slot:top>
-                <v-text-field
-                    v-model="search"
-                    label="Search Files"
-                    class="mx-4"
-                ></v-text-field>
-              </template>
-              <template v-slot:item.name="item">
-                <p>{{ item.item.name  }}</p>
-              </template>
-              <template v-slot:item.date="item">
-                <p>{{ item.item.date }}</p>
-              </template>
-              <template v-slot:item.author="item">
-                <p>{{ item.item.author }}</p>
-              </template>
-              <template v-slot:item.download="item">
-                <v-btn
-                    depressed
-                    small
-                    @click="downloadFile(item)"
-                >
-                  Download
-                  <v-icon
-                      color="orange darken-4"
-                      right
+        <v-row
+          class="hidden-md-and-down"
+        ><!----Table---->
+          <v-col>
+            <v-card elevation="3" class="mb-3">
+              <!--------------------------File List Table-------------------------------->
+              <v-data-table
+                  :headers="headers"
+                  :search="search"
+                  :items="files"
+                  item-key="id"
+                  multi-sort
+              >
+                <template v-slot:top>
+                  <v-text-field
+                      v-model="search"
+                      label="Search Files"
+                      class="mx-4"
+                  ></v-text-field>
+                </template>
+                <template v-slot:item.name="item">
+                  <p>{{ item.item.name  }}</p>
+                </template>
+                <template v-slot:item.date="item">
+                  <p>{{ item.item.date }}</p>
+                </template>
+                <template v-slot:item.author="item">
+                  <p>{{ item.item.author }}</p>
+                </template>
+                <template v-slot:item.download="item">
+                  <v-btn
+                      depressed
+                      small
+                      @click="downloadFile(item)"
                   >
-                    mdi-arrow-down
-                  </v-icon>
-                </v-btn>
-              </template>
-              <template v-slot:item.remove="item">
-                <v-btn
-                    depressed
-                    small
-                    @click="deleteFile(item)"
-                >
-                  <v-icon
-                      color="orange darken-4"
-                      right
-                  >
-                    mdi-trash-can
-                  </v-icon>
-                </v-btn>
-              </template>
-              <template v-slot:footer>
-                <v-row>
-                  <v-col cols="7">
-                    <v-file-input
-                        label="Upload new file"
-                        show-size
-                        counter
-                        dense
-                        @change="filesChange"
-                    ></v-file-input>
-                  </v-col>
-                  <v-col>
-                    <v-btn
-                        depressed
-                        small
-                        :disabled="upload_disabled"
-                        @click="uploadFile"
+                    Download
+                    <v-icon
+                        color="orange darken-4"
+                        right
                     >
-                      Upload
-                      <v-icon
-                          color="orange darken-4"
-                          right
+                      mdi-arrow-down
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <template v-slot:item.remove="item">
+                  <v-btn
+                      depressed
+                      small
+                      @click="deleteFile(item)"
+                  >
+                    <v-icon
+                        color="orange darken-4"
+                        right
+                    >
+                      mdi-trash-can
+                    </v-icon>
+                  </v-btn>
+                </template>
+                <template v-slot:footer>
+                  <v-row>
+                    <v-col cols="7">
+                      <v-file-input
+                          label="Upload new file"
+                          show-size
+                          counter
+                          dense
+                          @change="filesChange"
+                      ></v-file-input>
+                    </v-col>
+                    <v-col>
+                      <v-btn
+                          depressed
+                          small
+                          :disabled="upload_disabled"
+                          @click="uploadFile"
                       >
-                        mdi-arrow-up
-                      </v-icon>
-                    </v-btn>
-                  </v-col>
-                </v-row>
-              </template>
-            </v-data-table>
-            <!--------------------------//File List Table-------------------------------->
-          </v-card>
+                        Upload
+                        <v-icon
+                            color="orange darken-4"
+                            right
+                        >
+                          mdi-arrow-up
+                        </v-icon>
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </template>
+              </v-data-table>
+              <!--------------------------//File List Table-------------------------------->
+            </v-card>
+          </v-col>
         </v-row>
       </v-col><!----------------------//Left Column-------------------------->
 
-      <v-col><!--------------------------Middle Column----------------->
+      <v-col
+          class="hidden-md-and-down"
+      ><!--------------------------Middle Column----------------->
         <v-card elevation="3" class="mb-3">
           <v-toolbar
             color="purple darken-2"
@@ -249,14 +361,6 @@
           </v-card-text>
         </v-card>
         <v-card elevation="3" class="mb-3">
-<!--          <v-container style="max-width: 130px; margin-left: -15px">-->
-<!--            <v-card-->
-<!--                style="margin-top:-20px; border-radius: 3% 10%;  padding: 10px"-->
-<!--                color="purple darken-3"-->
-<!--            >-->
-<!--              <v-toolbar-title class="white--text">Manager</v-toolbar-title>-->
-<!--            </v-card>-->
-<!--          </v-container>-->
           <v-toolbar
               color="purple darken-2"
           >
@@ -511,7 +615,7 @@
                   >
                   </v-select>
                 </v-col>
-                <v-col cols="3">
+                <v-col cols="2">
                   <v-text-field
                       label="Zip"
                       required
@@ -699,7 +803,7 @@ import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyType
 import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
 import RoleDataService from "../services/RoleDataService";
-
+import "../assets/scss/organization.scss";
 //TODO: Sanitize and validate form input
 export default {
   name: "organization",
@@ -1587,9 +1691,5 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-.v-icon.on-hover.theme--dark
-  background-color: rgba(#FFF, 0.8)
-  >.v-icon__text
-    color: #000
-</style>
+
+

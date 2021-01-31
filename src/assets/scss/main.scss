@@ -1,0 +1,25 @@
+$breakpoints:(
+        'x-small': (max-width: 767px),
+        'small': (min-width: 767px),
+        'medium': (min-width: 992px),
+        'large': (min-width: 1200px)
+)!default;
+
+@mixin respond-to($breakpoint){
+  @if map-has-key($breakpoints, $breakpoint){
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  }
+}
+
+.page-title{
+  font-family: "Roboto", sans-serif;
+  margin-left: -50px;
+  font-size: 2em;
+  @include respond-to('x-small'){
+    font-family: "Roboto", sans-serif;
+    margin-left: 10px;
+    font-size: 2em;
+  }
+}
