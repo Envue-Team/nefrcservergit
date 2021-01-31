@@ -200,7 +200,6 @@ export default {
           console.log(response);
           let originalPassword = response.data[0].user.password;
           let salt = response.data[0].user.salt;
-
           this.UserId = response.data[0].user.id;
           this.PersonId = response.data[0].id
           this.UserRole = response.data[0].user.roles[0].id;

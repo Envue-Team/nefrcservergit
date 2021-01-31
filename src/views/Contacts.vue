@@ -16,37 +16,42 @@
               :items="volunteers"
               :search="search"
               item-key="id"
-              @click:row="nav"
+              
               multi-sort
               class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
                 <template v-if="item.first_name !== null">
-                  <span class="red--text">{{ item.name }}</span>
-                  <span v-if="item.public_safety"> (Public Safety)</span>
+                  <a v-on:click="nav(item)">
+                    <span class="red--text">{{ item.name }}</span>
+                  </a>
                 </template>
                 <template v-else-if="item.partner !== null">
-                  <span class="purple--text">{{ item.name }}</span>
-                  <span v-if="item.public_safety"> (Public Safety)</span>
+                  <a v-on:click="nav(item)">
+                    <span class="purple--text">{{ item.name }}</span>
+                    <span v-if="item.public_safety"> (Public Safety)</span>
+                  </a>
                 </template>
               </template>
               <template v-slot:item.address="{ item }">
                 <address>
-                  <span class="black--text">{{ item.address }}</span>
+                  <a v-on:click="nav(item)">
+                    <span class="black--text">{{ item.address }}</span>
+                  </a>
                 </address>
               </template>
               <template v-slot:item.emails="{ item }">
-                <div>
+                <a v-on:click="nav(item)">
                   <span>
                     {{ email.address }}
                   </span>
-                </div>
+                </a>
               </template>
               <template v-slot:item.phones="{ item }">
                 <a v-on:click="nav(item)">
-                  <div>
+                  <span>
                     {{ phone.number }}
-                  </div>
+                  </span>
                 </a>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
@@ -122,11 +127,12 @@
                       ></v-text-field>
                     </v-col>
                     <v-col cols="2">
-                      <v-text-field
+                      <v-select
                         label="State"
                         v-model="add_person.state"
                         :rules="nameRules"
-                      ></v-text-field>
+                        :items="states"
+                      ></v-select>
                     </v-col>
                     <v-col cols="3">
                       <v-text-field
@@ -141,7 +147,7 @@
                       <v-text-field
                         label="County"
                         v-model="add_person.county"
-                        :rules="zipRules"
+                        :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -150,13 +156,17 @@
                       <v-text-field
                         label="Primary Phone"
                         v-model="add_person.primaryPhone"
+                        placeholder="(XXX) XXX-XXXX"
+                        @keyup="formatPrimaryPhone"
                         :rules="phoneRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
                         label="Secondary Phone"
+                        placeholder="(XXX) XXX-XXXX"
                         v-model="add_person.secondaryPhone"
+                        @keyup="formatSecondaryPhone"
                         :rules="phoneRules"
                       ></v-text-field>
                     </v-col>
@@ -206,6 +216,10 @@
 import ContactDataService from "@/services/ContactDataService";
 import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from "../services/PhoneDataService";
+//activity log addition
+import UserDataService from "../services/UserDataService";
+import ActivityLogDataService from "../services/ActivityLogDataService";
+//close activity log addition
 
 export default {
   name: "volunteers-list",
@@ -214,6 +228,8 @@ export default {
     return {
       volunteers: [],
       add_person_dlg: false,
+      phone1:'',
+      phone2:'',
       currentVolunteer: null,
       search: "",
       currentIndex: -1,
@@ -248,6 +264,16 @@ export default {
         primaryEmail: "",
         secondaryEmail: "",
       },
+      states:[
+          "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT",
+          "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID",
+          "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+          "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND",
+          "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+          "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+          "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV",
+          "WY"
+        ],
       /*
         Zip integer streetNumberRules
         County String nameRules
@@ -375,16 +401,16 @@ export default {
       this.currentIndex = index;
     },
 
-    removeAllVolunteers() {
-      ContactDataService.deleteAll()
-        .then((response) => {
-          console.log(response.data);
-          this.refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
+    // removeAllVolunteers() {
+    //   ContactDataService.deleteAll()
+    //     .then((response) => {
+    //       console.log(response.data);
+    //       this.refreshList();
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // },
 
     searchTitle() {
       ContactDataService.findByName(this.first_name)
@@ -407,20 +433,18 @@ export default {
         zip: this.add_person.zip,
         county: this.add_person.county,
       };
-      //validation with regexs
-      
-      // var email1 = {
-      //   "address": this.add_person.primaryEmail,
-      //   // "personId":
-      // }
-      // var phone = {
-      //   person.id,
-      //   this.add_person.primaryPhone,
-      // };
       data.services = this.add_person.services;
       ContactDataService.create(data).
       then(response=>{
-        // console.log(response);
+        console.log(response);
+
+        //activity log addition
+        var logname = data.first_name +" "+data.last_name;
+        //action variable depends on which method the call is made from
+        var action = "created";
+        this.addToLog(logname, action);
+        // close activity log addition
+
         this.retrieveVolunteers();
         this.add_organization_dlg = false;
         return response.data.id;
@@ -473,29 +497,74 @@ export default {
     removePerson(item) {
       if (
         confirm(
-          "Are you sure you want to remove " +
-            item.first_name +
-            " " +
-            item.last_name +
-            " from the table?"
+          "Are you sure you want to remove " +name+" from the table?"
         )
       ) {
         ContactDataService.delete(item.id)
           .then((response) => {
-            console.log(response.data);
-            window.location.href = "/contacts";
+            console.log(response);
+            //activity log addition
+            var action = "deleted";
+            var name = item.first_name+" "+item.last_name;
+            this.addToLog(name, action);
+            //close activity log addition
+
+            // console.log(response.data);
+            // window.location.href = "/contacts";
             this.refreshList();
           })
           .catch((e) => {
             console.log(e);
           });
       }
+      this.refreshList();
+    },
+    //activity log addition
+    //method to add a record to the activity log, takes input name of the item being manipulated
+    addToLog(item, action) {
+      var data = {
+        entry: ""
+      };
+      var username;
+      UserDataService.getByUserId(this.$session.get("userID"))
+        .then((response) => {
+          // console.log(response);
+          username = response.data.person.first_name+" "+response.data.person.last_name;
+          data.entry = item+" was "+action+" by "+username;
+          console.log(data.entry);
+
+          //TODO uncomment to keep workin on activity log
+          // ActivityLogDataService.create(data).
+          // then((response) => {
+          //   console.log(response);
+          // })
+          // .catch((e) => {
+          //   console.log(e.message);
+          // });
+        })
+        .catch((e) => {
+          console.log(e.message);
+        });
+      //todo: add backend functionality to store string in database
+    },
+  
+    //format phone number as it is entered
+    formatPrimaryPhone() {
+      this.add_person.primaryPhone = this.add_person.primaryPhone.replace(/[^0-9]/g, '')
+        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
+        .substr(0,13);
+    },
+    formatSecondaryPhone() {
+      this.add_person.secondaryPhone = this.add_person.secondaryPhone.replace(/[^0-9]/g, '')
+        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
+        .substr(0,13);
     },
   },
+
   mounted() {
     this.retrieveVolunteers();
   },
-};
+}
 </script>
 
 <style scoped>

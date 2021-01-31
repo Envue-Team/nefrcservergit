@@ -14,7 +14,7 @@ expapp.use(cors());
 expapp.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
-expapp.use(bodyParser.urlencoded({ extended: true }));
+expapp.use(bodyParser.urlencoded({ extended: true })); 
 
 require("../src/routes/organization.routes")(expapp);
 require("../src/routes/note.routes")(expapp);
@@ -39,6 +39,8 @@ require("../src/routes/organization_agency_type.routes")(expapp);
 require("../src/routes/arc_relationship.routes")(expapp);
 require("../src/routes/organization_arc_relationship.routes")(expapp);
 require("../src/routes/role_permission.routes")(expapp);
+require("../src/routes/activity_log.routes")(expapp);
+
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;

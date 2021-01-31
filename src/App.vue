@@ -49,6 +49,7 @@ export default {
     logout() {
       this.$authenticated = false;
       this.$session.destroy();
+
       this.$router.replace({name: "login"});
     },
     findUserRole() {
@@ -60,6 +61,8 @@ export default {
   },
   mounted() {
     this.findUserRole();
+      this.$router.replace({ name: "login" });
+    }
   }
 };
 </script>

@@ -455,8 +455,9 @@
                     md="6"
                 >
                   <v-text-field
-                      label="Agency Name*"
+                      label="*Agency Name"
                       required
+                      :rules="businessNameRule"
                       v-model="organization.name"
                   ></v-text-field>
                 </v-col>
@@ -468,8 +469,9 @@
                     md="4"
                 >
                   <v-text-field
-                      label="Street Number"
+                      label="*Street Number"
                       required
+                      :rules="streetNumberRule"
                       v-model="organization.street_number"
                   ></v-text-field>
                 </v-col>
@@ -479,8 +481,9 @@
                     md="4"
                 >
                   <v-text-field
-                      label="Street Name"
+                      label="*Street Name"
                       required
+                      :rules="streetNameRule"
                       v-model="organization.street_name"
                   ></v-text-field>
                 </v-col>
@@ -494,6 +497,7 @@
                   <v-text-field
                       label="City"
                       required
+                      :rules="cityRule"
                       v-model="organization.city"
                   ></v-text-field>
                 </v-col>
@@ -501,6 +505,7 @@
                   <v-select
                     required
                     :items="states"
+                    :rules="stateRule"
                     v-model="organization.state"
                     label="State"
                   >
@@ -510,6 +515,7 @@
                   <v-text-field
                       label="Zip"
                       required
+                      :rules="zipRule"
                       v-model="organization.zip"
                   ></v-text-field>
                 </v-col>
@@ -524,6 +530,7 @@
                 <v-col cols="6">
                   <v-text-field
                       label="Number"
+                      :rules="businessPhoneRule"
                       v-model="organization.phones[0].number"
                   ></v-text-field>
                 </v-col>
@@ -533,6 +540,7 @@
                   <v-select
                     multiple
                     required
+                    :rules="countyRule"
                     v-model="organization_counties"
                     :items="all_counties"
                     label="Counties"
@@ -545,6 +553,7 @@
                   <v-select
                     :items="mou_options"
                     required
+                    :rules="mouRule"
                     v-model="organization.mou"
                     label="National DCS MOU Partner"
                   >
@@ -556,6 +565,7 @@
                   <v-select
                       multiple
                       required
+                      :rules="mouRule"
                       v-model="organization_lines_of_business"
                       :items="all_lines_of_business"
                       label="Line of Business"
@@ -566,6 +576,7 @@
                   <v-select
                       multiple
                       required
+                      :rules="arcFunctionRule"
                       v-model="organization_arc_relationships"
                       :items="all_arc_relationships"
                       label="Arc Relationships"
@@ -576,6 +587,7 @@
                   <v-select
                       multiple
                       v-model="organization_agency_types"
+                      :rules="agencyRule"
                       :items="all_agency_types"
                       label="Agency Types"
                   >
@@ -591,6 +603,7 @@
               <v-row>
                 <v-textarea
                     v-model="organization.service"
+                    :rules="serviceDescriptionRule"
                     label="Services"
                 ></v-textarea>
               </v-row>
@@ -614,6 +627,7 @@
               Delete
             </v-btn>
             <v-btn
+                :disabled="!valid"
                 color="blue darken-1"
                 text
                 @click="updateOrganization"
@@ -661,10 +675,9 @@
 
 
 
-import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOfBusinessDataService";
-
 const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3;
 
+import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOfBusinessDataService";
 import PersonDataService from "@/services/PersonDataService";
 import RelationshipManagerDataService from "../services/RelationshipManagerDataService";
 import OrganizationDataService from "@/services/OrganizationDataService";
@@ -685,7 +698,6 @@ import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRe
 import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
 import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
-import RolePermisssionDataService from "@/services/RolePermissionDataService";
 import RoleDataService from "../services/RoleDataService";
 
 //TODO: Sanitize and validate form input
@@ -702,6 +714,66 @@ export default {
       isOwner: false,
       permissions: [],
       confirm_delete: false,
+
+      /**
+       * Form validation
+       **/
+      valid: false,
+      businessNameRule: [
+        v => !!v || 'A business name is required',
+      ],
+      contactNameRule: [
+        v => !!v || 'A contact name is required',
+      ],
+      streetNumberRule: [
+        v => /^[0-9]+$/.test(v) || 'The street number is required and must only be numeric'
+      ],
+      streetNameRule:[
+        v => !!v || 'A street name is required',
+      ],
+      cityRule:[
+        v => !!v || 'A city must be selected',
+      ],
+      stateRule:[
+        v => !!v || 'A state must be selected'
+      ],
+      countyRule:[
+        v => !!v || 'At least one county must be selected'
+      ],
+      zipRule:[
+        v => !!v || 'A zip code is required',
+        v => /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(v) || 'Please, input a valid zip code'
+      ],
+      businessPhoneRule:[
+        v => /^((1-)?\d{3}-\d{3}-\d{4}){0,1}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
+      ],
+      phoneRule:[
+        v => !!v || 'Phone number is required',
+        v => /^(1-)?\d{3}-\d{3}-\d{4}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
+      ],
+      email: [
+        v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'Please, input a valid email address'
+      ],
+      mouRule:[
+        v => !!v || 'MOU must be selected'
+      ],
+      lobRule:[
+        v => !!v || 'A line of business must be selected'
+      ],
+      arcFunctionRule:[
+        v => !!v || 'ARC type must be selected'
+      ],
+      serviceDescriptionRule:[
+        v => !!v || 'Please provide a service description'
+      ],
+      agencyRule:[
+        v => !!v || 'An agency type must be selected'
+      ],
+      arcFunctionRule:[
+        v => !!v || 'ARC type must be selected'
+      ],
+
+
       /**
        * Counties
        **/
@@ -1443,9 +1515,6 @@ export default {
           }
           break;
         case 'update':
-          console.log(this.permissions);
-          console.log(this.permissions.includes('editOwnOrgs'));
-          console.log(this.isOwner);
           if(this.permissions.includes('editAllOrgs')){
             return true;
           }else if(this.permissions.includes('editOwnOrgs') && this.isOwner){
