@@ -1,0 +1,14 @@
+.page-title {
+  font-family: "Roboto", sans-serif;
+  margin-left: -50px;
+  font-size: 2em;
+}
+@media (max-width: 767px) {
+  .page-title {
+    font-family: "Roboto", sans-serif;
+    margin-left: 10px;
+    font-size: 2em;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

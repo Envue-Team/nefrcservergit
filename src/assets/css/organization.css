@@ -1,0 +1,10 @@
+.details-font {
+  font-size: 2em;
+}
+@media (max-width: 767px) {
+  .details-font {
+    font-size: 1.5em;
+  }
+}
+
+/*# sourceMappingURL=organization.css.map */

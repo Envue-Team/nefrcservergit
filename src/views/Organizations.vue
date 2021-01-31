@@ -1,9 +1,17 @@
 <template>
-<v-container>
-  <div class="red--text text--darken-2 page-title">Connections</div>
+  <v-container>
+  <v-row>
+    <v-col
+      sm="12"
+      md="6"
+      lg="6"
+    >
+      <div class="red--text text--darken-2 page-title">Connections</div>
+    </v-col>
+  </v-row>
   <v-row>
       <v-col>
-        <v-row>
+        <v-row v-show="verifyAccess('create')">
           <v-col>
             <v-hover
                 v-slot="{ hover }"
