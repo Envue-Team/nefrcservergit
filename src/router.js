@@ -9,7 +9,8 @@ import Register from './views/Register.vue'
 import User from './views/User'
 import Users from './views/Users'
 import Login from './views/Login'
- 
+import UserPage from './views/UserPage'
+
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -53,12 +54,26 @@ export default new Router({
     {
       path: '/users',
       name: 'users',
-      component: Users
+      component: function() {
+        if (this.$session.get("userRole") == 1) {
+          return Users;
+        }
+      }
     },
+    // {
+    //   path: '/users',
+    //   name: 'users',
+    //   component: Users
+    // },
     {
       path: '/user/:personId',
       name: 'user',
       component: User
+    },
+    {
+      path: '/userpage',
+      name: 'userpage',
+      component: UserPage
     },
   ]
 })

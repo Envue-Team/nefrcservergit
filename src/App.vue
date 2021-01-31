@@ -17,7 +17,7 @@
       <router-link to="/home" class="red--text text--darken-2 mr-3">Home</router-link> |
       <router-link to="/contacts" class="red--text text--darken-2 mr-3 ml-3 ">Contacts</router-link> |
       <router-link to="/organizations" class="red--text text--darken-2 ml-3 mr-3">Connections</router-link> |
-      <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3">Users</router-link>
+      <router-link to="/users" class="red--text text--darken-2 ml-3 mr-3" >Users</router-link>
       <v-spacer></v-spacer>
       <v-btn
           depressed
@@ -42,10 +42,25 @@ export default {
   //     this.$router.replace({ name: "login" });
   //   }
   // },
+  data: () => ({
+    userRole: false,
+  }),
   methods: {
     logout() {
       this.$authenticated = false;
       this.$session.destroy();
+
+      this.$router.replace({name: "login"});
+    },
+    findUserRole() {
+      let userRole = this.$session.get("userRole");
+      if(userRole == 1) {
+        this.userRole = true;
+      }
+    }
+  },
+  mounted() {
+    this.findUserRole();
       this.$router.replace({ name: "login" });
     }
   }
