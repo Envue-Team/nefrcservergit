@@ -87,11 +87,12 @@
                                   ></v-text-field>
                                 </v-col>
                                 <v-col cols="2">
-                                  <v-text-field
+                                  <v-select
                                     label="State"
                                     v-model="edit_person.state"
                                     :rules="nameRules"
-                                  ></v-text-field>
+                                    :items="states"
+                                  ></v-select>
                                 </v-col>
                                 <v-col cols="3">
                                   <v-text-field
@@ -422,6 +423,16 @@ export default {
       //     primaryEmail: '',
       //     secondaryEmail: '',
       // },
+      states:[
+          "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT",
+          "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID",
+          "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+          "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND",
+          "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+          "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+          "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV",
+          "WY"
+        ],
       edit_person: {
         first_name: "",
         last_name: "",
@@ -520,6 +531,7 @@ export default {
 				// });
                 // console.log(response.data);
                 this.edit_person = response.data;
+                console.log("logging response");
                 console.log(response);
                 response.data.phones.forEach(phone => {
                     if(phone.isPrimary) {

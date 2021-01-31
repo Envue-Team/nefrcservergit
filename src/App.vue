@@ -46,9 +46,9 @@ export default {
     logout() {
       this.$authenticated = false;
       this.$session.destroy();
-      this.$router.replace({name: "login"});
-    },
-  },
+      this.$router.replace({ name: "login" });
+    }
+  }
 };
 </script>
 

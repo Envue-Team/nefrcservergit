@@ -181,6 +181,11 @@ export default {
             let originalPassword = response.data[0].user.password;
             let salt = response.data[0].user.salt;
 
+            //jason addition
+            // console.log("login response:");
+            // console.log(response);
+            // this.FirstName = response.dat
+
             this.UserId = response.data[0].user.id;
             this.UserRole = response.data[0].user.roles[0].id;
             let authenticated = this.testPassword(salt, originalPassword, this.loginPassword);
@@ -214,6 +219,7 @@ export default {
         this.$session.start();
         this.$session.set('userID', this.UserId);
         this.$session.set('userRole', this.UserRole);
+        console.log("the user is "+this.FirstName+" "+this.LastName);
         this.$router.replace({name: "home"});
       } else {
         console.log("Wrong password");
