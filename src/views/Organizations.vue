@@ -2,8 +2,8 @@
 <v-container>
   <div class="red--text text--darken-2 page-title">Connections</div>
   <v-row>
-      <v-col class="col-12 ">
-        <v-row>
+      <v-col>
+        <v-row v-show="verifyAccess('create')">
           <v-col>
             <v-hover
                 v-slot="{ hover }"
@@ -44,7 +44,7 @@
             class="text-capitalize"
             >
             <template v-slot:body.append="{ item }">
-              <div class="row">
+              <div class="row" style="padding-bottom: 20px">
                 <div class="col" style="margin-bottom: -25px; padding: 5px">
                   <JsonExcel
                       class="btn btn-default"
@@ -82,123 +82,12 @@
         </v-card>
     </v-col>
   </v-row>
-  <!---------------------------------Add Organization Dialog------------------------------->
-<!--  <v-dialog-->
-<!--      v-model="add_organization_dlg"-->
-<!--      max-width="600px"-->
-<!--  >-->
-<!--    <v-card>-->
-<!--      <v-form>-->
-<!--        <v-card-title>-->
-<!--          <span class="headline">Organization Information</span>-->
-<!--        </v-card-title>-->
-<!--        <v-card-text>-->
-<!--          <v-container>-->
-<!--            <v-row>-->
-<!--              <v-col-->
-<!--                  cols="6"-->
-<!--                  sm="6"-->
-<!--                  md="6"-->
-<!--              >-->
-<!--                <v-text-field-->
-<!--                    label="Agency Name*"-->
-<!--                    required-->
-<!--                    v-model="add_organization.name"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--            <v-row>-->
-<!--              <v-col-->
-<!--                  cols="12"-->
-<!--                  sm="6"-->
-<!--                  md="4"-->
-<!--              >-->
-<!--                <v-text-field-->
-<!--                    label="Street Number"-->
-<!--                    v-model="add_organization.street_number"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--              <v-col-->
-<!--                  cols="12"-->
-<!--                  sm="6"-->
-<!--                  md="4"-->
-<!--              >-->
-<!--                <v-text-field-->
-<!--                    label="Street Name"-->
-<!--                    v-model="add_organization.street_name"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--            <v-row>-->
-<!--              <v-col-->
-<!--                  cols="3"-->
-<!--                  sm="6"-->
-<!--                  md="4"-->
-<!--              >-->
-<!--                <v-text-field-->
-<!--                    label="City"-->
-<!--                    v-model="add_organization.city"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--              <v-col cols="2">-->
-<!--                <v-text-field-->
-<!--                    label="State"-->
-<!--                    v-model="add_organization.state"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--              <v-col cols="3">-->
-<!--                <v-text-field-->
-<!--                    label="Zip"-->
-<!--                    v-model="add_organization.zip"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--            <v-row>-->
-<!--              <v-col cols="6">-->
-<!--                <v-text-field-->
-<!--                    label="County"-->
-<!--                    v-model="add_organization.county"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--            <v-row>-->
-<!--              <v-col cols="6">-->
-<!--                <v-text-field-->
-<!--                    label="Website"-->
-<!--                    v-model="add_organization.website"-->
-<!--                ></v-text-field>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--          </v-container>-->
-<!--          <small>*indicates required field</small>-->
-<!--        </v-card-text>-->
-<!--        <v-card-actions>-->
-<!--          <v-spacer></v-spacer>-->
-<!--          <v-btn-->
-<!--              color="blue darken-1"-->
-<!--              text-->
-<!--              @click="add_organization_dlg=false"-->
-<!--          >-->
-<!--            Close-->
-<!--          </v-btn>-->
-<!--          <v-btn-->
-<!--              color="blue darken-1"-->
-<!--              text-->
-<!--              @click="addOrganization"-->
-<!--          >-->
-<!--            Save-->
-<!--          </v-btn>-->
-<!--        </v-card-actions>-->
-<!--      </v-form>-->
-<!--    </v-card>-->
-<!--  </v-dialog>-->
-  <!---------------------------------Add Organization Dialog------------------------------->
   <v-dialog
       v-model="add_organization_dlg"
       max-width="1200px"
   >
     <v-card>
-      <v-form>
+      <v-form ref="form" v-model="valid">
         <v-card-title>
           <span class="headline">Add Organization</span>
         </v-card-title>
@@ -211,9 +100,10 @@
                   md="6"
               >
                 <v-text-field
-                    label="Agency Name*"
+                    label="*Agency Name"
                     v-model="add_organization.name"
                     required
+                    :rules="businessNameRule"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -224,9 +114,10 @@
                   md="4"
               >
                 <v-text-field
-                    label="Street Number"
+                    label="*Street Number*"
                     v-model="add_organization.street_number"
                     required
+                    :rules="streetNumberRule"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -235,7 +126,7 @@
                   md="4"
               >
                 <v-text-field
-                    label="Street Name"
+                    label="*Street Name"
                     v-model="add_organization.street_name"
                     required
                 ></v-text-field>
@@ -248,9 +139,10 @@
                   md="4"
               >
                 <v-text-field
-                    label="City"
+                    label="*City"
                     v-model="add_organization.city"
                     required
+                    :rules="streetNameRule"
                 ></v-text-field>
               </v-col>
               <v-col cols="2">
@@ -258,15 +150,17 @@
                     required
                     :items="states"
                     v-model="add_organization.state"
-                    label="State"
+                    label="*State"
+                    :rules="stateRule"
                 >
                 </v-select>
               </v-col>
               <v-col cols="3">
                 <v-text-field
-                    label="Zip"
+                    label="*Zip"
                     v-model="add_organization.zip"
                     required
+                    :rules="zipRule"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -279,8 +173,9 @@
               </v-col>
               <v-col cols="6">
                 <v-text-field
-                    label="Number"
+                    label="Phone Number"
                     v-model="add_organization.phone"
+                    :rules="businessPhoneRule"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -291,7 +186,8 @@
                     required
                     :items="all_counties"
                     v-model="add_organization.county"
-                    label="Counties"
+                    :rules="countyRule"
+                    label="*Counties"
                 >
                 </v-select>
               </v-col>
@@ -302,7 +198,8 @@
                     :items="mou_options"
                     v-model="add_organization.mou"
                     required
-                    label="National DCS MOU Partner"
+                    label="*National DCS MOU Partner?"
+                    :rules="mouRule"
                 >
                 </v-select>
               </v-col>
@@ -314,7 +211,8 @@
                     required
                     :items="all_lines_of_business"
                     v-model="add_organization.line_of_business"
-                    label="Line of Business"
+                    :rules="lobRule"
+                    label="*Line of Business"
                 >
                 </v-select>
               </v-col>
@@ -324,16 +222,19 @@
                     required
                     :items="all_arc_relationships"
                     v-model="add_organization.arc_relationship"
-                    label="Arc Relationships"
+                    :rules="arcFunctionRule"
+                    label="*Arc Relationships"
                 >
                 </v-select>
               </v-col>
               <v-col>
                 <v-select
                     multiple
+                    required
                     :items="all_agency_types"
                     v-model="add_organization.agency_type"
-                    label="Agency Types"
+                    :rules="agencyRule"
+                    label="*Agency Types"
                 >
                 </v-select>
               </v-col>
@@ -345,7 +246,8 @@
             </v-row>
             <v-row>
               <v-textarea
-                  label="Services"
+                  label="*Services"
+                  :rules="serviceDescriptionRule"
               ></v-textarea>
             </v-row>
           </v-container>
@@ -361,6 +263,7 @@
             Close
           </v-btn>
           <v-btn
+              :disabled="!valid"
               color="blue darken-1"
               text
               @click="addOrganization"
@@ -377,8 +280,6 @@
 
 <script>
 import OrganizationDataService from "../services/OrganizationDataService";
-import PartnerDataService from "../services/PartnerDataService";
-import RelationshipDataService from "../services/RelationshipDataService";
 import JsonExcel from "vue-json-excel";
 import CountyDataService from "@/services/CountyDataService";
 import LineOfBusinessDataService from "@/services/LineOfBusinessDataService";
@@ -389,6 +290,7 @@ import OrganizationCountyDataService from "@/services/OrganizationCountyDataServ
 import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOfBusinessDataService";
 import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRelationshipDataService";
 import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
+import RoleDataService from "@/services/RoleDataService";
 
 export default {
   name: "organizations",
@@ -399,6 +301,68 @@ export default {
       return {
         isOwner: false,
         permissions: [],
+
+        /**
+         * Form validation
+         **/
+        valid: false,
+        businessNameRule: [
+          v => !!v || 'A business name is required',
+        ],
+        contactNameRule: [
+          v => !!v || 'A contact name is required',
+        ],
+        streetNumberRule: [
+          v => /^[0-9]+$/.test(v) || 'The street number is required and must only be numeric'
+        ],
+        streetNameRule:[
+          v => !!v || 'A street name is required',
+        ],
+        cityRule:[
+            v => !!v || 'A city must be selected',
+        ],
+        stateRule:[
+            v => !!v || 'A state must be selected'
+        ],
+        countyRule:[
+          v => !!v || 'At least one county must be selected'
+        ],
+        countyRule:[
+          v => !!v || 'At least one county must be selected'
+        ],
+        zipRule:[
+          v => !!v || 'A zip code is required',
+          v => /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(v) || 'Please, input a valid zip code'
+        ],
+        businessPhoneRule:[
+          v => /^((1-)?\d{3}-\d{3}-\d{4}){0,1}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
+        ],
+        phoneRule:[
+            v => !!v || 'Phone number is required',
+            v => /^(1-)?\d{3}-\d{3}-\d{4}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
+        ],
+        email: [
+          v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'Please, input a valid email address'
+        ],
+        mouRule:[
+          v => !!v || 'MOU must be selected'
+        ],
+        lobRule:[
+          v => !!v || 'A line of business must be selected'
+        ],
+        arcFunctionRule:[
+          v => !!v || 'ARC type must be selected'
+        ],
+        serviceDescriptionRule:[
+          v => !!v || 'Please provide a service description'
+        ],
+        agencyRule:[
+          v => !!v || 'An agency type must be selected'
+        ],
+        arcFunctionRule:[
+          v => !!v || 'ARC type must be selected'
+        ],
+
 
         /**
          * Counties
@@ -493,19 +457,6 @@ export default {
           "arc_relationship":''
 
         },
-        // add_organization: {
-        //   name: '',
-        //   street_number: '',
-        //   street_name: '',
-        //   city: '',
-        //   state: '',
-        //   zip: '',
-        //   county: '',
-        //   website: '',
-        //   poc: {
-        //     phone: '',
-        //     email:''
-        //   },
           type:'',
           critical_relationship_information: '', 
           services: '', 
@@ -522,7 +473,11 @@ export default {
           {text: 'Zip', value: 'zip'},
           {text: 'County', value: 'county_display' },
           {text: 'Manager', value: 'manager'},
-          {text: '', value:''}
+          {text: 'MOU', value: 'mou'},
+          {text: 'Line of Business', value: 'lob'},
+          {text: 'Services', value: 'service'},
+          {text: 'Agency Type', value: 'type'},
+          {text: 'Relationship', value: 'arc_rel'}
         ]
         if(this.filters.partners){
           headers.push({text: "Services", value:'partner.services'});
@@ -539,14 +494,26 @@ export default {
       },
     },
     methods: {
+      /**
+       * Files
+       **/
       updateExcelFields(){
         this.headers.forEach(header=>{
           this.excel_fields[header.text] = header.text.toLocaleLowerCase();
         });
       },
+
+      /**
+       * Form validation
+       **/
+      validate () {
+        this.$refs.form.validate()
+      },
+
       nav(item){
         this.$router.push({path: "organization/"+item.id});
       },
+
       addOrganization(){
           let data = {
               "name": this.add_organization.name,
@@ -627,6 +594,7 @@ export default {
             console.log(e)
           });
           this.add_organization_dlg = false;
+          this.retrieveOrganizations();
       },
       retrieveOrganizations() {
         OrganizationDataService.getAll()
@@ -634,6 +602,7 @@ export default {
             this.orgCache = response.data;
             console.log(this.orgCache);
             this.orgCache.forEach(organization=>{
+              //Format managers for table
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 organization.address = organization.street_number+" "+organization.street_name+"\n"+
                 organization.city+", "+organization.state+" "+organization.zip;
@@ -674,6 +643,21 @@ export default {
               });
               organization.county_display = organization.county_display
                   .substr(0,organization.county_display.length-2);
+              organization.lob = '';
+              organization.line_of_businesses.forEach(lob=>{
+                organization.lob += lob.name + "\n";
+              });
+              organization.lob = organization.lob.substr(0, organization.lob.length-2);
+              organization.type = '';
+              organization.agency_types.forEach(type=>{
+                organization.type += type.name + "\n";
+              });
+              organization.type = organization.type.substr(0, organization.type.length-2);
+              organization.arc_rel = '';
+              organization.arc_relationships.forEach(arc_rel=>{
+                organization.arc_rel += arc_rel.name + "\n";
+              });
+              organization.arc_rel = organization.arc_rel.substr(0, organization.arc_rel.length-2);
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 let manager = organization.relationship_managers[0].person;
                 let manager_data = manager.first_name+" "+manager.last_name;
@@ -752,115 +736,40 @@ export default {
           (this.filters['relationships'] && organization.relationship !== null && assign)
         });
         this.updateExcelFields();
-      }
+      },
+      /**
+       * Access
+       */
+      verifyAccess(type){
+        switch(type){
+          case 'create':
+            if(this.permissions.includes('createOrgs')){
+              return true;
+            } else {
+              return false;
+            }
+            break;
+          default:
+            return false;
+        }
+      },
+      setPagePermissions(){
+        let currentRole = this.$session.get("userRole");
+        RoleDataService.get(currentRole)
+            .then(response=>{
+              this.permissions = response.data.permissions.map(permission=>{return permission.name});
+              console.log(this.permissions);
+            })
+            .catch(e=>{console.log(e)});
+      },
     },
-  verifyAccess(type){
-    switch(type){
-      case 'read':
-        if(this.permissions.includes('readAllOrgs')){
-          return true;
-        } else {
-          return false;
-        }
-        break;
-      case 'update':
-        console.log(this.permissions);
-        console.log(this.permissions.includes('editOwnOrgs'));
-        console.log(this.isOwner);
-        if(this.permissions.includes('editAllOrgs')){
-          return true;
-        }else if(this.permissions.includes('editOwnOrgs') && this.isOwner){
-          return true;
-        }else{
-          return false;
-        }
-        break;
-      case 'delete':
-        if(this.permissions.includes('deleteAllOrgs')){
-          return true;
-        }else if(this.permissions.includes('deleteOwnOrgs') && this.isOwner){
-          return true;
-        }else{
-          return false;
-        }
-        break;
-      case 'reassign':
-        return this.permissions.includes('reassignAccountOwner');
-        break;
-      case 'create':
-        return this.permissions.includes('createOrgs');
-        break;
-      default:
-        return false;
-    }
-  },
-  /**
-   * Access
-   */
-  verifyAccess(type){
-    switch(type){
-      case 'read':
-        if(this.permissions.includes('readAllOrgs')){
-          return true;
-        } else {
-          return false;
-        }
-        break;
-      case 'update':
-        console.log(this.permissions);
-        console.log(this.permissions.includes('editOwnOrgs'));
-        console.log(this.isOwner);
-        if(this.permissions.includes('editAllOrgs')){
-          return true;
-        }else if(this.permissions.includes('editOwnOrgs') && this.isOwner){
-          return true;
-        }else{
-          return false;
-        }
-        break;
-      case 'delete':
-        if(this.permissions.includes('deleteAllOrgs')){
-          return true;
-        }else if(this.permissions.includes('deleteOwnOrgs') && this.isOwner){
-          return true;
-        }else{
-          return false;
-        }
-        break;
-      case 'reassign':
-        return this.permissions.includes('reassignAccountOwner');
-        break;
-      default:
-        return false;
-    }
-  },
-  /**
-   * Access
-   */
-  setPagePermissions(){
-    let currentRole = this.$session.get("userRole");
-    RoleDataService.get(currentRole)
-        .then(response=>{
-          this.permissions = response.data.permissions.map(permission=>{return permission.name});
-          console.log(this.permissions);
-        })
-        .catch(e=>{console.log(e)});
-  },
-  setPagePermissions(){
-    let currentRole = this.$session.get("userRole");
-    RoleDataService.get(currentRole)
-        .then(response=>{
-          this.permissions = response.data.permissions.map(permission=>{return permission.name});
-          console.log(this.permissions);
-        })
-        .catch(e=>{console.log(e)});
-  },
     mounted() {
       this.retrieveOrganizations();
       this.populateCounties();
       this.populateArcRelationships();
       this.populateLinesOfBusiness();
       this.populateAgencyTypes();
+      this.setPagePermissions();
     }
 };
 </script>
