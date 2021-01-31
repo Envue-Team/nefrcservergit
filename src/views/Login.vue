@@ -37,7 +37,6 @@
                           :type="show1 ? 'text' : 'password'"
                           name="input-10-1"
                           label="Password"
-                          hint="At least 8 characters"
                           counter
                           @click:append="show1 = !show1"
                         ></v-text-field>
@@ -135,20 +134,12 @@
                         ></v-text-field>
                       <v-alert
                         v-if="RegisteredUser"
-                        color="green"
+                        :color="this.RegisteredColor"
                         dense
                         dismissible
-                        type="success"
-                        >Successfully Registered</v-alert
+                        :type="this.RegisteredType"
+                        >{{this.RegisteredMessage}}</v-alert
                       >
-                        <!-- <v-alert
-                        v-if="!RegisteredUser"
-                        color="red"
-                        dense
-                        dismissible
-                        type="alert"
-                        >Something went wrong, please contact your admin</v-alert
-                      > -->
                       </v-col>
                       <v-spacer></v-spacer>
                       <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
@@ -290,10 +281,17 @@ export default {
 
           UserRoleDataService.create(data)
             .then((resp) => {
+
               this.RegisteredUser = true;
+              this.RegisteredColor = "green";
+              this.RegisteredType = "success";
+              this.RegisteredMessage = "Successfully Registered."
             })
             .catch((err) => {
-              this.RegisteredUser = false;
+              this.RegisteredUser = true;
+              this.RegisteredColor = "red";
+              this.RegisteredType = "alert";
+              this.RegisteredMessage = "Something went wrong, please contact your administrator.";
             });
 
           this.refreshList();
@@ -314,7 +312,10 @@ export default {
     valid: true,
 
     FailedLogin: false,
-    RegisteredUser: "",
+    Registered: "",
+    RegisteredType: "",
+    RegisteredColor: "",
+    RegisteredMessage: "",
     FirstName: "",
     UserId: "",
     PersonId: "",
