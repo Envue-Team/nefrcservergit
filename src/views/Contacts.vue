@@ -218,7 +218,7 @@ import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from "../services/PhoneDataService";
 //activity log addition
 import UserDataService from "../services/UserDataService";
-import ActivityLogDataService from "../services/ActivityLogDataService";
+// import ActivityLogDataService from "../services/ActivityLogDataService";
 //close activity log addition
 
 export default {

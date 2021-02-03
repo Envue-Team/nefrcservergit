@@ -1,4 +1,5 @@
 <template>
+<div>
   <v-container>
     <div align="center" class="red--text text--darken-4 page-title">Users</div>
     <v-row>
@@ -159,6 +160,7 @@
       </v-col>
     </v-row>
   </v-container>
+</div>
 </template>
 
 <script>
@@ -168,7 +170,7 @@ import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
 
 export default {
-  name: "users",
+  name: "Users",
   data() {
     return {
       volunteers: [],
@@ -337,8 +339,16 @@ export default {
           });
       }
     },
+
+    checkIfAdmin() {
+      let userRole = this.$session.get("userRole");
+      if (userRole != "1") {
+        this.$router.replace({ name: "home" });
+      }
+    }
   },
   mounted() {
+    this.checkIfAdmin();
     this.retrieveVolunteers();
   },
 };

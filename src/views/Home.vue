@@ -9,6 +9,7 @@
       <v-col class="cols-7">
         <router-link class="text-h4 grey--text text--darken-2" to="/contacts">Contacts</router-link>
         <router-link class="text-h4 grey--text text--darken-2" to="/organizations"> | Connections</router-link>
+        <router-link class="text-h4 grey--text text--darken-2" to="/userpage"> | Profile Page</router-link>
         <router-link v-show="verifyAccess('modify')" class="text-h4 grey--text text--darken-2" to="/users"> | Users</router-link>
       </v-col>
     </v-row>
@@ -65,7 +66,7 @@ export default {
     }
   },
   mounted(){
-    this.setPagePermissions();
+    // this.setPagePermissions();
   },
 }
 </script>
