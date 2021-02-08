@@ -19,7 +19,13 @@ export default new Router({
     {
       path: '/',
       name: 'login',
-      component: Login
+      get component(){
+        if(!this.$authenticated){
+          return Login;
+        }else{
+          return Organizations;
+        }
+      }
     },
     {
       path: '/home',

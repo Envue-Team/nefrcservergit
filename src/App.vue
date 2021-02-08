@@ -64,7 +64,7 @@
             active-class="active-drawer-link"
             dark
             :to="item.link"
-            @click="page_title=item.title"
+            @click="item.action"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -100,10 +100,10 @@ export default {
       drawer: true,
       items: [
         // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-        { title: 'Home', icon: 'mdi-home-city', link: '/home' },
-        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users' },
-        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts' },
-        { title: 'Sign Out', icon: 'mdi-logout', link: '/logout'}
+        { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
+        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
+        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
+        { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
       ],
       mini: true,
     }
