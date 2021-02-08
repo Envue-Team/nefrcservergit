@@ -18,10 +18,10 @@
       </div>
     </span>
     <v-row>
-      <v-col cols="4">
+      <v-col cols="9">
         <v-card
             class="pl-1 mt-1"
-            style="background-color: #ED1B2E"
+            style="background-color: #7F181B"
             elevation="1"
         >
           <v-card
@@ -80,127 +80,7 @@
           </v-card>
         </v-card>
         <v-card
-            elevation="1"
-            class="pl-1 mt-15"
-            style="background-color: #ED1B2E"
-            rounded
-        >
-          <v-card
-              class="card-header-block pa-3"
-          >
-            <v-card-text>
-              <div class="card-header-title">Contact
-                <v-btn
-                    icon
-                    style="color: #7F181B"
-                    v-show="verifyAccess('update')"
-                >
-                  <v-icon
-                      class="mdi mdi-account-plus"
-                      @click="openDialog('Add POC')"
-                  >
-                  </v-icon>
-                </v-btn>
-              </div>
-            <div class="card-header-subtitle">{{ organization.contact_protocol }}</div>
-            <div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
-              <div :ref="'first_name_' + contact.personId">
-                <span class="data">{{ contact.first_name }} {{ contact.last_name }}</span>
-                <v-btn
-                    icon
-                    small
-                    class="pl-3"
-                    v-show="verifyAccess('update')"
-                    @click="openDialog('Edit POC', contact.id)"
-                >
-                  <v-icon
-                      small
-                      class="mdi mdi-pencil"
-                      style="color: #C4DFF6"
-                  ></v-icon>
-                </v-btn>
-              </div>
-              <span v-for="phone in contact.phones" v-bind:key="phone.number" class="sub-data">
-                  <span :ref="'phone_' + phone.id">
-                    <span v-if="phone.isPrimary==true">
-                      {{ phone.number }}(P)
-                    </span>
-                  </span>
-							</span>
-              <span v-for="phone in contact.phones" class="sub-data">
-                  <span :ref="'phone_' + phone.id">
-                    <span v-if="phone.isPrimary==false">
-                     | {{ phone.number }}
-                    </span>
-                  </span>
-							</span>
-              <span v-for="email in contact.emails" class="sub-data">
-                  <span :ref="'email_' + email.id">
-                    <span v-if="email.isPrimary==true">
-                      <br/>{{ email.address }}(P)
-                    </span>
-                  </span>
-							</span>
-              <span v-for="email in contact.emails" class="sub-data">
-                  <span :ref="'email_' + email.id">
-                    <span v-if="email.isPrimary==false">
-                       | {{ email.address }}
-                    </span>
-                  </span>
-							</span>
-            </div>
-          </v-card-text>
-        </v-card>
-        </v-card>
-        <v-card
-            class="pl-1 mt-5"
-            style="background-color: #ED1B2E"
-            elevation="1"
-            rounded
-        >
-          <v-card
-              style="background-color: #6D6E70"
-              class="pa-3"
-          >
-            <v-card-text>
-              <div class="card-header-title">Relationship Manager
-                <v-btn
-                    icon
-                    style="color: #7F181B"
-                    v-show="verifyAccess('reassign')"
-                >
-                  <v-icon
-                      class="mdi mdi-account-plus"
-                      @click="openDialog('Add RM')"
-                  >
-                  </v-icon>
-                </v-btn>
-              </div>
-              <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-                    <div :ref="'relationship_manager_' + manager.personId" class="data">
-                      {{ manager.person.first_name }} {{ manager.person.last_name }}
-                      <v-btn
-                        icon
-                        style="color: #C4DFF6"
-                        v-if="verifyAccess('reassign')"
-                        @click="openDialog('RM', manager.personId)"
-                      >
-                        <v-icon
-                          small
-                          class="mdi mdi-pencil"
-                        ></v-icon>
-                      </v-btn>
-                    </div>
-                <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>
-                <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-card>
-      </v-col>
-      <v-col cols="5">
-        <v-card
-            class="pa-1 mt-11"
+            class="pa-1 mt-15"
         >
           <v-card
               class="card-header-block pa-3"
@@ -230,21 +110,115 @@
             </div>
           </v-card-text>
         </v-card>
-      </v-col>
-      <v-col
-        cols="3"
-      >
-        <v-card
-            class="pa-1"
-            elevation="3"
-            shaped
-        >
+        <v-card elevation="3" class="pa-1 mt-15">
           <v-card
-              class="pa-3"
-              shaped
-              style="background-color: #6D6E70"
+              class="card-header-block pa-3"
+              rounded
           >
             <v-card-text>
+              <div class="card-header-title">Files</div>
+            </v-card-text>
+          </v-card>
+          <!--------------------------File List Table-------------------------------->
+          <v-data-table
+              :headers="headers"
+              :search="search"
+              :items="files"
+              item-key="id"
+              multi-sort
+          >
+            <template v-slot:top>
+              <v-text-field
+                  v-model="search"
+                  label="Search Files"
+                  class="mx-4"
+              ></v-text-field>
+            </template>
+            <template v-slot:item.name="item">
+              <p>{{ item.item.name  }}</p>
+            </template>
+            <template v-slot:item.date="item">
+              <p>{{ item.item.date }}</p>
+            </template>
+            <template v-slot:item.author="item">
+              <p>{{ item.item.author }}</p>
+            </template>
+            <template v-slot:item.download="item">
+              <v-btn
+                  depressed
+                  small
+                  @click="downloadFile(item)"
+              >
+                Download
+                <v-icon
+                    color="orange darken-4"
+                    right
+                >
+                  mdi-arrow-down
+                </v-icon>
+              </v-btn>
+            </template>
+            <template v-slot:item.remove="item">
+              <v-btn
+                  depressed
+                  small
+                  @click="deleteFile(item)"
+              >
+                <v-icon
+                    color="orange darken-4"
+                    right
+                >
+                  mdi-trash-can
+                </v-icon>
+              </v-btn>
+            </template>
+            <template v-slot:footer>
+              <v-row>
+                <v-col cols="7">
+                  <v-file-input
+                      label="Upload new file"
+                      show-size
+                      counter
+                      dense
+                      @change="filesChange"
+                  ></v-file-input>
+                </v-col>
+                <v-col>
+                  <v-btn
+                      depressed
+                      small
+                      :disabled="upload_disabled"
+                      @click="uploadFile"
+                  >
+                    Upload
+                    <v-icon
+                        color="orange darken-4"
+                        right
+                    >
+                      mdi-arrow-up
+                    </v-icon>
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </template>
+          </v-data-table>
+          <!--------------------------//File List Table-------------------------------->
+        </v-card>
+      </v-col>
+      <v-col cols="3">
+            <v-card
+                class="pa-1"
+                elevation="3"
+                shaped
+                style="background-color: #fff"
+
+            >
+              <v-card
+                  class="pa-3"
+                  shaped
+                  style="background-color: #6D6E70"
+              >
+                <v-card-text>
               <span class="sub-data">
                 {{ organization.street_number }} {{ organization.street_name}}
                 {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
@@ -256,11 +230,129 @@
                   {{ organization.website }}
                 </a><span v-if="organization.phones != ''"> | {{ organization.phones[0].number}}</span>
               </span>
-            </v-card-text>
-          </v-card>
-        </v-card>
-      </v-col>
-    </v-row>
+                </v-card-text>
+              </v-card>
+            </v-card>
+            <v-card
+                elevation="1"
+                class="pl-1 mt-13"
+                style="background-color: #7F181B"
+                rounded
+            >
+              <v-card
+                  class="card-header-block pa-3"
+              >
+                <v-card-text>
+                  <div class="card-header-title">Contact
+                    <v-btn
+                        icon
+                        style="color: #7F181B"
+                        v-show="verifyAccess('update')"
+                    >
+                      <v-icon
+                          class="mdi mdi-account-plus"
+                          @click="openDialog('Add POC')"
+                      >
+                      </v-icon>
+                    </v-btn>
+                  </div>
+                  <div class="card-header-subtitle">{{ organization.contact_protocol }}</div>
+                  <div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+                    <div :ref="'first_name_' + contact.personId">
+                      <span class="data">{{ contact.first_name }} {{ contact.last_name }}</span>
+                      <v-btn
+                          icon
+                          small
+                          class="pl-3"
+                          v-show="verifyAccess('update')"
+                          @click="openDialog('Edit POC', contact.id)"
+                      >
+                        <v-icon
+                            small
+                            class="mdi mdi-pencil"
+                            style="color: #C4DFF6"
+                        ></v-icon>
+                      </v-btn>
+                    </div>
+                    <span v-for="phone in contact.phones" v-bind:key="phone.number" class="sub-data">
+                  <span :ref="'phone_' + phone.id">
+                    <span v-if="phone.isPrimary==true">
+                      {{ phone.number }}(P)
+                    </span>
+                  </span>
+							</span>
+                    <span v-for="phone in contact.phones" class="sub-data">
+                  <span :ref="'phone_' + phone.id">
+                    <span v-if="phone.isPrimary==false">
+                     | {{ phone.number }}
+                    </span>
+                  </span>
+							</span>
+                    <span v-for="email in contact.emails" class="sub-data">
+                  <span :ref="'email_' + email.id">
+                    <span v-if="email.isPrimary==true">
+                      <br/>{{ email.address }}(P)
+                    </span>
+                  </span>
+							</span>
+                    <span v-for="email in contact.emails" class="sub-data">
+                  <span :ref="'email_' + email.id">
+                    <span v-if="email.isPrimary==false">
+                       | {{ email.address }}
+                    </span>
+                  </span>
+							</span>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-card>
+            <v-card
+                class="pl-1 mt-5"
+                style="background-color: #7F181B"
+                elevation="1"
+                rounded
+            >
+              <v-card
+                  style="background-color: #6D6E70"
+                  class="pa-3"
+              >
+                <v-card-text>
+                  <div class="card-header-title">Relationship Manager
+                    <v-btn
+                        icon
+                        style="color: #7F181B"
+                        v-show="verifyAccess('reassign')"
+                    >
+                      <v-icon
+                          class="mdi mdi-account-plus"
+                          @click="openDialog('Add RM')"
+                      >
+                      </v-icon>
+                    </v-btn>
+                  </div>
+                  <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                    <div :ref="'relationship_manager_' + manager.personId" class="data">
+                      {{ manager.person.first_name }} {{ manager.person.last_name }}
+                      <v-btn
+                          icon
+                          style="color: #C4DFF6"
+                          v-if="verifyAccess('reassign')"
+                          @click="openDialog('RM', manager.personId)"
+                      >
+                        <v-icon
+                            small
+                            class="mdi mdi-pencil"
+                        ></v-icon>
+                      </v-btn>
+                    </div>
+                    <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>
+                    <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-card>
+          </v-col>
+        </v-row>
     <v-row><!---------------------First Container Row-------------------------------->
       <!---------------------------------Small Screen------------------------------------->
       <v-col
@@ -441,100 +533,7 @@
           class="hidden-md-and-down"
         ><!----Table---->
           <v-col>
-            <v-card elevation="3" class="pa-1 mt-7">
-              <v-card
-                  class="card-header-block pa-3"
-                  rounded
-              >
-                <v-card-text>
-                  <div class="card-header-title">Files</div>
-                </v-card-text>
-              </v-card>
-              <!--------------------------File List Table-------------------------------->
-              <v-data-table
-                  :headers="headers"
-                  :search="search"
-                  :items="files"
-                  item-key="id"
-                  multi-sort
-              >
-                <template v-slot:top>
-                  <v-text-field
-                      v-model="search"
-                      label="Search Files"
-                      class="mx-4"
-                  ></v-text-field>
-                </template>
-                <template v-slot:item.name="item">
-                  <p>{{ item.item.name  }}</p>
-                </template>
-                <template v-slot:item.date="item">
-                  <p>{{ item.item.date }}</p>
-                </template>
-                <template v-slot:item.author="item">
-                  <p>{{ item.item.author }}</p>
-                </template>
-                <template v-slot:item.download="item">
-                  <v-btn
-                      depressed
-                      small
-                      @click="downloadFile(item)"
-                  >
-                    Download
-                    <v-icon
-                        color="orange darken-4"
-                        right
-                    >
-                      mdi-arrow-down
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <template v-slot:item.remove="item">
-                  <v-btn
-                      depressed
-                      small
-                      @click="deleteFile(item)"
-                  >
-                    <v-icon
-                        color="orange darken-4"
-                        right
-                    >
-                      mdi-trash-can
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <template v-slot:footer>
-                  <v-row>
-                    <v-col cols="7">
-                      <v-file-input
-                          label="Upload new file"
-                          show-size
-                          counter
-                          dense
-                          @change="filesChange"
-                      ></v-file-input>
-                    </v-col>
-                    <v-col>
-                      <v-btn
-                          depressed
-                          small
-                          :disabled="upload_disabled"
-                          @click="uploadFile"
-                      >
-                        Upload
-                        <v-icon
-                            color="orange darken-4"
-                            right
-                        >
-                          mdi-arrow-up
-                        </v-icon>
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </template>
-              </v-data-table>
-              <!--------------------------//File List Table-------------------------------->
-            </v-card>
+
           </v-col>
         </v-row>
       </v-col><!----------------------//Left Column-------------------------->

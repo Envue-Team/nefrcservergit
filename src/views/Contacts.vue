@@ -1,10 +1,9 @@
 <template>
   <v-container>
-
     <v-row>
-      <v-col class="col-12">
+      <v-col cols="12">
           <v-card
-              class="pa-3 mx-7"
+              class="pa-3 mt-8"
               outlined
               elevation="3 text-wrap">
             <v-card

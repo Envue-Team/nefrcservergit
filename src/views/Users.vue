@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="col-12">
+      <v-col cols="12">
         <v-card
-            class="pa-3 mx-7"
+            class="pa-3 mt-8"
             outlined
             elevation="3 text-wrap">
           <v-card
@@ -40,22 +40,14 @@
               :items="volunteers"
               :search="search"
               item-key="id"
+              @click:row="nav"
               multi-sort
               class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
-                <template v-if="item.first_name !== null">
-                  <a v-on:click="nav(item)">
+                <div v-if="item.first_name !== null">
                     <span class="black--text"> {{ item.name }}</span>
-                    <span v-if="item.public_safety"> (Public Safety)</span></a
-                  >
-                </template>
-                <template v-else-if="item.partner !== null">
-                  <a v-on:click="nav(item)">
-                    <span class="purple--text">{{ item.name }}</span>
-                    <span v-if="item.public_safety"> (Public Safety)</span></a
-                  >
-                </template>
+                </div>
               </template>
               <template v-slot:item.address="{ item }">
                 <address>
@@ -63,18 +55,12 @@
                 </address>
               </template>
               <template v-slot:item.email="{ item }">
-                <a v-on:click="nav(item)">
-                  <div>
-                    <span class="black--text">
-                      {{ item.user.email }}
-                    </span>
-                  </div>
-                </a>
+                  <span class="black--text">
+                    {{ item.user.email }}
+                  </span>
               </template>
               <template v-slot:item.roles="{ item }">
-                <div>
-                  <span class="purple--text">{{ item.role }}</span>
-                </div>
+                  <span class="black--text">{{ item.role }}</span>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small @click="removePerson(item)">mdi-delete</v-icon>

@@ -1,15 +1,14 @@
 <template>
   <v-container>
-  <v-row class="mt-7">
+  <v-row>
       <v-col class="col cols-12">
         <v-card
-            class="pa-3 mx-7"
+            class="pa-3 mt-8"
             outlined
             elevation="3 text-wrap">
           <v-card
               style="margin-top:-40px; width:100%;"
-              color="#6D6E70"
-              class="pa-7"
+              class="pa-7 card-header-block"
               rounded
           >
             <v-text-title class="card-header-title">Connections</v-text-title>

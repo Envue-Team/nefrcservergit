@@ -5,6 +5,7 @@
         absolute
         flat
         app
+        style="background-color: #7F181B"
     >
         <v-btn
             class="mr-3"
@@ -17,14 +18,14 @@
         </v-btn>
         <v-toolbar-title
         class="hidden-sm-and-down"
-        style="color: #7F181B"
+        style="color: white"
         >{{getPageTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
             flat
             icon
         >
-          <v-icon class="mdi mdi-dark mdi-account"></v-icon>
+          <v-icon class="mdi mdi-light mdi-account"></v-icon>
         </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -77,7 +78,7 @@
       </v-list>
       </v-img>
     </v-navigation-drawer>
-    <v-main style="background-color: rgba(45, 70, 40, 0.04)">
+    <v-main style="background-color: rgba(70, 9, 9, 0.1)">
       <router-view search="search"/>
     </v-main>
   </v-app>
@@ -98,7 +99,7 @@ export default {
       userRole:false,
       drawer: true,
       items: [
-        { title: 'Profile', icon: 'mdi-account', link: '/profile' },
+        // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
         { title: 'Home', icon: 'mdi-home-city', link: '/home' },
         { title: 'Users', icon: 'mdi-account-group-outline', link: '/users' },
         { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts' },
