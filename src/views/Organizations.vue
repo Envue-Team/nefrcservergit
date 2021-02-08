@@ -1,46 +1,40 @@
 <template>
   <v-container>
-  <v-row>
-    <v-col
-      sm="12"
-      md="6"
-      lg="6"
-    >
-      <div class="red--text text--darken-2 page-title">Connections</div>
-    </v-col>
-  </v-row>
-  <v-row>
-      <v-col>
-        <v-row v-show="verifyAccess('create')">
-          <v-col>
-            <v-hover
-                v-slot="{ hover }"
-                open-delay="200"
-            >
-              <v-btn
-                  text
-                  color="red"
-                  @click="add_organization_dlg=true"
-              >
-                Add New Organization
-                <v-icon>
-                  mdi-plus
-                </v-icon>
-              </v-btn>
-            </v-hover>
-          </v-col>
-        </v-row>
-        <v-card outlined elevation="3 text-wrap">
+  <v-row class="mt-7">
+      <v-col class="col cols-12">
+        <v-card
+            class="pa-3 mx-7"
+            outlined
+            elevation="3 text-wrap">
+          <v-card
+              style="margin-top:-40px; width:100%;"
+              color="#6D6E70"
+              class="pa-7"
+              rounded
+          >
+            <v-text-title class="card-header-title">Connections</v-text-title>
+          </v-card>
           <v-card-text>
         <v-row>
-          <v-col class="col-6">
-            <v-text-field
+          <v-btn
+              fab
+              elevation="3"
+              small
+              class="ml-3"
+              v-show="verifyAccess('create')"
+              color="white"
+              @click="add_organization_dlg=true"
+          >
+            <v-icon class="mdi mdi-dark mdi-plus">
+            </v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-text-field
+              class="shrink mt-3 mr-3"
+              label="Search"
               v-model="search"
               append-icon="mdi-magnify"
-              label="Search Table"
-              single-line
-            ></v-text-field>
-          </v-col>
+          ></v-text-field>
         </v-row>
           <v-data-table
             :headers="headers"
@@ -53,7 +47,7 @@
             >
             <template v-slot:body.append="{ item }">
               <div class="row" style="padding-bottom: 20px">
-                <div class="col" style="margin-bottom: -25px; padding: 5px">
+                <div class="col" style="margin-bottom: -25px; margin-left: 20px; padding: 5px">
                   <JsonExcel
                       class="btn btn-default"
                       :data="excel_data"
@@ -62,10 +56,12 @@
                       name="filename.xls"
                   >
                     <v-btn
-                      text
-                      color="blue"
+                      icon
+                      fab
+                      color="#7F181B"
+                      large
                     >
-                      Download to Excel File
+                      <v-icon class="mdi mdi-download"></v-icon>
                     </v-btn>
                   </JsonExcel>
                 </div>
@@ -335,6 +331,7 @@
 </template>
 
 <script>
+//TODO: Resolve validation issue
 import OrganizationDataService from "../services/OrganizationDataService";
 import JsonExcel from "vue-json-excel";
 import CountyDataService from "@/services/CountyDataService";
@@ -357,6 +354,7 @@ export default {
       return {
         isOwner: false,
         permissions: [],
+        toolbar_title: 'connections',
 
         /**
          * Form validation
@@ -523,17 +521,17 @@ export default {
    computed: {
       headers () {
         let headers = [
-          {text: 'Name',value: 'name'},
-          {text: 'Address', value: 'address'},
-          {text: 'City', value: 'city'},
-          {text: 'Zip', value: 'zip'},
-          {text: 'County', value: 'county_display' },
-          {text: 'Manager', value: 'manager'},
-          {text: 'MOU', value: 'mou'},
-          {text: 'Line of Business', value: 'lob'},
-          {text: 'Services', value: 'service'},
-          {text: 'Agency Type', value: 'type'},
-          {text: 'Relationship', value: 'arc_rel'}
+          {text: 'Name',value: 'name', class: 'red--text text--darken-3'},
+          {text: 'Address', value: 'address', class: 'red--text text--darken-3'},
+          {text: 'City', value: 'city', class: 'red--text text--darken-3'},
+          {text: 'Zip', value: 'zip', class: 'red--text text--darken-3'},
+          {text: 'County', value: 'county_display', class: 'red--text text--darken-3' },
+          {text: 'Manager', value: 'manager', class: 'red--text text--darken-3'},
+          {text: 'MOU', value: 'mou', class: 'red--text text--darken-3'},
+          {text: 'Line of Business', value: 'lob', class: 'red--text text--darken-3'},
+          {text: 'Services', value: 'service', class: 'red--text text--darken-3'},
+          {text: 'Agency Type', value: 'type', class: 'red--text text--darken-3'},
+          {text: 'Relationship', value: 'arc_rel', class: 'red--text text--darken-3'}
         ]
         if(this.filters.partners){
           headers.push({text: "Services", value:'partner.services'});

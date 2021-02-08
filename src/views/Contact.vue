@@ -1,10 +1,5 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <div class="red--text text--darken-4 page-title">Contact Info</div>
-      </v-col>
-    </v-row>
     <v-row
       ><!---------------------First Container Row-------------------------------->
       <v-col class="col-7"
@@ -12,250 +7,62 @@
         <!---------------------Contact Basic Data-------------------------------->
         <v-row>
           <v-col class="offset-1 col-0">
-            <v-card elevation="3">
-              <v-card-title>
-                <v-row>
-                  <v-col>
-                    <span class="text-h4 font-weight-thin">
-                      {{ edit_person.first_name + " " + edit_person.last_name }}
-                    </span>
-                  </v-col>
-                  <v-col class="col-2">
-                    <!---------------------------------Edit Contact Dialog------------------------------->
-                    <v-dialog v-model="edit_person_dlg" max-width="600px">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-hover v-slot="{ hover }" open-delay="200">
-                          <v-btn
-                            icon
-                            :elevation="hover ? 16 : 2"
-                            :class="{ 'on-hover': hover }"
-                            v-bind="attrs"
-                            v-on="on"
-                          >
-                            <v-icon> mdi-pencil </v-icon>
-                          </v-btn>
-                        </v-hover>
-                      </template>
-                      <v-card>
-                        <v-form v-model="valid" lazy-validation>
-                          <v-card-title>
-                            <span class="headline">Contact Information</span>
-                          </v-card-title>
-                          <v-card-text>
-                            <v-container>
-                              <v-row>
-                                <v-col cols="6" sm="6" md="6">
-                                  <v-text-field
-                                    label="First Name"
-                                    required
-                                    v-model="edit_person.first_name"
-                                    :rules="nameRules"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="6" sm="6" md="6">
-                                  <v-text-field
-                                    label="Last Name"
-                                    required
-                                    v-model="edit_person.last_name"
-                                    :rules="nameRules"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="6" sm="6" md="6"> </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text-field
-                                    label="Street Number"
-                                    v-model="edit_person.street_number"
-                                    :rules="nameRules"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text-field
-                                    label="Street Name"
-                                    v-model="edit_person.street_name"
-                                    :rules="nameRules"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="3" sm="6" md="4">
-                                  <v-text-field
-                                    label="City"
-                                    v-model="edit_person.city"
-                                    :rules="nameRules"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="2">
-                                  <v-select
-                                    label="State"
-                                    v-model="edit_person.state"
-                                    :rules="nameRules"
-                                    :items="states"
-                                  ></v-select>
-                                </v-col>
-                                <v-col cols="3">
-                                  <v-text-field
-                                    label="Zip"
-                                    v-model="edit_person.zip"
-                                    :rules="zipRules"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="6">
-                                  <v-text-field
-                                    label="County"
-                                    v-model="edit_person.county"
-                                    :rules="nameRules"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="6">
-                                  <v-text-field
-                                    label="Primary Phone"
-                                    v-model="edit_person.primaryPhone"
-                                    :rules="phoneRules"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="6">
-                                  <v-text-field
-                                    label="Secondary Phone"
-                                    v-model="edit_person.secondaryPhone"
-                                    :rules="phoneRules"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="6">
-                                  <v-text-field
-                                    label="Primary Email"
-                                    v-model="edit_person.primaryEmail"
-                                    :rules="emailRules"
-                                  ></v-text-field>
-                                </v-col>
-                                <v-col cols="6">
-                                  <v-text-field
-                                    label="Secondary Email"
-                                    v-model="edit_person.secondaryEmail"
-                                    :rules="emailRules"
-                                  ></v-text-field>
-                                </v-col>
-                              </v-row>
-                            </v-container>
-                            <small>*indicates required field</small>
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="edit_person_dlg = false"
-                            >
-                              Close
-                            </v-btn>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              :disabled="!valid"
-                              @click="updatePerson"
-                            >
-                              Save
-                            </v-btn>
-                            <!-----------------//edit person dialog------------------------------->
-                          </v-card-actions>
-                        </v-form>
-                      </v-card>
-                    </v-dialog>
-
-                    <!-----------------add note dialog------------------------------->
-                    <v-dialog v-model="add_note_dlg" max-width="600px">
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-hover v-slot="{ hover }" open-delay="200">
-                          <v-btn
-                            color="white"
-                            class="text--primary"
-                            fab
-                            small
-                            :elevation="hover ? 16 : 2"
-                            :class="{ 'on-hover': hover }"
-                            v-bind="attrs"
-                            v-on="on"
-                          >
-                            <v-icon> mdi-plus </v-icon>
-                          </v-btn>
-                        </v-hover>
-                      </template>
-                      <v-form v-model="valid_note" ref="new_note_form">
-                        <v-card>
-                          <v-card-title>
-                            <span class="headline">Note</span>
-                          </v-card-title>
-                          <v-card-text>
-                            <v-container>
-                              <v-row>
-                                <v-col class="col-3">
-                                  <v-autocomplete
-                                    :items="add_note_form.types"
-                                    v-model="add_note_form.type"
-                                    label="Type"
-                                  ></v-autocomplete>
-                                </v-col>
-                              </v-row>
-                              <v-row>
-                                <v-col cols="12" sm="12" md="12">
-                                  <v-textarea
-                                    :rules="note_text_rule"
-                                    v-model="add_note_form.text"
-                                  ></v-textarea>
-                                </v-col>
-                              </v-row>
-                            </v-container>
-                          </v-card-text>
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn
-                              color="blue darken-1"
-                              text
-                              @click="add_note_dlg = false"
-                            >
-                              Close
-                            </v-btn>
-                            <v-btn color="blue darken-1" text @click="addNote">
-                              Save
-                            </v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-form>
-                    </v-dialog>
-
-                    <!---------------------//add note dialog--------------------------->
-                  </v-col>
-                  <!---------------------------display person details card--------------------->
-                </v-row>
-              </v-card-title>
-              <v-card-subtitle>
-                {{ edit_person.primaryPhone }} | {{ edit_person.primaryEmail }}
-                <div>
-                  {{ "Recent Note: " + edit_person.person_notes }}
-                </div>
-              </v-card-subtitle>
-              <v-divider></v-divider>
-              <v-card-text>
-                <address class="text-capitalize">
-                  {{ edit_person.street_number }} {{ edit_person.street_name
-                  }}<br />
-                  {{ edit_person.city }}, {{ edit_person.state }}
-                  {{ edit_person.zip }}<br />
-                  {{ edit_person.county + " County" }}<br />
-                </address>
-                Affiliated Organizations: {{ edit_person.organization_names }}
-                <br />
-                Alternate Contact Info:
-                {{ edit_person.secondaryPhone }}
-                {{ edit_person.secondaryEmail }}
-              </v-card-text>
+            <v-card
+                class="pa-1 mx-7"
+                outlined
+                elevation="3 text-wrap">
+              <v-card
+                  style="margin-top:-15px; width:100%;"
+                  color="#6D6E70"
+                  class="pa-7"
+                  rounded
+              >
+                <v-card-text>
+                  <div class="card-header-title">{{ edit_person.first_name + " " + edit_person.last_name }}
+                    <v-btn
+                        icon
+                        small
+                        class="pl-3"
+                        @click="edit_person_dlg=true"
+                    >
+                      <v-icon
+                          small
+                          class="mdi mdi-pencil"
+                          style="color: #C4DFF6"
+                      ></v-icon>
+                    </v-btn>
+                  </div>
+                  <div class="card-header-subtitle">
+                    {{ edit_person.primaryPhone }} | {{ edit_person.primaryEmail }}
+                  </div>
+                  <div class="card-header-subtitle">
+                    {{ edit_person.street_number }} {{ edit_person.street_name }}<br />
+                    {{ edit_person.city }}, {{ edit_person.state }}
+                    {{ edit_person.zip }}<br />
+                    {{ edit_person.county + " County" }}<br />
+                    Affiliated Organizations: {{ edit_person.organization_names }}
+                    <br />
+                    Alternate Contact Info:
+                    {{ edit_person.secondaryPhone }}
+                    {{ edit_person.secondaryEmail }}
+                  </div>
+                  <div class="card-header-subtitle">
+                    {{ edit_person.person_notes }}
+                    <v-btn
+                        icon
+                        small
+                        class="pl-3"
+                        @click="add_note_dlg=true"
+                    >
+                      <v-icon
+                          small
+                          class="mdi mdi-comment-outline"
+                          style="color: #C4DFF6"
+                      ></v-icon>
+                    </v-btn>
+                  </div>
+                </v-card-text>
+              </v-card>
             </v-card>
           </v-col>
         </v-row> </v-col
@@ -387,7 +194,204 @@
         </template> </v-col
       ><!------------------------//Middle Column---------------->
     </v-row>
+    <!---------------------------------Edit Contact Dialog------------------------------->
+    <v-dialog v-model="edit_person_dlg" max-width="600px">
+      <v-card>
+        <v-form v-model="valid" lazy-validation>
+          <v-card-title>
+            <span class="headline">Contact Information</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="6" sm="6" md="6">
+                  <v-text-field
+                      label="First Name"
+                      required
+                      v-model="edit_person.first_name"
+                      :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6" sm="6" md="6">
+                  <v-text-field
+                      label="Last Name"
+                      required
+                      v-model="edit_person.last_name"
+                      :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6" sm="6" md="6"> </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="6" md="4">
+                  <v-text-field
+                      label="Street Number"
+                      v-model="edit_person.street_number"
+                      :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-text-field
+                      label="Street Name"
+                      v-model="edit_person.street_name"
+                      :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="3" sm="6" md="4">
+                  <v-text-field
+                      label="City"
+                      v-model="edit_person.city"
+                      :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="2">
+                  <v-select
+                      label="State"
+                      v-model="edit_person.state"
+                      :rules="nameRules"
+                      :items="states"
+                  ></v-select>
+                </v-col>
+                <v-col cols="3">
+                  <v-text-field
+                      label="Zip"
+                      v-model="edit_person.zip"
+                      :rules="zipRules"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="County"
+                      v-model="edit_person.county"
+                      :rules="nameRules"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Primary Phone"
+                      v-model="edit_person.primaryPhone"
+                      :rules="phoneRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Secondary Phone"
+                      v-model="edit_person.secondaryPhone"
+                      :rules="phoneRules"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Primary Email"
+                      v-model="edit_person.primaryEmail"
+                      :rules="emailRules"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="6">
+                  <v-text-field
+                      label="Secondary Email"
+                      v-model="edit_person.secondaryEmail"
+                      :rules="emailRules"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="edit_person_dlg = false"
+            >
+              Close
+            </v-btn>
+            <v-btn
+                color="blue darken-1"
+                text
+                :disabled="!valid"
+                @click="updatePerson"
+            >
+              Save
+            </v-btn>
+            <!-----------------//edit person dialog------------------------------->
+          </v-card-actions>
+        </v-form>
+      </v-card>
+    </v-dialog>
+    <!-----------------add note dialog------------------------------->
+    <v-dialog v-model="add_note_dlg" max-width="600px">
+<!--      <template v-slot:activator="{ on, attrs }">-->
+<!--        <v-hover v-slot="{ hover }" open-delay="200">-->
+<!--          <v-btn-->
+<!--              color="white"-->
+<!--              class="text&#45;&#45;primary"-->
+<!--              fab-->
+<!--              small-->
+<!--              :elevation="hover ? 16 : 2"-->
+<!--              :class="{ 'on-hover': hover }"-->
+<!--              v-bind="attrs"-->
+<!--              v-on="on"-->
+<!--          >-->
+<!--            <v-icon> mdi-plus </v-icon>-->
+<!--          </v-btn>-->
+<!--        </v-hover>-->
+<!--      </template>-->
+      <v-form v-model="valid_note" ref="new_note_form">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Note</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col class="col-3">
+                  <v-autocomplete
+                      :items="add_note_form.types"
+                      v-model="add_note_form.type"
+                      label="Type"
+                  ></v-autocomplete>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col cols="12" sm="12" md="12">
+                  <v-textarea
+                      :rules="note_text_rule"
+                      v-model="add_note_form.text"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                color="blue darken-1"
+                text
+                @click="add_note_dlg = false"
+            >
+              Close
+            </v-btn>
+            <v-btn color="blue darken-1" text @click="addNote">
+              Save
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-dialog>
+
+    <!---------------------//add note dialog--------------------------->
   </v-container>
+
 </template>
 <script>
 import PhoneDataService from "../services/PhoneDataService";

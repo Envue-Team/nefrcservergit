@@ -23,8 +23,8 @@ export default new Router({
     },
     {
       path: '/home',
-      name: 'home',
-      component: Home
+      name: 'organizations',
+      component: Organizations
     },
     {
       path: '/register',
@@ -54,11 +54,12 @@ export default new Router({
     {
       path: '/users',
       name: 'users',
-      component: function() {
-        if (this.$session.get("userRole") == 1) {
-          return Users;
-        }
-      }
+      component: Users
+      // component: function() {
+      //   if (this.$session.get("userRole") == 0) {
+      //     return Users;
+      //   }
+      // }
     },
     // {
     //   path: '/users',

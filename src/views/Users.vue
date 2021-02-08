@@ -1,19 +1,39 @@
 <template>
   <v-container>
-    <div align="center" class="red--text text--darken-4 page-title">Users</div>
     <v-row>
       <v-col class="col-12">
-        <v-card elevation="3 text-wrap">
+        <v-card
+            class="pa-3 mx-7"
+            outlined
+            elevation="3 text-wrap">
+          <v-card
+              style="margin-top:-40px; width:100%;"
+              color="#6D6E70"
+              class="pa-7"
+              rounded
+          >
+            <v-toolbar-title class="card-header-title">Users</v-toolbar-title>
+          </v-card>
           <v-card-text>
             <v-row>
-              <v-col class="col-6">
-                <v-text-field
+              <v-btn
+                  fab
+                  elevation="3"
+                  small
+                  class="ml-3"
+                  color="white"
+                  @click="add_person_dlg=true"
+              >
+                <v-icon class="mdi mdi-dark mdi-plus">
+                </v-icon>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-text-field
+                  class="shrink mt-3 mr-3"
+                  label="Search"
                   v-model="search"
                   append-icon="mdi-magnify"
-                  label="Search Table"
-                  single-line
-                ></v-text-field>
-              </v-col>
+              ></v-text-field>
             </v-row>
             <v-data-table
               :headers="headers"
@@ -64,20 +84,6 @@
         </v-card>
         <!------------------ dialog box to add person--------------------------->
         <v-dialog v-model="add_person_dlg" max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-hover v-slot="{ hover }" open-delay="200">
-              <v-btn
-                text
-                :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }"
-                v-bind="attrs"
-                v-on="on"
-              >
-                Add User
-                <v-icon> mdi-plus </v-icon>
-              </v-btn>
-            </v-hover>
-          </template>
           <v-card>
             <v-form v-model="valid" lazy-validation>
               <v-card-title>
@@ -214,9 +220,9 @@ export default {
   computed: {
     headers() {
       var headers = [
-        { text: "Name", value: "name", width: "80px" },
-        { text: "Email", value: "email", width: "80px" },
-        { text: "Roles", value: "role", width: "100px" },
+        { text: "Name", value: "name", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Roles", value: "role", width: "100px", class: 'red--text text--darken-3' },
         { text: "Delete", value: "actions", width: "1%" },
       ];
       return headers;

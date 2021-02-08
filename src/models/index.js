@@ -44,7 +44,7 @@ db.agency_type = require('./agency_type.model')(sequelize, Sequelize);
 db.organization_agency_type = require('./organization_agency_type.model')(sequelize, Sequelize);
 db.organization_arc_relationship = require('./organization_arc_relationship.model')(sequelize, Sequelize);
 //test addition for activity log
-db.activity_log = require('./activity_log.model')(sequelize, Sequelize);
+// db.activity_log = require('./activity_log.model')(sequelize, Sequelize);
 
 
 //Relationship building

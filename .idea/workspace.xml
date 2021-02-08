@@ -25,26 +25,30 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update add organization dialogue.">
-      <change afterPath="$PROJECT_DIR$/src/assets/css/main.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/css/main.css.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/scss/main.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/scss/organization.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_1_10_21,_5_30_PM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Merge_at_1_10_21__5_30_PM__Default_Changelist_.xml" beforeDir="false" />
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/css/app.2fff4bec.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/app.33c0ea8f.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/chunk-vendors.c6782bcf.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.a04228d9.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.a04228d9.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/app.3ffe031e.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/app.3ffe031e.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.87ff001c.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.87ff001c.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/scss/organization.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/organization.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/POCDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/POCDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -178,7 +182,9 @@
       <workItem from="1610314507372" duration="3433000" />
       <workItem from="1610318109857" duration="51503000" />
       <workItem from="1610974016188" duration="7567000" />
-      <workItem from="1611320240459" duration="45091000" />
+      <workItem from="1611320240459" duration="59569000" />
+      <workItem from="1612361136443" duration="12136000" />
+      <workItem from="1612622133402" duration="74099000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -334,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612024553824</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications.">
+      <created>1612123575225</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1612123575225</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +438,8 @@
     <MESSAGE value="Add validation to organization add and edit pages. Add validation to point of contact form. Add access limitations to organization list page" />
     <MESSAGE value="Add columns to search table: services, Line of Business, MOU, ARC Relationship, and Agency Type." />
     <MESSAGE value="Update add organization dialogue." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update add organization dialogue." />
+    <MESSAGE value="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -499,11 +513,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1610920288273">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1612124512146">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1610920288273" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1612124512146" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
@@ -542,11 +556,11 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="0" y="27" width="1356" height="711" key="new project wizard/0.27.1366.711@0.27.1366.711" timestamp="1610318891564" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1612113733268">
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1612646524764">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1612113733268" />
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1612646524764" />
     <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1610573303274">
       <screen x="0" y="27" width="1366" height="711" />
     </state>

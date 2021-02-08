@@ -39,7 +39,7 @@ require("../src/routes/organization_agency_type.routes")(expapp);
 require("../src/routes/arc_relationship.routes")(expapp);
 require("../src/routes/organization_arc_relationship.routes")(expapp);
 require("../src/routes/role_permission.routes")(expapp);
-require("../src/routes/activity_log.routes")(expapp);
+// require("../src/routes/activity_log.routes")(expapp);
 
 
 // set port, listen for requests
