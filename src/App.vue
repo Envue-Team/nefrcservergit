@@ -33,7 +33,7 @@
         :mini-variant.sync="mini"
         app
     >
-    <v-img src="./assets/images/city_backdrop_drk1.png" height="100%">
+    <v-img src="./assets/images/rescuers.jpeg" height="100%">
       <v-list-item class="px-2">
         <v-list-item-avatar>
           <v-img src="./assets/images/red_crescent_trprnt.png"/>
