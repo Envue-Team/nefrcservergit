@@ -136,7 +136,6 @@ export default {
             this.permissions = response.data.permissions.map(permission => {
               return permission.name
             });
-            console.log(this.permissions);
           })
           .catch(e => {
             console.log(e)
@@ -151,14 +150,15 @@ export default {
   },
   computed: {
     getPageTitle(){
-      console.log(this.$route.name);
       switch(this.$route.name){
         case 'organizations':
-          return 'Connections';
+          return 'Partners';
         case 'users':
           return 'Users';
         case 'contacts':
           return 'Contacts';
+        case 'organization':
+          return 'Partner';
         default:
           return this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
       }

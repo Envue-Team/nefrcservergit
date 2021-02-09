@@ -207,7 +207,7 @@ export default {
       }
       UserRoleDataService.update(data.userId, data.roleId, currentDataRole)
       .then((response)=> {
-        console.log(response);
+        // console.log(response);
       })
       .catch((e)=> {
         console.log(e);
@@ -229,10 +229,7 @@ export default {
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
         .then((response) => {
-          console.log(response);
           let userRole = response.data.user.roles[0].user_roles.roleId
-          console.log(response.data.user.id);
-          console.log(userRole);
           this.edit_role.userId = response.data.user.id;
           this.edit_person = response.data;
           this.edit_user = response.data.user;
@@ -271,7 +268,6 @@ export default {
         // password: password,
         // salt: salt
       };
-      console.log(data);
       var personID = this.$route.params.personId;
       //data.services = this.add_person.services;
 
@@ -300,7 +296,6 @@ export default {
           console.log(e);
         });
       this.edit_person_dlg = false;
-      console.log(this.view_role.role);
       this.updateSelectedRole(this.view_role.role)
     },
   },
