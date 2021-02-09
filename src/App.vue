@@ -98,14 +98,8 @@ export default {
       permissions: [],
       userRole:false,
       drawer: true,
-      items: [
-        // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-        { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
-        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
-        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
-        { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
-      ],
       mini: true,
+      items: '',
     }
   },
   methods: {
@@ -147,6 +141,26 @@ export default {
         this.userRole = true;
       }
     },
+    setNavLinks(){
+      this.items = [
+          { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
+          { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
+          { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
+          { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
+          ];
+      // this.items = this.verifyAccess('modify') ? [
+      //   // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
+      //   { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
+      //   { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
+      //   { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
+      //   { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
+      // ] : [
+      //   // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
+      //   { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
+      //   { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
+      //   { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
+      // ]
+    }
   },
   computed: {
     getPageTitle(){
@@ -166,6 +180,7 @@ export default {
   },
   mounted(){
     this.setPagePermissions();
+    this.setNavLinks();
   },
 
 };

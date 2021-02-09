@@ -22,7 +22,7 @@
                     <v-btn
                         icon
                         small
-                        class="pl-3"
+                        class="ml-3"
                         @click="edit_person_dlg=true"
                     >
                       <v-icon
@@ -51,7 +51,7 @@
                     <v-btn
                         icon
                         small
-                        class="pl-3"
+                        class="ml-3"
                         @click="add_note_dlg=true"
                     >
                       <v-icon
@@ -195,7 +195,16 @@
       ><!------------------------//Middle Column---------------->
     </v-row>
     <!---------------------------------Edit Contact Dialog------------------------------->
-    <v-dialog v-model="edit_person_dlg" max-width="600px">
+    <v-dialog
+        v-model="edit_person_dlg"
+        content-class="lg-dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form v-model="valid" lazy-validation>
           <v-card-title>
@@ -307,29 +316,41 @@
             <small>*indicates required field</small>
           </v-card-text>
           <v-card-actions>
+            <v-btn
+                text
+                @click="openDialog('Delete')"
+                style="background-color: #ED1B2E; color: white"
+            >
+              Delete
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                color="blue darken-1"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click="edit_person_dlg = false"
             >
               Close
             </v-btn>
             <v-btn
-                color="blue darken-1"
-                text
+                style="background-color: #7F181B; color: white"
+                depressed
                 :disabled="!valid"
-                @click="updatePerson"
+                @click="openDialog('Update')"
+
             >
-              Save
+              Save Changes
             </v-btn>
             <!-----------------//edit person dialog------------------------------->
           </v-card-actions>
         </v-form>
       </v-card>
+      </v-card>
     </v-dialog>
     <!-----------------add note dialog------------------------------->
-    <v-dialog v-model="add_note_dlg" max-width="600px">
+    <v-dialog
+        v-model="add_note_dlg"
+        content-class="md-dlg"
+    >
 <!--      <template v-slot:activator="{ on, attrs }">-->
 <!--        <v-hover v-slot="{ hover }" open-delay="200">-->
 <!--          <v-btn-->
@@ -347,9 +368,15 @@
 <!--        </v-hover>-->
 <!--      </template>-->
       <v-form v-model="valid_note" ref="new_note_form">
+        <v-card
+            elevation="1"
+            class="pa-1"
+            style="background-color: #6D6E70"
+            rounded
+        >
         <v-card>
           <v-card-title>
-            <span class="headline">Note</span>
+            <span class="dlg-title">Note</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -375,21 +402,116 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                color="blue darken-1"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click="add_note_dlg = false"
             >
               Close
             </v-btn>
-            <v-btn color="blue darken-1" text @click="addNote">
+            <v-btn
+                style="background-color: #7F181B; color: white"
+                depressed
+                @click="addNote"
+            >
               Save
             </v-btn>
           </v-card-actions>
         </v-card>
+        </v-card>
       </v-form>
     </v-dialog>
-
     <!---------------------//add note dialog--------------------------->
+
+    <!---------------------------------Delete Point of Contact Dialog------------------------------>
+    <v-dialog
+        content-class="small-dlg"
+        v-model="delete_poc_dialog"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to delete this point of contact?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="delete_poc_dialog=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="deletePOC"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Delete Point of Contact Dialog------------------------------>
+
+    <!---------------------------------Save Point of Contact Dialog------------------------------>
+    <v-dialog
+        v-model="update_poc_dialog"
+        content-class="small-dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to save these changes?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="update_poc_dialog=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="updatePerson"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Save Point of Contact Dialog------------------------------>
+
   </v-container>
 
 </template>
@@ -400,6 +522,7 @@ import PersonDataService from "../services/PersonDataService";
 import NoteDataService from "../services/NoteDataService";
 import NoteDialog from "./NoteDialog";
 
+
 export default {
   name: "contact",
   components: {
@@ -407,6 +530,8 @@ export default {
   },
   data() {
     return {
+      delete_poc_dialog: false,
+      update_poc_dialog: false,
       edit_person_dlg: false,
       showNoteDialog: false,
       phoneId: "",
@@ -517,6 +642,49 @@ export default {
     };
   },
     methods: {
+      openDialog(dlg){
+        switch(dlg){
+          case 'Save':
+            this.save_poc_dialog = true;
+            break;
+          case 'Delete':
+            this.delete_poc_dialog = true;
+            break;
+          case 'Update':
+            this.update_poc_dialog = true;
+            break;
+        }
+      },
+      deletePOC(){
+        PersonDataService.get(this.edit_person.id)
+            .then(response=>{
+              let person = response.data;
+              person.phones.forEach(
+                  phone=>{
+                    PhoneDataService
+                        .delete(phone.id)
+                        .catch(e=>{console.log(e)});
+                  });
+
+              person.emails.forEach(
+                  email=>{
+                    EmailDataService
+                        .delete(email.id)
+                        .catch(e=>{console.log(e)})});
+              return person.id;
+            }).then(id=>{
+          PersonDataService.delete(id).then(
+              response=>{
+                this.$router.push({path: '/contacts'}).catch(err=>{console.log(err)});
+                this.$toasted
+                    .show("Contact has been successfully deleted",{theme: 'bubble'})
+                    .goAway(1000);
+              }
+              ).catch(e=>{console.log(e)});
+
+        })
+            .catch(e=>{console.log(e)});
+      },
         showDialog() {
             this.edit_person_dlg = true;
         },
@@ -535,8 +703,6 @@ export default {
 				// });
                 // console.log(response.data);
                 this.edit_person = response.data;
-                console.log("logging response");
-                console.log(response);
                 response.data.phones.forEach(phone => {
                     if(phone.isPrimary) {
                         this.edit_person.primaryPhone = phone.number;
@@ -567,6 +733,7 @@ export default {
             });
         },
         updatePerson() {
+            this.update_poc_dialog = false;
             var data = {
                 "first_name": this.edit_person.first_name,
                 "last_name": this.edit_person.last_name,
@@ -577,17 +744,13 @@ export default {
                 "zip":this.edit_person.zip,
                 "county":this.edit_person.county,
             };
-            console.log(data);
             var personID = this.$route.params.personId;
             //data.services = this.add_person.services;
             PersonDataService.update(personID, data).
             then(response=>{
-                // console.log(response);
-                //this.retrieveVolunteers();
                 return response.data.id;
             })
             .then(id=>{
-                console.log(id);
                 var email = {
                     address: this.edit_person.primaryEmail,
                     isPrimary: true
@@ -604,12 +767,10 @@ export default {
                     number: this.edit_person.secondaryPhone,
                     isPrimary: false
                 }
-                console.log(phone2);
                 EmailDataService.update(this.emailId, email);
                 EmailDataService.update(this.email2Id, email2);
                 PhoneDataService.update(this.phoneId, phone);
                 PhoneDataService.update(this.phone2Id, phone2).then(response => {
-                console.log(response)
                 });
             })
             .catch(e=>{

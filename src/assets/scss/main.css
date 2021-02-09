@@ -1,57 +1,42 @@
-$breakpoints:(
-        'x-small': (max-width: 767px),
-        'small': (min-width: 767px),
-        'medium': (min-width: 992px),
-        'large': (min-width: 1200px)
-)!default;
-
-@mixin respond-to($breakpoint){
-  @if map-has-key($breakpoints, $breakpoint){
-    @media #{inspect(map-get($breakpoints, $breakpoint))} {
-      @content;
-    }
-  }
-}
-
-.page-title{
+.page-title {
   font-family: "Roboto", sans-serif;
   margin-left: -50px;
   font-size: 2em;
-  @include respond-to('x-small'){
+}
+@media (max-width: 767px) {
+  .page-title {
     font-family: "Roboto", sans-serif;
     margin-left: 10px;
     font-size: 2em;
   }
 }
 
-.card-label{
+.card-label {
   font-weight: bold;
   color: #6D6E70;
 }
 
-.card-label-light{
+.card-label-light {
   font-weight: bold;
   color: white;
 }
 
-@mixin card-header(){
+.card-header-title {
   color: white;
   font-family: Roboto, sans-serif;
   font-weight: 300;
-}
-
-.card-header-title {
-  @include card-header;
   font-size: 18px;
 }
 
 .card-header-subtitle {
-  @include card-header;
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
   font-size: 14px;
 }
 
-.card-header-block{
-  margin-top:-40px !important;
+.card-header-block {
+  margin-top: -40px !important;
   background-color: #6D6E70 !important;
 }
 
@@ -65,32 +50,34 @@ $breakpoints:(
   font-family: Poppins, sans-serif;
 }
 
-.item-title{
+.item-title {
   font-size: 36px;
   color: #6D6E70;
-
 }
 
-.active-drawer-link{
+.active-drawer-link {
   background-color: #ED1B2E;
 }
 
-.small-dlg{
+.small-dlg {
   max-width: 300px;
 }
 
-.md-dlg{
+.md-dlg {
   max-width: 400px;
 }
 
-.lg-dlg{
+.lg-dlg {
   max-width: 700px;
 }
 
-.dlg-title{
+.dlg-title {
   color: #6D6E70;
 }
-dlg-no{
+
+dlg-no {
   background-color: #0091CD;
   color: white;
 }
+
+/*# sourceMappingURL=main.css.map */

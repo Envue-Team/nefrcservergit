@@ -209,7 +209,6 @@ export default {
         { text: "Name", value: "name", width: "80px", class: 'red--text text--darken-3' },
         { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
         { text: "Roles", value: "role", width: "100px", class: 'red--text text--darken-3' },
-        { text: "Delete", value: "actions", width: "1%" },
       ];
       return headers;
     },
@@ -224,22 +223,18 @@ export default {
     retrieveVolunteers() {
       UserDataService.getAll()
         .then((response) => {
-          console.log(response.data);
           this.volunteers = response.data;
           this.volunteers.forEach((volunteer) => {
             volunteer.name = volunteer.first_name + " " + volunteer.last_name;
-            console.log(volunteer.name);
             //TODO: Review this
             let roleNumber = volunteer.user.roles[0].id;
             let roleName = "";
 
-            console.log(roleNumber);
             if (roleNumber == 2) {
               roleName = "User";
             } else {
               roleName = "Admin";
             }
-            console.log(roleName);
             volunteer.role = roleName;
           });
           // console.log(this.volunteers);
@@ -273,8 +268,6 @@ export default {
       data.services = this.add_person.services;
       UserDataService.create(data)
         .then((response) => {
-          console.log(response.data.personId);
-
           let data = {
             userId: response.data.userId,
             roleId: 2,

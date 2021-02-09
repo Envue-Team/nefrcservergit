@@ -45,7 +45,9 @@
                 </span><br/>
                   <a :href="organization.website" style="color: #C4DFF6">
                   {{ organization.website }}
-                </a><span v-if="organization.phones != ''"> | {{ organization.phones[0].number}}</span>
+                </a><span v-if="organization.phones.length != 0">
+                <span v-show="organization.website != ''"> | </span>
+                {{ organization.primaryPhone}}</span>
               </span>
                     </v-card-text>
                   </v-card>
@@ -265,7 +267,7 @@
                       <v-btn
                           icon
                           small
-                          class="pl-3"
+                          class="ml-3"
                           v-show="verifyAccess('update')"
                           @click="openDialog('Edit POC', contact.id)"
                       >
@@ -340,11 +342,11 @@
                           icon
                           style="color: #C4DFF6"
                           v-if="verifyAccess('reassign')"
-                          @click="openDialog('RM', manager.personId)"
+                          @click="openDialog('Remove RM', manager.person.id)"
                       >
                         <v-icon
                             small
-                            class="mdi mdi-pencil"
+                            class="mdi mdi-minus"
                         ></v-icon>
                       </v-btn>
                     </div>
@@ -356,8 +358,6 @@
             </v-card>
           </v-col>
         </v-row>
-
-
       </v-col>
       </v-row>
     <v-row><!---------------------First Container Row-------------------------------->
@@ -550,15 +550,66 @@
         :rm_dlg_action="rm_dlg_action"
         :relationship_manager="current_relationship_manager"
     />
+    <!---------------------------------Delete Relationship Manager Dialog------------------------------>
+    <v-dialog
+        v-model="delete_relationship_manager_dialog"
+        content-class="small-dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+            <v-btn
+                text
+                disabled=true
+                style="color: #ED1B2E !important"
+            >
+                Caution
+            </v-btn>
+        <v-card-text>
+          Are you sure you want to remove manager from this assignment?
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+              depressed
+              @click="delete_relationship_manager_dialog=false"
+              style="background-color: #0091CD; color: white"
+          >
+            No
+          </v-btn>
+          <v-btn
+              depressed
+              @click="deleteRelationshipManager"
+              style="background-color: #7F181B; color: white"
+          >
+            Yes
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Delete Relationship Manager Dialog------------------------------>
+
     <!-------------------------- Note Dialog------------------------>
     <v-dialog
         v-model="add_note_dlg"
-        max-width="400px"
+        content-class="md-dlg"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form>
           <v-card-title>
-            <span class="headline">Organization Note</span>
+            <span class="dlg-title">Notes</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -570,16 +621,17 @@
               </v-row>
             </v-container>
             <v-card-actions>
+              <v-spacer></v-spacer>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #0091CD; color: white"
+                  depressed
                   @click="add_note_dlg=false"
               >
                 Close
               </v-btn>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #7F181B; color: white"
+                  depressed
                   @click="updateOrganization"
               >
                 Save
@@ -588,18 +640,25 @@
           </v-card-text>
         </v-form>
       </v-card>
+      </v-card>
     </v-dialog>
     <!--------------------------//Note Dialog------------------------>
 
     <!--------------------------Last Contact Note Dialog------------------------>
     <v-dialog
       v-model="contact_note_dlg"
-      max-width="300px"
+      content-class="md-dlg"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form>
           <v-card-title>
-            <span class="headline">Last Contact Made</span>
+            <span class="dlg-title">Last Contact Made</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -611,16 +670,17 @@
               </v-row>
             </v-container>
             <v-card-actions>
+              <v-spacer></v-spacer>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #0091CD; color: white"
+                  depressed
                   @click="contact_note_dlg=false"
               >
                 Close
               </v-btn>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #7F181B; color: white"
+                  depressed
                   @click="updateOrganization"
               >
                 Save
@@ -629,18 +689,25 @@
           </v-card-text>
         </v-form>
       </v-card>
+      </v-card>
     </v-dialog>
     <!--------------------------//Last Contact Note Dialog------------------------>
 
     <!-----------------------------Op Action Dialog------------------------------------------>
     <v-dialog
         v-model="op_action_dlg"
-        max-width="400px"
+        content-class="md-dlg"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form>
           <v-card-title>
-            <span class="headline">Opportunities/Actions for Improvement</span>
+            <span class="dlg-title">Opportunities/Actions for Improvement</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -652,16 +719,17 @@
               </v-row>
             </v-container>
             <v-card-actions>
+              <v-spacer></v-spacer>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #0091CD; color: white"
+                  depressed
                   @click="op_action_dlg=false"
               >
                 Close
               </v-btn>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #7F181B; color: white"
+                  depressed
                   @click="updateOrganization"
               >
                 Save
@@ -670,16 +738,25 @@
           </v-card-text>
         </v-form>
       </v-card>
+      </v-card>
     </v-dialog>
     <!--------------------------//Op Action Dialog------------------------>
+
+    <!-----------------------------File Upload Dialog------------------------------------------>
     <v-dialog
       v-model="upload_file_dlg"
-      max-width="500px"
+      content-class="md-dlg"
   >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
     <v-card>
       <form id="uploadForm">
       <v-card-title>
-        Upload a file for this Organization
+        <span class="dlg-title">Upload a file for this Partner</span>
       </v-card-title>
       <v-card-text>
           <v-file-input
@@ -709,25 +786,33 @@
       </v-card-actions>
       </form>
     </v-card>
+    </v-card>
   </v-dialog>
+    <!-----------------------------File Upload Dialog------------------------------------------>
+
     <!---------------------------------Edit Organization Dialog------------------------------->
     <v-dialog
         v-model="organization_edit_dlg"
-        max-width="700px"
+        content-class="lg-dlg"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form
           v-model="orgValid"
         >
           <v-card-title>
-            <span class="headline">Organization Information</span>
+            <span class="dlg-title">Partner Information</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
                 <v-col
-                    cols="12"
-                    md="6"
+                    cols="8"
                 >
                   <v-text-field
                       label="*Agency Name"
@@ -739,7 +824,8 @@
               </v-row>
               <v-row>
                 <v-col
-                    cols="12"
+                    cols="4"
+                    sm="12"
                     md="4"
                 >
                   <v-text-field
@@ -750,8 +836,9 @@
                   ></v-text-field>
                 </v-col>
                 <v-col
-                    cols="12"
-                    md="4"
+                    cols="6"
+                    sm="12"
+                    md="6"
                 >
                   <v-text-field
                       label="*Street Name"
@@ -763,8 +850,9 @@
               </v-row>
               <v-row>
                 <v-col
-                    cols="12"
-                    md="3"
+                    cols="5"
+                    sm="12"
+                    md="5"
                 >
                   <v-text-field
                       label="*City"
@@ -774,8 +862,9 @@
                   ></v-text-field>
                 </v-col>
                 <v-col
-                    cols="12"
-                    md="2"
+                    cols="3"
+                    sm="12"
+                    md="3"
                 >
                   <v-select
                     required
@@ -787,8 +876,9 @@
                   </v-select>
                 </v-col>
                 <v-col
-                    cols="12"
-                    md="2"
+                    cols="3"
+                    sm="12"
+                    md="3"
                 >
                   <v-text-field
                       label="*Zip"
@@ -800,8 +890,9 @@
               </v-row>
               <v-row>
                 <v-col
-                    cols="12"
-                    md="6"
+                    cols="4"
+                    sm="12"
+                    md="4"
                 >
                   <v-text-field
                       label="Website"
@@ -815,15 +906,16 @@
                 >
                   <v-text-field
                       label="Phone"
-                      v-model="organization.phones[0].number"
+                      v-model="organization.primaryPhone"
                       :rules="businessPhoneRule"
                   ></v-text-field>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col
-                    cols="12"
-                    md="6"
+                    cols="4"
+                    sm="12"
+                    md="4"
                 >
                   <v-select
                     multiple
@@ -837,7 +929,11 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col>
+                <v-col
+                    cols="4"
+                    sm="12"
+                    md="4"
+                >
                   <v-select
                     :items="mou_options"
                     required
@@ -847,9 +943,11 @@
                   >
                   </v-select>
                 </v-col>
-              </v-row>
-              <v-row>
-                <v-col>
+                <v-col
+                    cols="5"
+                    sm="12"
+                    md="5"
+                >
                   <v-select
                       multiple
                       required
@@ -860,7 +958,11 @@
                   >
                   </v-select>
                 </v-col>
-                <v-col>
+                <v-col
+                    cols="6"
+                    sm="12"
+                    md="5"
+                >
                   <v-select
                       multiple
                       required
@@ -871,7 +973,11 @@
                   >
                   </v-select>
                 </v-col>
-                <v-col>
+                <v-col
+                    cols="6"
+                    sm="12"
+                    md="5"
+                >
                   <v-select
                       multiple
                       v-model="organization_agency_types"
@@ -882,81 +988,158 @@
                   </v-select>
                 </v-col>
               </v-row>
-              <v-row>
-                <v-textarea
+              <v-row
+                class="mt-3"
+              >
+                <v-col
+                    cols="5"
+                    sm="12"
+                    md="5"
+                >
+                  <v-textarea
                   v-model="organization.contact_protocol"
                   label="Preferred Method of Contact per RM"
-                ></v-textarea>
-              </v-row>
-              <v-row>
-                <v-textarea
-                    required
-                    v-model="organization.service"
-                    :rules="serviceDescriptionRule"
-                    label="*Additional Notes"
-                ></v-textarea>
+                  ></v-textarea>
+                </v-col>
+                <v-col
+                    cols="5"
+                    sm="12"
+                    md="5"
+                >
+                  <v-textarea
+                      required
+                      v-model="organization.service"
+                      :rules="serviceDescriptionRule"
+                      label="*Additional Notes"
+                  ></v-textarea>
+                </v-col>
               </v-row>
             </v-container>
             <small>*Indicates required field</small>
           </v-card-text>
           <v-card-actions>
+            <v-btn
+                text
+                @click="openDialog('Delete')"
+                style="background-color: #ED1B2E; color: white"
+
+            >
+              Delete
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                color="blue darken-1"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click="organization_edit_dlg=false"
             >
               Close
             </v-btn>
-            <v-btn
-                @click="openDialog('Delete')"
-                color="red darken-1"
-                text
-            >
-              Delete
-            </v-btn>
+
             <v-btn
                 :disabled="!orgValid"
-                color="blue darken-1"
-                text
-                @click="updateOrganization"
+                style="background-color: #7F181B; color: white"
+                depressed
+                @click="update_organization_dlg=true"
             >
-              Save
+              Save Changes
             </v-btn>
           </v-card-actions>
         </v-form>
+      </v-card>
       </v-card>
     </v-dialog>
     <!---------------------------------//Edit Organization Dialog------------------------------>
 
     <!---------------------------------Delete Organization Dialog------------------------------>
     <v-dialog
-        max-width="300"
+        content-class="small-dlg"
         v-model="delete_organization_dialog"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
+        <v-btn
+            text
+            disabled=true
+            style="color: #ED1B2E !important"
+        >
+          Caution
+        </v-btn>
         <v-card-text>
           Are you sure you want to delete this organization?
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn
-              @click="deleteOrganization"
-              text
-              color="red text-darken-1">
-            Yes
-          </v-btn>
+          <v-spacer></v-spacer>
           <v-btn
               @click="delete_organization_dialog=false"
-              text
-              color="blue text-darken-1"
+              style="background-color: #0091CD; color: white"
+              depressed
           >
             No
           </v-btn>
+          <v-btn
+              @click="deleteOrganization"
+              style="background-color: #7F181B; color: white"
+              depressed
+          >
+            Yes
+          </v-btn>
         </v-card-actions>
+      </v-card>
       </v-card>
     </v-dialog>
     <!---------------------------------//Delete Organization Dialog------------------------------>
+
+    <!---------------------------------Save Edit Organization Dialog------------------------------>
+    <v-dialog
+        v-model="update_organization_dlg"
+        content-class="small-dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to save these changes?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="update_organization_dlg=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                style="background-color: #7F181B; color: white"
+                depressed
+                @click="updateOrganization"
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Save Edit Organization Dialog------------------------------>
+
     <!--------------------------//Dialogs-------------------------------->
   </v-container>
 </template>
@@ -1122,8 +1305,10 @@ export default {
        * Organization
        */
       organization: '',
+      organizationPrimaryPhone: '',
       organization_edit_dlg: false,
       delete_organization_dialog: '',
+      update_organization_dlg: false,
 
       /**
        * Relationship Managers
@@ -1184,7 +1369,7 @@ export default {
       switch(dlg){
         case "Add RM":
           this.rm_dlg_action = 'Create';
-          this.rm_dlg_title = "Assign Relationship Manager";
+          this.rm_dlg_title = "Assign a Relationship Manager to "+this.organization.name;
           this.current_relationship_manager_id = '';
           this.showRMDialog = true;
           break;
@@ -1198,6 +1383,11 @@ export default {
           this.current_relationship_manager_id = id;
           this.rm_dlg_action = 'Edit';
           this.showRMDialog = true;
+          break;
+        case "Remove RM":
+          this.delete_relationship_manager_dialog = true;
+          this.current_relationship_manager_id = id;
+          console.log(id);
           break;
         case "Edit POC":
           this.update_poc_id = id;
@@ -1337,6 +1527,7 @@ export default {
       /*
      Update organization data
      */
+      this.update_organization_dlg = false;
       this.organization_edit_dlg = false;
       let data = {
         "name": this.organization.name,
@@ -1357,9 +1548,20 @@ export default {
       OrganizationDataService.update(this.organization.id, data)
           .then()
           .catch(e=>{console.log(e)});
-      PhoneDataService.update(this.organization.phones[0].id, {number: this.organization.phones[0].number})
-          .then()
-          .catch(e=>{console.log(e)});
+      if(this.organization.phones.length == 0){
+        let data = {
+            organizationId: this.organization.id,
+            number: this.organization.primaryPhone
+        };
+
+        PhoneDataService.create(data)
+            .then()
+            .catch(e=>{console.log(e)});
+      }else{
+        PhoneDataService.update(this.organization.phones[0].id, {number: this.organization.primaryPhone})
+            .then()
+            .catch(e=>{console.log(e)});
+      }
 
       OrganizationCountyDataService.deleteOrganizationCounties(this.organization.id)
           .then(response=>{
@@ -1460,11 +1662,15 @@ export default {
                 .then(this.setPOC)
                 .catch(e=>{console.log(e)});
             this.organization = response.data;
+
             if(this.organization.phones.length==0){
-              this.organization.phones[0] = '';
+              this.organization.primaryPhone = '';
+            } else{
+              this.organization.primaryPhone = response.data.phones[0].number;
             }
             this.organization_state = response.data.state;
             this.organization_relationship_managers = response.data.relationship_managers;
+
             this.populateFiles(this.organization.id);
             this.setOwnerStatus();
           })
@@ -1561,9 +1767,10 @@ export default {
             console.log(e)
           });
     },
-    deleteRelationshipManager(id){
-      this.showRMDialog = false;
-      RelationshipManagerDataService.delete(this.organization.id, id)
+    deleteRelationshipManager(){
+      // this.showRMDialog = false;
+      this.delete_relationship_manager_dialog = false;
+      RelationshipManagerDataService.delete(this.organization.id, this.current_relationship_manager_id)
           .then(
               response=>{
                 this.setOrganization();
@@ -1600,7 +1807,6 @@ export default {
                       .catch(e=>{console.log(e)})});
             return person.id;
           }).then(id=>{
-        console.log("called");
         PersonDataService.delete(id).catch(e=>{console.log(e)});
         this.setOrganization();
       })

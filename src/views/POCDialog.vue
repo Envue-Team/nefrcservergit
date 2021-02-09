@@ -2,13 +2,19 @@
   <v-container>
     <!---------------------------------Point of Contact Dialog------------------------------->
     <v-dialog
-        max-width="600px"
+        content-class="lg-dlg"
         v-model="show"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form ref="form" v-model="valid">
           <v-card-title>
-            <span class="headline">{{poc_title}}</span>
+            <span class="dlg-title">{{poc_title}}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -142,98 +148,134 @@
             <small>*indicates required field</small>
           </v-card-text>
           <v-card-actions>
-            <v-spacer></v-spacer>
             <v-btn
-                color="red darken-1"
-                text
+                v-show="poc_dlg_action=='Edit'"
+                style="background-color: #ED1B2E; color: white"
+                depressed
                 @click="openDialog('Delete')"
             >
               Delete
             </v-btn>
+            <v-spacer></v-spacer>
+            <v-btn
+                style="background-color: #0091CD; color: white"
+                depressed
+                @click.stop="show=false"
+            >
+              Close
+            </v-btn>
             <v-btn
                 :disabled="!valid"
                 v-show="poc_dlg_action=='Create'"
-                color="blue darken-1"
-                text
+                style="background-color: #7F181B; color: white"
+                depressed
                 @click="createPOC"
             >
               Save
             </v-btn>
             <v-btn
                 v-show="poc_dlg_action=='Edit'"
-                color="blue darken-1"
-                text
+                style="background-color: #7F181B; color: white"
+                depressed
                 :disabled="!valid"
                 @click="openDialog('Update')"
             >
-              Edit
-            </v-btn>
-            <v-btn
-                color="blue darken-1"
-                text
-                @click.stop="show=false"
-            >
-              Close
+              Save Changes
             </v-btn>
           </v-card-actions>
         </v-form>
       </v-card>
+      </v-card>
       <!---------------------------------//View Point of Contact Dialog------------------------------>
     </v-dialog>
+    <!---------------------------------//Point of Contact Dialog------------------------------->
+
     <!---------------------------------Delete Point of Contact Dialog------------------------------>
     <v-dialog
-        max-width="300"
+        content-class="small-dlg"
         v-model="delete_poc_dialog"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
+        <v-btn
+            text
+            disabled=true
+            style="color: #ED1B2E !important"
+        >
+          Caution
+        </v-btn>
         <v-card-text>
           Are you sure you want to delete this point of contact?
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn
-              @click="deletePOC"
-              text
-              color="red text-darken-1">
-            Yes
-          </v-btn>
+          <v-spacer></v-spacer>
           <v-btn
               @click="delete_poc_dialog=false"
-              text
-              color="blue text-darken-1"
+              style="background-color: #0091CD; color: white"
+              depressed
           >
             No
           </v-btn>
+          <v-btn
+              @click="deletePOC"
+              style="background-color: #7F181B; color: white"
+              depressed
+          >
+            Yes
+          </v-btn>
         </v-card-actions>
+      </v-card>
       </v-card>
     </v-dialog>
     <!---------------------------------//Delete Point of Contact Dialog------------------------------>
 
     <!---------------------------------Save Point of Contact Dialog------------------------------>
     <v-dialog
-        max-width="300"
         v-model="update_poc_dialog"
+        content-class="small-dlg"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
+        <v-btn
+            text
+            disabled=true
+            style="color: #ED1B2E !important"
+        >
+          Caution
+        </v-btn>
         <v-card-text>
-          Save changes?
+          Are you sure you want to save these changes?
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
-          <v-btn
-              @click="updatePOC"
-              text
-              color="red text-darken-1">
-            Yes
-          </v-btn>
+          <v-spacer></v-spacer>
           <v-btn
               @click="update_poc_dialog=false"
-              text
-              color="blue text-darken-1"
+              style="background-color: #0091CD; color: white"
+              depressed
           >
             No
           </v-btn>
+          <v-btn
+              @click="updatePOC"
+              style="background-color: #7F181B; color: white"
+              depressed
+          >
+            Yes
+          </v-btn>
         </v-card-actions>
+      </v-card>
       </v-card>
     </v-dialog>
     <!---------------------------------//Save Point of Contact Dialog------------------------------>
@@ -386,6 +428,10 @@ export default {
             });
           }).catch(e=>{console.log(e)});
 
+        }else{
+          if(this.$refs.form != null){
+            this.$refs.form.reset();
+          }
         }
         return this.value
       },

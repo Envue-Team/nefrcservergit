@@ -101,8 +101,6 @@
             <v-row>
               <v-col
                   cols="8"
-                  sm="8"
-                  md="8"
               >
                 <v-text-field
                     label="*Agency Name"
@@ -297,6 +295,7 @@
                   md="5"
               >
                 <v-textarea
+                    v-model="add_organization.service"
                     rows="2"
                     required
                     label="*Additional Notes"
@@ -670,7 +669,7 @@ export default {
               organization.line_of_businesses.forEach(lob=>{
                 organization.lob += lob.name + "\n";
               });
-              organization.lob = organization.lob.substr(0, organization.lob.length-2);
+              organization.lob = organization.lob.substr(0, organization.lob.length-1);
               organization.type = '';
               organization.agency_types.forEach(type=>{
                 organization.type += type.name + "\n";
@@ -680,7 +679,7 @@ export default {
               organization.arc_relationships.forEach(arc_rel=>{
                 organization.arc_rel += arc_rel.name + "\n";
               });
-              organization.arc_rel = organization.arc_rel.substr(0, organization.arc_rel.length-2);
+              organization.arc_rel = organization.arc_rel.substr(0, organization.arc_rel.length-1);
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 let manager = organization.relationship_managers[0].person;
                 let manager_data = manager.first_name+" "+manager.last_name;
