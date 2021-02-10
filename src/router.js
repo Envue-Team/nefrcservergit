@@ -1,4 +1,3 @@
-
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
@@ -12,7 +11,6 @@ import Users from './views/Users'
 import Login from './views/Login'
 import UserPage from './views/UserPage'
 
-
 Vue.use(Router)
 export default new Router({
   mode: 'history',
@@ -21,12 +19,18 @@ export default new Router({
     {
       path: '/',
       name: 'login',
-      component: Login
+      get component(){
+        if(!this.$authenticated){
+          return Login;
+        }else{
+          return Organizations;
+        }
+      }
     },
     {
       path: '/home',
-      name: 'home',
-      component: Home
+      name: 'organizations',
+      component: Organizations
     },
     {
       path: '/register',
@@ -56,7 +60,12 @@ export default new Router({
     {
       path: '/users',
       name: 'users',
-      component: Users 
+      component: Users
+      // component: function() {
+      //   if (this.$session.get("userRole") == 0) {
+      //     return Users;
+      //   }
+      // }
     },
     // {
     //   path: '/users',

@@ -1,46 +1,39 @@
 <template>
   <v-container>
   <v-row>
-    <v-col
-      sm="12"
-      md="6"
-      lg="6"
-    >
-      <div class="red--text text--darken-2 page-title">Connections</div>
-    </v-col>
-  </v-row>
-  <v-row>
-      <v-col>
-        <v-row v-show="verifyAccess('create')">
-          <v-col>
-            <v-hover
-                v-slot="{ hover }"
-                open-delay="200"
-            >
-              <v-btn
-                  text
-                  color="red"
-                  @click="add_organization_dlg=true"
-              >
-                Add New Organization
-                <v-icon>
-                  mdi-plus
-                </v-icon>
-              </v-btn>
-            </v-hover>
-          </v-col>
-        </v-row>
-        <v-card outlined elevation="3 text-wrap">
+      <v-col class="col cols-12">
+        <v-card
+            class="pa-3 mt-8"
+            outlined
+            elevation="3 text-wrap">
+          <v-card
+              style="margin-top:-40px; width:100%;"
+              class="pa-7 card-header-block"
+              rounded
+          >
+            <v-text-title class="card-header-title">Partners</v-text-title>
+          </v-card>
           <v-card-text>
         <v-row>
-          <v-col class="col-6">
-            <v-text-field
+          <v-btn
+              fab
+              elevation="3"
+              small
+              class="ml-3"
+              v-show="verifyAccess('create')"
+              color="white"
+              @click="add_organization_dlg=true"
+          >
+            <v-icon class="mdi mdi-dark mdi-plus">
+            </v-icon>
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-text-field
+              class="shrink mt-3 mr-3"
+              label="Search"
               v-model="search"
               append-icon="mdi-magnify"
-              label="Search Table"
-              single-line
-            ></v-text-field>
-          </v-col>
+          ></v-text-field>
         </v-row>
           <v-data-table
             :headers="headers"
@@ -53,19 +46,21 @@
             >
             <template v-slot:body.append="{ item }">
               <div class="row" style="padding-bottom: 20px">
-                <div class="col" style="margin-bottom: -25px; padding: 5px">
+                <div class="col" style="margin-bottom: -25px; margin-left: 20px; padding: 5px">
                   <JsonExcel
                       class="btn btn-default"
                       :data="excel_data"
                       :fields="excel_fields"
                       worksheet="My Worksheet"
-                      name="filename.xls"
+                      name="Partners.xls"
                   >
                     <v-btn
-                      text
-                      color="blue"
+                      icon
+                      fab
+                      color="#7F181B"
+                      large
                     >
-                      Download to Excel File
+                      <v-icon class="mdi mdi-download"></v-icon>
                     </v-btn>
                   </JsonExcel>
                 </div>
@@ -95,7 +90,9 @@
       max-width="700px"
   >
     <v-card>
-      <v-form ref="form" v-model="valid">
+      <v-form
+          v-model="valid"
+      >
         <v-card-title>
           <span class="headline">Add a New Organization</span>
         </v-card-title>
@@ -291,7 +288,7 @@
               >
                 <v-textarea
                     rows="2"
-                    label="Contact Protocol"
+                    label="Preferred Method of Contact per RM"
                 ></v-textarea>
               </v-col>
               <v-col
@@ -301,13 +298,14 @@
               >
                 <v-textarea
                     rows="2"
-                    label="*Services"
+                    required
+                    label="*Additional Notes"
                     :rules="serviceDescriptionRule"
                 ></v-textarea>
               </v-col>
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
+          <small>*Indicates required field</small>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -335,6 +333,7 @@
 </template>
 
 <script>
+//TODO: Resolve validation issue
 import OrganizationDataService from "../services/OrganizationDataService";
 import JsonExcel from "vue-json-excel";
 import CountyDataService from "@/services/CountyDataService";
@@ -357,11 +356,12 @@ export default {
       return {
         isOwner: false,
         permissions: [],
+        toolbar_title: 'connections',
 
         /**
          * Form validation
          **/
-        valid: false,
+        valid: true,
         businessNameRule: [
           v => !!v || 'A business name is required',
         ],
@@ -383,19 +383,11 @@ export default {
         countyRule:[
           v => !!v || 'At least one county must be selected'
         ],
-        countyRule:[
-          v => !!v || 'At least one county must be selected'
-        ],
         zipRule:[
-          v => !!v || 'A zip code is required',
           v => /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(v) || 'Please, input a valid zip code'
         ],
         businessPhoneRule:[
           v => /^((1-)?\d{3}-\d{3}-\d{4}){0,1}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
-        ],
-        phoneRule:[
-            v => !!v || 'Phone number is required',
-            v => /^(1-)?\d{3}-\d{3}-\d{4}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
         ],
         email: [
           v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'Please, input a valid email address'
@@ -415,10 +407,6 @@ export default {
         agencyRule:[
           v => !!v || 'An agency type must be selected'
         ],
-        arcFunctionRule:[
-          v => !!v || 'ARC type must be selected'
-        ],
-
 
         /**
          * Counties
@@ -481,6 +469,8 @@ export default {
             },
           ],
         ],
+
+
         filters:{
           partners: false,
           relationships: true,
@@ -523,72 +513,49 @@ export default {
    computed: {
       headers () {
         let headers = [
-          {text: 'Name',value: 'name'},
-          {text: 'Address', value: 'address'},
-          {text: 'City', value: 'city'},
-          {text: 'Zip', value: 'zip'},
-          {text: 'County', value: 'county_display' },
-          {text: 'Manager', value: 'manager'},
-          {text: 'MOU', value: 'mou'},
-          {text: 'Line of Business', value: 'lob'},
-          {text: 'Services', value: 'service'},
-          {text: 'Agency Type', value: 'type'},
-          {text: 'Relationship', value: 'arc_rel'}
+          {text: 'Name',value: 'name', class: 'red--text text--darken-3'},
+          {text: 'Address', value: 'address', class: 'red--text text--darken-3'},
+          {text: 'City', value: 'city', class: 'red--text text--darken-3'},
+          {text: 'Zip', value: 'zip', class: 'red--text text--darken-3'},
+          {text: 'County', value: 'county_display', class: 'red--text text--darken-3' },
+          {text: 'Manager', value: 'manager', class: 'red--text text--darken-3'},
+          {text: 'MOU', value: 'mou', class: 'red--text text--darken-3'},
+          {text: 'Line of Business', value: 'lob', class: 'red--text text--darken-3'},
+          {text: 'Agency Type', value: 'type', class: 'red--text text--darken-3'},
+          {text: 'Relationship', value: 'arc_rel', class: 'red--text text--darken-3'},
+          {text: 'Services', value: 'service', class: 'red--text text--darken-3'},
+
         ]
-        if(this.filters.partners){
-          headers.push({text: "Services", value:'partner.services'});
-        }
-        // if(this.filters.relationships){
-        //   headers.push({text: "Status",value:'relationship.status'});
-        // }
         headers.forEach(header=>{
-          headers.forEach(header =>{
-            this.excel_fields[header.text] = header.text.toLowerCase();
-          });
+            this.excel_fields[header.text] = header.value;
         });
         return headers;
       },
     },
     methods: {
-      /**
-       * Files
-       **/
-      updateExcelFields(){
-        this.headers.forEach(header=>{
-          this.excel_fields[header.text] = header.text.toLocaleLowerCase();
-        });
-      },
-
-      /**
-       * Form validation
-       **/
-      validate () {
-        this.$refs.form.validate()
-      },
-
       nav(item){
         this.$router.push({path: "organization/"+item.id});
       },
 
       addOrganization(){
           let data = {
-              "name": this.add_organization.name,
-              "street_number": this.add_organization.street_number,
-              "street_name": this.add_organization.street_name,
-              "city": this.add_organization.city,
-              "state": this.add_organization.state,
-              "zip": this.add_organization.zip,
-              // "county": this.add_organization.county,
-              "website": this.add_organization.website,
-              "mou": this.add_organization.mou,
-              "contact_protocol": this.add_organization.contact_protocol,
-              "last_contact": this.add_organization.last_contact,
-              "service": this.add_organization.service,
-              "notes": this.add_organization.notes,
-              "action": this.add_organization.action
+            "name": this.add_organization.name,
+            "street_number": this.add_organization.street_number,
+            "street_name": this.add_organization.street_name,
+            "city": this.add_organization.city,
+            "state": this.add_organization.state,
+            "zip": this.add_organization.zip,
+            // "county": this.add_organization.county,
+            "website": this.add_organization.website,
+            "mou": this.add_organization.mou,
+            "contact_protocol": this.add_organization.contact_protocol,
+            "last_contact": this.add_organization.last_contact,
+            "service": this.add_organization.service,
+            "notes": this.add_organization.notes,
+            "action": this.add_organization.action
           };
           OrganizationDataService.create(data)
-              .then(response=>{
+              .then(response => {
                 let id = response.data.id;
 
                 //Update phone
@@ -596,48 +563,56 @@ export default {
                   organizationId: id,
                   number: this.add_organization.phone,
                   isPrimary: true
-                }).catch(e=>{console.log(e)});
+                }).catch(e => {
+                  console.log(e)
+                });
 
                 //Update counties
-                this.add_organization.county.forEach(county=>{
+                this.add_organization.county.forEach(county => {
                   this.unmapped_counties.filter(ucounty => {
-                    if(ucounty.name == county){
+                    if (ucounty.name == county) {
                       OrganizationCountyDataService.create({
                         organizationId: id,
                         countyId: ucounty.id
-                      }).then().catch(e=>{console.log(e)});
+                      }).then().catch(e => {
+                        console.log(e)
+                      });
                     }
                   })
                 });
 
                 //Update line of business
-                this.add_organization.line_of_business.forEach(lob=>{
-                  this.unmapped_lines_of_business.filter(ulob=>{
-                    if(ulob.name == lob){
+                this.add_organization.line_of_business.forEach(lob => {
+                  this.unmapped_lines_of_business.filter(ulob => {
+                    if (ulob.name == lob) {
                       OrganizationLineOfBusinessDataService.create({
                         organizationId: id,
                         lineOfBusinessId: ulob.id
-                      }).then().catch(e=>{console.log(e)});
+                      }).then().catch(e => {
+                        console.log(e)
+                      });
                     }
                   });
                 });
 
                 //Update arc relationship
-                this.add_organization.arc_relationship.forEach(rel=>{
-                  this.unmapped_arc_relationships.filter(urel=>{
-                    if(urel.name == rel){
+                this.add_organization.arc_relationship.forEach(rel => {
+                  this.unmapped_arc_relationships.filter(urel => {
+                    if (urel.name == rel) {
                       OrganizationArcRelationshipDataService.create({
                         organizationId: id,
                         arcRelationshipId: urel.id
-                      }).then().catch(e=>{console.log(e)});
+                      }).then().catch(e => {
+                        console.log(e)
+                      });
                     }
                   });
                 });
 
                 //Update agency data
-                this.add_organization.agency_type.forEach(type=>{
-                  this.unmapped_agency_types.filter(utype=>{
-                    if(utype.name == type){
+                this.add_organization.agency_type.forEach(type => {
+                  this.unmapped_agency_types.filter(utype => {
+                    if (utype.name == type) {
                       OrganizationAgencyTypeDataService.create({
                         organizationId: id,
                         agencyTypeId: utype.id
@@ -645,10 +620,11 @@ export default {
                     }
                   })
                 });
+                this.$router.push('organization/' + id);
               })
-              .catch(e=> {
-            console.log(e)
-          });
+              .catch(e => {
+                console.log(e)
+              });
           this.add_organization_dlg = false;
           this.retrieveOrganizations();
       },
@@ -656,7 +632,6 @@ export default {
         OrganizationDataService.getAll()
           .then(response => {
             this.orgCache = response.data;
-            console.log(this.orgCache);
             this.orgCache.forEach(organization=>{
               //Format managers for table
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
@@ -680,19 +655,11 @@ export default {
                 organization.managerId = 0;
               }
 
-              if( organization.partner !== null ){
-                organization.services = organization.partner.services;
-              }else if( organization.relationship !== null ){
-                organization.status = organization.relationship.status;
-              }
-              this.excel_data = this.organizations;
             });
-            
             this.organizations = response.data;
-
             this.organizations.forEach(organization=>{
-              organization.address = organization.street_number+" "+organization.street_name+"\n"+
-                    organization.city+", "+organization.state+" "+organization.zip;
+              organization.address = organization.street_number+" "+organization.street_name;
+
               organization.county_display = '';
               organization.counties.forEach(county=>{
                 organization.county_display += county.name + ", ";
@@ -708,7 +675,7 @@ export default {
               organization.agency_types.forEach(type=>{
                 organization.type += type.name + "\n";
               });
-              organization.type = organization.type.substr(0, organization.type.length-2);
+              organization.type = organization.type.substr(0, organization.type.length-1);
               organization.arc_rel = '';
               organization.arc_relationships.forEach(arc_rel=>{
                 organization.arc_rel += arc_rel.name + "\n";
@@ -737,8 +704,8 @@ export default {
               }else if( organization.relationship !== null ){
                 organization.status = organization.relationship.status;
               }
-              this.excel_data = this.organizations;
-          });
+            });
+            this.excel_data = this.organizations;
           })
           .catch(e => {
             console.log(e.message);

@@ -1,152 +1,85 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary">
-      <v-app-bar color="primary" flat class="hidden-md-and-down">
-        <v-toolbar-title>
-          <router-link to="/">
-            <v-img
-              class="mx-2"
-              src="../src/assets/images/redcross-logo.png"
-              max-height="auto"
-              max-width="60%"
-              contain
-            ></v-img>
-          </router-link>
-        </v-toolbar-title>
-        <router-link to="/home" class="red--text text--darken-2 mr-3"
-          >Home</router-link
+    <v-app-bar
+        tile
+        absolute
+        flat
+        app
+        style="background-color: #7F181B"
+    >
+        <v-btn
+            class="mr-3"
+            elevation="1"
+            fab
+            small
+            @click.stop="mini = !mini"
         >
-        |
-        <router-link to="/contacts" class="red--text text--darken-2 mr-3 ml-3"
-          >Contacts</router-link
-        >
-        |
-        <router-link
-          to="/organizations"
-          class="red--text text--darken-2 ml-3 mr-3"
-          >Connections</router-link
-        >
-        |
-        <router-link
-          v-show="verifyAccess('modify')"
-          to="/users"
-          class="red--text text--darken-2 ml-3 mr-3"
-          >Users</router-link
-        >
+        <v-icon class="mdi mdi-dark mdi-dots-vertical"></v-icon>
+        </v-btn>
+        <v-toolbar-title
+        class="hidden-sm-and-down"
+        style="color: white"
+        >{{getPageTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <v-btn depressed color="red" v-on:click="logout"> Log Out </v-btn>
-      </v-app-bar>
+        <v-btn
+            flat
+            icon
+        >
+          <v-icon class="mdi mdi-light mdi-account"></v-icon>
+        </v-btn>
     </v-app-bar>
-    <v-main style="background-color: rgba(45, 70, 40, 0.04)">
-      <v-app-bar app color="primary" class="hidden-lg-and-up">
-        <router-link to="/home">
-          <v-img
-            class="mx-2"
-            src="../src/assets/images/redcross-logo.png"
-            max-height="auto"
-            max-width="50%"
-            contain
-          ></v-img>
-        </router-link>
-        <v-spacer></v-spacer>
-        <v-dialog
-          v-model="navDialog"
-          fullscreen
-          hide-overlay
-          transition="dialog-bottom-transition"
+    <v-navigation-drawer
+        v-model="drawer"
+        :mini-variant.sync="mini"
+        app
+    >
+    <v-img src="./assets/images/rescuers.jpeg" height="100%">
+      <v-list-item class="px-2">
+        <v-list-item-avatar>
+          <v-img src="./assets/images/red_crescent_trprnt.png"/>
+        </v-list-item-avatar>
+
+        <v-list-item-title style="color: #a01212; font-weight: 500">
+          <strong>American Red Cross</strong>
+        </v-list-item-title>
+
+        <v-btn
+            icon
+            @click.stop="mini = !mini"
+            active-class="blue"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-app-bar-nav-icon></v-app-bar-nav-icon>
-            </v-btn>
-          </template>
-          <template v-slot:default="navDialog">
-            <v-card>
-              <v-toolbar flat color="primary">
-                <v-toolbar-title>
-                  <router-link to="/home">
-                    <v-img
-                      class="mx-2"
-                      src="../src/assets/images/redcross-logo.png"
-                      max-height="auto"
-                      max-width="60%"
-                      contain
-                    ></v-img>
-                  </router-link>
-                </v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-btn flat icon @click="navDialog.value = false">
-                  <v-icon>close</v-icon>
-                </v-btn>
-              </v-toolbar>
-              <v-list nav dense>
-                <v-list-item-group
-                  v-model="group"
-                  active-class="deep-purple--text text--accent-4"
-                >
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon>home</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>
-                      <btn @click="navDialog.value = false">
-                        <router-link
-                          to="/home"
-                          class="red--text text--darken-2 mr-3"
-                          >Home</router-link
-                        >
-                      </btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item v-show="verifyAccess('modify')">
-                    <v-list-item-icon>
-                      <v-icon>groups</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>
-                      <btn @click="navDialog.value = false">
-                        <router-link
-                          to="/home"
-                          class="red--text text--darken-2 mr-3"
-                          >Users</router-link
-                        >
-                      </btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon>contacts</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>
-                      <btn @click="navDialog.value = false">
-                        <router-link
-                          to="/home"
-                          class="red--text text--darken-2 mr-3"
-                          >Contacts</router-link
-                        >
-                      </btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-icon>
-                      <v-icon>domain</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>
-                      <btn @click="navDialog.value = false">
-                        <router-link
-                          to="/home"
-                          class="red--text text--darken-2 mr-3"
-                          >Connections</router-link
-                        >
-                      </btn>
-                    </v-list-item-title>
-                  </v-list-item>
-                </v-list-item-group>
-              </v-list>
-            </v-card>
-          </template>
-        </v-dialog>
-      </v-app-bar>
-      <router-view />
+          <v-icon>mdi-chevron-left</v-icon>
+        </v-btn>
+      </v-list-item>
+      <v-list
+          nav
+          tile
+          dense
+      >
+      <v-divider></v-divider>
+        <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            link
+            active-class="active-drawer-link"
+            dark
+            :to="item.link"
+            @click="item.action"
+        >
+          <v-list-item-icon>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+
+        </v-list-item>
+      </v-list>
+      </v-img>
+    </v-navigation-drawer>
+    <v-main style="background-color: rgba(70, 9, 9, 0.1)">
+      <router-view search="search"/>
     </v-main>
   </v-app>
 </template>
@@ -155,40 +88,43 @@
 import RoleDataService from "@/services/RoleDataService";
 import "../src/assets/scss/main.scss";
 export default {
-  name: "App",
+  name: 'App',
   data() {
     return {
-      navDialog: false,
-      group: null,
+      'navDialog': false,
+      'group': null,
+      'page_title': '',
+      'search': '',
       permissions: [],
-      userRole: false,
-    };
+      userRole:false,
+      drawer: true,
+      items: [
+        // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
+        { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
+        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
+        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
+        { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
+      ],
+      mini: true,
+    }
   },
   methods: {
-    findUserRole() {
-      let userRole = this.$session.get("userRole");
-      if (userRole == 1) {
-        this.userRole = true;
-      }
-    },
     logout() {
       this.$authenticated = false;
       this.$session.destroy();
-
-      this.$router.replace({ name: "login" });
+      this.$router.replace({name: "login"});
     },
     /**
      * Access
      */
     verifyAccess(type) {
       switch (type) {
-        case "modify":
-          if (this.permissions.includes("modifyUsers")) {
+        case 'modify':
+          if (this.permissions.includes('modifyUsers')) {
             return true;
           } else {
             return false;
           }
-          break;
         default:
           return false;
       }
@@ -196,29 +132,51 @@ export default {
     setPagePermissions() {
       let currentRole = this.$session.get("userRole");
       RoleDataService.get(currentRole)
-        .then((response) => {
-          this.permissions = response.data.permissions.map((permission) => {
-            return permission.name;
+          .then(response => {
+            this.permissions = response.data.permissions.map(permission => {
+              return permission.name
+            });
+          })
+          .catch(e => {
+            console.log(e)
           });
-          console.log(this.permissions);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+    },
+    findUserRole() {
+      let userRole = this.$session.get("userRole");
+      if (userRole == 1) {
+        this.userRole = true;
+      }
     },
   },
-  mounted() {
-    this.setPagePermissions();
-    // this.userRole();
+  computed: {
+    getPageTitle(){
+      switch(this.$route.name){
+        case 'organizations':
+          return 'Partners';
+        case 'users':
+          return 'Users';
+        case 'contacts':
+          return 'Contacts';
+        case 'organization':
+          return 'Partner';
+        default:
+          return this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
+      }
+    }
   },
+  mounted(){
+    this.setPagePermissions();
+  },
+
 };
 </script>
 
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 </style>

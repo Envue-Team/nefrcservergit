@@ -1,42 +1,54 @@
 <template>
 <div>
   <v-container>
-    <div align="center" class="red--text text--darken-4 page-title">Users</div>
     <v-row>
-      <v-col class="col-12">
-        <v-card elevation="3 text-wrap">
+      <v-col cols="12">
+        <v-card
+            class="pa-3 mt-8"
+            outlined
+            elevation="3 text-wrap">
+          <v-card
+              style="margin-top:-40px; width:100%;"
+              color="#6D6E70"
+              class="pa-7"
+              rounded
+          >
+            <v-toolbar-title class="card-header-title">Users</v-toolbar-title>
+          </v-card>
           <v-card-text>
             <v-row>
-              <v-col class="col-6">
-                <v-text-field
+              <v-btn
+                  fab
+                  elevation="3"
+                  small
+                  class="ml-3"
+                  color="white"
+                  @click="add_person_dlg=true"
+              >
+                <v-icon class="mdi mdi-dark mdi-plus">
+                </v-icon>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-text-field
+                  class="shrink mt-3 mr-3"
+                  label="Search"
                   v-model="search"
                   append-icon="mdi-magnify"
-                  label="Search Table"
-                  single-line
-                ></v-text-field>
-              </v-col>
+              ></v-text-field>
             </v-row>
             <v-data-table
               :headers="headers"
               :items="volunteers"
               :search="search"
               item-key="id"
+              @click:row="nav"
               multi-sort
               class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
-                <template v-if="item.first_name !== null">
-                  <a v-on:click="nav(item)">
+                <div v-if="item.first_name !== null">
                     <span class="black--text"> {{ item.name }}</span>
-                    <span v-if="item.public_safety"> (Public Safety)</span></a
-                  >
-                </template>
-                <template v-else-if="item.partner !== null">
-                  <a v-on:click="nav(item)">
-                    <span class="purple--text">{{ item.name }}</span>
-                    <span v-if="item.public_safety"> (Public Safety)</span></a
-                  >
-                </template>
+                </div>
               </template>
               <template v-slot:item.address="{ item }">
                 <address>
@@ -44,18 +56,12 @@
                 </address>
               </template>
               <template v-slot:item.email="{ item }">
-                <a v-on:click="nav(item)">
-                  <div>
-                    <span class="black--text">
-                      {{ item.user.email }}
-                    </span>
-                  </div>
-                </a>
+                  <span class="black--text">
+                    {{ item.user.email }}
+                  </span>
               </template>
               <template v-slot:item.roles="{ item }">
-                <div>
-                  <span class="purple--text">{{ item.role }}</span>
-                </div>
+                  <span class="black--text">{{ item.role }}</span>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
@@ -65,20 +71,6 @@
         </v-card>
         <!------------------ dialog box to add person--------------------------->
         <v-dialog v-model="add_person_dlg" max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-hover v-slot="{ hover }" open-delay="200">
-              <v-btn
-                text
-                :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }"
-                v-bind="attrs"
-                v-on="on"
-              >
-                Add User
-                <v-icon> mdi-plus </v-icon>
-              </v-btn>
-            </v-hover>
-          </template>
           <v-card>
             <v-form v-model="valid" lazy-validation>
               <v-card-title>
@@ -216,9 +208,9 @@ export default {
   computed: {
     headers() {
       var headers = [
-        { text: "Name", value: "name", width: "80px" },
-        { text: "Email", value: "email", width: "80px" },
-        { text: "Roles", value: "role", width: "100px" },
+        { text: "Name", value: "name", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Roles", value: "role", width: "100px", class: 'red--text text--darken-3' },
         { text: "Delete", value: "actions", width: "1%" },
       ];
       return headers;

@@ -23,3 +23,54 @@ $breakpoints:(
     font-size: 2em;
   }
 }
+
+.card-label{
+  font-weight: bold;
+  color: #6D6E70;
+}
+
+.card-label-light{
+  font-weight: bold;
+  color: white;
+}
+
+@mixin card-header(){
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+}
+
+.card-header-title {
+  @include card-header;
+  font-size: 18px;
+}
+
+.card-header-subtitle {
+  @include card-header;
+  font-size: 14px;
+}
+
+.card-header-block{
+  margin-top:-40px !important;
+  background-color: #6D6E70 !important;
+}
+
+.data {
+  color: white;
+  font-weight: bold;
+}
+
+.sub-data {
+  color: white;
+  font-family: Poppins, sans-serif;
+}
+
+.item-title{
+  font-size: 36px;
+  color: #6D6E70;
+
+}
+
+.active-drawer-link{
+  background-color: #ED1B2E;
+}

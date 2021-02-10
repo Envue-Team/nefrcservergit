@@ -241,7 +241,7 @@ export default {
         this.$session.set("personId", this.PersonId);
         this.$session.set("userID", this.UserId);
         this.$session.set("userRole", this.UserRole);
-        this.$router.replace({ name: "home" });
+        this.$router.replace({ name: "organizations" });
       } else {
         console.log("Test");
         this.FailedLogin = true;
