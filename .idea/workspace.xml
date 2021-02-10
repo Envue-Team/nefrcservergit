@@ -25,9 +25,15 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Hide users link when not permitted.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +99,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -166,7 +173,7 @@
       <workItem from="1611320240459" duration="59569000" />
       <workItem from="1612361136443" duration="12136000" />
       <workItem from="1612622133402" duration="90937000" />
-      <workItem from="1612807596055" duration="70804000" />
+      <workItem from="1612807596055" duration="96690000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -385,7 +392,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612958856659</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv">
+      <created>1612959576220</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1612959576220</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -456,7 +470,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="GUI Update" />
     <MESSAGE value="New GUI" />
     <MESSAGE value="Update relationship new contact" />
     <MESSAGE value="Update home page to show links" />
@@ -481,7 +494,8 @@
     <MESSAGE value="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form." />
     <MESSAGE value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
     <MESSAGE value="Hide users link when not permitted." />
-    <option name="LAST_COMMIT_MESSAGE" value="Hide users link when not permitted." />
+    <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
+    <option name="LAST_COMMIT_MESSAGE" value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -504,6 +518,10 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="416" y="129" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610317733881" />
+    <state x="406" y="226" width="775" height="311" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1612985431848">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="406" y="226" width="775" height="311" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.27.1366.711@0.27.1366.711" timestamp="1612985431848" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog" timestamp="1610317538168">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -555,11 +573,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1612915381769">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1612959587386">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1612915381769" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1612959587386" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
@@ -576,10 +594,11 @@
     </state>
     <state x="410" y="295" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.744@0.24.1366.744" timestamp="1607256387911" />
     <state x="410" y="286" width="526" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1612876783311" />
-    <state x="116" y="24" width="726" height="744" key="find.popup" timestamp="1606775410164">
-      <screen x="0" y="24" width="1366" height="744" />
+    <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
+      <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="116" y="24" width="726" height="744" key="find.popup/0.24.1366.744@0.24.1366.744" timestamp="1606775410164" />
+    <state x="116" y="27" width="726" height="711" key="find.popup/0.27.1366.711@0.27.1366.711" timestamp="1612966602010" />
     <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610317806397">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -603,10 +622,10 @@
     </state>
     <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
     <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1612892875469" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1610573303274">
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1612965145304">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="321" y="89" width="719" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1607209765083" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1610573303274" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1612965145304" />
   </component>
 </project>

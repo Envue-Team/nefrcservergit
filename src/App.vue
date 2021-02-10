@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-app-bar
+        v-if="!isLoginPage"
         tile
         absolute
         flat
@@ -20,6 +21,7 @@
         class="hidden-sm-and-down"
         style="color: white"
         >{{getPageTitle}}</v-toolbar-title>
+      {{getAuthenticatedStatus}}
         <v-spacer></v-spacer>
         <v-btn
             flat
@@ -29,6 +31,7 @@
         </v-btn>
     </v-app-bar>
     <v-navigation-drawer
+        v-if="!isLoginPage"
         v-model="drawer"
         :mini-variant.sync="mini"
         app
@@ -65,7 +68,6 @@
             active-class="active-drawer-link"
             dark
             :to="item.link"
-            @click="item.action"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -74,13 +76,16 @@
           <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
-
         </v-list-item>
       </v-list>
       </v-img>
     </v-navigation-drawer>
     <v-main style="background-color: rgba(70, 9, 9, 0.1)">
-      <router-view @setPagePermissions="setPagePermissions"/>
+        <video style="width:100%; height: auto;" v-if="isLoginPage" playsinline autoplay muted loop poster='./assets/images/arcflag.jpg'>
+          <source :src='require("./assets/videos/arc_short.mp4")' type='video/mp4'>
+        </video>
+
+      <router-view @setPagePermissions="setPagePermissions" />
     </v-main>
   </v-app>
 </template>
@@ -88,6 +93,8 @@
 <script>
 import RoleDataService from "@/services/RoleDataService";
 import "../src/assets/scss/main.scss";
+import { mdbContainer, mdbRow, mdbCol } from 'mdbvue';
+
 export default {
   name: 'App',
   data() {
@@ -103,12 +110,12 @@ export default {
       items: '',
     }
   },
+  components: {
+    mdbContainer,
+    mdbRow,
+    mdbCol
+  },
   methods: {
-    logout() {
-      this.$authenticated = false;
-      this.$session.destroy();
-      this.$router.replace({name: "login"});
-    },
     /**
      * Access
      */
@@ -137,14 +144,17 @@ export default {
     setNavLinks(){
       this.items = [
         // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-        { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null, isVisible: true },
-        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null, isVisible: this.verifyAccess('modify') },
-        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null, isVisible: true },
-        { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()', isVisible: true}
+        { title: 'Home', icon: 'mdi-home-city', link: '/home', isVisible: true },
+        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', isVisible: this.verifyAccess('modify') },
+        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true },
+        { title: 'Sign Out', icon: 'mdi-logout', link: '/', isVisible: true}
       ];
-    }
+    },
   },
   computed: {
+    isLoginPage(){
+      return this.$route.name=='login';
+    },
     getPageTitle(){
       switch(this.$route.name){
         case 'organizations':
@@ -162,12 +172,10 @@ export default {
   },
   mounted(){
     this.setPagePermissions();
-    // this.setNavLinks();
   },
 
 };
 </script>
-
 
 <style>
 #app {

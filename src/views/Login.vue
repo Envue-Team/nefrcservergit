@@ -1,6 +1,6 @@
 <template>
-  <div id="app">
-    <v-app>
+<!--  <div id="app">-->
+<!--    <v-app>-->
       <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
         <div>
           <v-tabs
@@ -160,8 +160,8 @@
           </v-tabs>
         </div>
       </v-dialog>
-    </v-app>
-  </div>
+<!--    </v-app>-->
+<!--  </div>-->
 </template>
 
 
@@ -197,7 +197,6 @@ export default {
     checkCredentials() {
       UserDataService.getByEmail(this.loginEmail)
         .then((response) => {
-          console.log(response);
           let originalPassword = response.data[0].user.password;
           let salt = response.data[0].user.salt;
           this.UserId = response.data[0].user.id;
@@ -257,8 +256,6 @@ export default {
 
       UserDataService.create(data)
         .then((response) => {
-          console.log(response.data.personId);
-
           let data = {
             userId: response.data.userId,
             roleId: 2,
@@ -300,6 +297,7 @@ export default {
         });
       this.add_person_dlg = false;
     },
+
   },
   data: () => ({
     dialog: true,

@@ -8,10 +8,10 @@
             elevation="3 text-wrap">
           <v-card
               style="margin-top:-40px; width:100%;"
-              class="pa-7 card-header-block"
+              class="pa-3 card-header-block"
               rounded
           >
-            <v-text-title class="card-header-title">Partners</v-text-title>
+            <v-card-title class="card-header-title">Partners</v-card-title>
           </v-card>
           <v-card-text>
         <v-row>
@@ -780,7 +780,6 @@ export default {
         RoleDataService.get(currentRole)
             .then(response=>{
               this.permissions = response.data.permissions.map(permission=>{return permission.name});
-              console.log(this.permissions);
             })
             .catch(e=>{console.log(e)});
       },
