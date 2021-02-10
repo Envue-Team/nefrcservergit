@@ -760,6 +760,7 @@
       </v-card-title>
       <v-card-text>
           <v-file-input
+              accept=".gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv"
               id="fileInput"
               label="Upload new file"
               show-size

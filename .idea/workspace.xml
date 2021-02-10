@@ -25,15 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Hide users link when not permitted.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/css/app.0b039a1b.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.a00f53d5.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.a00f53d5.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +166,7 @@
       <workItem from="1611320240459" duration="59569000" />
       <workItem from="1612361136443" duration="12136000" />
       <workItem from="1612622133402" duration="90937000" />
-      <workItem from="1612807596055" duration="70011000" />
+      <workItem from="1612807596055" duration="70804000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -384,7 +378,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612914723416</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Hide users link when not permitted.">
+      <created>1612958856659</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1612958856659</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -455,7 +456,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="General updates throughout the application" />
     <MESSAGE value="GUI Update" />
     <MESSAGE value="New GUI" />
     <MESSAGE value="Update relationship new contact" />
@@ -480,7 +480,8 @@
     <MESSAGE value="Update sideimage" />
     <MESSAGE value="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form." />
     <MESSAGE value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
+    <MESSAGE value="Hide users link when not permitted." />
+    <option name="LAST_COMMIT_MESSAGE" value="Hide users link when not permitted." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
