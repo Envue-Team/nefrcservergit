@@ -60,6 +60,7 @@
         <v-list-item
             v-for="item in items"
             :key="item.title"
+            v-show="item.isVisible"
             link
             active-class="active-drawer-link"
             dark
@@ -79,7 +80,7 @@
       </v-img>
     </v-navigation-drawer>
     <v-main style="background-color: rgba(70, 9, 9, 0.1)">
-      <router-view search="search"/>
+      <router-view @setPagePermissions="setPagePermissions"/>
     </v-main>
   </v-app>
 </template>
@@ -111,17 +112,8 @@ export default {
     /**
      * Access
      */
-    verifyAccess(type) {
-      switch (type) {
-        case 'modify':
-          if (this.permissions.includes('modifyUsers')) {
-            return true;
-          } else {
-            return false;
-          }
-        default:
-          return false;
-      }
+    verifyAccess() {
+      return this.permissions.includes('modifyUsers');
     },
     setPagePermissions() {
       let currentRole = this.$session.get("userRole");
@@ -130,6 +122,7 @@ export default {
             this.permissions = response.data.permissions.map(permission => {
               return permission.name
             });
+            this.setNavLinks();
           })
           .catch(e => {
             console.log(e)
@@ -143,23 +136,12 @@ export default {
     },
     setNavLinks(){
       this.items = [
-          { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
-          { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
-          { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
-          { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
-          ];
-      // this.items = this.verifyAccess('modify') ? [
-      //   // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-      //   { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
-      //   { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null },
-      //   { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
-      //   { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
-      // ] : [
-      //   // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-      //   { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null },
-      //   { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null },
-      //   { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()'}
-      // ]
+        // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
+        { title: 'Home', icon: 'mdi-home-city', link: '/home', action: null, isVisible: true },
+        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', action: null, isVisible: this.verifyAccess('modify') },
+        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', action: null, isVisible: true },
+        { title: 'Sign Out', icon: 'mdi-logout', link: '/', action: 'logout()', isVisible: true}
+      ];
     }
   },
   computed: {
@@ -180,7 +162,7 @@ export default {
   },
   mounted(){
     this.setPagePermissions();
-    this.setNavLinks();
+    // this.setNavLinks();
   },
 
 };

@@ -242,8 +242,8 @@ export default {
         this.$session.set("userID", this.UserId);
         this.$session.set("userRole", this.UserRole);
         this.$router.replace({ name: "organizations" });
+        this.$emit('setPagePermissions');
       } else {
-        console.log("Test");
         this.FailedLogin = true;
       }
     },
