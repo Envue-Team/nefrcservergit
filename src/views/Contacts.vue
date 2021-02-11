@@ -528,19 +528,20 @@ export default {
       var username;
       UserDataService.getByUserId(this.$session.get("userID"))
         .then((response) => {
-          // console.log(response);
+          console.log("logging the response:");
+          console.log(response);
           username = response.data.person.first_name+" "+response.data.person.last_name;
           data.entry = item+" was "+action+" by "+username;
           console.log(data.entry);
 
           //TODO uncomment to keep workin on activity log
-          // ActivityLogDataService.create(data).
-          // then((response) => {
-          //   console.log(response);
-          // })
-          // .catch((e) => {
-          //   console.log(e.message);
-          // });
+          ActivityLogDataService.create(data).
+          then((response) => {
+            console.log(response);
+          })
+          .catch((e) => {
+            console.log(e.message);
+          });
         })
         .catch((e) => {
           console.log(e.message);

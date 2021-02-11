@@ -37,11 +37,11 @@
 import RoleDataService from './services/RoleDataService';
 export default {
   name: 'App',
-  // mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
-  //   if(!this.$authenticated) {
-  //     this.$router.replace({ name: "login" });
-  //   }
-  // },
+  mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
+    if(!this.$authenticated) {
+      this.$router.replace({ name: "login" });
+    }
+  },
   methods: {
     logout() {
       this.$authenticated = false;
