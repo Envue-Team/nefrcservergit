@@ -5,3 +5,8 @@
 /src/config/
 /src/config/db.config0.js
 
+/src/services/ActivityLogDataService.js
+/src/routes/activity_log.routes.js
+/src/models/activity_log.model.js
+/src/controllers/activity_log.controller.js
+

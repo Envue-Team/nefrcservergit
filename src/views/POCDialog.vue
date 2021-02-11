@@ -6,7 +6,7 @@
         v-model="show"
     >
       <v-card>
-        <v-form v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid">
           <v-card-title>
             <span class="headline">{{poc_title}}</span>
           </v-card-title>
@@ -14,8 +14,7 @@
             <v-container>
               <v-row>
                 <v-col
-                    cols="6"
-                    sm="6"
+                    cols="12"
                     md="6"
                 >
                   <v-text-field
@@ -26,8 +25,7 @@
                   ></v-text-field>
                 </v-col>
                 <v-col
-                    cols="6"
-                    sm="6"
+                    cols="12"
                     md="6"
                 >
                   <v-text-field
@@ -41,8 +39,7 @@
               <v-row>
                 <v-col
                     cols="12"
-                    sm="6"
-                    md="4"
+                    md="2"
                 >
                   <v-text-field
                       label="Street Number"
@@ -52,7 +49,6 @@
                 </v-col>
                 <v-col
                     cols="12"
-                    sm="6"
                     md="4"
                 >
                   <v-text-field
@@ -64,9 +60,8 @@
               </v-row>
               <v-row>
                 <v-col
-                    cols="3"
-                    sm="6"
-                    md="4"
+                    cols="12"
+                    md="3"
                 >
                   <v-text-field
                       label="City"
@@ -74,14 +69,22 @@
                       :rules="nameRules"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="2">
-                  <v-text-field
-                      label="State"
-                      v-model="state"
-                      :rules="nameRules"
-                  ></v-text-field>
+                <v-col
+                    cols="12"
+                    md="2"
+                >
+                  <v-select
+                    label="State"
+                    v-model="state"
+                    :items="states"
+                  >
+
+                  </v-select>
                 </v-col>
-                <v-col cols="3">
+                <v-col
+                    cols="12"
+                    md="2"
+                >
                   <v-text-field
                       label="Zip"
                       v-model="zip"
@@ -90,15 +93,21 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <v-col
+                    cols="12"
+                    md="6"
+                >
                   <v-text-field
                       required
-                      label="Primary Phone"
+                      label="Primary Phone*"
                       v-model="primary_phone"
                       :rules="phoneRules"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="6">
+                <v-col
+                    cols="12"
+                    md="6"
+                >
                   <v-text-field
                       label="Secondary Phone"
                       v-model="secondary_phone"
@@ -107,15 +116,21 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <v-col
+                    cols="12"
+                    md="6"
+                >
                   <v-text-field
                       required
-                      label="Primary Email"
+                      label="Primary Email*"
                       v-model="primary_email"
                       :rules="emailRules"
                   ></v-text-field>
                 </v-col>
-                <v-col cols="6">
+                <v-col
+                    cols="12"
+                    md="6"
+                >
                   <v-text-field
                       label="Secondary Email"
                       v-model="secondary_email"
@@ -136,10 +151,10 @@
               Delete
             </v-btn>
             <v-btn
+                :disabled="!valid"
                 v-show="poc_dlg_action=='Create'"
                 color="blue darken-1"
                 text
-                :disabled="!valid"
                 @click="createPOC"
             >
               Save
@@ -237,6 +252,7 @@ export default {
   },
   data(){
     return {
+      valid: false,
       update_poc_dialog: false,
       delete_poc_dialog: false,
       save_poc_dialog: false,
@@ -256,28 +272,27 @@ export default {
         v => !!v || 'A contact name is required',
       ],
       emailRules: [
-        (v) => !!v || "Required",
         v => /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(v) || 'Please, input a valid email address'
       ],
       phoneRules: [
-        v => !!v || 'Phone number is required',
         v => /^(1-)?\d{3}-\d{3}-\d{4}$/.test(v) || 'Please, input a valid phone number with format XXX-XXX-XXXX'
       ],
       streetNumberRules: [
-        (v) => !!v || "Required",
         (v) => /\S\d$/.test(v) || "Street number must be valid",
       ],
-
       zipRules: [
-        v => !!v || 'A zip code is required',
         v => /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/.test(v) || 'Please, input a valid zip code'
       ],
-
-      show1: false,
-      rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => (v && v.length >= 1) || "Min 5 characters",
-      },
+      states:[
+        "AK", "AL", "AR", "AS", "AZ", "CA", "CO", "CT",
+        "DC", "DE", "FL", "GA", "GU", "HI", "IA", "ID",
+        "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME",
+        "MI", "MN", "MO", "MP", "MS", "MT", "NC", "ND",
+        "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK",
+        "OR", "PA", "PR", "RI", "SC", "SD", "TN", "TX",
+        "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV",
+        "WY"
+      ],
     }
     
   },
@@ -334,6 +349,13 @@ export default {
       };
       this.$emit('input', false);
       this.$parent.updatePOC(this.poc_id,data);
+    },
+
+    /**
+     * Form validation
+     **/
+    validate () {
+      this.$refs.form.validate()
     }
   },
   computed: {

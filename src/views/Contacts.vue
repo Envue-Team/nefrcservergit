@@ -1,58 +1,65 @@
 <template>
   <v-container>
-    <v-text-field
-      v-model="search"
-      append-icon="mdi-magnify"
-      label="Search Table"
-      single-line
-    ></v-text-field>
-    <div class="red--text text--darken-2 page-title">Contacts</div>
     <v-row>
-      <v-col class="col-12">
-        <v-card outlined elevation="3 text-wrap">
+      <v-col cols="12">
+          <v-card
+              class="pa-3 mt-8"
+              outlined
+              elevation="3 text-wrap">
+            <v-card
+                style="margin-top:-40px; width:100%;"
+                color="#6D6E70"
+                class="pa-7"
+                rounded
+            >
+              <v-toolbar-title class="card-header-title">Contacts</v-toolbar-title>
+            </v-card>
           <v-card-text>
+            <v-row>
+              <v-btn
+                  fab
+                  elevation="3"
+                  small
+                  class="ml-3"
+                  color="white"
+                  @click="add_person_dlg=true"
+              >
+                <v-icon class="mdi mdi-dark mdi-plus">
+                </v-icon>
+              </v-btn>
+              <v-spacer></v-spacer>
+              <v-text-field
+                  v-model="search"
+                  class="shrink mt-3 mr-3"
+                  label="Search"
+                  append-icon="mdi-magnify"
+                  single-line
+              ></v-text-field>
+            </v-row>
             <v-data-table
-              :headers="headers"
-              :items="volunteers"
-              :search="search"
-              item-key="id"
-              
-              multi-sort
-              class="text-capitalize"
+                :headers="headers"
+                :items="volunteers"
+                :search="search"
+                item-key="id"
+                @click:row="nav"
+                multi-sort
+                class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
                 <template v-if="item.first_name !== null">
-                  <a v-on:click="nav(item)">
-                    <span class="red--text">{{ item.name }}</span>
-                  </a>
-                </template>
-                <template v-else-if="item.partner !== null">
-                  <a v-on:click="nav(item)">
-                    <span class="purple--text">{{ item.name }}</span>
-                    <span v-if="item.public_safety"> (Public Safety)</span>
-                  </a>
+                  <span class="black--text">{{ item.name }}</span>
                 </template>
               </template>
               <template v-slot:item.address="{ item }">
                 <address>
-                  <a v-on:click="nav(item)">
-                    <span class="black--text">{{ item.address }}</span>
-                  </a>
+                  <span class="black--text">{{ item.address }}</span>
                 </address>
               </template>
               <template v-slot:item.emails="{ item }">
-                <a v-on:click="nav(item)">
-                  <span>
-                    {{ email.address }}
-                  </span>
-                </a>
+                  {{ email.address }}
               </template>
               <template v-slot:item.phones="{ item }">
-                <a v-on:click="nav(item)">
-                  <span>
-                    {{ phone.number }}
-                  </span>
-                </a>
+                  {{ phone.number }}
               </template>
               <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
@@ -62,20 +69,6 @@
         </v-card>
         <!------------------ dialog box to add person--------------------------->
         <v-dialog v-model="add_person_dlg" max-width="600px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-hover v-slot="{ hover }" open-delay="200">
-              <v-btn
-                text
-                :elevation="hover ? 16 : 2"
-                :class="{ 'on-hover': hover }"
-                v-bind="attrs"
-                v-on="on"
-              >
-                Add Contact
-                <v-icon> mdi-plus </v-icon>
-              </v-btn>
-            </v-hover>
-          </template>
           <v-card>
             <v-form v-model="valid" lazy-validation>
               <v-card-title>
@@ -218,7 +211,7 @@ import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from "../services/PhoneDataService";
 //activity log addition
 import UserDataService from "../services/UserDataService";
-import ActivityLogDataService from "../services/ActivityLogDataService";
+// import ActivityLogDataService from "../services/ActivityLogDataService";
 //close activity log addition
 
 export default {
@@ -313,12 +306,12 @@ export default {
   computed: {
     headers() {
       var headers = [
-        { text: "Name", value: "name", width: "80px" },
-        { text: "Address", value: "address", width: "100px" },
-        { text: "Email", value: "email", width: "80px" },
-        { text: "Phone", value: "phone", width: "100px" },
-        { text: "County", value: "county", width: "80px" },
-        { text: "Organization", value: "organization_names", width: "80px" },
+        { text: "Name", value: "name", width: "80px" , class: 'red--text text--darken-3'},
+        { text: "Address", value: "address", width: "100px", class: 'red--text text--darken-3' },
+        { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Phone", value: "phone", width: "100px", class: 'red--text text--darken-3' },
+        { text: "County", value: "county", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Organization", value: "organization_names", width: "80px", class: 'red--text text--darken-3' },
         { text: "Delete", value: "actions", width: "1%" },
 
         //{text: 'Notes', value: 'notes', width: '160px'},
