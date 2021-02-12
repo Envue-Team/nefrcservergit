@@ -83,7 +83,7 @@
                       class="btn btn-default"
                       :data="excel_data"
                       :fields="excel_fields"
-                      worksheet="My Worksheet"
+                      worksheet="ARC"
                       name="Partners.xls"
                   >
                     <v-btn
@@ -317,6 +317,7 @@
                   md="5"
               >
                 <v-textarea
+                    v-model="add_organization.contact_protocol"
                     rows="2"
                     label="Preferred Method of Contact per RM"
                 ></v-textarea>
@@ -465,7 +466,23 @@ export default {
          * MOU
          **/
         mou_options:["Yes", "No", "Maybe"],
-        excel_fields:{},
+        excel_fields:{
+          Name: "name",
+          Address: "address",
+          Counties: "counties",
+          Website: "website",
+          Phone: "phone",
+          "Preferred Method of Contact": "preferred",
+          Contacts: "contact",
+          "Last Contact": "last contact",
+          Notes: "notes",
+          Opportunities: "action",
+          "Line of Business": "lob",
+          "Agency Type": "type",
+          "Community Services Provided": "arc relationship",
+          Manager: "relationship manager",
+          "Further Notes": "services"
+        },
         excel_data:[],
 
         /**
@@ -501,12 +518,11 @@ export default {
           ],
         ],
 
-
-        filters:{
-          partners: false,
-          relationships: true,
-          my_assignments: false
-        },
+        // filters:{
+        //   partners: false,
+        //   relationships: true,
+        //   my_assignments: false
+        // },
         add_organization_dlg: false,
         search: '',
         organizations: [],
@@ -532,12 +548,11 @@ export default {
           "line_of_business":'',
           "agency_type":'',
           "arc_relationship":''
-
         },
-          type:'',
-          critical_relationship_information: '', 
-          services: '', 
-          status: ''
+        type:'',
+        critical_relationship_information: '',
+        services: '',
+        status: ''
       }
     },
    computed: {
@@ -556,11 +571,13 @@ export default {
           {text: 'Additional Notes', value: 'service', class: 'red--text text--darken-3'},
 
         ]
-        headers.forEach(header=>{
-            this.excel_fields[header.text] = header.value;
-        });
         return headers;
       },
+    },
+    watch:{
+      search: function(){
+        this.updateExcelList();
+      }
     },
     methods: {
       nav(item){
@@ -736,6 +753,7 @@ export default {
               }
             });
             this.excel_data = this.organizations;
+            this.updateExcelList();
           })
           .catch(e => {
             console.log(e.message);
@@ -782,13 +800,55 @@ export default {
             })
             .catch(e=>{console.log(e)});
       },
-      filterOrganizations(){
-        this.organizations = this.orgCache.filter(organization=>{
-          var assign = this.filters['my_assignments'] ? organization.managerId == "5693164c-5da4-4d07-ad24-d9f39befc823" : true;
-          return (this.filters['partners'] && organization.partner !== null && assign) | 
-          (this.filters['relationships'] && organization.relationship !== null && assign)
+
+      updateExcelList(){
+        this.excel_data = this.filterOrganizations().map(organization => {
+          let orgAddress = organization.street_number + " " +
+              organization.street_name.charAt(0).toUpperCase() + organization.street_name.toLowerCase().slice(1) +"\n"+
+              organization.city.charAt(0).toUpperCase() + organization.city.toLowerCase().slice(1) +" "+
+              organization.state.charAt(0).toUpperCase() + organization.state.toLowerCase().slice(1) +" "+
+              organization.zip.toString();
+          let orgPhone = organization.phones.length == 0 ? '' : organization.phones[0].number;
+          let orgContacts = '';
+          organization.people.forEach(person=>{
+            let phone = person.phones.length == 0 ? '' : person.phones[0].number;
+            let email = person.emails.length == 0 ? '' : person.emails[0].address;
+            orgContacts += person.first_name +" " + person.last_name + "\n" +
+                phone+" | "+email;
+          });
+          return {
+            name: organization.name,
+            address: orgAddress,
+            counties: organization.county_display,
+            website: organization.website,
+            phone: orgPhone,
+            preferred: organization.contact_protocol,
+            contact: orgContacts,
+            "last contact": organization.last_contact,
+            notes: organization.notes,
+            action: organization.action,
+            lob: organization.lob,
+            type: organization.type,
+            "arc relationship": organization.arc_rel,
+            "relationship manager": organization.manager,
+            services: organization.service
+          };
         });
-        this.updateExcelFields();
+      },
+      filterOrganizations(){
+        return this.organizations.filter(organization=>{
+          return organization.name.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.address.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.city.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.zip.toString().toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.county_display.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.manager.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.mou.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.lob.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.type.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.arc_rel.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.service.toLowerCase().includes(this.search.toLowerCase());
+        });
       },
       /**
        * Access
