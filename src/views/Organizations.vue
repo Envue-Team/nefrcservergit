@@ -378,6 +378,7 @@ import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOf
 import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRelationshipDataService";
 import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
 import RoleDataService from "@/services/RoleDataService";
+import RelationshipManagerDataService from "@/services/RelationshipManagerDataService";
 import "../assets/scss/main.scss";
 export default {
   name: "organizations",
@@ -389,6 +390,7 @@ export default {
         isOwner: false,
         permissions: [],
         toolbar_title: 'connections',
+        current_user_id: '',
 
         /**
          * Form validation
@@ -667,6 +669,13 @@ export default {
                     }
                   })
                 });
+
+                //Set default relationship manager
+                RelationshipManagerDataService.create({
+                  personId: this.$session.get('personId'),
+                  organizationId: id
+                }).then().catch(err=>{console.log(err)});
+
                 this.$router.push('organization/' + id);
               })
               .catch(e => {
@@ -874,6 +883,7 @@ export default {
             })
             .catch(e=>{console.log(e)});
       },
+
     },
     mounted() {
       this.retrieveOrganizations();

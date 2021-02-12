@@ -25,14 +25,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update site per user requests. 2/12/21">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update excel sheet to include full data of selected organizations and on to only include filtered organizations.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/css/app.b8c63a6c.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.9feb0151.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.9feb0151.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/organization.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/organization.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,7 +166,7 @@
       <workItem from="1612361136443" duration="12136000" />
       <workItem from="1612622133402" duration="90937000" />
       <workItem from="1612807596055" duration="98384000" />
-      <workItem from="1613000003653" duration="71608000" />
+      <workItem from="1613000003653" duration="72609000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -419,7 +413,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613137208803</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Update excel sheet to include full data of selected organizations and on to only include filtered organizations.">
+      <created>1613173241892</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1613173241892</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +491,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update partner and relationship pages for better code and higher standardization" />
     <MESSAGE value="Add contact edit/add/update information to organization" />
     <MESSAGE value="Multiple contacts assignable to organization" />
     <MESSAGE value="Multiple relationship managers assignable to organization" />
@@ -515,7 +515,8 @@
     <MESSAGE value="Add video to login page." />
     <MESSAGE value="Add mobile theming across site." />
     <MESSAGE value="Update site per user requests. 2/12/21" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update site per user requests. 2/12/21" />
+    <MESSAGE value="Update excel sheet to include full data of selected organizations and on to only include filtered organizations." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update excel sheet to include full data of selected organizations and on to only include filtered organizations." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
