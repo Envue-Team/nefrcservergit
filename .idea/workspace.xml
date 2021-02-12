@@ -25,39 +25,22 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add video to login page.">
-      <change afterPath="$PROJECT_DIR$/dist/js/app.b8e394f1.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/js/app.b8e394f1.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/js/chunk-vendors.6fcc3bbe.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/js/chunk-vendors.6fcc3bbe.js.map" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dist/media/arc_short.bf407450.mp4" afterDir="false" />
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add mobile theming across site.">
+      <change afterPath="$PROJECT_DIR$/dist/css/app.b8c63a6c.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/js/app.9feb0151.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dist/js/app.9feb0151.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/css/app.47c99c31.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/css/app.2824c196.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/css/chunk-vendors.8e0dac26.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/css/chunk-vendors.f11e22ff.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/MaterialIcons-Regular.2a61b00f.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/MaterialIcons-Regular.51cf1d64.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/MaterialIcons-Regular.703cf8f2.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/fonts/MaterialIcons-Regular.84a37de8.woff" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/app.2824c196.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.42e62c05.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.42e62c05.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.68f4da31.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.68f4da31.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/app.b8e394f1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/app.b8e394f1.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.6fcc3bbe.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/js/chunk-vendors.9cda824f.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.6fcc3bbe.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/js/chunk-vendors.9cda824f.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/scss/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/scss/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/main.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/main.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/scss/organization.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/organization.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/videos/arc_short.mp4" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/videos/arc_short.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +179,7 @@
       <workItem from="1612361136443" duration="12136000" />
       <workItem from="1612622133402" duration="90937000" />
       <workItem from="1612807596055" duration="98384000" />
-      <workItem from="1613000003653" duration="42286000" />
+      <workItem from="1613000003653" duration="45898000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -429,7 +412,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612995543067</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Add mobile theming across site.">
+      <created>1613122090091</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1613122090091</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,7 +490,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update relationship new contact" />
     <MESSAGE value="Update home page to show links" />
     <MESSAGE value="Update partner and relationship pages for better code and higher standardization" />
     <MESSAGE value="Add contact edit/add/update information to organization" />
@@ -525,7 +514,8 @@
     <MESSAGE value="Hide users link when not permitted." />
     <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
     <MESSAGE value="Add video to login page." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add video to login page." />
+    <MESSAGE value="Add mobile theming across site." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add mobile theming across site." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -603,11 +593,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1612995633403">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1613122111618">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1612995633403" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1613122111618" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />

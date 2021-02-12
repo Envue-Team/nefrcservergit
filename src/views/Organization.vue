@@ -80,7 +80,7 @@
                       {{lob.name}}
                     </div>
 
-                    <div class="card-label">ARC Relationship: </div>
+                    <div class="card-label">Community Services Provided: </div>
                     <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
                       {{arcrel.name}}
                     </div>
@@ -363,8 +363,8 @@
                         ></v-icon>
                       </v-btn>
                     </div>
-                    <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>
-                    <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>
+<!--                    <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>-->
+<!--                    <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>-->
                   </div>
                 </v-card-text>
               </v-card>
@@ -632,7 +632,7 @@
                   {{lob.name}}
                 </div>
 
-                <div class="card-label">ARC Relationship: </div>
+                <div class="card-label">Community Services Provided: </div>
                 <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
                   {{arcrel.name}}
                 </div>
@@ -683,8 +683,8 @@
                       ></v-icon>
                     </v-btn>
                   </div>
-                  <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>
-                  <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>
+<!--                  <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>-->
+<!--                  <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>-->
                 </div>
               </v-card-text>
             </v-card>
@@ -1131,7 +1131,7 @@
                       :rules="arcFunctionRule"
                       v-model="organization_arc_relationships"
                       :items="all_arc_relationships"
-                      label="*Arc Relationships"
+                      label="*Community Services Provided"
                   >
                   </v-select>
                 </v-col>
@@ -1458,7 +1458,7 @@ export default {
       unmapped_lines_of_business: [],
 
       /**
-       * Arc Relationship
+       * Community Services Provided
        **/
       all_arc_relationships: [],
       organization_arc_relationships: [],

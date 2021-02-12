@@ -19,17 +19,6 @@
             </v-card>
           <v-card-text>
             <v-row>
-              <v-btn
-                  fab
-                  elevation="3"
-                  small
-                  class="ml-3"
-                  color="white"
-                  @click="add_person_dlg=true"
-              >
-                <v-icon class="mdi mdi-dark mdi-plus">
-                </v-icon>
-              </v-btn>
               <v-spacer></v-spacer>
               <v-text-field
                   v-model="search"

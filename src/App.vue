@@ -158,8 +158,8 @@ export default {
     setNavLinks(){
       this.items = [
         // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-        { title: 'Home', icon: 'mdi-home-city', link: '/home', isVisible: true },
-        { title: 'Users', icon: 'mdi-account-group-outline', link: '/users', isVisible: this.verifyAccess('modify') },
+        { title: 'Partners', icon: 'mdi-home-city', link: '/home', isVisible: true },
+        { title: 'Admin', icon: 'mdi-account-key', link: '/users', isVisible: this.verifyAccess('modify') },
         { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true },
         { title: 'Sign Out', icon: 'mdi-logout', link: '/', isVisible: true}
       ];
@@ -173,12 +173,16 @@ export default {
       switch(this.$route.name){
         case 'organizations':
           return 'American Red Cross Partners';
+        case 'organization':
+          return ' American Red Cross Partners';
         case 'users':
+          return 'American Red Cross Users';
+        case 'user':
           return 'American Red Cross Users';
         case 'contacts':
           return 'American Red Cross Contacts';
-        case 'organization':
-          return ' American Red Cross Partner';
+        case 'contact':
+          return 'American Red Cross Contacts';
         default:
           return 'American Red Cross ' + this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
       }

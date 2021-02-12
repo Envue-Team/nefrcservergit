@@ -290,7 +290,7 @@
                     :items="all_arc_relationships"
                     v-model="add_organization.arc_relationship"
                     :rules="arcFunctionRule"
-                    label="*Arc Relationships"
+                    label="*Community Services Provided"
                 >
                 </v-select>
               </v-col>
@@ -476,7 +476,7 @@ export default {
         unmapped_lines_of_business: [],
 
         /**
-         * Arc Relationship
+         * Community Services Provided
          **/
         all_arc_relationships: [],
         organization_arc_relationships: [],
@@ -538,7 +538,6 @@ export default {
           critical_relationship_information: '', 
           services: '', 
           status: ''
-        // }
       }
     },
    computed: {
@@ -553,8 +552,8 @@ export default {
           {text: 'MOU', value: 'mou', class: 'red--text text--darken-3'},
           {text: 'Line of Business', value: 'lob', class: 'red--text text--darken-3'},
           {text: 'Agency Type', value: 'type', class: 'red--text text--darken-3'},
-          {text: 'Relationship', value: 'arc_rel', class: 'red--text text--darken-3'},
-          {text: 'Services', value: 'service', class: 'red--text text--darken-3'},
+          {text: 'Community Services Provided', value: 'arc_rel', class: 'red--text text--darken-3'},
+          {text: 'Additional Notes', value: 'service', class: 'red--text text--darken-3'},
 
         ]
         headers.forEach(header=>{
@@ -626,7 +625,7 @@ export default {
                   });
                 });
 
-                //Update arc relationship
+                //Update Community Services Provided
                 this.add_organization.arc_relationship.forEach(rel => {
                   this.unmapped_arc_relationships.filter(urel => {
                     if (urel.name == rel) {
