@@ -2,7 +2,12 @@
 <!--  <div id="app">-->
 <!--    <v-app>-->
       <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
-        <div>
+        <v-card
+          class="pa-1"
+          style="background-color: #C4DFF6"
+        >
+        <v-card>
+
           <v-tabs
             v-model="tab"
             show-arrows
@@ -158,7 +163,8 @@
               </v-card>
             </v-tab-item>
           </v-tabs>
-        </div>
+        </v-card>
+        </v-card>
       </v-dialog>
 <!--    </v-app>-->
 <!--  </div>-->

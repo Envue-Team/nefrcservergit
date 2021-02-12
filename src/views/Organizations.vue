@@ -1,21 +1,45 @@
 <template>
   <v-container>
   <v-row>
-      <v-col class="col cols-12">
+      <v-col class="col-12">
+        <span class="mobile-title hidden-md-and-up">Partners</span>
+        <JsonExcel
+            class="btn btn-default hidden-md-and-up"
+            :data="excel_data"
+            :fields="excel_fields"
+            worksheet="My Worksheet"
+            name="Partners.xls"
+        >
+          <v-btn
+              elevation="3"
+              fab
+              color="#7F181B"
+              small
+              class="mr-3"
+          >
+            <v-icon
+                class="mdi mdi-download"
+                color="white"
+            ></v-icon>
+          </v-btn>
+        </JsonExcel>
         <v-card
-            class="pa-3 mt-8"
+            class="pa-3 mt-md-8 mt-sm-3"
             outlined
-            elevation="3 text-wrap">
+            elevation="3 text-wrap"
+            style="background-color: rgb(249, 249, 249)"
+        >
           <v-card
               style="margin-top:-40px; width:100%;"
-              class="pa-3 card-header-block"
+              class="pa-md-3 pa-sm-0 card-header-block hidden-md-and-down"
               rounded
           >
             <v-card-title class="card-header-title">Partners</v-card-title>
           </v-card>
-          <v-card-text>
-        <v-row>
-          <v-btn
+
+        <v-card-text>
+          <v-row>
+            <v-btn
               fab
               elevation="3"
               small
@@ -27,9 +51,17 @@
             <v-icon class="mdi mdi-dark mdi-plus">
             </v-icon>
           </v-btn>
+          </v-row>
+        <v-row>
           <v-spacer></v-spacer>
           <v-text-field
-              class="shrink mt-3 mr-3"
+              class="shrink mt-3 mr-3 hidden-md-and-down"
+              label="Search"
+              v-model="search"
+              append-icon="mdi-magnify"
+          ></v-text-field>
+          <v-text-field
+              class="mt-3 mr-3 hidden-md-and-up"
               label="Search"
               v-model="search"
               append-icon="mdi-magnify"
@@ -45,7 +77,7 @@
             class="text-capitalize"
             >
             <template v-slot:body.append="{ item }">
-              <div class="row" style="padding-bottom: 20px">
+              <div class="row hidden-md-and-down" style="padding-bottom: 20px">
                 <div class="col" style="margin-bottom: -25px; margin-left: 20px; padding: 5px">
                   <JsonExcel
                       class="btn btn-default"
@@ -67,7 +99,7 @@
               </div>
             </template>
             <template v-slot:item.name="{ item }">
-              {{ item.name }}
+              <div>{{ item.name }}</div>
             </template>
             <template v-slot:item.address="{ item }">
               <address class="text-capitalize">
@@ -81,7 +113,7 @@
             {{ item.manager }}
           </template>
         </v-data-table>
-          </v-card-text>
+        </v-card-text>
         </v-card>
     </v-col>
   </v-row>
@@ -345,7 +377,7 @@ import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOf
 import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRelationshipDataService";
 import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
 import RoleDataService from "@/services/RoleDataService";
-
+import "../assets/scss/main.scss";
 export default {
   name: "organizations",
   components: {

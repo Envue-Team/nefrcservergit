@@ -2,13 +2,13 @@
   <v-container>
     <v-row
       ><!---------------------First Container Row-------------------------------->
-      <v-col cols="7"
+      <v-col class="col-md-5 col-sm-12"
         ><!----------------------Left Column-------------------------->
         <!---------------------Contact Basic Data-------------------------------->
         <v-row>
-          <v-col class="offset-1 col-0">
+          <v-col class="offset-1">
             <v-card
-                class="pa-1 mx-7"
+                class="pa-1 mx-md-7 mx-sm-0"
                 outlined
                 elevation="3 text-wrap">
               <v-card

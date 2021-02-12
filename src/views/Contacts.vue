@@ -2,14 +2,17 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-          <v-card
-              class="pa-3 mt-8"
+        <span class="mobile-title hidden-md-and-up">Contacts</span>
+        <v-card
+              class="pa-3 mt-md-8 mt-sm-3"
               outlined
-              elevation="3 text-wrap">
+              elevation="3 text-wrap"
+              style="background-color: rgb(249, 249, 249)"
+          >
             <v-card
                 style="margin-top:-40px; width:100%;"
                 color="#6D6E70"
-                class="pa-7"
+                class="pa-7 hidden-md-and-down"
                 rounded
             >
               <v-toolbar-title class="card-header-title">Contacts</v-toolbar-title>

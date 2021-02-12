@@ -9,19 +9,26 @@
         style="background-color: #7F181B"
     >
         <v-btn
-            class="mr-3"
+            class="mr-3 hidden-md-and-down"
             elevation="1"
             fab
             small
-            @click.stop="mini = !mini"
+            @click.stop="toggleMini"
         >
         <v-icon class="mdi mdi-dark mdi-dots-vertical"></v-icon>
         </v-btn>
+        <v-btn
+            class="mr-3 hidden-md-and-up"
+            elevation="1"
+            fab
+            small
+            @click.stop="toggleDrawer"
+        >
+          <v-icon class="mdi mdi-dark mdi-dots-vertical"></v-icon>
+        </v-btn>
         <v-toolbar-title
-        class="hidden-sm-and-down"
         style="color: white"
         >{{getPageTitle}}</v-toolbar-title>
-      {{getAuthenticatedStatus}}
         <v-spacer></v-spacer>
         <v-btn
             flat
@@ -78,13 +85,14 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      </v-img>
+    </v-img>
     </v-navigation-drawer>
     <v-main style="background-color: rgba(70, 9, 9, 0.1)">
-        <video style="width:100%; height: auto;" v-if="isLoginPage" playsinline autoplay muted loop poster='./assets/images/arcflag.jpg'>
-          <source :src='require("./assets/videos/arc_short.mp4")' type='video/mp4'>
-        </video>
-
+      <video
+          class="hidden-md-and-down"
+          style="width:100%; height: auto;" v-if="isLoginPage" playsinline autoplay muted loop>
+        <source :src='require("./assets/videos/arc_short.mp4")' type='video/mp4'>
+      </video>
       <router-view @setPagePermissions="setPagePermissions" />
     </v-main>
   </v-app>
@@ -116,6 +124,12 @@ export default {
     mdbCol
   },
   methods: {
+    toggleMini(){
+      this.mini = !this.mini;
+    },
+    toggleDrawer(){
+      this.drawer = !this.drawer;
+    },
     /**
      * Access
      */
@@ -158,15 +172,15 @@ export default {
     getPageTitle(){
       switch(this.$route.name){
         case 'organizations':
-          return 'Partners';
+          return 'American Red Cross Partners';
         case 'users':
-          return 'Users';
+          return 'American Red Cross Users';
         case 'contacts':
-          return 'Contacts';
+          return 'American Red Cross Contacts';
         case 'organization':
-          return 'Partner';
+          return ' American Red Cross Partner';
         default:
-          return this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
+          return 'American Red Cross ' + this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
       }
     }
   },

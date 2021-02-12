@@ -3,7 +3,7 @@
   margin-left: -50px;
   font-size: 2em;
 }
-@media (max-width: 767px) {
+@media (max-width: 480px) {
   .page-title {
     font-family: "Roboto", sans-serif;
     margin-left: 10px;
@@ -24,20 +24,60 @@
 .card-header-title {
   color: white;
   font-family: Roboto, sans-serif;
-  font-weight: 300;
-  font-size: 18px;
+  font-weight: 400 !important;
+}
+@media (max-width: 480px) {
+  .card-header-title {
+    font-size: 24px !important;
+    font-weight: lighter !important;
+  }
+}
+@media (min-width: 769px) {
+  .card-header-title {
+    font-size: 24px;
+    font-weight: lighter !important;
+  }
+}
+@media (min-width: 1024px) {
+  .card-header-title {
+    font-size: 24px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .card-header-title {
+    font-size: 18px !important;
+  }
 }
 
 .card-header-subtitle {
   color: white;
   font-family: Roboto, sans-serif;
-  font-weight: 300;
+  font-weight: 400 !important;
   font-size: 14px;
 }
 
 .card-header-block {
-  margin-top: -40px !important;
   background-color: #6D6E70 !important;
+}
+@media (max-width: 480px) {
+  .card-header-block {
+    margin-top: -20px !important;
+  }
+}
+@media (min-width: 769px) {
+  .card-header-block {
+    margin-top: -20px !important;
+  }
+}
+@media (min-width: 1024px) {
+  .card-header-block {
+    margin-top: -40px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .card-header-block {
+    margin-top: -40px !important;
+  }
 }
 
 .data {
@@ -78,6 +118,16 @@
 dlg-no {
   background-color: #0091CD;
   color: white;
+}
+
+.tabs-active {
+  background-color: #6D6E70;
+  border-radius: 55px;
+}
+
+.mobile-title {
+  color: #6D6E70;
+  font-size: 24px;
 }
 
 /*# sourceMappingURL=main.css.map */

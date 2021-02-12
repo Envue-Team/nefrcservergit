@@ -2,12 +2,11 @@
   <v-container>
     <v-row
       ><!---------------------First Container Row-------------------------------->
-      <v-col cols="7"
+      <v-col class="col-md-5 col-sm-12"
         ><!----------------------Left Column-------------------------->
         <!---------------------Contact Basic Data-------------------------------->
             <v-card
-                class="pa-1 mx-7"
-                outlined
+                class="pa-1 mx-10"
                 elevation="3 text-wrap">
               <v-card
                   style="margin-top:-15px; width:100%;"

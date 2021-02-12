@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <span class="hidden-md-and-down">
+    <span class="hidden-sm-and-down">
       <div class="item-title">
           {{ organization.name }}
         <v-btn
@@ -16,13 +16,12 @@
           ></v-icon>
         </v-btn>
       </div>
-    </span>
     <v-row>
-      <v-col cols="9">
+      <v-col class="col-md-9 col-sm-12">
         <v-row>
           <v-col cols="12">
             <v-row>
-              <v-col cols="4">
+              <v-col class="col-md-4 col-sm-12">
                 <v-card
                     class="pa-1"
                     elevation="3"
@@ -53,16 +52,25 @@
                   </v-card>
                 </v-card>
                 <v-card
-                    class="pa-1 mt-15"
+                    elevation="3"
+                    class="mt-5"
+                    style="background-color: rgb(249, 249, 249)"
                 >
                   <v-card
-                      class="card-header-block pa-3"
+                    style="padding: 2px; background-color: rgb(196, 223, 246)"
+                    elevation="1"
+                  >
+                  <v-card
+                      elevation="0"
+                      class="pa-3"
+                      style="background-color: #6D6E70"
                       rounded
                   >
                     <v-card-text >
                       <div class="card-header-title">Details</div>
                       <span class="card-header-subtitle">{{ organization.service }}</span>
                     </v-card-text>
+                  </v-card>
                   </v-card>
                   <v-card-text>
                     <div class="card-label">National DCS MOU Partner: </div> {{ organization.mou }}
@@ -84,7 +92,7 @@
                   </v-card-text>
                 </v-card>
               </v-col>
-              <v-col cols="8">
+              <v-col class="col-md-8 col-sm-12">
                 <v-card
 
                     class="pl-1 mt-1"
@@ -152,7 +160,12 @@
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-card elevation="3" class="pa-1 mt-15">
+            <v-card
+                elevation="3"
+                class="pa-1
+                mt-15"
+                style="background-color: rgb(249, 249, 249)"
+            >
               <v-card
                   class="card-header-block pa-3"
                   rounded
@@ -360,178 +373,326 @@
         </v-row>
       </v-col>
       </v-row>
+          </span>
     <v-row><!---------------------First Container Row-------------------------------->
       <!---------------------------------Small Screen------------------------------------->
       <v-col
           class="hidden-md-and-up"
           cols="12"
       >
-        <v-card>
-          <v-toolbar
-              color="grey"
-          >
-            <v-toolbar-title
-                class="white--text"
-            >
-               <span v-if="verifyAccess('update')">
-                <a class="btn text-md-h2 text-sm-h5 text-capitalize" @click="openDialog('Edit')">
-                  {{ organization.name }}
-                </a><br/>
-                </span>
-                <span v-else class="text-md-h2 text-sm-h5 text-capitalize">
-                  {{ organization.name }}<br/>
-                </span>
-            </v-toolbar-title>
-          </v-toolbar>
-          <v-card-title>
+        <!-----------------------TABS--------------------------->
+        <v-tabs
+            class="mb-3"
+            v-model="tab"
+            touch
+            center-active
+            style="margin-left: -20px"
+            background-color="rgba(70, 9, 9, 0)"
+            continuous
+            height="50px"
+            hide-slider
+        >
 
-            <v-card-subtitle>
-              <a :href="organization.website">
-                <span style="color: #C4DFF6"> {{ organization.website }} </span>
-              </a><span v-if="organization.phones != ''"><br/> {{ organization.phones[0].number}}</span>
-              <br/>
-              {{ organization.street_number }} {{ organization.street_name}}
-              {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
-              <br/>
-              <span v-for="county in organization.counties" :key="county.id">
-                {{county.name}}
-              </span>
-            </v-card-subtitle>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-title>Notes</v-card-title>
-          <v-card-text>
-            <span v-if="verifyAccess('update')">
-             <a class="btn font-weight-bold blue-grey--text" @click="contact_note_dlg=true">
-               <strong>Last Contact Made: </strong>
-             </a>
-            </span>
-            <span v-else>
-              <strong>
-                 Last Contact Made:
-              </strong>
-            </span>
-            {{ organization.last_contact }}<br/>
-            <span v-if="verifyAccess('update')">
-             <a class="btn font-weight-bold blue-grey--text" @click="op_action_dlg=true">
-               Opportunities/Actions Needed to Improve Profile:
-             </a>
-            </span>
-            <span v-else>
-              <strong>
-               Opportunities/Actions Needed to Improve Profile:
-              </strong>
-            </span>
-            {{ organization.action }}<br/>
-            <span v-if="verifyAccess('update')">
-               <a class="btn font-weight-bold blue-grey--text" @click="add_note_dlg=true">
-                 <strong>Note: </strong>
-               </a>
-            </span>
-            <span v-else>
-               <strong>
-                 Note:
-               </strong>
-            </span>
-            {{ organization.notes }}
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-title>Details</v-card-title>
-          <v-card-text>
-            <strong>National DCS MOU Partner: </strong> {{ organization.mou }}<br/>
-            <strong>Organization Service: </strong> {{ organization.service }}<br/>
-            <strong>Lines of Business: </strong>
-            <br/>
-            <span v-for="lob in organization.line_of_businesses" :key="lob.id">
-                      {{lob.name}}
-                  </span>
-            <br/> ARC Relationship:
-            <span v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
-                      {{arcrel.name}}
-                  </span>
-            <br/><strong>Agency Types: </strong>
-            <span v-for="agtype in organization.agency_types" :key="agtype.id">
-                      {{agtype.name}}
-                  </span>
-            <br/><strong>Service: </strong>
-            {{ organization.service }}
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-title>Contacts</v-card-title>
-          <v-card-text>
-            <div>
-            <strong>Organization Contact Protocol:<br/></strong> {{ organization.contact_protocol }}<br/>
-            <a v-show="verifyAccess('update')" class="btn font-weight-bold blue-grey--text" @click="openDialog('Add POC')">
-              Add New Point of Contact
-            </a>
-            </div>
-            <div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
-              <a class="btn font-weight-bold blue-grey--text" @click="openDialog('Edit POC', contact.id)">
-                <span :ref="'first_name_' + contact.personId">{{ contact.first_name }} </span>
-                <span :ref="'last_name_' + contact.personId">{{ contact.last_name }} </span>
-              </a>
-              <span v-for="phone in contact.phones" v-bind:key="phone.number" class="font-weight-thin">
-                  <span :ref="'phone_' + phone.id">
-                    <span v-if="phone.isPrimary==true">
-                      <br/>{{ phone.number }}(P)
-                    </span>
-                  </span>
-							</span>
-              <span v-for="phone in contact.phones" class="font-weight-thin">
-                  <span :ref="'phone_' + phone.id">
-                    <span v-if="phone.isPrimary==false">
-                     | {{ phone.number }}
-                    </span>
-                  </span>
-							</span>
-              <span v-for="email in contact.emails" class="font-weight-thin">
-                  <span :ref="'email_' + email.id">
-                    <span v-if="email.isPrimary==true">
-                      <br/>{{ email.address }}(P)
-                    </span>
-                  </span>
-							</span>
-              <span v-for="email in contact.emails" class="font-weight-thin">
-                  <span :ref="'email_' + email.id">
-                    <span v-if="email.isPrimary==false">
-                       | {{ email.address }}
-                    </span>
-                  </span>
-							</span>
-            </div>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-title>Relationship Manager</v-card-title>
-          <v-card-text>
-            <div>
-              <a v-show="verifyAccess('reassign')" class="btn font-weight-bold blue-grey--text" @click="openDialog('Add RM')">
-                Add an Organization Manager
-              </a>
-            </div>
-            <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
-              <a  v-if="verifyAccess('reassign')" class="btn font-weight-bold blue-grey--text" @click="openDialog('RM', manager.personId)">
-                <div class="font-weight-black mt-3">
-                  <strong>
-                    <span :ref="'relationship_manager_' + manager.personId">
-                      {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
-                    </span>
-                  </strong>
+          <v-tab href="#contact-tab"
+                 active-class="tabs-active"
+          >
+            <v-icon class="mdi mdi-phone"></v-icon>
+          </v-tab>
+
+          <v-tab href="#notes-tab"
+                 active-class="tabs-active"
+          >
+            <v-icon class="mdi mdi-comment-outline"></v-icon>
+          </v-tab>
+
+          <v-tab href="#details-tab"
+                 active-class="tabs-active"
+          >
+            <v-icon class="mdi mdi-information-outline">mdi-information</v-icon>
+          </v-tab>
+          <v-tab href="#rm-tab"
+                 active-class="tabs-active"
+          >
+            <v-icon>mdi-account-box</v-icon>
+          </v-tab>
+        </v-tabs>
+        <!-----------------------//TABS--------------------------->
+
+        <!-----------------------TAB ITEMS------------------>
+        <v-tabs-items v-model="tab"
+          style="background-color: rgba(70, 9, 9, 0.1)"
+        >
+          <v-tab-item
+            value="contact-tab"
+        >
+          <v-card
+            class="mt-3"
+            style="padding: 2px;"
+          >
+            <v-card
+                style="background-color: #6D6E70;"
+            >
+              <v-card-text>
+                <div
+                    class="sub-data"
+                >
+                  {{ organization.street_number }} {{ organization.street_name}}
+                  {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
+                  <br/>
+                  <span v-for="county in organization.counties" :key="county.id">
+                    {{county.name}}
+                  </span><br/>
+                    <a :href="organization.website" style="color: #C4DFF6">
+                    {{ organization.website }}
+                  </a><span v-if="organization.phones.length != 0">
+                  <span v-show="organization.website != ''"> | </span>
+                  {{ organization.primaryPhone}}</span>
                 </div>
-              </a>
-              <span  v-else class="btn font-weight-bold blue-grey--text">
-                <div class="font-weight-black mt-3">
-                  <strong>
-                    <span :ref="'relationship_manager_' + manager.personId">
-                      {{ manager.person.first_name }} {{ manager.person.last_name }} (Relationship Manager)
-                    </span>
-                  </strong>
+              </v-card-text>
+            </v-card>
+          </v-card>
+
+          <v-card
+              class="mt-3"
+              style="padding-left: 2px; padding-right: 2px; background-color: #7F181B"
+          >
+          <v-card
+              style="background-color: #6D6E70"
+          >
+            <v-card-text>
+              <div class="card-header-subtitle">Preferred Method:</div>
+              <div class="card-header-subtitle">{{ organization.contact_protocol }}</div>
+            </v-card-text>
+          </v-card>
+          </v-card>
+
+
+              <!---------------------Contact---------------------------->
+          <v-card
+              class="mt-3"
+              style="background-color: #7F181B; padding-left: 2px; padding-right: 2px;"
+          >
+          <v-card
+              style="background-color: #6D6E70"
+          >
+            <v-card-text>
+              <div class="card-header-title mb-3">Contact
+                <v-btn
+                    icon
+                    style="color: #7F181B"
+                    v-show="verifyAccess('update')"
+                >
+                  <v-icon
+                      class="mdi mdi-account-plus"
+                      @click="openDialog('Add POC')"
+                  >
+                  </v-icon>
+                </v-btn>
+              </div>
+
+              <div class="mb-3" v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+                <div :ref="'first_name_' + contact.personId">
+                  <span class="data">{{ contact.first_name }} {{ contact.last_name }}</span>
+                  <v-btn
+                      icon
+                      small
+                      class="ml-3"
+                      v-show="verifyAccess('update')"
+                      @click="openDialog('Edit POC', contact.id)"
+                  >
+                    <v-icon
+                        small
+                        class="mdi mdi-pencil"
+                        style="color: #C4DFF6"
+                    ></v-icon>
+                  </v-btn>
                 </div>
-              </span>
-              <div v-for="mphone in manager.person.phones" :key="mphone.number" class="font-weight-thin">{{ mphone.number }}</div>
-              <div v-for="memail in manager.person.emails" :key="memail.address" class="font-weight-thin"> {{ memail.address }}</div>
-            </div>
-          </v-card-text>
-        </v-card>
+                <span v-for="phone in contact.phones" v-bind:key="phone.number" class="sub-data">
+                <span :ref="'phone_' + phone.id">
+                  <span v-if="phone.isPrimary==true">
+                    <a href="tel: phone.number">{{ phone.number }}(P)</a>
+                  </span>
+                </span>
+            </span>
+                <span v-for="phone in contact.phones" class="sub-data">
+                <span :ref="'phone_' + phone.id">
+                  <span v-if="phone.isPrimary==false">
+                    | <a href="tel: phone.number">{{ phone.number }}</a>
+                  </span>
+                </span>
+            </span>
+                <span v-for="email in contact.emails" class="sub-data">
+                <span :ref="'email_' + email.id">
+                  <span v-if="email.isPrimary==true">
+                    <br/><a href="mailto: email.address">{{ email.address }}(P)</a>
+                  </span>
+                </span>
+            </span>
+                <span v-for="email in contact.emails" class="sub-data">
+                <span :ref="'email_' + email.id">
+                  <span v-if="email.isPrimary==false">
+                    | <a href="mailto: email.address">{{ email.address }}</a>
+                  </span>
+                </span>
+            </span>
+              </div>
+            </v-card-text>
+          </v-card>
+          </v-card>
+        </v-tab-item>
+          <v-tab-item
+              value="notes-tab"
+          >
+            <v-card
+                class="mt-3"
+                style="padding: 2px;"
+            >
+              <v-card
+                  style="background-color: #6D6E70"
+              >
+              <v-card-text>
+                <div class="card-header-title">Important Notes</div>
+                <div class="card-label-light">
+                  Last Contact Made:
+                  <v-btn
+                      icon
+                      style="color: #C4DFF6"
+                      v-show="verifyAccess('update')"
+                      @click="contact_note_dlg=true"
+                  >
+                    <v-icon
+                        class="mdi mdi-comment-outline"
+                        small
+                    ></v-icon>
+                  </v-btn>
+                </div>
+                <div class="sub-data">{{ organization.last_contact }}</div>
+                <div class="card-label-light">
+                  Opportunities/Actions Needed to Improve Profile:
+                  <v-btn
+                      v-show="verifyAccess('update')"
+                      icon
+                      style="color: #C4DFF6"
+                      @click="op_action_dlg=true"
+                  >
+                    <v-icon
+                        class="mdi mdi-comment-outline"
+                        small></v-icon>
+                  </v-btn>
+
+                </div>
+                <div class="sub-data">{{ organization.action }}</div>
+                <div class="card-label-light">
+                  Note:
+                  <v-btn
+                      v-show="verifyAccess('update')"
+                      icon
+                      style="color: #C4DFF6"
+                      @click="add_note_dlg=true"
+                  >
+                    <v-icon
+                        small
+                        class="mdi mdi-comment-outline"></v-icon>
+                  </v-btn>
+                </div>
+                <div class="sub-data">{{ organization.notes }}</div>
+              </v-card-text>
+            </v-card>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item
+              value="details-tab"
+          >
+            <v-card
+                elevation="3"
+                class="mt-5"
+                style="background-color: rgb(249, 249, 249)"
+            >
+              <v-card
+                  style="padding: 2px; background-color: rgb(196, 223, 246)"
+                  elevation="1"
+              >
+                <v-card
+                    elevation="0"
+                    class="pa-3"
+                    style="background-color: #6D6E70"
+                    rounded
+                >
+                  <v-card-text >
+                    <div class="card-header-title">Details</div>
+                    <span class="card-header-subtitle">{{ organization.service }}</span>
+                  </v-card-text>
+                </v-card>
+              </v-card>
+              <v-card-text>
+                <div class="card-label">National DCS MOU Partner: </div> {{ organization.mou }}
+
+                <div class="card-label">Lines of Business: </div>
+                <div v-for="lob in organization.line_of_businesses" :key="lob.id">
+                  {{lob.name}}
+                </div>
+
+                <div class="card-label">ARC Relationship: </div>
+                <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                  {{arcrel.name}}
+                </div>
+
+                <div class="card-label">Agency Types: </div>
+                <div v-for="agtype in organization.agency_types" :key="agtype.id">
+                  {{agtype.name}}
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item
+              value="rm-tab"
+          >
+            <v-card
+                class="mt-3"
+               style="padding: 2px;"
+                >
+            <v-card
+                style="background-color: #6D6E70"
+            >
+              <v-card-text>
+                <div class="card-header-title">Relationship Manager
+                  <v-btn
+                      icon
+                      style="color: #7F181B"
+                      v-show="verifyAccess('reassign')"
+                  >
+                    <v-icon
+                        class="mdi mdi-account-plus"
+                        @click="openDialog('Add RM')"
+                    >
+                    </v-icon>
+                  </v-btn>
+                </div>
+                <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                  <div :ref="'relationship_manager_' + manager.personId" class="data">
+                    {{ manager.person.first_name }} {{ manager.person.last_name }}
+                    <v-btn
+                        icon
+                        style="color: #C4DFF6"
+                        v-if="verifyAccess('reassign')"
+                        @click="openDialog('Remove RM', manager.person.id)"
+                    >
+                      <v-icon
+                          small
+                          class="mdi mdi-minus"
+                      ></v-icon>
+                    </v-btn>
+                  </div>
+                  <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>
+                  <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>
+                </div>
+              </v-card-text>
+            </v-card>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
+        <!-----------------------//TAB ITEMS------------------>
+
       </v-col>
       <!---------------------------------//Small Screen------------------------------------->
     </v-row>
@@ -1189,7 +1350,15 @@ export default {
       isOwner: false,
       permissions: [],
       confirm_delete: false,
-
+      /**
+       * Small Screen
+       **/
+      //Tabs
+      tab: null,
+      items: [
+        'Contacts', 'Notes', 'Details', 'Address', 'RM',
+      ],
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       /**
        * Form validation
        **/
