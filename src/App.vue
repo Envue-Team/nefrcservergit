@@ -44,13 +44,13 @@
         app
     >
     <v-img src="./assets/images/rescuers.jpeg" height="100%">
-      <v-list-item class="px-2">
-        <v-list-item-avatar>
-          <v-img src="./assets/images/red_crescent_trprnt.png"/>
+      <v-list-item>
+        <v-list-item-avatar style="margin-left: -10px">
+          <v-img src="./assets/images/req_logo.png" min-height="70px"/>
         </v-list-item-avatar>
 
-        <v-list-item-title style="color: #a01212; font-weight: 500">
-          <strong>American Red Cross</strong>
+        <v-list-item-title style="color: grey; font-weight: bolder">
+          American Red Cross
         </v-list-item-title>
 
         <v-btn

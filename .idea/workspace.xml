@@ -25,13 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Auto assign current user as relationship manager on organization creation.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/person.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/person.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/person.model.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/person.model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/POCDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/POCDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +166,7 @@
       <workItem from="1612361136443" duration="12136000" />
       <workItem from="1612622133402" duration="90937000" />
       <workItem from="1612807596055" duration="98384000" />
-      <workItem from="1613000003653" duration="76566000" />
+      <workItem from="1613000003653" duration="78375000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -431,7 +427,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613174186005</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms.">
+      <created>1613214360457</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1613214360457</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -502,7 +505,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Multiple contacts assignable to organization" />
     <MESSAGE value="Multiple relationship managers assignable to organization" />
     <MESSAGE value="Add counties to organizations" />
     <MESSAGE value="Committing for pull. Clean up code" />
@@ -527,7 +529,8 @@
     <MESSAGE value="Update site per user requests. 2/12/21" />
     <MESSAGE value="Update excel sheet to include full data of selected organizations and on to only include filtered organizations." />
     <MESSAGE value="Auto assign current user as relationship manager on organization creation." />
-    <option name="LAST_COMMIT_MESSAGE" value="Auto assign current user as relationship manager on organization creation." />
+    <MESSAGE value="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
