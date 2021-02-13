@@ -1,7 +1,7 @@
 $breakpoints:(
-        'x-small': (max-width: 767px),
-        'small': (min-width: 767px),
-        'medium': (min-width: 992px),
+        'x-small': (max-width: 480px),
+        'small': (min-width: 769px),
+        'medium': (min-width: 1024px),
         'large': (min-width: 1200px)
 )!default;
 
@@ -37,12 +37,25 @@ $breakpoints:(
 @mixin card-header(){
   color: white;
   font-family: Roboto, sans-serif;
-  font-weight: 300;
+  font-weight: 400 !important;
 }
 
 .card-header-title {
   @include card-header;
-  font-size: 18px;
+  @include respond-to('x-small'){
+    font-size: 24px !important;
+    font-weight: lighter !important;
+  }
+  @include respond-to('small'){
+    font-size: 24px;
+    font-weight: lighter !important;
+  }
+  @include respond-to('medium'){
+    font-size: 24px !important;
+  }
+  @include respond-to('large'){
+    font-size: 18px !important;
+  }
 }
 
 .card-header-subtitle {
@@ -51,8 +64,19 @@ $breakpoints:(
 }
 
 .card-header-block{
-  margin-top:-40px !important;
   background-color: #6D6E70 !important;
+  @include respond-to('x-small'){
+    margin-top:-20px !important;
+  }
+  @include respond-to('small'){
+    margin-top:-20px !important;
+  }
+  @include respond-to('medium'){
+    margin-top:-40px !important;
+  }
+  @include respond-to('large'){
+    margin-top:-40px !important;
+  }
 }
 
 .data {
@@ -73,4 +97,35 @@ $breakpoints:(
 
 .active-drawer-link{
   background-color: #ED1B2E;
+}
+
+.small-dlg{
+  max-width: 300px;
+}
+
+.md-dlg{
+  max-width: 400px;
+}
+
+.lg-dlg{
+  max-width: 700px;
+}
+
+.dlg-title{
+  color: #6D6E70;
+}
+
+dlg-no{
+  background-color: #0091CD;
+  color: white;
+}
+
+.tabs-active{
+  background-color: #6D6E70;
+  border-radius: 55px
+}
+
+.mobile-title{
+  color: #6D6E70;
+  font-size: 24px;
 }

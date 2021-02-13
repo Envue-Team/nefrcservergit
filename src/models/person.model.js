@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
     person_notes: {
       type: DataTypes.TEXT
     },
+    title: {
+      type: DataTypes.TEXT
+    },
     });
 
   return Person;

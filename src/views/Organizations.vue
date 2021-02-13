@@ -1,21 +1,45 @@
 <template>
   <v-container>
   <v-row>
-      <v-col class="col cols-12">
+      <v-col class="col-12">
+        <span class="mobile-title hidden-md-and-up">Partners</span>
+        <JsonExcel
+            class="btn btn-default hidden-md-and-up"
+            :data="excel_data"
+            :fields="excel_fields"
+            worksheet="My Worksheet"
+            name="Partners.xls"
+        >
+          <v-btn
+              elevation="3"
+              fab
+              color="#7F181B"
+              small
+              class="mr-3"
+          >
+            <v-icon
+                class="mdi mdi-download"
+                color="white"
+            ></v-icon>
+          </v-btn>
+        </JsonExcel>
         <v-card
-            class="pa-3 mt-8"
+            class="pa-3 mt-md-8 mt-sm-3"
             outlined
-            elevation="3 text-wrap">
+            elevation="3 text-wrap"
+            style="background-color: rgb(249, 249, 249)"
+        >
           <v-card
               style="margin-top:-40px; width:100%;"
-              class="pa-7 card-header-block"
+              class="pa-md-3 pa-sm-0 card-header-block hidden-md-and-down"
               rounded
           >
-            <v-text-title class="card-header-title">Partners</v-text-title>
+            <v-card-title class="card-header-title">Partners</v-card-title>
           </v-card>
-          <v-card-text>
-        <v-row>
-          <v-btn
+
+        <v-card-text>
+          <v-row>
+            <v-btn
               fab
               elevation="3"
               small
@@ -27,9 +51,17 @@
             <v-icon class="mdi mdi-dark mdi-plus">
             </v-icon>
           </v-btn>
+          </v-row>
+        <v-row>
           <v-spacer></v-spacer>
           <v-text-field
-              class="shrink mt-3 mr-3"
+              class="shrink mt-3 mr-3 hidden-md-and-down"
+              label="Search"
+              v-model="search"
+              append-icon="mdi-magnify"
+          ></v-text-field>
+          <v-text-field
+              class="mt-3 mr-3 hidden-md-and-up"
               label="Search"
               v-model="search"
               append-icon="mdi-magnify"
@@ -45,13 +77,13 @@
             class="text-capitalize"
             >
             <template v-slot:body.append="{ item }">
-              <div class="row" style="padding-bottom: 20px">
+              <div class="row hidden-md-and-down" style="padding-bottom: 20px">
                 <div class="col" style="margin-bottom: -25px; margin-left: 20px; padding: 5px">
                   <JsonExcel
                       class="btn btn-default"
                       :data="excel_data"
                       :fields="excel_fields"
-                      worksheet="My Worksheet"
+                      worksheet="ARC"
                       name="Partners.xls"
                   >
                     <v-btn
@@ -67,7 +99,7 @@
               </div>
             </template>
             <template v-slot:item.name="{ item }">
-              {{ item.name }}
+              <div>{{ item.name }}</div>
             </template>
             <template v-slot:item.address="{ item }">
               <address class="text-capitalize">
@@ -81,7 +113,7 @@
             {{ item.manager }}
           </template>
         </v-data-table>
-          </v-card-text>
+        </v-card-text>
         </v-card>
     </v-col>
   </v-row>
@@ -101,8 +133,6 @@
             <v-row>
               <v-col
                   cols="8"
-                  sm="8"
-                  md="8"
               >
                 <v-text-field
                     label="*Agency Name"
@@ -260,7 +290,7 @@
                     :items="all_arc_relationships"
                     v-model="add_organization.arc_relationship"
                     :rules="arcFunctionRule"
-                    label="*Arc Relationships"
+                    label="*Community Services Provided"
                 >
                 </v-select>
               </v-col>
@@ -287,6 +317,7 @@
                   md="5"
               >
                 <v-textarea
+                    v-model="add_organization.contact_protocol"
                     rows="2"
                     label="Preferred Method of Contact per RM"
                 ></v-textarea>
@@ -297,6 +328,7 @@
                   md="5"
               >
                 <v-textarea
+                    v-model="add_organization.service"
                     rows="2"
                     required
                     label="*Additional Notes"
@@ -346,7 +378,8 @@ import OrganizationLineOfBusinessDataService from "@/services/OrganizationLineOf
 import OrganizationArcRelationshipDataService from "@/services/OrganizationArcRelationshipDataService";
 import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyTypeDataService";
 import RoleDataService from "@/services/RoleDataService";
-
+import RelationshipManagerDataService from "@/services/RelationshipManagerDataService";
+import "../assets/scss/main.scss";
 export default {
   name: "organizations",
   components: {
@@ -357,6 +390,7 @@ export default {
         isOwner: false,
         permissions: [],
         toolbar_title: 'connections',
+        current_user_id: '',
 
         /**
          * Form validation
@@ -434,7 +468,23 @@ export default {
          * MOU
          **/
         mou_options:["Yes", "No", "Maybe"],
-        excel_fields:{},
+        excel_fields:{
+          Name: "name",
+          Address: "address",
+          Counties: "counties",
+          Website: "website",
+          Phone: "phone",
+          "Preferred Method of Contact": "preferred",
+          Contacts: "contact",
+          "Last Contact": "last contact",
+          Notes: "notes",
+          Opportunities: "action",
+          "Line of Business": "lob",
+          "Agency Type": "type",
+          "Community Services Provided": "arc relationship",
+          Manager: "relationship manager",
+          "Further Notes": "services"
+        },
         excel_data:[],
 
         /**
@@ -445,7 +495,7 @@ export default {
         unmapped_lines_of_business: [],
 
         /**
-         * Arc Relationship
+         * Community Services Provided
          **/
         all_arc_relationships: [],
         organization_arc_relationships: [],
@@ -470,12 +520,11 @@ export default {
           ],
         ],
 
-
-        filters:{
-          partners: false,
-          relationships: true,
-          my_assignments: false
-        },
+        // filters:{
+        //   partners: false,
+        //   relationships: true,
+        //   my_assignments: false
+        // },
         add_organization_dlg: false,
         search: '',
         organizations: [],
@@ -501,13 +550,11 @@ export default {
           "line_of_business":'',
           "agency_type":'',
           "arc_relationship":''
-
         },
-          type:'',
-          critical_relationship_information: '', 
-          services: '', 
-          status: ''
-        // }
+        type:'',
+        critical_relationship_information: '',
+        services: '',
+        status: ''
       }
     },
    computed: {
@@ -522,15 +569,17 @@ export default {
           {text: 'MOU', value: 'mou', class: 'red--text text--darken-3'},
           {text: 'Line of Business', value: 'lob', class: 'red--text text--darken-3'},
           {text: 'Agency Type', value: 'type', class: 'red--text text--darken-3'},
-          {text: 'Relationship', value: 'arc_rel', class: 'red--text text--darken-3'},
-          {text: 'Services', value: 'service', class: 'red--text text--darken-3'},
+          {text: 'Community Services Provided', value: 'arc_rel', class: 'red--text text--darken-3'},
+          {text: 'Additional Notes', value: 'service', class: 'red--text text--darken-3'},
 
         ]
-        headers.forEach(header=>{
-            this.excel_fields[header.text] = header.value;
-        });
         return headers;
       },
+    },
+    watch:{
+      search: function(){
+        this.updateExcelList();
+      }
     },
     methods: {
       nav(item){
@@ -595,7 +644,7 @@ export default {
                   });
                 });
 
-                //Update arc relationship
+                //Update Community Services Provided
                 this.add_organization.arc_relationship.forEach(rel => {
                   this.unmapped_arc_relationships.filter(urel => {
                     if (urel.name == rel) {
@@ -620,6 +669,13 @@ export default {
                     }
                   })
                 });
+
+                //Set default relationship manager
+                RelationshipManagerDataService.create({
+                  personId: this.$session.get('personId'),
+                  organizationId: id
+                }).then().catch(err=>{console.log(err)});
+
                 this.$router.push('organization/' + id);
               })
               .catch(e => {
@@ -670,7 +726,7 @@ export default {
               organization.line_of_businesses.forEach(lob=>{
                 organization.lob += lob.name + "\n";
               });
-              organization.lob = organization.lob.substr(0, organization.lob.length-2);
+              organization.lob = organization.lob.substr(0, organization.lob.length-1);
               organization.type = '';
               organization.agency_types.forEach(type=>{
                 organization.type += type.name + "\n";
@@ -680,7 +736,7 @@ export default {
               organization.arc_relationships.forEach(arc_rel=>{
                 organization.arc_rel += arc_rel.name + "\n";
               });
-              organization.arc_rel = organization.arc_rel.substr(0, organization.arc_rel.length-2);
+              organization.arc_rel = organization.arc_rel.substr(0, organization.arc_rel.length-1);
               if(organization.relationship_managers !== null && organization.relationship_managers.length !== 0){
                 let manager = organization.relationship_managers[0].person;
                 let manager_data = manager.first_name+" "+manager.last_name;
@@ -706,6 +762,7 @@ export default {
               }
             });
             this.excel_data = this.organizations;
+            this.updateExcelList();
           })
           .catch(e => {
             console.log(e.message);
@@ -752,13 +809,56 @@ export default {
             })
             .catch(e=>{console.log(e)});
       },
-      filterOrganizations(){
-        this.organizations = this.orgCache.filter(organization=>{
-          var assign = this.filters['my_assignments'] ? organization.managerId == "5693164c-5da4-4d07-ad24-d9f39befc823" : true;
-          return (this.filters['partners'] && organization.partner !== null && assign) | 
-          (this.filters['relationships'] && organization.relationship !== null && assign)
+
+      updateExcelList(){
+        this.excel_data = this.filterOrganizations().map(organization => {
+          let orgAddress = organization.street_number + " " +
+              organization.street_name.charAt(0).toUpperCase() + organization.street_name.toLowerCase().slice(1) +"\n"+
+              organization.city.charAt(0).toUpperCase() + organization.city.toLowerCase().slice(1) +" "+
+              organization.state.charAt(0).toUpperCase() + organization.state.toLowerCase().slice(1) +" "+
+              organization.zip.toString();
+          let orgPhone = organization.phones.length == 0 ? '' : organization.phones[0].number;
+          let orgContacts = '';
+          organization.people.forEach(person=>{
+            let phone = person.phones.length == 0 ? '' : person.phones[0].number;
+            let email = person.emails.length == 0 ? '' : person.emails[0].address;
+            orgContacts += person.first_name +" " + person.last_name + "\n" +
+                person.title+"\n"+
+                phone+" | "+email;
+          });
+          return {
+            name: organization.name,
+            address: orgAddress,
+            counties: organization.county_display,
+            website: organization.website,
+            phone: orgPhone,
+            preferred: organization.contact_protocol,
+            contact: orgContacts,
+            "last contact": organization.last_contact,
+            notes: organization.notes,
+            action: organization.action,
+            lob: organization.lob,
+            type: organization.type,
+            "arc relationship": organization.arc_rel,
+            "relationship manager": organization.manager,
+            services: organization.service
+          };
         });
-        this.updateExcelFields();
+      },
+      filterOrganizations(){
+        return this.organizations.filter(organization=>{
+          return organization.name.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.address.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.city.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.zip.toString().toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.county_display.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.manager.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.mou.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.lob.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.type.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.arc_rel.toLowerCase().includes(this.search.toLowerCase()) ||
+              organization.service.toLowerCase().includes(this.search.toLowerCase());
+        });
       },
       /**
        * Access
@@ -781,10 +881,10 @@ export default {
         RoleDataService.get(currentRole)
             .then(response=>{
               this.permissions = response.data.permissions.map(permission=>{return permission.name});
-              console.log(this.permissions);
             })
             .catch(e=>{console.log(e)});
       },
+
     },
     mounted() {
       this.retrieveOrganizations();

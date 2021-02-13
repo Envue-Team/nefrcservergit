@@ -25,16 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update sideimage">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/img/city_backdrop_drk1.8bb7ccbc.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.7482b226.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/js/app.7482b226.js.map" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +93,7 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -121,15 +115,13 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -173,7 +165,8 @@
       <workItem from="1611320240459" duration="59569000" />
       <workItem from="1612361136443" duration="12136000" />
       <workItem from="1612622133402" duration="90937000" />
-      <workItem from="1612807596055" duration="20613000" />
+      <workItem from="1612807596055" duration="98384000" />
+      <workItem from="1613000003653" duration="78375000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -371,7 +364,77 @@
       <option name="project" value="LOCAL" />
       <updated>1612795688749</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form.">
+      <created>1612833656161</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1612833656161</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete.">
+      <created>1612914723414</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1612914723416</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Hide users link when not permitted.">
+      <created>1612958856659</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1612958856659</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv">
+      <created>1612959576220</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1612959576220</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Add video to login page.">
+      <created>1612995543066</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1612995543067</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Add mobile theming across site.">
+      <created>1613122090091</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1613122090091</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Update site per user requests. 2/12/21">
+      <created>1613137208803</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1613137208803</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Update excel sheet to include full data of selected organizations and on to only include filtered organizations.">
+      <created>1613173241892</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1613173241892</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Auto assign current user as relationship manager on organization creation.">
+      <created>1613174186005</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1613174186005</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms.">
+      <created>1613214360457</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1613214360457</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -442,16 +505,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Tie organization contacts to contacts side&#10;Tie organization relationship managers to users side" />
-    <MESSAGE value="Update Partner page for relationship page capabilities" />
-    <MESSAGE value="General updates throughout the application" />
-    <MESSAGE value="GUI Update" />
-    <MESSAGE value="New GUI" />
-    <MESSAGE value="Update relationship new contact" />
-    <MESSAGE value="Update home page to show links" />
-    <MESSAGE value="Update partner and relationship pages for better code and higher standardization" />
-    <MESSAGE value="Add contact edit/add/update information to organization" />
-    <MESSAGE value="Multiple contacts assignable to organization" />
     <MESSAGE value="Multiple relationship managers assignable to organization" />
     <MESSAGE value="Add counties to organizations" />
     <MESSAGE value="Committing for pull. Clean up code" />
@@ -467,7 +520,17 @@
     <MESSAGE value="Standardize pages. Update background and navbar color. Organize connections page." />
     <MESSAGE value="Login redirect to connections page." />
     <MESSAGE value="Update sideimage" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update sideimage" />
+    <MESSAGE value="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form." />
+    <MESSAGE value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
+    <MESSAGE value="Hide users link when not permitted." />
+    <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
+    <MESSAGE value="Add video to login page." />
+    <MESSAGE value="Add mobile theming across site." />
+    <MESSAGE value="Update site per user requests. 2/12/21" />
+    <MESSAGE value="Update excel sheet to include full data of selected organizations and on to only include filtered organizations." />
+    <MESSAGE value="Auto assign current user as relationship manager on organization creation." />
+    <MESSAGE value="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -490,6 +553,10 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="416" y="129" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610317733881" />
+    <state x="406" y="226" width="775" height="311" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1612985431848">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="406" y="226" width="775" height="311" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.27.1366.711@0.27.1366.711" timestamp="1612985431848" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog" timestamp="1610317538168">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -541,11 +608,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1612795705075">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1613122111618">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1612795705075" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1613122111618" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
@@ -557,15 +624,16 @@
     </state>
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258156616" />
     <state x="100" y="96" width="1116" height="547" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610316135542" />
-    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1609795701495">
+    <state x="410" y="286" width="526" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1612876783311">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="410" y="295" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.744@0.24.1366.744" timestamp="1607256387911" />
-    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1609795701495" />
-    <state x="116" y="24" width="726" height="744" key="find.popup" timestamp="1606775410164">
-      <screen x="0" y="24" width="1366" height="744" />
+    <state x="410" y="286" width="526" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1612876783311" />
+    <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
+      <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="116" y="24" width="726" height="744" key="find.popup/0.24.1366.744@0.24.1366.744" timestamp="1606775410164" />
+    <state x="116" y="27" width="726" height="711" key="find.popup/0.27.1366.711@0.27.1366.711" timestamp="1612966602010" />
     <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610317806397">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -584,15 +652,15 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="0" y="27" width="1356" height="711" key="new project wizard/0.27.1366.711@0.27.1366.711" timestamp="1610318891564" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1612646524764">
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1613067138040">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1612646524764" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1610573303274">
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1613067138040" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1613149515888">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="321" y="89" width="719" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1607209765083" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1610573303274" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1613149515888" />
   </component>
 </project>

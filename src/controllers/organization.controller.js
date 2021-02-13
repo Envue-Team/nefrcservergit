@@ -1,7 +1,7 @@
 /* eslint-disable no-mixed-spaces-and-tabs */
 const db = require("../models");
 const DBOrganization = db.organization;
-// const DBPOC = db.pointofcontact;
+const DBPOC = db.pointofcontact;
 const DBRM = db.relationshipmanager;
 const DBPerson = db.person;
 const DBPartner = db.partner;
@@ -177,6 +177,10 @@ exports.findAll = (req, res) => {
       'line_of_businesses',
       'arc_relationships',
       'agency_types',
+      {
+        model: DBPerson,
+        include: ['phones', 'emails']
+      },
       // {
       //   model: DBNote,
       //   include: 'person',
@@ -249,6 +253,7 @@ exports.findAllRelationships = (req, res) => {
       'line_of_businesses',
       'arc_relationships',
       'agency_types',
+        'point_of_contact',
       // {
       //   model: DBNote,
       //   include: 'person'
