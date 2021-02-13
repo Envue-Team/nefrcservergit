@@ -44,57 +44,12 @@
               </v-row>
               <v-row>
                 <v-col
-                    cols="12"
-                    md="2"
+                  class="col-md-4 col-sm-12"
                 >
                   <v-text-field
-                      label="Street Number"
-                      v-model="street_number"
-                      :rules="streetNumberRules"
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    md="4"
-                >
-                  <v-text-field
-                      label="Street Name"
-                      v-model="street_name"
-                      :rules="nameRules"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col
-                    cols="12"
-                    md="3"
-                >
-                  <v-text-field
-                      label="City"
-                      v-model="city"
-                      :rules="nameRules"
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    md="2"
-                >
-                  <v-select
-                    label="State"
-                    v-model="state"
-                    :items="states"
-                  >
-
-                  </v-select>
-                </v-col>
-                <v-col
-                    cols="12"
-                    md="2"
-                >
-                  <v-text-field
-                      label="Zip"
-                      v-model="zip"
-                      :rules="zipRules"
+                      label="Title*"
+                      required
+                      v-model="title"
                   ></v-text-field>
                 </v-col>
               </v-row>
@@ -105,7 +60,7 @@
                 >
                   <v-text-field
                       required
-                      label="Primary Phone*"
+                      label="Phone*"
                       v-model="primary_phone"
                       :rules="phoneRules"
                   ></v-text-field>
@@ -115,31 +70,9 @@
                     md="6"
                 >
                   <v-text-field
-                      label="Secondary Phone"
-                      v-model="secondary_phone"
-                      :rules="phoneRules"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col
-                    cols="12"
-                    md="6"
-                >
-                  <v-text-field
                       required
-                      label="Primary Email*"
+                      label="Email*"
                       v-model="primary_email"
-                      :rules="emailRules"
-                  ></v-text-field>
-                </v-col>
-                <v-col
-                    cols="12"
-                    md="6"
-                >
-                  <v-text-field
-                      label="Secondary Email"
-                      v-model="secondary_email"
                       :rules="emailRules"
                   ></v-text-field>
                 </v-col>
@@ -300,6 +233,7 @@ export default {
       save_poc_dialog: false,
       first_name: '',
       last_name: '',
+      title: '',
       street_number: '',
       street_name: '',
       city: '',
@@ -369,7 +303,8 @@ export default {
         primary_phone: this.primary_phone,
         secondary_phone: this.secondary_phone,
         primary_email: this.primary_email,
-        secondary_email: this.secondary_email
+        secondary_email: this.secondary_email,
+        title: this.title,
       };
       this.$emit('input', false);
       this.$parent.createPOC(data);
@@ -387,7 +322,8 @@ export default {
         primary_phone: this.primary_phone,
         secondary_phone: this.secondary_phone,
         primary_email: this.primary_email,
-        secondary_email: this.secondary_email
+        secondary_email: this.secondary_email,
+        title: this.title,
       };
       this.$emit('input', false);
       this.$parent.updatePOC(this.poc_id,data);
@@ -412,6 +348,7 @@ export default {
             this.city = response.data.city;
             this.state = response.data.state;
             this.zip = response.data.zip;
+            this.title = response.data.title;
             response.data.phones.forEach(phone=>{
               if(phone.isPrimary){
                 this.primary_phone = phone.number;

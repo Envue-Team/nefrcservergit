@@ -823,6 +823,7 @@ export default {
             let phone = person.phones.length == 0 ? '' : person.phones[0].number;
             let email = person.emails.length == 0 ? '' : person.emails[0].address;
             orgContacts += person.first_name +" " + person.last_name + "\n" +
+                person.title+"\n"+
                 phone+" | "+email;
           });
           return {

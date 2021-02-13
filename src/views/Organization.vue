@@ -291,6 +291,7 @@
                         ></v-icon>
                       </v-btn>
                     </div>
+                    <span class="sub-data">{{ contact.title }}</span>
                     <span v-for="phone in contact.phones" v-bind:key="phone.number" class="sub-data">
                 <span :ref="'phone_' + phone.id">
                   <span v-if="phone.isPrimary==true">
