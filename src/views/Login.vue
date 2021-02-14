@@ -4,12 +4,12 @@
       <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
         <div>
           <v-tabs
-            v-model="tab"
-            show-arrows
-            background-color="red"
-            icons-and-text
-            dark
-            grow
+              v-model="tab"
+              show-arrows
+              background-color="red"
+              icons-and-text
+              dark
+              grow
           >
             <v-tabs-slider color="purple darken-4"></v-tabs-slider>
             <v-tab v-for="i in tabs" :key="i.name">
@@ -23,41 +23,42 @@
                     <v-row>
                       <v-col cols="12">
                         <v-text-field
-                          v-model="loginEmail"
-                          :rules="loginEmailRules"
-                          label="E-mail"
-                          required
+                            v-model="loginEmail"
+                            :rules="loginEmailRules"
+                            label="E-mail"
+                            required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
-                          v-model="loginPassword"
-                          :append-icon="show1 ? 'eye' : 'eye-off'"
-                          :rules="[rules.required, rules.min]"
-                          :type="show1 ? 'text' : 'password'"
-                          name="input-10-1"
-                          label="Password"
-                          counter
-                          @click:append="show1 = !show1"
+                            v-model="loginPassword"
+                            :append-icon="show1 ? 'eye' : 'eye-off'"
+                            :rules="[rules.required, rules.min]"
+                            :type="show1 ? 'text' : 'password'"
+                            name="input-10-1"
+                            label="Password"
+                            counter
+                            @click:append="show1 = !show1"
                         ></v-text-field>
                         <v-alert
-                          v-if="FailedLogin"
-                          color="red"
-                          dense
-                          dismissible
-                          type="error"
-                          >Invalid Credentials</v-alert
+                            v-if="FailedLogin"
+                            color="red"
+                            dense
+                            dismissible
+                            type="error"
+                        >Invalid Credentials
+                        </v-alert
                         >
                       </v-col>
-                      <v-col class="d-flex" cols="12" sm="6" xsm="12"> </v-col>
+                      <v-col class="d-flex" cols="12" sm="6" xsm="12"></v-col>
                       <v-spacer></v-spacer>
                       <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
                         <v-btn
-                          x-large
-                          block
-                          :disabled="!valid"
-                          color="success"
-                          @click="validate"
+                            x-large
+                            block
+                            :disabled="!valid"
+                            color="success"
+                            @click="validate"
                         >
                           Login
                         </v-btn>
@@ -74,82 +75,84 @@
                     <v-row>
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
-                          v-model="FirstName"
-                          :rules="nameRules"
-                          label="First Name"
-                          maxlength="20"
-                          required
+                            v-model="FirstName"
+                            :rules="nameRules"
+                            label="First Name"
+                            maxlength="20"
+                            required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
-                          v-model="LastName"
-                          :rules="nameRules"
-                          label="Last Name"
-                          maxlength="20"
-                          required
+                            v-model="LastName"
+                            :rules="nameRules"
+                            label="Last Name"
+                            maxlength="20"
+                            required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
-                          v-model="Email"
-                          :rules="emailRules"
-                          label="Email"
-                          maxlength="20"
-                          required
+                            v-model="Email"
+                            :rules="emailRules"
+                            label="Email"
+                            maxlength="20"
+                            required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12" sm="6" md="6">
                         <v-text-field
-                          v-model="Phone"
-                          :rules="phoneRules"
-                          label="Phone"
-                          maxlength="20"
-                          required
+                            v-model="Phone"
+                            :rules="phoneRules"
+                            label="Phone"
+                            maxlength="20"
+                            required
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
-                          v-model="Password"
-                          :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                          :rules="[rules.required, rules.min]"
-                          :type="show1 ? 'text' : 'Password'"
-                          name="input-10-1"
-                          label="Password"
-                          counter
-                          @click:append="show1 = !show1"
+                            v-model="Password"
+                            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, rules.min]"
+                            :type="show1 ? 'text' : 'Password'"
+                            name="input-10-1"
+                            label="Password"
+                            counter
+                            @click:append="show1 = !show1"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
                         <v-text-field
-                          block
-                          v-model="verify"
-                          :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                          :rules="[rules.required, passwordMatch]"
-                          :type="show2 ? 'text' : 'Password'"
-                          name="input-10-1"
-                          label="Confirm Password"
-                          counter
-                          @click:append="show2 = !show2"
+                            block
+                            v-model="verify"
+                            :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                            :rules="[rules.required, passwordMatch]"
+                            :type="show2 ? 'text' : 'Password'"
+                            name="input-10-1"
+                            label="Confirm Password"
+                            counter
+                            @click:append="show2 = !show2"
                         ></v-text-field>
-                      <v-alert
-                        v-if="RegisteredUser"
-                        :color="this.RegisteredColor"
-                        dense
-                        dismissible
-                        :type="this.RegisteredType"
-                        >{{this.RegisteredMessage}}</v-alert
-                      >
+                        <v-alert
+                            v-if="Registered"
+                            :color="this.RegisteredColor"
+                            dense
+                            dismissible
+                            :type="this.RegisteredType"
+                        >{{ this.RegisteredMessage }}
+                        </v-alert
+                        >
                       </v-col>
                       <v-spacer></v-spacer>
                       <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
                         <v-btn
-                          x-large
-                          block
-                          :disabled="!valid"
-                          color="success"
-                          @click="register"
-                          >Register</v-btn
+                            x-large
+                            block
+                            :disabled="!valid"
+                            color="success"
+                            @click="register"
+                        >Register
+                        </v-btn
                         >
                       </v-col>
                     </v-row>
@@ -185,10 +188,10 @@ export default {
     },
     encryptPassword(plainText, salt) {
       return crypto
-        .createHash("sha256")
-        .update(plainText)
-        .update(salt)
-        .digest("hex");
+          .createHash("sha256")
+          .update(plainText)
+          .update(salt)
+          .digest("hex");
     },
     testPassword(salt, originalPass, loginPassword) {
       let password = this.encryptPassword(loginPassword, salt);
@@ -196,36 +199,36 @@ export default {
     },
     checkCredentials() {
       UserDataService.getByEmail(this.loginEmail)
-        .then((response) => {
-          console.log(response);
-          let originalPassword = response.data[0].user.password;
-          let salt = response.data[0].user.salt;
-          this.UserId = response.data[0].user.id;
-          this.PersonId = response.data[0].id
-          this.UserRole = response.data[0].user.roles[0].id;
-          let authenticated = this.testPassword(
-            salt,
-            originalPassword,
-            this.loginPassword
-          );
-          this.$authenticated = authenticated;
-          this.login();
-        })
-        .catch((e) => {
-          this.FailedLogin = true;
-          console.log(e);
-        });
+          .then((response) => {
+            console.log(response);
+            let originalPassword = response.data[0].user.password;
+            let salt = response.data[0].user.salt;
+            this.UserId = response.data[0].user.id;
+            this.PersonId = response.data[0].id;
+            this.UserRole = response.data[0].user.roles[0].id;
+            let authenticated = this.testPassword(
+                salt,
+                originalPassword,
+                this.loginPassword
+            );
+            this.$authenticated = authenticated;
+            this.login();
+          })
+          .catch((e) => {
+            this.FailedLogin = true;
+            console.log(e);
+          });
     },
     validate() {
       if (this.$refs.loginForm.validate()) {
         UserDataService.getAll()
-          .then((response) => {
-            let objectData = response;
-            this.checkCredentials();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            .then((response) => {
+              let objectData = response;
+              this.checkCredentials();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
       }
     },
     reset() {
@@ -241,113 +244,143 @@ export default {
         this.$session.set("personId", this.PersonId);
         this.$session.set("userID", this.UserId);
         this.$session.set("userRole", this.UserRole);
-        this.$router.replace({ name: "organizations" });
+        this.$router.replace({name: "organizations"});
       } else {
         console.log("Test");
         this.FailedLogin = true;
       }
     },
-    register() {
-      var data = {
-        first_name: this.FirstName,
-        last_name: this.LastName,
-        email: this.Email,
-        password: this.Password,
-      };
+    checkDuplicateEmail() {
+      UserDataService.getByEmail(this.Email)
+          .then((response) => {
 
-      UserDataService.create(data)
-        .then((response) => {
-          console.log(response.data.personId);
+            console.log(response);
+            console.log(response.data.length);
 
-          let data = {
-            userId: response.data.userId,
-            roleId: 2,
-          };
+            var arrayCheck = response.data.length;
 
-          let phoneData = {
-            personId: response.data.personId,
-            number: this.Phone,
-            isPrimary: true,
-          };
-          let emailData = {
-            personId: response.data.personId,
-            address: this.Email,
-            isPrimary: true,
-          };
+            if (arrayCheck === 0) { // If the length of the email is 0, then create the user
+              var data = {
+                first_name: this.FirstName,
+                last_name: this.LastName,
+                email: this.Email,
+                password: this.Password,
+              };
+              UserDataService.create(data)
+                  .then((response) => {
+                    console.log(response.data.personId);
 
-          PhoneDataService.create(phoneData);
-          EmailDataService.create(emailData);
+                    let data = {
+                      userId: response.data.userId,
+                      roleId: 2,
+                    };
 
-          UserRoleDataService.create(data)
-            .then((resp) => {
+                    let phoneData = {
+                      personId: response.data.personId,
+                      number: this.Phone,
+                      isPrimary: true,
+                    };
+                    let emailData = {
+                      personId: response.data.personId,
+                      address: this.Email,
+                      isPrimary: true,
+                    };
 
-              this.RegisteredUser = true;
-              this.RegisteredColor = "green";
-              this.RegisteredType = "success";
-              this.RegisteredMessage = "Successfully Registered."
-            })
-            .catch((err) => {
-              this.RegisteredUser = true;
+                    PhoneDataService.create(phoneData);
+                    EmailDataService.create(emailData);
+
+                    UserRoleDataService.create(data)
+                        .then((resp) => {
+                          this.Registered = true;
+                          this.RegisteredColor = "green";
+                          this.RegisteredType = "success";
+                          this.RegisteredMessage = "Successfully Registered.";
+                        })
+                        .catch((err) => {
+                          this.Registered = true;
+                          this.RegisteredColor = "red";
+                          this.RegisteredType = "alert";
+                          this.RegisteredMessage =
+                              "Something went wrong, please contact your administrator.";
+                        });
+
+                    this.refreshList();
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+
+            } else {
+              this.Registered = true;
               this.RegisteredColor = "red";
               this.RegisteredType = "alert";
-              this.RegisteredMessage = "Something went wrong, please contact your administrator.";
-            });
+              this.RegisteredMessage =
+                  "This user has already been registered ya dingus.";
+            }
 
-          this.refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          })
+          .catch((err) => {
+            this.Registered = true;
+            this.RegisteredColor = "red";
+            this.RegisteredType = "alert";
+            this.RegisteredMessage =
+                "Something went wrong, please contact your administrator.";
+          });
       this.add_person_dlg = false;
-    },
-  },
-  data: () => ({
-    dialog: true,
-    tab: 0,
-    tabs: [
-      { name: "Login", icon: "mdi-account" },
-      { name: "Register", icon: "mdi-account-outline" },
-    ],
-    valid: true,
 
-    FailedLogin: false,
-    Registered: "",
-    RegisteredType: "",
-    RegisteredColor: "",
-    RegisteredMessage: "",
-    FirstName: "",
-    UserId: "",
-    PersonId: "",
-    UserRole: "",
-    LastName: "",
-    Email: "",
-    Password: "",
-    verify: "",
-    loginPassword: "",
-    loginEmail: "",
-    Phone: "",
-    phoneRules: [
-      (v) => !!v || "Required",
-      (v) => /\S\d$/.test(v) || "Phone number must be valid",
-    ],
-    nameRules: [
-      (v) => !!v || "Required",
-      (v) => /\D\S$/.test(v) || "No white or empty spaces",
-    ],
-    loginEmailRules: [
-      (v) => !!v || "Required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    emailRules: [
-      (v) => !!v || "Required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    show1: false,
-    show2: false,
-    rules: {
-      required: (value) => !!value || "Required.",
-      min: (v) => (v && v.length >= 1) || "Min 5 characters",
     },
-  }),
-};
+    register() {
+      this.checkDuplicateEmail();
+    },
+    data: () => ({
+      dialog: true,
+      tab: 0,
+      tabs: [
+        {name: "Login", icon: "mdi-account"},
+        {name: "Register", icon: "mdi-account-outline"},
+      ],
+      valid: true,
+
+      FailedLogin: false,
+      DuplicateEmail: false,
+      Registered: "",
+      RegisteredType: "",
+      RegisteredColor: "",
+      RegisteredMessage: "",
+      FirstName: "",
+      UserId: "",
+      PersonId: "",
+      UserRole: "",
+      LastName: "",
+      Email: "",
+      Password: "",
+      verify: "",
+      loginPassword: "",
+      loginEmail: "",
+      Phone: "",
+      phoneRules: [
+        (v) => !!v || "Required",
+        (v) => /\S\d$/.test(v) || "Phone number must be valid",
+      ],
+      nameRules: [
+        (v) => !!v || "Required",
+        (v) => /\D\S$/.test(v) || "No white or empty spaces",
+      ],
+      loginEmailRules: [
+        (v) => !!v || "Required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      emailRules: [
+        (v) => !!v || "Required",
+        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      ],
+      show1: false,
+      show2: false,
+      rules: {
+        required: (value) => !!value || "Required.",
+        min: (v) => (v && v.length >= 1) || "Min 5 characters",
+      },
+    }),
+  }
+}
 </script>

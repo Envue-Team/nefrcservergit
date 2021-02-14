@@ -38,7 +38,7 @@
             </v-card>
       </v-col>
     </v-row>
-    <!---------------------------------Edit Contact Dialog------------------------------->
+    <!---------------------------------Edit User Dialog------------------------------->
     <v-dialog v-model="edit_person_dlg" max-width="600px">
       <v-card>
         <v-form v-model="valid" lazy-validation>
@@ -87,8 +87,7 @@
                   <v-col cols="6">
                     <v-autocomplete
                         label="User Role"
-                        v-model="view_role.role"
-                        :items="role"
+                        :items="roles"
                         item-text="name"
                         item-value="id"
                     >
@@ -142,7 +141,7 @@ export default {
   data() {
     return {
       selectedRole: '',
-      role: ['Admin', 'User'],
+      roles: [],
       edit_person_dlg: false,
       person: {
         first_name: "",
@@ -216,7 +215,15 @@ export default {
     populateRoles() {
       RoleDataService.getAll()
         .then((response) => {
+          console.log("--------ROLES OVER HERE-----------");
+          console.log(response);
+
           this.roles = response.data;
+
+          this.roles.forEach((role) => {
+            role.role = role.name;
+          })
+
         })
         .catch((err) => {
           console.log(err);
@@ -229,7 +236,7 @@ export default {
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
         .then((response) => {
-          let userRole = response.data.user.roles[0].user_roles.roleId
+          let userRole = response.data.user.roles[0].name;
           this.edit_role.userId = response.data.user.id;
           this.edit_person = response.data;
           this.edit_user = response.data.user;
@@ -238,9 +245,8 @@ export default {
           this.contact_id.phone = response.data.phones[0].id;
           this.contact_id.email = response.data.emails[0].id;
 
-          if(userRole == 2) {
-            this.view_role.role = "User";
-          } else {this.view_role.role = "Admin"}
+          this.view_role.role = userRole;
+
         })
         .catch((e) => {
           console.log(e);

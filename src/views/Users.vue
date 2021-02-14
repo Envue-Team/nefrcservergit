@@ -1,16 +1,18 @@
 <template>
-<div>
   <v-container>
     <v-row>
-      <v-col cols="12">
+      <v-col class="col-12">
+        <span class="mobile-title hidden-md-and-up">Users</span>
         <v-card
-            class="pa-3 mt-8"
+            class="pa-3 mt-md-8 mt-sm-3"
             outlined
-            elevation="3 text-wrap">
+            elevation="3 text-wrap"
+            style="background-color: rgb(249, 249, 249)"
+        >
           <v-card
               style="margin-top:-40px; width:100%;"
               color="#6D6E70"
-              class="pa-7"
+              class="pa-7 hidden-md-and-down"
               rounded
           >
             <v-toolbar-title class="card-header-title">Users</v-toolbar-title>
@@ -37,17 +39,17 @@
               ></v-text-field>
             </v-row>
             <v-data-table
-              :headers="headers"
-              :items="volunteers"
-              :search="search"
-              item-key="id"
-              @click:row="nav"
-              multi-sort
-              class="text-capitalize"
+                :headers="headers"
+                :items="volunteers"
+                :search="search"
+                item-key="id"
+                @click:row="nav"
+                multi-sort
+                class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
                 <div v-if="item.first_name !== null">
-                    <span class="black--text"> {{ item.name }}</span>
+                  <span class="black--text"> {{ item.name }}</span>
                 </div>
               </template>
               <template v-slot:item.address="{ item }">
@@ -61,7 +63,7 @@
                   </span>
               </template>
               <template v-slot:item.roles="{ item }">
-                  <span class="black--text">{{ item.role }}</span>
+                <span class="black--text">{{ item.role }}</span>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
@@ -81,18 +83,18 @@
                   <v-row>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                        required
-                        label="First Name"
-                        v-model="add_person.firstname"
-                        :rules="nameRules"
+                          required
+                          label="First Name"
+                          v-model="add_person.firstname"
+                          :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6">
                       <v-text-field
-                        label="Last Name"
-                        required
-                        v-model="add_person.lastname"
-                        :rules="nameRules"
+                          label="Last Name"
+                          required
+                          v-model="add_person.lastname"
+                          :rules="nameRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6" sm="6" md="6"> </v-col>
@@ -100,39 +102,38 @@
                   <v-row>
                     <v-col cols="6">
                       <v-text-field
-                        label="Email"
-                        v-model="add_person.email"
-                        :rules="emailRules"
+                          label="Email"
+                          v-model="add_person.email"
+                          :rules="emailRules"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="6">
                       <v-text-field
-                        label="Password"
-                        v-model="add_person.password"
+                          label="Password"
+                          v-model="add_person.password"
                       ></v-text-field>
                     </v-col>
                   </v-row>
                   <v-row>
                     <v-col cols="6">
                       <v-text-field
-                        label="Phone"
-                        v-model="add_person.phone"
-                        :rules="phoneRules"
+                          label="Phone"
+                          v-model="add_person.phone"
+                          :rules="phoneRules"
                       ></v-text-field>
                     </v-col>
                   </v-row>
-
                   <!-- make an input field for roles -->
-                
+
                 </v-container>
                 <small>*indicates required field</small>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="add_person_dlg = false"
+                    color="blue darken-1"
+                    text
+                    @click="add_person_dlg = false"
                 >
                   Close
                 </v-btn>
@@ -152,7 +153,6 @@
       </v-col>
     </v-row>
   </v-container>
-</div>
 </template>
 
 <script>
@@ -160,9 +160,8 @@ import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
-
 export default {
-  name: "Users",
+  name: "users",
   data() {
     return {
       volunteers: [],
@@ -211,7 +210,6 @@ export default {
         { text: "Name", value: "name", width: "80px", class: 'red--text text--darken-3' },
         { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
         { text: "Roles", value: "role", width: "100px", class: 'red--text text--darken-3' },
-        { text: "Delete", value: "actions", width: "1%" },
       ];
       return headers;
     },
@@ -225,38 +223,31 @@ export default {
     },
     retrieveVolunteers() {
       UserDataService.getAll()
-        .then((response) => {
-          console.log(response.data);
-          this.volunteers = response.data;
-          this.volunteers.forEach((volunteer) => {
-            volunteer.name = volunteer.first_name + " " + volunteer.last_name;
-            console.log(volunteer.name);
-            //TODO: Review this
-            let roleNumber = volunteer.user.roles[0].id;
-            let roleName = "";
-
-            console.log(roleNumber);
-            if (roleNumber == 2) {
-              roleName = "User";
-            } else {
-              roleName = "Admin";
-            }
-            console.log(roleName);
-            volunteer.role = roleName;
+          .then((response) => {
+            this.volunteers = response.data;
+            this.volunteers.forEach((volunteer) => {
+              volunteer.name = volunteer.first_name + " " + volunteer.last_name;
+              //TODO: Review this
+              let roleNumber = volunteer.user.roles[0].id;
+              let roleName = "";
+              if (roleNumber == 2) {
+                roleName = "User";
+              } else {
+                roleName = "Admin";
+              }
+              volunteer.role = roleName;
+            });
+            // console.log(this.volunteers);
+          })
+          .catch((e) => {
+            console.log(e.message);
           });
-          // console.log(this.volunteers);
-        })
-        .catch((e) => {
-          console.log(e.message);
-        });
     },
-
     refreshList() {
       this.retrieveVolunteers();
       this.currentVolunteers = null;
       this.currentIndex = -1;
     },
-
     setActiveVolunteer(volunteer, index) {
       this.currentVolunteer = volunteer;
       this.currentIndex = index;
@@ -271,76 +262,60 @@ export default {
       var userData = {
         roles: this.add_role.roles,
       };
-
       data.services = this.add_person.services;
       UserDataService.create(data)
-        .then((response) => {
-          console.log(response.data.personId);
-
-          let data = {
-            userId: response.data.userId,
-            roleId: 2,
-          };
-
-          let phoneData = {
-            personId: response.data.personId,
-            number: this.add_person.phone,
-            isPrimary: true,
-          };
-          let emailData = {
-            personId: response.data.personId,
-            address: this.add_person.email,
-            isPrimary: true,
-          };
-
-          PhoneDataService.create(phoneData);
-          EmailDataService.create(emailData);
-
-          UserRoleDataService.create(data)
-            .then((resp) => {
-              this.refreshList();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-
-          this.refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      this.add_person_dlg = false;
-    },
-
-    removePerson(item) {
-      if (
-        confirm(
-          "Are you sure you want to remove " +
-            item.first_name +
-            " " +
-            item.last_name +
-            " from the table?"
-        )
-      ) {
-        UserDataService.delete(item.id)
           .then((response) => {
+            let data = {
+              userId: response.data.userId,
+              roleId: 2,
+            };
+            let phoneData = {
+              personId: response.data.personId,
+              number: this.add_person.phone,
+              isPrimary: true,
+            };
+            let emailData = {
+              personId: response.data.personId,
+              address: this.add_person.email,
+              isPrimary: true,
+            };
+            PhoneDataService.create(phoneData);
+            EmailDataService.create(emailData);
+            UserRoleDataService.create(data)
+                .then((resp) => {
+                  this.refreshList();
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
             this.refreshList();
           })
           .catch((e) => {
             console.log(e);
           });
+      this.add_person_dlg = false;
+    },
+    removePerson(item) {
+      if (
+          confirm(
+              "Are you sure you want to remove " +
+              item.first_name +
+              " " +
+              item.last_name +
+              " from the table?"
+          )
+      ) {
+        UserDataService.delete(item.id)
+            .then((response) => {
+              this.refreshList();
+            })
+            .catch((e) => {
+              console.log(e);
+            });
       }
     },
-
-    checkIfAdmin() {
-      let userRole = this.$session.get("userRole");
-      if (userRole != "1") {
-        this.$router.replace({ name: "home" });
-      }
-    }
   },
   mounted() {
-    this.checkIfAdmin();
     this.retrieveVolunteers();
   },
 };
