@@ -92,6 +92,8 @@ export default {
   mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
     if(!this.$authenticated) {
       this.$router.replace({ name: "login" });
+    }
+  },
   data() {
     return {
       'navDialog': false,

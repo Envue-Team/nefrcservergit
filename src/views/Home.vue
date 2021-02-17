@@ -45,7 +45,6 @@ export default {
           } else {
             return false;
           }
-          break;
         default:
           return false;
       }

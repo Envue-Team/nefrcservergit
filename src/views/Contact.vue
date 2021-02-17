@@ -42,9 +42,9 @@
                     {{ edit_person.county + " County" }}<br />
                     Affiliated Organizations: {{ edit_person.organization_names }}
                     <br />
-                    Alternate Contact Info:
+                    <!-- Alternate Contact Info:
                     {{ edit_person.secondaryPhone }}
-                    {{ edit_person.secondaryEmail }}
+                    {{ edit_person.secondaryEmail }} -->
                   </div>
                   <div class="card-header-subtitle">
                     {{ edit_person.person_notes }}
@@ -67,132 +67,6 @@
           </v-col>
         </v-row> </v-col
       ><!---------------------//left column ---------------------->
-      <v-col
-        ><!------------------middle column-------------->
-        <NoteDialog v-model="showNoteDialog" :item="view_note_item" />
-        <!--------------------------Notes and History-------------------------------->
-        <template>
-          <v-card>
-            <!-- <v-card-subtitle class="pt-4">
-                    <v-row>
-                        <v-col>
-                            <v-text-field
-                            placeholder="Search"
-                            v-model="note_search"
-                            append-icon="mdi-magnify"
-                            ></v-text-field>
-                        </v-col> -->
-            <!-- <v-col
-                        class="col-3"
-                        >
-                            <v-menu
-                            v-model="menu1"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="290px"
-                            >
-                                <template v-slot:activator="{ on, attrs }">
-                                    <v-text-field
-                                    v-model="formattedStartDate"
-                                    label="Start Date"
-                                    prepend-icon="mdi-calendar"
-                                    readonly
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    clearable
-                                    ></v-text-field>
-                                </template>
-                                <v-date-picker
-                                v-model="start_date"
-                                @input="menu1 = false"
-                                ></v-date-picker>
-                            </v-menu>
-                        </v-col> -->
-            <!-- <v-col
-                        class="col-3"
-                        >
-                            <v-menu
-                            v-model="menu2"
-                            :close-on-content-click="false"
-                            :nudge-right="40"
-                            transition="scale-transition"
-                            offset-y
-                            min-width="290px"
-                            > -->
-            <!-- <template v-slot:activator="{ on, attrs }"> -->
-            <!---------v-model="end_date"---------------->
-            <!-- <v-text-field
-                                v-model="formattedEndDate"
-                                label="End Date"
-                                prepend-icon="mdi-calendar"
-                                readonly
-                                v-bind="attrs"
-                                v-on="on"
-                                clearable
-                                ></v-text-field>
-                            </template> 
-                            <v-date-picker
-                            v-model="end_date"
-                            @input="menu2 = false"
-                            ></v-date-picker>-->
-            <!-- </v-menu>
-                    </v-col> -->
-            <!-- hidden switch for general or contact history -->
-            <!-- <v-col>
-                        <v-switch
-                        v-model="history_switch"
-                        :label="switch_label()"
-                        color="#B71C1C"
-                        hide-details
-                        @change="set_notes_view"
-                        ></v-switch>
-                    </v-col> 
-                </v-row>  
-            </v-card-subtitle>-->
-
-            <!--            						</v-card>-->
-            <!--            						</template>-->
-
-            <!--            <v-divider></v-divider>-->
-            <!--            <v-virtual-scroll-->
-            <!--                :items="filteredList"-->
-            <!--                :item-height="50"-->
-            <!--                height="300"-->
-            <!--            >-->
-            <!--              <template v-slot:default="{ item }">-->
-            <!--                <v-list-item>-->
-
-            <!--                  <v-list-item-content>-->
-            <!--                    <v-list-item-title class="font-weight-thin">-->
-            <!--                      Author: {{ item.author.first_name }} {{ item.author.last_name }} - {{ item.date }}-->
-            <!--                    </v-list-item-title>-->
-            <!--                    <v-list-item-subtitle>{{ item.text }}</v-list-item-subtitle>-->
-            <!--                  </v-list-item-content>-->
-
-            <!--                  <v-list-item-action>-->
-            <!--                    &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;New Note Dialog&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-            <!--                    <v-btn-->
-            <!--                        depressed-->
-            <!--                        small-->
-            <!--                        @click.stop="openNoteDialog(item)"-->
-            <!--                    >-->
-            <!--                      Open-->
-            <!--                      <v-icon-->
-            <!--                          color="orange darken-4"-->
-            <!--                          right-->
-            <!--                      >-->
-            <!--                        mdi-open-in-new-->
-            <!--                      </v-icon>-->
-            <!--                    </v-btn>-->
-            <!--                  </v-list-item-action>-->
-            <!--                </v-list-item>-->
-            <!--              </template>-->
-            <!--            </v-virtual-scroll>-->
-          </v-card>
-        </template> </v-col
-      ><!------------------------//Middle Column---------------->
     </v-row>
     <!---------------------------------Edit Contact Dialog------------------------------->
     <v-dialog v-model="edit_person_dlg" max-width="600px">
@@ -353,7 +227,7 @@
           </v-card-title>
           <v-card-text>
             <v-container>
-              <v-row>
+              <!-- <v-row>
                 <v-col class="col-3">
                   <v-autocomplete
                       :items="add_note_form.types"
@@ -361,7 +235,7 @@
                       label="Type"
                   ></v-autocomplete>
                 </v-col>
-              </v-row>
+              </v-row> -->
               <v-row>
                 <v-col cols="12" sm="12" md="12">
                   <v-textarea
@@ -467,7 +341,7 @@ export default {
       add_note_form: {
         types: ["General", "Contact"],
         text: "",
-        type: "General",
+        type: "Contact",
       },
       //View Note
       view_note_dlg: false,

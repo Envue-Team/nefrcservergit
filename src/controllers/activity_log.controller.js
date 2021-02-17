@@ -5,9 +5,9 @@ const Op = require('sequelize').Op;
 
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.first_name) {
+  if (!req.body.entry) {
     res.status(400).send({
-      message: "A person must have a first name"
+      message: "there must be an entry"
     });
     return;
   }
@@ -16,7 +16,6 @@ exports.create = (req, res) => {
   const record = {
     entry: req.body.entry,
   };
-  console.log("the entry is "+record.entry);
 
   // Save record in the database
   DBLog.create(record)
@@ -45,7 +44,4 @@ exports.findAll = (req, res) => {
           });
       });
 };
-
-
-
   //todo: get activity log entries by keyword

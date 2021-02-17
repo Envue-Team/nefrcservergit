@@ -41,26 +41,44 @@
                 :items="volunteers"
                 :search="search"
                 item-key="id"
-                @click:row="nav"
                 multi-sort
                 class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
-                <template v-if="item.first_name !== null">
-                  <span class="black--text">{{ item.name }}</span>
+              <template v-if="item.first_name !== null">
+                  <a v-on:click="nav(item)">
+                    <span class="red--text">{{ item.name }}</span>
+                  </a>
+                </template>
+                <template v-else-if="item.partner !== null">
+                  <a v-on:click="nav(item)">
+                    <span class="purple--text">{{ item.name }}</span>
+                    <span v-if="item.public_safety"> (Public Safety)</span>
+                  </a>
                 </template>
               </template>
-              <template v-slot:item.address="{ item }">
+              <!-- <template v-slot:item.address="{ item }">
                 <address>
-                  <span class="black--text">{{ item.address }}</span>
+                  <a v-on:click="nav(item)">
+                    <span class="black--text">{{ item.address }}</span>
+                  </a>
                 </address>
-              </template>
+              </template> -->
               <template v-slot:item.emails="{ item }">
-                  {{ email.address }}
+                <a v-on:click="nav(item)">
+                  <span>
+                    {{ email.address }}
+                  </span>
+                </a>
               </template>
               <template v-slot:item.phones="{ item }">
-                  {{ phone.number }}
+                <a v-on:click="nav(item)">
+                  <span>
+                    {{ phone.number }}
+                  </span>
+                </a>
               </template>
+              <!-- end new addition -->
               <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
               </template>
@@ -137,11 +155,14 @@
                   </v-row>
                   <v-row>
                     <v-col cols="6">
-                      <v-text-field
-                        label="County"
+                      <v-select
+                        required
+                        :items="all_counties"
                         v-model="add_person.county"
                         :rules="nameRules"
-                      ></v-text-field>
+                        label="County"
+                      >
+                      </v-select>
                     </v-col>
                   </v-row>
                   <v-row>
@@ -211,7 +232,8 @@ import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from "../services/PhoneDataService";
 //activity log addition
 import UserDataService from "../services/UserDataService";
-// import ActivityLogDataService from "../services/ActivityLogDataService";
+import CountyDataService from "@/services/CountyDataService";
+import ActivityLogDataService from "../services/ActivityLogDataService";
 //close activity log addition
 
 export default {
@@ -267,6 +289,10 @@ export default {
           "UM", "UT", "VA", "VI", "VT", "WA", "WI", "WV",
           "WY"
         ],
+
+        all_counties: [],
+        unmapped_counties: [],
+
       /*
         Zip integer streetNumberRules
         County String nameRules
@@ -307,7 +333,7 @@ export default {
     headers() {
       var headers = [
         { text: "Name", value: "name", width: "80px" , class: 'red--text text--darken-3'},
-        { text: "Address", value: "address", width: "100px", class: 'red--text text--darken-3' },
+        // { text: "Address", value: "address", width: "100px", class: 'red--text text--darken-3' },
         { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
         { text: "Phone", value: "phone", width: "100px", class: 'red--text text--darken-3' },
         { text: "County", value: "county", width: "80px", class: 'red--text text--darken-3' },
@@ -416,6 +442,10 @@ export default {
         });
     },
     addPerson() {
+      // var counties = "";
+      // this.add_person.county.forEach(county => {
+      //   counties = county+", ";
+      // });
       var data = {
         first_name: this.add_person.firstname,
         last_name: this.add_person.lastname,
@@ -426,6 +456,8 @@ export default {
         zip: this.add_person.zip,
         county: this.add_person.county,
       };
+      console.log("the county is: ");
+      console.log(data.county);
       data.services = this.add_person.services;
       ContactDataService.create(data).
       then(response=>{
@@ -490,7 +522,7 @@ export default {
     removePerson(item) {
       if (
         confirm(
-          "Are you sure you want to remove " +name+" from the table?"
+          "Are you sure you want to remove " +item.name+" from the table?"
         )
       ) {
         ContactDataService.delete(item.id)
@@ -553,10 +585,21 @@ export default {
         .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
         .substr(0,13);
     },
+    populateCounties(){
+        CountyDataService.getAll()
+            .then(response=>{
+              this.all_counties = response.data.map(county=>{
+                return county.name
+              });
+              this.unmapped_counties = response.data;
+            })
+            .catch(e=>{console.log(e)});
+      },
   },
 
   mounted() {
     this.retrieveVolunteers();
+    this.populateCounties();
   },
 }
 </script>
