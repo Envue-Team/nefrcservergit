@@ -25,10 +25,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update site mobile layout and mobile forms layout.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Small tweeks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/db.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +169,7 @@
       <workItem from="1612807596055" duration="98384000" />
       <workItem from="1613000003653" duration="80848000" />
       <workItem from="1613246323868" duration="70848000" />
-      <workItem from="1613556150834" duration="10702000" />
+      <workItem from="1613556150834" duration="14059000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -451,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613568041127</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Small tweeks">
+      <created>1613594992766</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1613594992766</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,7 +529,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Committing for pull. Clean up code" />
     <MESSAGE value="Extract Relationship dialog out" />
     <MESSAGE value="Update organization add and edit per arc request" />
     <MESSAGE value="Add access security to the organization" />
@@ -547,7 +553,8 @@
     <MESSAGE value="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms." />
     <MESSAGE value="Update site logo." />
     <MESSAGE value="Update site mobile layout and mobile forms layout." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update site mobile layout and mobile forms layout." />
+    <MESSAGE value="Small tweeks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small tweeks" />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -641,11 +648,11 @@
     </state>
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258156616" />
     <state x="100" y="96" width="1116" height="547" maximized="true" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610316135542" />
-    <state x="410" y="286" width="526" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1612876783311">
+    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613595005381">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="410" y="295" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.744@0.24.1366.744" timestamp="1607256387911" />
-    <state x="410" y="286" width="526" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1612876783311" />
+    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1613595005381" />
     <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
