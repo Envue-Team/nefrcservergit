@@ -335,6 +335,7 @@ export default {
             console.log(e);
           });
       this.add_person_dlg = false;
+      }
     },
     removePerson(item) {
       if (

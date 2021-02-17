@@ -69,7 +69,7 @@
           </v-col>
         </v-row>
         <!--------------------------Small Screen------------------------------>
-        <div
+        <!-- <div
             class="hidden-md-and-up"
             style="font-weight: 700; color: #878686; font-size: 18px;"
         >
@@ -99,7 +99,7 @@
         >
           {{ edit_person.primaryPhone }}<br/>{{ edit_person.primaryEmail }}<br/>
           Affiliated Organizations: {{ edit_person.organization_names }}
-        </div>
+        </div> -->
         <!--------------------------Small Screen------------------------------>
       </v-col
       ><!---------------------//left column ---------------------->
