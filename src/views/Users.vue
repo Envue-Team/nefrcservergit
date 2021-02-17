@@ -62,8 +62,10 @@
                     {{ item.user.email }}
                   </span>
               </template>
-              <template v-slot:item.roles="{ item }">
+              <template v-slot:item.role="{ item }">
+                <div v-if="item.roles !== null">
                 <span class="black--text">{{ item.role }}</span>
+                </div>
               </template>
               <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
@@ -170,7 +172,7 @@ export default {
       search: "",
       currentIndex: -1,
       name: "",
-      role: "",
+      roles: "",
       add_person: {
         firstname: "",
         lastname: "",
@@ -224,20 +226,12 @@ export default {
     retrieveVolunteers() {
       UserDataService.getAll()
           .then((response) => {
+            console.log(response);
             this.volunteers = response.data;
             this.volunteers.forEach((volunteer) => {
               volunteer.name = volunteer.first_name + " " + volunteer.last_name;
-              //TODO: Review this
-              let roleNumber = volunteer.user.roles[0].id;
-              let roleName = "";
-              if (roleNumber == 2) {
-                roleName = "User";
-              } else {
-                roleName = "Admin";
-              }
-              volunteer.role = roleName;
+              volunteer.role = volunteer.user.roles[0].name;
             });
-            // console.log(this.volunteers);
           })
           .catch((e) => {
             console.log(e.message);

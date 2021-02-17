@@ -90,8 +90,8 @@
                         :items="roles"
                         item-text="name"
                         item-value="id"
+                        v-model="edit_role.role"
                     >
-                      {{ view_role.role }}
                     </v-autocomplete>
                   </v-col>
                   <v-col cols="6">
@@ -118,7 +118,6 @@
             <v-btn
                 color="blue darken-1"
                 text
-                :disabled="!valid"
                 @click="updatePerson"
             >
               Save
@@ -165,6 +164,7 @@ export default {
       edit_contact: {
         phone: "",
       },
+      currentRoleId: "",
       contact_id: {
         phone: "",
         email: "",
@@ -190,23 +190,18 @@ export default {
   },
   methods: {
     updateSelectedRole(role) {
-      let updatedRoleId = '';
-      let currentRole = '';
-      if(role === "User") {
-        updatedRoleId = 2;
-        currentRole = 1;
-      } else {updatedRoleId = 1;
-      currentRole = 2;}
+
       var data = {
         userId: this.edit_role.userId,
-        roleId: currentRole
+        roleId: this.currentRoleId
       }
-      var currentDataRole = {
-        roleId: updatedRoleId
+      var updatedDataRole = {
+        roleId: role
       }
-      UserRoleDataService.update(data.userId, data.roleId, currentDataRole)
+
+      UserRoleDataService.update(data.userId, data.roleId, updatedDataRole)
       .then((response)=> {
-        // console.log(response);
+        console.log(response);
       })
       .catch((e)=> {
         console.log(e);
@@ -215,9 +210,6 @@ export default {
     populateRoles() {
       RoleDataService.getAll()
         .then((response) => {
-          console.log("--------ROLES OVER HERE-----------");
-          console.log(response);
-
           this.roles = response.data;
 
           this.roles.forEach((role) => {
@@ -236,7 +228,7 @@ export default {
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
         .then((response) => {
-          let userRole = response.data.user.roles[0].name;
+          console.log(response);
           this.edit_role.userId = response.data.user.id;
           this.edit_person = response.data;
           this.edit_user = response.data.user;
@@ -245,7 +237,8 @@ export default {
           this.contact_id.phone = response.data.phones[0].id;
           this.contact_id.email = response.data.emails[0].id;
 
-          this.view_role.role = userRole;
+          this.view_role.role = response.data.user.roles[0].name;
+          this.currentRoleId = response.data.user.roles[0].id;
 
         })
         .catch((e) => {
@@ -302,7 +295,8 @@ export default {
           console.log(e);
         });
       this.edit_person_dlg = false;
-      this.updateSelectedRole(this.view_role.role)
+      console.log(this.edit_role.role);
+      this.updateSelectedRole(this.edit_role.role);
     },
   },
   mounted() {
