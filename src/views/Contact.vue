@@ -5,7 +5,9 @@
       <v-col class="col-md-5 col-sm-12"
         ><!----------------------Left Column-------------------------->
         <!---------------------Contact Basic Data-------------------------------->
-        <v-row>
+        <v-row
+          class="hidden-md-and-down"
+        >
           <v-col class="offset-1">
             <v-card
                 class="pa-1 mx-md-7 mx-sm-0"
@@ -65,7 +67,41 @@
               </v-card>
             </v-card>
           </v-col>
-        </v-row> </v-col
+        </v-row>
+        <!--------------------------Small Screen------------------------------>
+        <div
+            class="hidden-md-and-up"
+            style="font-weight: 700; color: #878686; font-size: 18px;"
+        >
+          {{ edit_person.first_name + " " + edit_person.last_name }}
+          <v-btn
+              icon
+              small
+              class="ml-3"
+              @click="edit_person_dlg=true"
+          >
+            <v-icon
+                small
+                class="mdi mdi-pencil"
+                style="color: #C4DFF6"
+            >
+            </v-icon>
+          </v-btn>
+        </div>
+        <div
+            class="hidden-md-and-up"
+            style="
+              padding: 10px 20px;
+              font-family: 'Poppins', sans-serif;
+              color: #504b4b;
+              font-size: 16px;
+            "
+        >
+          {{ edit_person.primaryPhone }}<br/>{{ edit_person.primaryEmail }}<br/>
+          Affiliated Organizations: {{ edit_person.organization_names }}
+        </div>
+        <!--------------------------Small Screen------------------------------>
+      </v-col
       ><!---------------------//left column ---------------------->
       <v-col
         ><!------------------middle column-------------->
@@ -208,109 +244,108 @@
       <v-card>
         <v-form v-model="valid" lazy-validation>
           <v-card-title>
-            <span class="headline">Contact Information</span>
+            <span class="dlg-title">Contact Information</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="6" sm="6" md="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="First Name"
                       required
                       v-model="edit_person.first_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6">
+                </div>
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Last Name"
                       required
                       v-model="edit_person.last_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6"> </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="12" sm="6" md="4">
+                <div class="cols col-md-4 col-sm-12">
                   <v-text-field
                       label="Street Number"
                       v-model="edit_person.street_number"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="12" sm="6" md="4">
+                </div>
+                <div class="cols col-md-4 col-sm-12">
                   <v-text-field
                       label="Street Name"
                       v-model="edit_person.street_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="3" sm="6" md="4">
+                <div class="cols col-md-3 col-sm-12">
                   <v-text-field
                       label="City"
                       v-model="edit_person.city"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="2">
+                </div>
+                <div class="cols col-md-2 col-sm-12">
                   <v-select
                       label="State"
                       v-model="edit_person.state"
                       :rules="nameRules"
                       :items="states"
                   ></v-select>
-                </v-col>
-                <v-col cols="3">
+                </div>
+                <div class="cols col-md-3 col-sm-12">
                   <v-text-field
                       label="Zip"
                       v-model="edit_person.zip"
                       :rules="zipRules"
                   ></v-text-field>
-                </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="County"
                       v-model="edit_person.county"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Primary Phone"
                       v-model="edit_person.primaryPhone"
                       :rules="phoneRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6">
+                </div>
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Secondary Phone"
                       v-model="edit_person.secondaryPhone"
                       :rules="phoneRules"
                   ></v-text-field>
-                </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Primary Email"
                       v-model="edit_person.primaryEmail"
                       :rules="emailRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6">
+                </div>
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Secondary Email"
                       v-model="edit_person.secondaryEmail"
                       :rules="emailRules"
                   ></v-text-field>
-                </v-col>
+                </div>
               </v-row>
             </v-container>
             <small>*indicates required field</small>
@@ -332,6 +367,7 @@
               Close
             </v-btn>
             <v-btn
+                class="hidden-md-and-down"
                 style="background-color: #7F181B; color: white"
                 depressed
                 :disabled="!valid"
@@ -339,6 +375,16 @@
 
             >
               Save Changes
+            </v-btn>
+            <v-btn
+                class="hidden-md-and-up"
+                style="background-color: #7F181B; color: white"
+                depressed
+                :disabled="!valid"
+                @click="openDialog('Update')"
+
+            >
+              Save
             </v-btn>
             <!-----------------//edit person dialog------------------------------->
           </v-card-actions>

@@ -6,7 +6,7 @@
         ><!----------------------Left Column-------------------------->
         <!---------------------Contact Basic Data-------------------------------->
             <v-card
-                class="pa-1 mx-10"
+                class="pa-1 mx-10 hidden-md-and-down"
                 elevation="3 text-wrap">
               <v-card
                   style="margin-top:-15px; width:100%;"
@@ -35,6 +35,37 @@
                 </v-card-text>
               </v-card>
             </v-card>
+        <!--------------------------Small Screen------------------------------>
+          <div
+              style="font-weight: 700; color: #878686; font-size: 18px;"
+          >
+            {{ edit_person.first_name + " " + edit_person.last_name }}
+            <v-btn
+                icon
+                small
+                class="ml-3"
+                @click="edit_person_dlg=true"
+            >
+              <v-icon
+                  small
+                  class="mdi mdi-pencil"
+                  style="color: #C4DFF6"
+              >
+              </v-icon>
+            </v-btn>
+          </div>
+        <div
+            style="
+              padding: 10px 20px;
+              font-family: 'Poppins', sans-serif;
+              color: #504b4b;
+              font-size: 16px;
+            "
+        >
+          {{ view_role.role }}<br/>
+          {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
+        </div>
+        <!--------------------------Small Screen------------------------------>
       </v-col>
     </v-row>
     <!---------------------------------Edit Contact Dialog------------------------------->
@@ -56,32 +87,31 @@
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="6" sm="6" md="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="First Name"
                       required
                       v-model="edit_person.first_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6">
+                </div>
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Last Name"
                       required
                       v-model="edit_person.last_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6"> </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Email"
                       v-model="edit_user.email"
                       :rules="emailRules"
                   ></v-text-field>
-                </v-col>
+                </div>
                 <!-- <v-col cols="6">
                   <v-text-field
                     label="Password"
@@ -91,8 +121,7 @@
                 </v-col> -->
               </v-row>
               <v-row>
-                <v-row>
-                  <v-col cols="6">
+                  <div class="cols col-md-6 col-sm-12">
                     <v-autocomplete
                         label="User Role"
                         v-model="view_role.role"
@@ -102,15 +131,14 @@
                     >
                       {{ view_role.role }}
                     </v-autocomplete>
-                  </v-col>
-                  <v-col cols="6">
+                  </div>
+                  <div class="cols col-md-6 col-sm-12">
                     <v-text-field
                         label="Phone"
                         v-model="edit_contact.phone"
                         :rules="phoneRules"
                     ></v-text-field>
-                  </v-col>
-                </v-row>
+                  </div>
               </v-row>
             </v-container>
             <small>*indicates required field</small>
@@ -132,12 +160,22 @@
               Close
             </v-btn>
             <v-btn
+                class="hidden-md-and-down"
                 style="background-color: #7F181B; color: white"
                 depressed
                 :disabled="!valid"
                 @click="openDialog('Update')"
             >
               Save Changes
+            </v-btn>
+            <v-btn
+                class="hidden-md-and-up"
+                style="background-color: #7F181B; color: white"
+                depressed
+                :disabled="!valid"
+                @click="openDialog('Update')"
+            >
+              Save
             </v-btn>
           </v-card-actions>
         </v-form>
