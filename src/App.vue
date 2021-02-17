@@ -87,7 +87,7 @@
       </v-list>
     </v-img>
     </v-navigation-drawer>
-    <v-main style="background-color: rgba(70, 9, 9, 0.1)">
+    <v-main style="background-color: rgba(70, 9, 9, 0.1);">
       <video
           class="hidden-md-and-down"
           style="width:100%; height: auto;" v-if="isLoginPage" playsinline autoplay muted loop>
