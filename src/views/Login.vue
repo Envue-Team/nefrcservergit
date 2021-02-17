@@ -1,41 +1,41 @@
 <template>
-<!--  <div id="app">-->
-<!--    <v-app>-->
-      <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
-        <v-card
-          class="pa-1"
-          style="background-color: #C4DFF6"
-        >
-        <v-card>
+  <!--  <div id="app">-->
+  <!--    <v-app>-->
+  <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
+    <v-card
+        class="pa-1"
+        style="background-color: #C4DFF6"
+    >
+      <v-card>
 
-          <v-tabs
+        <v-tabs
             v-model="tab"
             show-arrows
             background-color="red"
             icons-and-text
             dark
             grow
-          >
-            <v-tabs-slider color="purple darken-4"></v-tabs-slider>
-            <v-tab v-for="i in tabs" :key="i.name">
-              <v-icon large>{{ i.icon }}</v-icon>
-              <div class="caption py-1">{{ i.name }}</div>
-            </v-tab>
-            <v-tab-item>
-              <v-card class="px-4">
-                <v-card-text>
-                  <v-form ref="loginForm" v-model="valid" lazy-validation>
-                    <v-row>
-                      <v-col cols="12">
-                        <v-text-field
+        >
+          <v-tabs-slider color="purple darken-4"></v-tabs-slider>
+          <v-tab v-for="i in tabs" :key="i.name">
+            <v-icon large>{{ i.icon }}</v-icon>
+            <div class="caption py-1">{{ i.name }}</div>
+          </v-tab>
+          <v-tab-item>
+            <v-card class="px-4">
+              <v-card-text>
+                <v-form ref="loginForm" v-model="valid" lazy-validation>
+                  <v-row>
+                    <v-col cols="12">
+                      <v-text-field
                           v-model="loginEmail"
                           :rules="loginEmailRules"
                           label="E-mail"
                           required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
                           v-model="loginPassword"
                           :append-icon="show1 ? 'eye' : 'eye-off'"
                           :rules="[rules.required, rules.min]"
@@ -44,77 +44,77 @@
                           label="Password"
                           counter
                           @click:append="show1 = !show1"
-                        ></v-text-field>
-                        <v-alert
+                      ></v-text-field>
+                      <v-alert
                           v-if="FailedLogin"
                           color="red"
                           dense
                           dismissible
                           type="error"
-                          >Invalid Credentials</v-alert
-                        >
-                      </v-col>
-                      <v-col class="d-flex" cols="12" sm="6" xsm="12"> </v-col>
-                      <v-spacer></v-spacer>
-                      <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
-                        <v-btn
+                      >Invalid Credentials</v-alert
+                      >
+                    </v-col>
+                    <v-col class="d-flex" cols="12" sm="6" xsm="12"> </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
+                      <v-btn
                           x-large
                           block
                           :disabled="!valid"
                           color="success"
                           @click="validate"
-                        >
-                          Login
-                        </v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-form>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-            <v-tab-item>
-              <v-card class="px-4">
-                <v-card-text>
-                  <v-form v-model="valid" lazy-validation>
-                    <v-row>
-                      <v-col cols="12" sm="6" md="6">
-                        <v-text-field
+                      >
+                        Login
+                      </v-btn>
+                    </v-col>
+                  </v-row>
+                </v-form>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+          <v-tab-item>
+            <v-card class="px-4">
+              <v-card-text>
+                <v-form v-model="valid" lazy-validation>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                           v-model="FirstName"
                           :rules="nameRules"
                           label="First Name"
                           maxlength="20"
                           required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="6">
-                        <v-text-field
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                           v-model="LastName"
                           :rules="nameRules"
                           label="Last Name"
                           maxlength="20"
                           required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="6">
-                        <v-text-field
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                           v-model="Email"
                           :rules="emailRules"
                           label="Email"
                           maxlength="20"
                           required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="6">
-                        <v-text-field
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
                           v-model="Phone"
                           :rules="phoneRules"
                           label="Phone"
                           maxlength="20"
                           required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
                           v-model="Password"
                           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                           :rules="[rules.required, rules.min]"
@@ -123,10 +123,10 @@
                           label="Password"
                           counter
                           @click:append="show1 = !show1"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
                           block
                           v-model="verify"
                           :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
@@ -136,38 +136,38 @@
                           label="Confirm Password"
                           counter
                           @click:append="show2 = !show2"
-                        ></v-text-field>
+                      ></v-text-field>
                       <v-alert
-                        v-if="RegisteredUser"
-                        :color="this.RegisteredColor"
-                        dense
-                        dismissible
-                        :type="this.RegisteredType"
-                        >{{this.RegisteredMessage}}</v-alert
+                          v-if="Registered"
+                          :color="this.RegisteredColor"
+                          dense
+                          dismissible
+                          :type="this.RegisteredType"
+                      >{{this.RegisteredMessage}}</v-alert
                       >
-                      </v-col>
-                      <v-spacer></v-spacer>
-                      <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-                        <v-btn
+                    </v-col>
+                    <v-spacer></v-spacer>
+                    <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
+                      <v-btn
                           x-large
                           block
                           :disabled="!valid"
                           color="success"
                           @click="register"
-                          >Register</v-btn
-                        >
-                      </v-col>
-                    </v-row>
-                  </v-form>
-                </v-card-text>
-              </v-card>
-            </v-tab-item>
-          </v-tabs>
-        </v-card>
-        </v-card>
-      </v-dialog>
-<!--    </v-app>-->
-<!--  </div>-->
+                      >Register</v-btn
+                      >
+                    </v-col>
+                  </v-row>
+                </v-form>
+              </v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+      </v-card>
+    </v-card>
+  </v-dialog>
+  <!--    </v-app>-->
+  <!--  </div>-->
 </template>
 
 
@@ -176,7 +176,6 @@ import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
-
 const crypto = require("crypto");
 export default {
   name: "Login",
@@ -191,10 +190,10 @@ export default {
     },
     encryptPassword(plainText, salt) {
       return crypto
-        .createHash("sha256")
-        .update(plainText)
-        .update(salt)
-        .digest("hex");
+          .createHash("sha256")
+          .update(plainText)
+          .update(salt)
+          .digest("hex");
     },
     testPassword(salt, originalPass, loginPassword) {
       let password = this.encryptPassword(loginPassword, salt);
@@ -202,35 +201,35 @@ export default {
     },
     checkCredentials() {
       UserDataService.getByEmail(this.loginEmail)
-        .then((response) => {
-          let originalPassword = response.data[0].user.password;
-          let salt = response.data[0].user.salt;
-          this.UserId = response.data[0].user.id;
-          this.PersonId = response.data[0].id
-          this.UserRole = response.data[0].user.roles[0].id;
-          let authenticated = this.testPassword(
-            salt,
-            originalPassword,
-            this.loginPassword
-          );
-          this.$authenticated = authenticated;
-          this.login();
-        })
-        .catch((e) => {
-          this.FailedLogin = true;
-          console.log(e);
-        });
+          .then((response) => {
+            let originalPassword = response.data[0].user.password;
+            let salt = response.data[0].user.salt;
+            this.UserId = response.data[0].user.id;
+            this.PersonId = response.data[0].id;
+            this.UserRole = response.data[0].user.roles[0].id;
+            let authenticated = this.testPassword(
+                salt,
+                originalPassword,
+                this.loginPassword
+            );
+            this.$authenticated = authenticated;
+            this.login();
+          })
+          .catch((e) => {
+            this.FailedLogin = true;
+            console.log(e);
+          });
     },
     validate() {
       if (this.$refs.loginForm.validate()) {
         UserDataService.getAll()
-          .then((response) => {
-            let objectData = response;
-            this.checkCredentials();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+            .then((response) => {
+              let objectData = response;
+              this.checkCredentials();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
       }
     },
     reset() {
@@ -259,48 +258,42 @@ export default {
         email: this.Email,
         password: this.Password,
       };
-
       UserDataService.create(data)
-        .then((response) => {
-          let data = {
-            userId: response.data.userId,
-            roleId: 2,
-          };
-
-          let phoneData = {
-            personId: response.data.personId,
-            number: this.Phone,
-            isPrimary: true,
-          };
-          let emailData = {
-            personId: response.data.personId,
-            address: this.Email,
-            isPrimary: true,
-          };
-
-          PhoneDataService.create(phoneData);
-          EmailDataService.create(emailData);
-
-          UserRoleDataService.create(data)
-            .then((resp) => {
-
-              this.RegisteredUser = true;
-              this.RegisteredColor = "green";
-              this.RegisteredType = "success";
-              this.RegisteredMessage = "Successfully Registered."
-            })
-            .catch((err) => {
-              this.RegisteredUser = true;
-              this.RegisteredColor = "red";
-              this.RegisteredType = "alert";
-              this.RegisteredMessage = "Something went wrong, please contact your administrator.";
-            });
-
-          this.refreshList();
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then((response) => {
+            let data = {
+              userId: response.data.userId,
+              roleId: 2,
+            };
+            let phoneData = {
+              personId: response.data.personId,
+              number: this.Phone,
+              isPrimary: true,
+            };
+            let emailData = {
+              personId: response.data.personId,
+              address: this.Email,
+              isPrimary: true,
+            };
+            PhoneDataService.create(phoneData);
+            EmailDataService.create(emailData);
+            UserRoleDataService.create(data)
+                .then((resp) => {
+                  this.Registered = true;
+                  this.RegisteredColor = "green";
+                  this.RegisteredType = "success";
+                  this.RegisteredMessage = "Successfully Registered."
+                })
+                .catch((err) => {
+                  this.Registered = true;
+                  this.RegisteredColor = "red";
+                  this.RegisteredType = "alert";
+                  this.RegisteredMessage = "Something went wrong, please contact your administrator.";
+                });
+            this.refreshList();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       this.add_person_dlg = false;
     },
 
@@ -313,7 +306,6 @@ export default {
       { name: "Register", icon: "mdi-account-outline" },
     ],
     valid: true,
-
     FailedLogin: false,
     Registered: "",
     RegisteredType: "",
