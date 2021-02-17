@@ -150,7 +150,11 @@
 </template>
 
 <script>
-// const axios = require('axios');
+
+/* ---------- Forgot Password Chain ----------
+*
+ */
+const axios = require('axios');
 export default {
     computed: {
     passwordMatch() {

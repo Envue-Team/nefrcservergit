@@ -15,12 +15,25 @@
 <script>
 import UserDataService from "../services/UserDataService";
 
+/* ---------- Flow of Events ----------
+*  1) User views profile page
+*  2) User clicks on open dialog box
+*  3) Dialog box populates the name, and email field **function**
+*  4) Email field can be edited, but not name
+*  5) Change password link **function**
+*  6) Dialog box asks for current password, and to input new password
+*     6.a) If current password is correct, change
+*     6.b) else, "Wrong password, contact administrator for password change."
+ */
 export default {
   name: "userpage",
   data: () => ({
     FirstName: "",
     LastName: "",
-
+    CurrentEmail: "",
+    CurrentPassword: "",
+    NewEmail: "",
+    NewPassword: "",
   }),
   methods: {
     retrieveUserInfo() {
@@ -35,6 +48,9 @@ export default {
         .catch((e) => {
           console.log(e.message);
         });
+    },
+    updatePerson() {
+
     },
   },
   mounted() {
