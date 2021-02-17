@@ -27,6 +27,7 @@ exports.create = (req, res) => {
     state: req.body.state,
     zip: req.body.zip,
     county: req.body.county,
+    title: req.body.title
     // organizationId: req.body.organizationId
   };
 

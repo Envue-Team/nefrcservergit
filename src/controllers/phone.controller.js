@@ -15,7 +15,7 @@ exports.create = (req, res) => {
   const phone = {
     number: req.body.number,
     personId: req.body.personId,
-    organisationId: req.body.organisationId,
+    organizationId: req.body.organizationId,
     isPrimary: req.body.isPrimary,
   };
 
