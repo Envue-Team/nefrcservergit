@@ -36,7 +36,8 @@
               </v-card>
             </v-card>
         <!--------------------------Small Screen------------------------------>
-          <div
+        <span class="hidden-md-and-up">
+        <div
               style="font-weight: 700; color: #878686; font-size: 18px;"
           >
             {{ edit_person.first_name + " " + edit_person.last_name }}
@@ -65,6 +66,7 @@
           {{ view_role.role }}<br/>
           {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
         </div>
+          </span>
         <!--------------------------Small Screen------------------------------>
       </v-col>
     </v-row>
