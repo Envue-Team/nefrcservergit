@@ -33,6 +33,7 @@
         <v-btn
             flat
             icon
+            href="/userpage"
         >
           <v-icon class="mdi mdi-light mdi-account"></v-icon>
         </v-btn>
