@@ -258,6 +258,53 @@ export default {
       };
       data.services = this.add_person.services;
       UserDataService.create(data)
+        .then((response) => {
+          let data = {
+            userId: response.data.userId,
+            roleId: 2,
+          };
+
+          let phoneData = {
+            personId: response.data.personId,
+            number: this.add_person.phone,
+            isPrimary: true,
+          };
+          let emailData = {
+            personId: response.data.personId,
+            address: this.add_person.email,
+            isPrimary: true,
+          };
+
+          PhoneDataService.create(phoneData);
+          EmailDataService.create(emailData);
+
+          UserRoleDataService.create(data)
+            .then((resp) => {
+              this.refreshList();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+
+          this.refreshList();
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      this.add_person_dlg = false;
+    },
+
+    removePerson(item) {
+      if (
+        confirm(
+          "Are you sure you want to remove " +
+            item.first_name +
+            " " +
+            item.last_name +
+            " from the table?"
+        )
+      ) {
+        UserDataService.delete(item.id)
           .then((response) => {
             let data = {
               userId: response.data.userId,

@@ -2,12 +2,11 @@
   <v-container>
     <v-row
       ><!---------------------First Container Row-------------------------------->
-      <v-col cols="7"
+      <v-col class="col-md-5 col-sm-12"
         ><!----------------------Left Column-------------------------->
         <!---------------------Contact Basic Data-------------------------------->
             <v-card
-                class="pa-1 mx-7"
-                outlined
+                class="pa-1 mx-10 hidden-md-and-down"
                 elevation="3 text-wrap">
               <v-card
                   style="margin-top:-15px; width:100%;"
@@ -20,7 +19,7 @@
                     <v-btn
                         icon
                         small
-                        class="pl-3"
+                        class="ml-3"
                         @click="edit_person_dlg=true"
                     >
                       <v-icon
@@ -36,44 +35,83 @@
                 </v-card-text>
               </v-card>
             </v-card>
+        <!--------------------------Small Screen------------------------------>
+          <div
+              style="font-weight: 700; color: #878686; font-size: 18px;"
+          >
+            {{ edit_person.first_name + " " + edit_person.last_name }}
+            <v-btn
+                icon
+                small
+                class="ml-3"
+                @click="edit_person_dlg=true"
+            >
+              <v-icon
+                  small
+                  class="mdi mdi-pencil"
+                  style="color: #C4DFF6"
+              >
+              </v-icon>
+            </v-btn>
+          </div>
+        <div
+            style="
+              padding: 10px 20px;
+              font-family: 'Poppins', sans-serif;
+              color: #504b4b;
+              font-size: 16px;
+            "
+        >
+          {{ view_role.role }}<br/>
+          {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
+        </div>
+        <!--------------------------Small Screen------------------------------>
       </v-col>
     </v-row>
-    <!---------------------------------Edit User Dialog------------------------------->
-    <v-dialog v-model="edit_person_dlg" max-width="600px">
+    <!---------------------------------Edit Contact Dialog------------------------------->
+    <v-dialog
+        v-model="edit_person_dlg"
+        content-class="lg-dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form v-model="valid" lazy-validation>
           <v-card-title>
-            <span class="headline">User Information</span>
+            <span class="dlg-title">User Information</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="6" sm="6" md="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="First Name"
                       required
                       v-model="edit_person.first_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6">
+                </div>
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Last Name"
                       required
                       v-model="edit_person.last_name"
                       :rules="nameRules"
                   ></v-text-field>
-                </v-col>
-                <v-col cols="6" sm="6" md="6"> </v-col>
+                </div>
               </v-row>
               <v-row>
-                <v-col cols="6">
+                <div class="cols col-md-6 col-sm-12">
                   <v-text-field
                       label="Email"
                       v-model="edit_user.email"
                       :rules="emailRules"
                   ></v-text-field>
-                </v-col>
+                </div>
                 <!-- <v-col cols="6">
                   <v-text-field
                     label="Password"
@@ -83,8 +121,7 @@
                 </v-col> -->
               </v-row>
               <v-row>
-                <v-row>
-                  <v-col cols="6">
+                  <div class="cols col-md-6 col-sm-12">
                     <v-autocomplete
                         label="User Role"
                         :items="roles"
@@ -93,39 +130,148 @@
                         v-model="edit_role.role"
                     >
                     </v-autocomplete>
-                  </v-col>
-                  <v-col cols="6">
+                  </div>
+                  <div class="cols col-md-6 col-sm-12">
                     <v-text-field
                         label="Phone"
                         v-model="edit_contact.phone"
                         :rules="phoneRules"
                     ></v-text-field>
-                  </v-col>
-                </v-row>
+                  </div>
               </v-row>
             </v-container>
             <small>*indicates required field</small>
           </v-card-text>
           <v-card-actions>
+            <v-btn
+                style="background-color: #ED1B2E; color: white"
+                depressed
+                @click="openDialog('Delete')"
+            >
+              Delete
+            </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                color="blue darken-1"
-                text
-                @click="edit_person_dlg = false"
+                style="background-color: #0091CD; color: white"
+                depressed
+                @click="edit_person_dlg=false"
             >
               Close
             </v-btn>
             <v-btn
-                color="blue darken-1"
-                text
-                @click="updatePerson"
+                class="hidden-md-and-down"
+                style="background-color: #7F181B; color: white"
+                depressed
+                :disabled="!valid"
+                @click="openDialog('Update')"
+            >
+              Save Changes
+            </v-btn>
+            <v-btn
+                class="hidden-md-and-up"
+                style="background-color: #7F181B; color: white"
+                depressed
+                :disabled="!valid"
+                @click="openDialog('Update')"
             >
               Save
             </v-btn>
           </v-card-actions>
         </v-form>
+        </v-card>
       </v-card>
     </v-dialog>
+
+    <!-----------------------------------Delete User Dialog--------------------------------->
+    <v-dialog
+        content-class="small-dlg"
+        v-model="delete_user_dialog"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to delete this user?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="delete_user_dialog=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="deleteUser"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!-----------------------------------Delete User Dialog--------------------------------->
+
+    <!---------------------------------Save User Dialog------------------------------>
+    <v-dialog
+        v-model="update_user_dialog"
+        content-class="small-dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to save these changes?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="update_user_dialog=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="updatePerson"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Save User Dialog------------------------------>
+
   </v-container>
 </template>
 <script>
@@ -139,6 +285,10 @@ const crypto = require('crypto');
 export default {
   data() {
     return {
+      valid: false,
+      delete_user_dialog: false,
+      update_user_dialog: false,
+      personId: '',
       selectedRole: '',
       roles: [],
       edit_person_dlg: false,
@@ -189,6 +339,29 @@ export default {
     };
   },
   methods: {
+    openDialog(dlg){
+      switch(dlg){
+        case 'Save':
+          this.save_user_dialog = true;
+          break;
+        case 'Delete':
+          this.delete_user_dialog = true;
+          break;
+        case 'Update':
+          this.update_user_dialog = true;
+          break;
+      }
+    },
+    deleteUser(){
+      this.delete_user_dialog = false;
+      this.edit_person_dlg = false;
+      UserDataService.delete(this.personId).then(response=>{
+        this.$router.push({path: '/users'}).catch(err=>{console.log(err)});
+        this.$toasted
+            .show("User has been successfully deleted",{theme: 'bubble'})
+            .goAway(1000);
+      }).catch(e=>{console.log(e)});
+    },
     updateSelectedRole(role) {
 
       var data = {
@@ -225,6 +398,7 @@ export default {
       this.edit_person_dlg = true;
     },
     setPerson() {
+      this.personId = this.$route.params.personId;
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
         .then((response) => {

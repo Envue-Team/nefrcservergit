@@ -17,15 +17,18 @@
     "crypto": "^1.0.1",
     "express": "^4.17.1",
     "material-design-icons-iconfont": "^6.1.0",
+    "mdbvue": "^6.7.2",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.5",
     "vue": "^2.5.17",
     "vue-json-excel": "^0.3.0",
+    "vue-responsive-video-background-player": "^2.1.2",
     "vue-router": "^3.0.3",
     "vue-session": "^1.0.0",
     "vue-toasted": "^1.1.28",
+    "vue-videobg": "^2.0.0",
     "vuetify": "^2.3.15"
   },
   "devDependencies": {

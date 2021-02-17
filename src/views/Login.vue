@@ -296,6 +296,7 @@ export default {
           });
       this.add_person_dlg = false;
     },
+
   },
   data: () => ({
     dialog: true,

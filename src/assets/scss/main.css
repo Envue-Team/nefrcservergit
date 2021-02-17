@@ -1,0 +1,132 @@
+.page-title {
+  font-family: "Roboto", sans-serif;
+  margin-left: -50px;
+  font-size: 2em;
+}
+@media (max-width: 480px) {
+  .page-title {
+    font-family: "Roboto", sans-serif;
+    margin-left: 10px;
+    font-size: 2em;
+  }
+}
+
+.card-label {
+  font-weight: bold;
+  color: #6D6E70;
+}
+
+.card-label-light {
+  font-weight: bold;
+  color: white;
+}
+
+.card-header-title {
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-weight: 400 !important;
+}
+@media (max-width: 480px) {
+  .card-header-title {
+    font-size: 24px !important;
+    font-weight: lighter !important;
+  }
+}
+@media (min-width: 769px) {
+  .card-header-title {
+    font-size: 24px;
+    font-weight: lighter !important;
+  }
+}
+@media (min-width: 1024px) {
+  .card-header-title {
+    font-size: 24px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .card-header-title {
+    font-size: 18px !important;
+  }
+}
+
+.card-header-subtitle {
+  color: white;
+  font-family: Roboto, sans-serif;
+  font-weight: 400 !important;
+  font-size: 14px;
+}
+
+.card-header-block {
+  background-color: #6D6E70 !important;
+}
+@media (max-width: 480px) {
+  .card-header-block {
+    margin-top: -20px !important;
+  }
+}
+@media (min-width: 769px) {
+  .card-header-block {
+    margin-top: -20px !important;
+  }
+}
+@media (min-width: 1024px) {
+  .card-header-block {
+    margin-top: -40px !important;
+  }
+}
+@media (min-width: 1200px) {
+  .card-header-block {
+    margin-top: -40px !important;
+  }
+}
+
+.data {
+  color: white;
+  font-weight: bold;
+}
+
+.sub-data {
+  color: white;
+  font-family: Poppins, sans-serif;
+}
+
+.item-title {
+  font-size: 36px;
+  color: #6D6E70;
+}
+
+.active-drawer-link {
+  background-color: #ED1B2E;
+}
+
+.small-dlg {
+  max-width: 300px;
+}
+
+.md-dlg {
+  max-width: 400px;
+}
+
+.lg-dlg {
+  max-width: 700px;
+}
+
+.dlg-title {
+  color: #6D6E70;
+}
+
+dlg-no {
+  background-color: #0091CD;
+  color: white;
+}
+
+.tabs-active {
+  background-color: #6D6E70;
+}
+
+.mobile-title {
+  color: #6D6E70;
+  font-size: 24px;
+}
+
+/*# sourceMappingURL=main.css.map */

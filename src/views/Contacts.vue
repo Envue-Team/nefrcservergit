@@ -2,31 +2,23 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-          <v-card
-              class="pa-3 mt-8"
+        <span class="mobile-title hidden-md-and-up">Contacts</span>
+        <v-card
+              class="pa-3 mt-md-8 mt-sm-3"
               outlined
-              elevation="3 text-wrap">
+              elevation="3 text-wrap"
+              style="background-color: rgb(249, 249, 249)"
+          >
             <v-card
                 style="margin-top:-40px; width:100%;"
                 color="#6D6E70"
-                class="pa-7"
+                class="pa-7 hidden-md-and-down"
                 rounded
             >
               <v-toolbar-title class="card-header-title">Contacts</v-toolbar-title>
             </v-card>
           <v-card-text>
             <v-row>
-              <v-btn
-                  fab
-                  elevation="3"
-                  small
-                  class="ml-3"
-                  color="white"
-                  @click="add_person_dlg=true"
-              >
-                <v-icon class="mdi mdi-dark mdi-plus">
-                </v-icon>
-              </v-btn>
               <v-spacer></v-spacer>
               <v-text-field
                   v-model="search"
@@ -62,7 +54,15 @@
                   {{ phone.number }}
               </template>
               <template v-slot:[`item.actions`]="{ item }">
-                <v-icon small @click="removePerson(item)">mdi-delete</v-icon>
+                <v-btn
+                  icon
+                  small
+                  @click="openRemovePersonDlg(item)"
+                ></v-btn>
+                <v-icon
+                    color="grey"
+                    class="mdi mdi-trash-can-outline"
+                ></v-icon>
               </template>
             </v-data-table>
           </v-card-text>
@@ -202,6 +202,51 @@
         <!--------------------- dialog box to add person closed-------------------->
       </v-col>
     </v-row>
+    <!-------------------------------------Remove Person Dialog------------------------------>
+    <v-dialog
+        content-class="small-dlg"
+        v-model="remove_person_dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to delete this point of contact?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="remove_person_dlg=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="deleteContact"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!-------------------------------------//Remove Person Dialog------------------------------>
+
   </v-container>
 </template>
 
@@ -219,6 +264,8 @@ export default {
   //components: {AddVolunteer},
   data() {
     return {
+      current_person_id: '',
+      remove_person_dlg: false,
       volunteers: [],
       add_person_dlg: false,
       phone1:'',
@@ -312,7 +359,6 @@ export default {
         { text: "Phone", value: "phone", width: "100px", class: 'red--text text--darken-3' },
         { text: "County", value: "county", width: "80px", class: 'red--text text--darken-3' },
         { text: "Organization", value: "organization_names", width: "80px", class: 'red--text text--darken-3' },
-        { text: "Delete", value: "actions", width: "1%" },
 
         //{text: 'Notes', value: 'notes', width: '160px'},
       ];
@@ -486,7 +532,19 @@ export default {
       this.refreshList();
       // console.log("hit");
     },
-    
+    openRemovePersonDlg(item){
+        this.remove_person_dlg = true;
+        this.current_person_id = item.id;
+    },
+    deleteContact(){
+      ContactDataService.delete(this.current_person_id)
+          .then((response) => {
+            this.refreshList();
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+    },
     removePerson(item) {
       if (
         confirm(

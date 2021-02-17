@@ -2,13 +2,19 @@
   <v-container>
     <!---------------------------------Relationship Manager Dialog------------------------------->
     <v-dialog
-        max-width="600px"
+        content-class="md-dlg"
         v-model="show"
     >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
       <v-card>
         <v-form>
           <v-card-title>
-            <span class="headline">{{rm_title}}</span>
+            <span class="dlg-title">{{rm_title}}</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -38,29 +44,30 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                color="blue darken-1"
-                text
+                style="background-color: #0091CD; color: white"
                 @click.stop="show=false"
+                depressed
             >
               Close
             </v-btn>
             <v-btn v-show="rm_dlg_action=='Edit'"
-                color="red darken-1"
-                text
+                style="background-color: #ED1B2E; color: white"
+                depressed
                 v-on:click="openDialog('Delete')"
             >
               Remove Manager
             </v-btn>
             <v-btn
                 v-show="rm_dlg_action=='Create'"
-                color="blue darken-1"
-                text
+                style="background-color: #7F181B; color: white"
+                depressed
                 v-on:click="openDialog(rm_dlg_action)"
             >
               Save
             </v-btn>
           </v-card-actions>
         </v-form>
+      </v-card>
       </v-card>
     </v-dialog>
 

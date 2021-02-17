@@ -64,8 +64,6 @@ db.organization.hasMany(db.email, {onDelete: 'CASCADE'});
 db.email.belongsTo(db.organization);
 db.person.hasMany(db.email, {onDelete: 'CASCADE'});
 db.email.belongsTo(db.person);
-db.organization.belongsToMany(db.person, {through: db.pointofcontact});
-db.person.belongsToMany(db.organization, {through: db.pointofcontact});
 db.organization.hasMany(db.relationshipmanager, {onDelete: 'CASCADE'});
 db.relationshipmanager.belongsTo(db.organization);
 db.person.hasMany(db.relationshipmanager, {onDelete: 'CASCADE'});
@@ -88,5 +86,7 @@ db.organization.belongsToMany(db.agency_type, {through: db.organization_agency_t
 db.agency_type.belongsToMany(db.organization, {through: db.organization_agency_type});
 db.role.belongsToMany(db.permission, {through: db.role_permissions});
 db.permission.belongsToMany(db.role, {through: db.role_permissions});
+db.organization.belongsToMany(db.person, {through: db.pointofcontact});
+db.person.belongsToMany(db.organization, {through: db.pointofcontact});
 
 module.exports = db;
