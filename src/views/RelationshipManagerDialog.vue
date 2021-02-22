@@ -44,9 +44,9 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
+                style="color: #0091CD"
                 @click.stop="show=false"
-                depressed
+                text
             >
               Close
             </v-btn>

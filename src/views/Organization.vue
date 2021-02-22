@@ -386,13 +386,12 @@
         >
           {{ organization.name }}
           <v-btn
-              icon
-              class="ml-3"
+              style="color: #878686; margin-left: 140px"
+              outlined
               @click="openDialog('Edit')"
               v-if="verifyAccess('update')"
           >
             <v-icon
-                style="color: #9F9FA3"
                 class="mdi mdi-pencil"
                 small
             ></v-icon>
@@ -429,18 +428,20 @@
               <div style="font-family: 'Poppins', sans-serif;
                    color: #504b4b;
                    font-size: 15px;
-                   padding-left: 20px">
+
+                "
+              >
                 {{ organization.contact_protocol }}
                 <v-btn
                     icon
-                    style="color: #7F181B"
+                    style="color: #7F181B; margin-left: 50px; margin-bottom: 20px"
                     v-show="verifyAccess('update')"
                 >
                   <v-icon
                       class="mdi mdi-account-plus"
                       @click="openDialog('Add POC')"
                   >
-                  </v-icon>
+                  </v-icon> Add Contact
                 </v-btn>
               </div>
               <v-slide-group
@@ -464,8 +465,8 @@
                 <span style="color: #504b4b; font-family: 'Poppins', sans-serif; font-weight: 700">
                   {{ contact.first_name }} {{ contact.last_name }}
                   <v-btn
-                    icon
-                    small
+                    style="color: #C4DFF6; margin-left: 90px"
+                    outlined
                     class="ml-3"
                     v-show="verifyAccess('update')"
                     @click="openDialog('Edit POC', contact.id)"
@@ -476,13 +477,13 @@
                             style="color: #C4DFF6"
                         ></v-icon>
                       </v-btn>
-                <br/>{{contact.title}}</span>
+                      <br/>{{contact.title}}</span>
                       <br/>
                       <a v-if="contact.phones.length != 0" href="tel: phone.number"
                          style="font-family: 'Poppins', sans-serif;
-                   color: #504b4b;
-                   font-size: 14px;
-                   "
+                         color: #504b4b;
+                         font-size: 14px;
+                         "
                       >
                         {{ contact.phones[0].number }}
                       </a>
@@ -510,49 +511,52 @@
                   style="font-family: 'Poppins', sans-serif;
                    color: #504b4b;
                    font-size: 15px;
-                   padding-left: 20px"
+                  "
               >
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
+                  Last Contact:
                   <v-btn
-                      icon
-                      style="color: #C4DFF6"
+                      style="color: #C4DFF6; margin-left: 90px"
+                      outlined
                       v-show="verifyAccess('update')"
                       @click="contact_note_dlg=true"
                   >
                     <v-icon
-                        class="mdi mdi-comment-outline"
+                        class="mdi mdi-comment"
                         small
                     ></v-icon>
                   </v-btn>
-                  Last Contact: </div>
+                </div>
                 {{ organization.last_contact }}
                 <br/>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
+                  Opportunities:
                   <v-btn
                       v-show="verifyAccess('update')"
-                      icon
-                      style="color: #C4DFF6"
+                      outlined
+                      style="color: #C4DFF6; margin-left: 80px"
                       @click="op_action_dlg=true"
                   >
                     <v-icon
-                        class="mdi mdi-comment-outline"
+                        class="mdi mdi-comment"
                         small></v-icon>
                   </v-btn>
-                  Opportunities: </div>
+                </div>
                 {{ organization.action }}
                 <br/>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
+                  Notes:
                   <v-btn
                       v-show="verifyAccess('update')"
-                      icon
-                      style="color: #C4DFF6"
+                      outlined
+                      style="color: #C4DFF6; margin-left: 135px"
                       @click="add_note_dlg=true"
                   >
                     <v-icon
                         small
-                        class="mdi mdi-comment-outline"></v-icon>
+                        class="mdi mdi-comment"></v-icon>
                   </v-btn>
-                  Notes </div>
+                </div>
                 {{ organization.notes }}
               </div>
             </v-expansion-panel-content>
@@ -617,14 +621,14 @@
             <v-expansion-panel-content>
                 <v-btn
                     icon
-                    style="color: #7F181B"
+                    style="color: #7F181B; margin-left: 50px; margin-bottom: 20px"
                     v-show="verifyAccess('reassign')"
                 >
                   <v-icon
                       class="mdi mdi-account-plus"
                       @click="openDialog('Add RM')"
                   >
-                  </v-icon>
+                  </v-icon> Add Manager
                 </v-btn>
               <v-slide-group
                   v-model="slgroup1"
@@ -755,8 +759,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  style="background-color: #0091CD; color: white"
-                  depressed
+                  style="color: #0091CD"
+                  text
                   @click="add_note_dlg=false"
               >
                 Close
@@ -804,8 +808,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  style="background-color: #0091CD; color: white"
-                  depressed
+                  style="color: #0091CD"
+                  text
                   @click="contact_note_dlg=false"
               >
                 Close
@@ -853,8 +857,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  style="background-color: #0091CD; color: white"
-                  depressed
+                  style="color: #0091CD"
+                  text
                   @click="op_action_dlg=false"
               >
                 Close
@@ -1118,8 +1122,8 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
-                depressed
+                style="color: #0091CD"
+                text
                 @click="organization_edit_dlg=false"
             >
               Close

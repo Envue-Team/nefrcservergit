@@ -4,8 +4,10 @@ import router from './router';
 import vuetify from './plugins/vuetify';
 import Toasted from 'vue-toasted';
 import VueSession from 'vue-session';
+import VueTouch from 'vue-touch';
 
 Vue.use(VueSession);
+Vue.use(VueTouch);
 Vue.use(Toasted);
 Vue.config.productionTip = false;
 

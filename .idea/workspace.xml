@@ -25,10 +25,49 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="For merge">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="For merge reupdate contacts format and contact page.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/css/app.7d4db28b.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/app.05870f72.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/app.05870f72.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.22c120a3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/js/chunk-vendors.22c120a3.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/main.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/main.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/organization.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/organization.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/organization.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/organization.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/BrandPoster.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/arcflag.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/arclogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/arclogo2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/city_backdrop_drk1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/city_background_drk2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/grey_and_red_city.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/red_crescent.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/red_crescent_trprnt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/red_cross_cross.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/redcross-logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/rescue.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/rescue_lg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/side_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/sidebar-emergency.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/scss/main.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/scss/main.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/videos/ARC.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/videos/hurricane-harvey.mp4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/POCDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/POCDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/RelationshipManagerDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RelationshipManagerDialog.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/UserPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/UserPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,13 +155,15 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -169,7 +210,8 @@
       <workItem from="1612807596055" duration="98384000" />
       <workItem from="1613000003653" duration="80848000" />
       <workItem from="1613246323868" duration="70848000" />
-      <workItem from="1613556150834" duration="14859000" />
+      <workItem from="1613556150834" duration="24274000" />
+      <workItem from="1613926540429" duration="15046000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -465,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613599078132</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="For merge reupdate contacts format and contact page.">
+      <created>1613599942607</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1613599942607</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,7 +585,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update organization add and edit per arc request" />
     <MESSAGE value="Add access security to the organization" />
     <MESSAGE value="Add validation to organization add and edit pages. Add validation to point of contact form. Add access limitations to organization list page" />
     <MESSAGE value="Add columns to search table: services, Line of Business, MOU, ARC Relationship, and Agency Type." />
@@ -561,7 +609,8 @@
     <MESSAGE value="Update site mobile layout and mobile forms layout." />
     <MESSAGE value="Small tweeks" />
     <MESSAGE value="For merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="For merge" />
+    <MESSAGE value="For merge reupdate contacts format and contact page." />
+    <option name="LAST_COMMIT_MESSAGE" value="For merge reupdate contacts format and contact page." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -641,11 +690,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1613568048297">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1613599959351">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1613568048297" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1613599959351" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
@@ -685,11 +734,11 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="0" y="27" width="1356" height="711" key="new project wizard/0.27.1366.711@0.27.1366.711" timestamp="1610318891564" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1613519832975">
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1613928829312">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1613519832975" />
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1613928829312" />
     <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1613255524781">
       <screen x="0" y="27" width="1366" height="711" />
     </state>

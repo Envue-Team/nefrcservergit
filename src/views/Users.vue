@@ -29,7 +29,7 @@
               >
                 <v-icon class="mdi mdi-dark mdi-plus">
                 </v-icon>
-              </v-btn>
+              </v-btn> <span class="pt-3 pl-2">Add New</span>
               <v-spacer></v-spacer>
               <v-text-field
                   class="shrink mt-3 mr-3"
@@ -133,7 +133,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                    color="blue darken-1"
+                    color="#0091CD"
                     text
                     @click="add_person_dlg = false"
                 >

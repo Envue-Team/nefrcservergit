@@ -91,8 +91,8 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
-                depressed
+                style="color: #0091CD"
+                text
                 @click.stop="show=false"
             >
               Close

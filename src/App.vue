@@ -20,11 +20,10 @@
         <v-btn
             class="mr-3 hidden-md-and-up"
             elevation="1"
-            fab
             small
             @click.stop="toggleDrawer"
         >
-          <v-icon class="mdi mdi-dark mdi-dots-vertical"></v-icon>
+          <v-icon class="mdi mdi-dark mdi-menu"></v-icon>
         </v-btn>
         <v-toolbar-title
         style="color: white"
@@ -44,13 +43,13 @@
         :mini-variant.sync="mini"
         app
     >
-    <v-img src="./assets/images/rescuers.jpeg" height="100%">
+    <v-img src="./assets/images/rescuers.jpeg"  height="100%">
       <v-list-item>
         <v-list-item-avatar style="margin-left: -10px">
           <v-img src="./assets/images/req_logo.png" min-height="70px"/>
         </v-list-item-avatar>
 
-        <v-list-item-title style="color: grey; font-weight: bolder">
+        <v-list-item-title style="color: white; font-weight: bolder">
           American Red Cross
         </v-list-item-title>
 
@@ -110,6 +109,7 @@ export default {
     if(!this.$authenticated) {
       this.$router.replace({ name: "login" });
     }
+    this.setPagePermissions();
   },
   data() {
     return {
@@ -193,10 +193,7 @@ export default {
           return 'American Red Cross ' + this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
       }
     }
-  },
-  mounted(){
-    this.setPagePermissions();
-  },
+  }
 
 };
 </script>

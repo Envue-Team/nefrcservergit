@@ -42,15 +42,14 @@
           >
             {{ edit_person.first_name + " " + edit_person.last_name }}
             <v-btn
-                icon
-                small
+                outlined
+                style="color: #878686; margin-left: 135px"
                 class="ml-3"
                 @click="edit_person_dlg=true"
             >
               <v-icon
                   small
                   class="mdi mdi-pencil"
-                  style="color: #C4DFF6"
               >
               </v-icon>
             </v-btn>
@@ -154,8 +153,8 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
-                depressed
+                style="color: #0091CD"
+                text
                 @click="edit_person_dlg=false"
             >
               Close

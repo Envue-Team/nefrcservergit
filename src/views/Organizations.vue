@@ -50,7 +50,9 @@
           >
             <v-icon class="mdi mdi-dark mdi-plus">
             </v-icon>
-          </v-btn>
+            </v-btn> <span
+              v-show="verifyAccess('create')"
+              class="pt-3 pl-2">Add New</span>
           </v-row>
         <v-row>
           <v-spacer></v-spacer>
@@ -342,7 +344,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-              color="blue darken-1"
+              style="color: #0091CD"
               text
               @click="add_organization_dlg=false"
           >

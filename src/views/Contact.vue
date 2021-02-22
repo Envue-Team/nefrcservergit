@@ -75,15 +75,13 @@
         >
           {{ edit_person.first_name + " " + edit_person.last_name }}
           <v-btn
-              icon
-              small
-              class="ml-3"
+              outlined
+              style="color: #878686; margin-left: 135px"
               @click="edit_person_dlg=true"
           >
             <v-icon
                 small
                 class="mdi mdi-pencil"
-                style="color: #C4DFF6"
             >
             </v-icon>
           </v-btn>
@@ -234,8 +232,8 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
-                depressed
+                style="color: #0091CD"
+                text
                 @click="edit_person_dlg = false"
             >
               Close
@@ -322,8 +320,8 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
-                depressed
+                style="color: #0091CD"
+                text
                 @click="add_note_dlg = false"
             >
               Close

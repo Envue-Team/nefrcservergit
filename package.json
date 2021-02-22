@@ -29,6 +29,7 @@
     "vue-router": "^3.0.3",
     "vue-session": "^1.0.0",
     "vue-toasted": "^1.1.28",
+    "vue-touch": "^2.0.0-beta.4",
     "vue-videobg": "^2.0.0",
     "vuetify": "^2.3.15"
   },
