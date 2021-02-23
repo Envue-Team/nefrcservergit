@@ -10,8 +10,8 @@ Vue.use(VueSession);
 Vue.use(VueTouch);
 Vue.use(Toasted);
 Vue.config.productionTip = false;
-
 Vue.prototype.$authenticated = false;
+
 new Vue({
     router,
     vuetify,

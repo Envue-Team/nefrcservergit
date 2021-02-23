@@ -11,7 +11,7 @@ import Users from './views/Users'
 import Login from './views/Login'
 import UserPage from './views/UserPage'
 
-Vue.use(Router)
+Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -28,11 +28,6 @@ export default new Router({
       }
     },
     {
-      path: '/home',
-      name: 'organizations',
-      component: Organizations
-    },
-    {
       path: '/register',
       name: 'register',
       component: Register
@@ -40,6 +35,7 @@ export default new Router({
     {
       path: '/organizations',
       name: 'organizations',
+      alias: '/home',
       component: Organizations
     },
     {
@@ -60,18 +56,9 @@ export default new Router({
     {
       path: '/users',
       name: 'users',
+      alias: '/admin',
       component: Users
-      // component: function() {
-      //   if (this.$session.get("userRole") == 0) {
-      //     return Users;
-      //   }
-      // }
     },
-    // {
-    //   path: '/users',
-    //   name: 'users',
-    //   component: Users
-    // },
     {
       path: '/user/:personId',
       name: 'user',
@@ -83,4 +70,4 @@ export default new Router({
       component: UserPage
     },
   ]
-})
+});

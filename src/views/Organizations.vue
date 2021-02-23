@@ -521,12 +521,6 @@ export default {
             },
           ],
         ],
-
-        // filters:{
-        //   partners: false,
-        //   relationships: true,
-        //   my_assignments: false
-        // },
         add_organization_dlg: false,
         search: '',
         organizations: [],
@@ -811,7 +805,6 @@ export default {
             })
             .catch(e=>{console.log(e)});
       },
-
       updateExcelList(){
         this.excel_data = this.filterOrganizations().map(organization => {
           let orgAddress = organization.street_number + " " +

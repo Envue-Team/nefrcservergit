@@ -4,7 +4,7 @@
         v-if="!isLoginPage"
         tile
         absolute
-        flat
+        text
         app
         style="background-color: #7F181B"
     >
@@ -30,7 +30,7 @@
         >{{getPageTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
-            flat
+            text
             icon
             href="/userpage"
         >
@@ -75,6 +75,7 @@
             active-class="active-drawer-link"
             dark
             :to="item.link"
+            v-on:click="item.click"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -82,6 +83,20 @@
 
           <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          link
+          active-class="active-drawer-link"
+          dark
+          @click="logout"
+        >
+          <v-list-item-icon>
+            <v-icon class="mdi mdi-logout"></v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -106,9 +121,7 @@ import { mdbContainer, mdbRow, mdbCol } from 'mdbvue';
 export default {
   name: 'App',
   mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
-    if(!this.$authenticated) {
-      this.$router.replace({ name: "login" });
-    }
+    if(!this.$session.exists() && !this.$authenticated) this.$router.replace('/');
     this.setPagePermissions();
   },
   data() {
@@ -164,11 +177,15 @@ export default {
     setNavLinks(){
       this.items = [
         // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-        { title: 'Partners', icon: 'mdi-home-city', link: '/home', isVisible: true },
-        { title: 'Admin', icon: 'mdi-account-key', link: '/users', isVisible: this.verifyAccess('modify') },
-        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true },
-        { title: 'Sign Out', icon: 'mdi-logout', link: '/', isVisible: true}
+        { title: 'Partners', icon: 'mdi-home-city', link: '/home', isVisible: true, click: '' },
+        { title: 'Admin', icon: 'mdi-account-key', link: '/users', isVisible: this.verifyAccess('modify'), click: '' },
+        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true, click: '' },
       ];
+    },
+    logout() {
+      this.$authenticated = false;
+      this.$session.destroy()
+      this.$router.push('/')
     },
   },
   computed: {
