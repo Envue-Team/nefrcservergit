@@ -1614,6 +1614,7 @@ export default {
       OrganizationDataService.delete(this.organization.id)
           .then(response=>{
             this.confirm_delete = false;
+            this.$addToLog(this.organization.name, "deleted");
           })
           .catch(e=>{console.log(e)});
       this.$router.push({path: '/organizations'}).catch(err=>{console.log(err)});
@@ -1643,6 +1644,7 @@ export default {
      */
       this.update_organization_dlg = false;
       this.organization_edit_dlg = false;
+      this.$addToLog("Organization:"+this.organization.name, "updated");
       let data = {
         "name": this.organization.name,
         "street_number": this.organization.street_number,
@@ -1865,7 +1867,15 @@ export default {
           .then(response=>{
             this.organization.relationship_managers = response.data;
             this.setOrganization();
-          })
+            return response.data;
+          }).then(data=>{
+            PersonDataService.get(data.personId)
+                .then(response=>{
+                  let rm = response.data.first_name +" "+response.data.last_name;
+                  this.$addToLog("Relationship manager: "+rm+"\n Organization:"+this.organization.name, "added");
+                })
+                .catch(e=>{console.log(e)})
+      })
           .catch(err=>{console.log(err)});
     },
     updateRelationshipManager(data, id){
@@ -1876,14 +1886,26 @@ export default {
           .then(response => {
             this.organization.relationship_managers = response.data;
             this.setOrganization();
+            return response.data;
+          })
+          .then(data=>{
+            PersonDataService.get(data.personId)
+                .then(response=>{
+                  let rm = response.data.first_name +" "+response.data.last_name;
+                  this.$addToLog("Relationship manager: "+rm+"\n Organization:"+this.organization.name, "updated");
+                })
           })
           .catch(e => {
             console.log(e)
           });
     },
     deleteRelationshipManager(){
-      // this.showRMDialog = false;
       this.delete_relationship_manager_dialog = false;
+      let rm = this.organization.relationship_managers.filter(manager=>{
+        return manager.person.id == this.current_relationship_manager_id;
+      });
+      let rmName = rm[0].person.first_name +" "+rm[0].person.last_name;
+      this.$addToLog("Relationship manager: "+rmName+"\n Organization:"+this.organization.name, "removed");
       RelationshipManagerDataService.delete(this.organization.id, this.current_relationship_manager_id)
           .then(
               response=>{
@@ -1895,7 +1917,9 @@ export default {
       data.isPrimary = primary;
       if(contactId != 0){
         service.update(contactId, data)
-            .then(response=>{this.setOrganization();})
+            .then(response=>{
+              this.setOrganization();
+            })
             .catch(e=>{console.log(e)});
       }else{
         service.create(data)
@@ -1921,7 +1945,13 @@ export default {
                       .catch(e=>{console.log(e)})});
             return person.id;
           }).then(id=>{
-        PersonDataService.delete(id).catch(e=>{console.log(e)});
+        PersonDataService.get(id)
+            .then(response=>{
+              let name = response.data.first_name +" "+response.data.last_name;
+              this.$addToLog("Point of Contact: "+name+"\n Organization:"+this.organization.name, "removed");
+              PersonDataService.delete(id).catch(e=>{console.log(e)});
+            })
+            .catch(e=>{console.log(e)});
         this.setOrganization();
       })
           .catch(e=>{console.log(e)});
@@ -1930,6 +1960,9 @@ export default {
       PersonDataService.get(id)
           .then(response=>{
             let person = response.data;
+            let personName = person.first_name+" "+person.last_name;
+            this.$addToLog("Point of Contact: "+personName+"\n Organization:"+this.organization.name, "updated");
+            this.$addToLog()
             let phoneData = {};
             if(data.primary_phone){
               phoneData = {
@@ -2002,6 +2035,9 @@ export default {
           });
     },
     createPOC(data){
+      let personName = data.first_name+" "+data.last_name;
+      this.$addToLog("Point of Contact: "+personName+"\n Organization:"+this.organization.name, "created");
+
       PersonDataService.create(data)
           .then(response=>{
             let personId = response.data.id;

@@ -599,7 +599,9 @@ export default {
             "notes": this.add_organization.notes,
             "action": this.add_organization.action
           };
-          OrganizationDataService.create(data)
+
+        this.$addToLog("Organization:"+this.add_organization.name, "created");
+        OrganizationDataService.create(data)
               .then(response => {
                 let id = response.data.id;
 
