@@ -120,10 +120,6 @@ import { mdbContainer, mdbRow, mdbCol } from 'mdbvue';
 
 export default {
   name: 'App',
-  mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
-    if(!this.$session.exists() && !this.$authenticated) this.$router.replace('/');
-    this.setPagePermissions();
-  },
   data() {
     return {
       'navDialog': false,
@@ -210,8 +206,11 @@ export default {
           return 'American Red Cross ' + this.$route.name.charAt(0).toUpperCase() + this.$route.name.slice(1);
       }
     }
+  },
+  mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
+    if(!this.$session.exists() && !this.$authenticated) this.$router.replace('/');
+    this.setPagePermissions();
   }
-
 };
 </script>
 

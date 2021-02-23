@@ -719,7 +719,6 @@ export default {
           .then((response) => {
             // console.log(response);
             //this.retrieveVolunteers();
-            console.log(response);
             this.setPerson();
           })
           .catch((e) => {

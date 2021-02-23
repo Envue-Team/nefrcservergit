@@ -31,13 +31,6 @@ export default {
     }
   },
   methods: {
-    // logout: function () {
-    //   console.log('called');
-    //   this.$authenticated = false;
-    //   this.$emit('setAuthenticated');
-    //   this.$session.destroy()
-    //   this.$router.push('/')
-    // },
     /**
      * Access
      */
