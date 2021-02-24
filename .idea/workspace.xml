@@ -25,11 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Fix profile page error.">
-      <change afterPath="$PROJECT_DIR$/src/views/404.vue" afterDir="false" />
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="404 page created.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,14 +170,7 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="6540000" />
-    </task>
-    <task id="LOCAL-00004" summary="General updates throughout the application">
-      <created>1606841193415</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1606841193415</updated>
+      <workItem from="1614165597441" duration="8676000" />
     </task>
     <task id="LOCAL-00005" summary="GUI Update">
       <created>1606953166357</created>
@@ -517,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614172711886</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="404 page created.">
+      <created>1614174725983</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1614174725983</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -588,7 +586,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form." />
     <MESSAGE value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
     <MESSAGE value="Hide users link when not permitted." />
     <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
@@ -613,7 +610,8 @@
     <MESSAGE value="Fix password update to include matching rules." />
     <MESSAGE value="Add profile page." />
     <MESSAGE value="Fix profile page error." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix profile page error." />
+    <MESSAGE value="404 page created." />
+    <option name="LAST_COMMIT_MESSAGE" value="404 page created." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">

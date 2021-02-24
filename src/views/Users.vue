@@ -289,7 +289,15 @@ export default {
     populateActivities(){
       ActivityLogDataService.getAll()
           .then(response=>{
-            this.activities = response.data;
+            this.activities = response.data.map(log =>{
+                // let date = Intl.DateTimeFormat('en-US').format(new Date(log.createdAt));
+                let date = new Date(log.createdAt);
+                let fDate = Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' }).format(date);
+              return {
+                entry: log.entry,
+                createdAt: fDate
+              };
+            });
           })
           .catch();
     },
