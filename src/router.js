@@ -11,6 +11,7 @@ import Users from './views/Users'
 import Login from './views/Login'
 import UserPage from './views/UserPage'
 import Profile from './views/Profile'
+import NotFound from './views/404'
 
 Vue.use(Router);
 export default new Router({
@@ -74,6 +75,12 @@ export default new Router({
       path: '/profile/:personId',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/404', name: 'NotFound', component: NotFound
+    },
+    {
+      path: '/:catchAll(.*)', redirect:'404'
     }
   ]
 });
