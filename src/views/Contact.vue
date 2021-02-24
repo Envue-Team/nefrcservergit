@@ -236,7 +236,7 @@
                 text
                 @click="edit_person_dlg = false"
             >
-              Close
+              Cancel
             </v-btn>
             <v-btn
                 class="hidden-md-and-down"
@@ -324,7 +324,7 @@
                 text
                 @click="add_note_dlg = false"
             >
-              Close
+              Cancel
             </v-btn>
             <v-btn
                 style="background-color: #7F181B; color: white"

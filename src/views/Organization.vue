@@ -763,7 +763,7 @@
                   text
                   @click="add_note_dlg=false"
               >
-                Close
+                Cancel
               </v-btn>
               <v-btn
                   style="background-color: #7F181B; color: white"
@@ -812,7 +812,7 @@
                   text
                   @click="contact_note_dlg=false"
               >
-                Close
+                Cancel
               </v-btn>
               <v-btn
                   style="background-color: #7F181B; color: white"
@@ -861,7 +861,7 @@
                   text
                   @click="op_action_dlg=false"
               >
-                Close
+                Cancel
               </v-btn>
               <v-btn
                   style="background-color: #7F181B; color: white"
@@ -1126,7 +1126,7 @@
                 text
                 @click="organization_edit_dlg=false"
             >
-              Close
+              Cancel
             </v-btn>
 
             <v-btn

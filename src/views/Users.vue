@@ -137,7 +137,7 @@
                     text
                     @click="add_person_dlg = false"
                 >
-                  Close
+                  Cancel
                 </v-btn>
                 <v-btn color="blue darken-1" text @click="addPerson" :disabled="!valid">
                   Save

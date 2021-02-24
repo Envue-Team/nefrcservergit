@@ -348,7 +348,7 @@
               text
               @click="add_organization_dlg=false"
           >
-            Close
+            Cancel
           </v-btn>
           <v-btn
               :disabled="!valid"

@@ -48,7 +48,7 @@
                 @click.stop="show=false"
                 text
             >
-              Close
+              Cancel
             </v-btn>
             <v-btn v-show="rm_dlg_action=='Edit'"
                 style="background-color: #ED1B2E; color: white"

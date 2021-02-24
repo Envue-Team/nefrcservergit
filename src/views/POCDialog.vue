@@ -95,7 +95,7 @@
                 text
                 @click.stop="show=false"
             >
-              Close
+              Cancel
             </v-btn>
             <v-btn
                 :disabled="!valid"
