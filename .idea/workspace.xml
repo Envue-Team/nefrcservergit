@@ -25,15 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Formatted time in activity table.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update dialogs to have Cancel instead of close.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/POCDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/POCDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/RelationshipManagerDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RelationshipManagerDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,14 +170,7 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="8959000" />
-    </task>
-    <task id="LOCAL-00006" summary="GUI Update">
-      <created>1606953178761</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1606953178761</updated>
+      <workItem from="1614165597441" duration="11387000" />
     </task>
     <task id="LOCAL-00007" summary="GUI Update">
       <created>1606953191026</created>
@@ -521,7 +508,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614176905936</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Update dialogs to have Cancel instead of close.">
+      <created>1614177160761</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1614177160761</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -592,7 +586,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Hide users link when not permitted." />
     <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
     <MESSAGE value="Add video to login page." />
     <MESSAGE value="Add mobile theming across site." />
@@ -617,7 +610,8 @@
     <MESSAGE value="Fix profile page error." />
     <MESSAGE value="404 page created." />
     <MESSAGE value="Formatted time in activity table." />
-    <option name="LAST_COMMIT_MESSAGE" value="Formatted time in activity table." />
+    <MESSAGE value="Update dialogs to have Cancel instead of close." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update dialogs to have Cancel instead of close." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">

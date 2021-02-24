@@ -1501,7 +1501,6 @@ export default {
         case "Remove RM":
           this.delete_relationship_manager_dialog = true;
           this.current_relationship_manager_id = id;
-          console.log(id);
           break;
         case "Edit POC":
           this.update_poc_id = id;
@@ -1748,20 +1747,6 @@ export default {
     setOrganization(){
       OrganizationDataService.get(this.$route.params.organizationId)
           .then(response=>{
-            // this.notes = response.data.notes.map(note=>{
-            //   let date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
-            //   let dateCreated = new Date(note.createdAt);
-            //   return {
-            //     id: note.id,
-            //     text: note.text,
-            //     date: date,
-            //     author: note.person,
-            //     type: note.type,
-            //     createdAt: dateCreated
-            //   }
-            // });
-            // this.notes.sort((a,b)=>b.createdAt-a.createdAt);
-            // this.latest_note = this.notes[0];
             response.data.counties.forEach(county=>{
               this.organization_counties.push(county.name);
             });
@@ -1836,7 +1821,7 @@ export default {
           .catch(e=>{console.log(e)});
     },
     setPOC(res){
-      if(res.data.length == 0){
+      if(res.data.length == 0 && this.verifyAccess('update')){
         this.openDialog('Add POC');
       }else{
         this.organization_points_of_contact = res.data;
@@ -2120,9 +2105,8 @@ export default {
         personId: this.updated_point_of_contact.value
       };
       PointOfContactDataService.create(data)
-          .then(response=>{
+          .then(()=>{
             this.setOrganization();
-            // console.log(response);
           })
           .catch(err=>{console.log(err)});
     },
