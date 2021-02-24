@@ -10,6 +10,7 @@ import User from './views/User'
 import Users from './views/Users'
 import Login from './views/Login'
 import UserPage from './views/UserPage'
+import Profile from './views/Profile'
 
 Vue.use(Router);
 export default new Router({
@@ -69,5 +70,10 @@ export default new Router({
       name: 'userpage',
       component: UserPage
     },
+    {
+      path: '/profile/:personId',
+      name: 'profile',
+      component: Profile
+    }
   ]
 });

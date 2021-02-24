@@ -30,11 +30,10 @@
         >{{getPageTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
-            text
             icon
-            href="/userpage"
+            :href="/profile/+$session.get('personId')"
         >
-          <v-icon class="mdi mdi-light mdi-account"></v-icon>
+          <v-icon class="mdi mdi-light mdi-face"></v-icon>
         </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -172,7 +171,7 @@ export default {
     },
     setNavLinks(){
       this.items = [
-        // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
+        { title: 'Profile', icon: 'mdi-face', link: '/profile/'+this.$session.get("personId"), isVisible: true, click: '' },
         { title: 'Partners', icon: 'mdi-home-city', link: '/home', isVisible: true, click: '' },
         { title: 'Admin', icon: 'mdi-account-key', link: '/users', isVisible: this.verifyAccess('modify'), click: '' },
         { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true, click: '' },
