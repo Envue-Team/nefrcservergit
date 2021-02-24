@@ -25,12 +25,8 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Fix password update to include matching rules.">
-      <change afterPath="$PROJECT_DIR$/src/views/Profile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add profile page.">
+      <change beforePath="$PROJECT_DIR$/src/views/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Profile.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,14 +169,7 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="4490000" />
-    </task>
-    <task id="LOCAL-00002" summary="Tie organization contacts to contacts side&#10;Tie organization relationship managers to users side">
-      <created>1606835432544</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1606835432544</updated>
+      <workItem from="1614165597441" duration="4821000" />
     </task>
     <task id="LOCAL-00003" summary="Update Partner page for relationship page capabilities">
       <created>1606840094131</created>
@@ -518,7 +507,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614166836502</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Add profile page.">
+      <created>1614172601512</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1614172601512</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -589,7 +585,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Login redirect to connections page." />
     <MESSAGE value="Update sideimage" />
     <MESSAGE value="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form." />
     <MESSAGE value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
@@ -614,7 +609,8 @@
     <MESSAGE value="Add logging of organization, relationship manager, contact, add, edit, and update." />
     <MESSAGE value="Password update added to admin user view." />
     <MESSAGE value="Fix password update to include matching rules." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix password update to include matching rules." />
+    <MESSAGE value="Add profile page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add profile page." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">

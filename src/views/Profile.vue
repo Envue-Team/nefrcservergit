@@ -597,7 +597,7 @@ export default {
     },
   },
   mounted() {
-    if(this.$session.get("personId") != this.$route.params.personId) this.$router.replace('/home33');
+    if(this.$session.get("personId") != this.$route.params.personId) this.$router.replace('/home');
     this.setPerson();
   },
 };
