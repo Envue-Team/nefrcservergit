@@ -25,11 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Activity log added to admin page.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add logging of organization, relationship manager, contact, add, edit, and update.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +171,7 @@
       <workItem from="1613000003653" duration="80848000" />
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
-      <workItem from="1613926540429" duration="47511000" />
+      <workItem from="1613926540429" duration="51808000" />
     </task>
     <task id="LOCAL-00001" summary="Pre master merge">
       <created>1606756858867</created>
@@ -504,7 +502,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614110414068</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Add logging of organization, relationship manager, contact, add, edit, and update.">
+      <created>1614120697017</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1614120697017</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -575,7 +580,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update theme to dashboard console" />
     <MESSAGE value="Update theme to dashboard console - Post update live site" />
     <MESSAGE value="Standardize pages. Update background and navbar color. Organize connections page." />
     <MESSAGE value="Login redirect to connections page." />
@@ -600,7 +604,8 @@
     <MESSAGE value="Globalize addToLog function" />
     <MESSAGE value="Globalize addToLog functionI" />
     <MESSAGE value="Activity log added to admin page." />
-    <option name="LAST_COMMIT_MESSAGE" value="Activity log added to admin page." />
+    <MESSAGE value="Add logging of organization, relationship manager, contact, add, edit, and update." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add logging of organization, relationship manager, contact, add, edit, and update." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
