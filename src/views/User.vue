@@ -120,7 +120,7 @@
                         type="password"
                         required
                         v-model="verify"
-                        :rules="passwordMatch"
+                        :rules="confirmationRules"
                     ></v-text-field>
                   </div>
                 </v-row>
@@ -468,6 +468,10 @@ export default {
           v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) ||
               "Password must be a minimum of 8 characters and have at least one letter and one number"
       ],
+      confirmationRules:[
+          v => !!v || "Required",
+          v => v === this.edit_user.password || "Passwords must match"
+      ],
       show1: false,
       rules: {
         required: (value) => !!value || "Required.",
@@ -631,11 +635,6 @@ export default {
       this.edit_person_dlg = false;
       this.updateSelectedRole(this.edit_role.role);
     },
-  },
-  computed:{
-      passwordMatch() {
-        return () => this.edit_user.password === this.verify || "Password must match";
-      }
   },
   mounted() {
     this.setPerson();
