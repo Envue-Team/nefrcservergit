@@ -25,16 +25,12 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add files to organization mobile screen.">
-      <change afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/mailer.routes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/EmailerDataServiceProvider.js" afterDir="false" />
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Mailler attempt, incomplete.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/css/chunk-vendors.5639f6b3.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/mailer.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/mailer.routes.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/EmailerDataServiceProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/EmailerDataServiceProvider.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,14 +177,7 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="41109000" />
-    </task>
-    <task id="LOCAL-00014" summary="Multiple relationship managers assignable to organization">
-      <created>1608316660601</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1608316660601</updated>
+      <workItem from="1614165597441" duration="43681000" />
     </task>
     <task id="LOCAL-00015" summary="Add counties to organizations">
       <created>1608397797185</created>
@@ -526,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614268987892</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Mailler attempt, incomplete.">
+      <created>1614293818680</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1614293818680</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -597,7 +593,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update site logo." />
     <MESSAGE value="Update site mobile layout and mobile forms layout." />
     <MESSAGE value="Small tweeks" />
     <MESSAGE value="For merge" />
@@ -622,7 +617,8 @@
     <MESSAGE value="Add video to mobile screen." />
     <MESSAGE value="Add NEFRC labeling to login and register pages." />
     <MESSAGE value="Add files to organization mobile screen." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add files to organization mobile screen." />
+    <MESSAGE value="Mailler attempt, incomplete." />
+    <option name="LAST_COMMIT_MESSAGE" value="Mailler attempt, incomplete." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -702,11 +698,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614269709340">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614293835579">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614293835579" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
