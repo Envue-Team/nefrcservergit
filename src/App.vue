@@ -102,6 +102,7 @@
     </v-img>
     </v-navigation-drawer>
     <v-main style="background-color: rgba(70, 9, 9, 0.1);">
+      <div class="video-container">
       <video
           height="100%"
           width="100%"
@@ -109,6 +110,7 @@
           v-if="isLoginPage" playsinline autoplay muted loop>
         <source :src='require("./assets/videos/arc_short.mp4")' type='video/mp4'>
       </video>
+      </div>
       <router-view @setPagePermissions="setPagePermissions" />
     </v-main>
   </v-app>
@@ -123,7 +125,6 @@ export default {
   name: 'App',
   data() {
     return {
-      windowWidth: window.innerWidth,
       'navDialog': false,
       'group': null,
       'page_title': '',
@@ -187,14 +188,6 @@ export default {
     },
   },
   computed: {
-    type(){
-      if (this.windowWidth.value < 550) return 'xs'
-      if (this.windowWidth.value > 549 && this.windowWidth.value < 1200) return 'md'
-      if (this.windowWidth.value > 1199) return 'lg'
-    },
-    onWidthChange(){
-      this.windowWidth = window.innerWidth
-    },
     isLoginPage(){
       return this.$route.name=='login';
     },
@@ -218,21 +211,35 @@ export default {
     }
   },
   mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
-    window.addEventListener('resize', this.onWidthChange);
     if(!this.$session.exists() && !this.$authenticated) this.$router.replace('/');
     this.setPagePermissions();
   },
-  unmounted(){
-    window.removeEventListener('resize', this.onWidthChange);
-  }
 };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.video-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.video-container video {
+  /* Make video to at least 100% wide and tall */
+  min-width: 100%;
+  min-height: 100%;
+
+  /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+  width: auto;
+  height: auto;
+
+  /* Center the video */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 </style>

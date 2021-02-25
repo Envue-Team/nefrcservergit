@@ -65,6 +65,7 @@
             </v-btn>
           </div>
         <div
+            class="hidden-md-and-up"
             style="
               padding: 10px 20px;
               font-family: 'Poppins', sans-serif;
