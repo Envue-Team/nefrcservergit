@@ -456,6 +456,7 @@ export default {
       phone2Id: "",
       emailId: "",
       email2Id: "",
+      valid: true,
       // person: {
       //     first_name: '',
       //     last_name:'',

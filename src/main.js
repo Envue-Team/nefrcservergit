@@ -14,6 +14,11 @@ Vue.use(VueTouch);
 Vue.use(Toasted);
 Vue.config.productionTip = false;
 Vue.prototype.$authenticated = false;
+
+/**
+ * Global Functions
+ */
+//Add actions to activity log
 Vue.prototype.$addToLog = function(item, action) {
     var data = {
         entry: ""
@@ -23,9 +28,7 @@ Vue.prototype.$addToLog = function(item, action) {
         .then((response) => {
             username = response.data.person.first_name+" "+response.data.person.last_name;
             data.entry = item+" was "+action+" by "+username;
-            // console.log(data.entry);
 
-            //TODO uncomment to keep workin on activity log
             ActivityLogDataService.create(data).
             then((response) => {
               console.log(response);
@@ -37,7 +40,7 @@ Vue.prototype.$addToLog = function(item, action) {
         .catch((e) => {
             console.log(e.message);
         });
-},
+};
 
 new Vue({
     router,

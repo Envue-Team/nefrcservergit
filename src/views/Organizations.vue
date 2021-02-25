@@ -393,6 +393,7 @@ export default {
         permissions: [],
         toolbar_title: 'connections',
         current_user_id: '',
+        keys: [],
 
         /**
          * Form validation

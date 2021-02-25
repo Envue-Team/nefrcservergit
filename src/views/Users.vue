@@ -208,6 +208,7 @@ export default {
   name: "users",
   data() {
     return {
+      valid: true,
       volunteers: [],
       activities: [],
       add_person_dlg: false,

@@ -25,11 +25,13 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Prevent contact creation popup on organizations with no contact if user is not owner or admin.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Remove add contact button on Contacts page.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,14 +174,7 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="20594000" />
-    </task>
-    <task id="LOCAL-00008" summary="New GUI">
-      <created>1607032473033</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1607032473033</updated>
+      <workItem from="1614165597441" duration="26955000" />
     </task>
     <task id="LOCAL-00009" summary="Update relationship new contact">
       <created>1607041941128</created>
@@ -517,7 +512,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614185890001</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Remove add contact button on Contacts page.">
+      <created>1614253903891</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1614253903891</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -588,7 +590,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add video to login page." />
     <MESSAGE value="Add mobile theming across site." />
     <MESSAGE value="Update site per user requests. 2/12/21" />
     <MESSAGE value="Update excel sheet to include full data of selected organizations and on to only include filtered organizations." />
@@ -613,7 +614,8 @@
     <MESSAGE value="Formatted time in activity table." />
     <MESSAGE value="Update dialogs to have Cancel instead of close." />
     <MESSAGE value="Prevent contact creation popup on organizations with no contact if user is not owner or admin." />
-    <option name="LAST_COMMIT_MESSAGE" value="Prevent contact creation popup on organizations with no contact if user is not owner or admin." />
+    <MESSAGE value="Remove add contact button on Contacts page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove add contact button on Contacts page." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">

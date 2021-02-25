@@ -39,12 +39,13 @@
                 {{ organization.street_number }} {{ organization.street_name}}
                 {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
                 <br/>
-                <span v-for="county in organization.counties" :key="county.id">
+                <span v-for="county in organization.counties" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{county.name}}
                 </span><br/>
                   <a :href="organization.website" style="color: #C4DFF6">
                   {{ organization.website }}
-                </a><span v-if="organization.phones.length != 0">
+                </a>
+                <span v-if="organization.phones != null && organization.phones.length != 0">
                 <span v-show="organization.website != ''"> | </span>
                 {{ organization.primaryPhone}}</span>
               </span>
@@ -76,17 +77,17 @@
                     <div class="card-label">National DCS MOU Partner: </div> {{ organization.mou }}
 
                     <div class="card-label">Lines of Business: </div>
-                    <div v-for="lob in organization.line_of_businesses" :key="lob.id">
+                    <div v-for="lob in organization.line_of_businesses" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{lob.name}}
                     </div>
 
                     <div class="card-label">Community Services Provided: </div>
-                    <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                    <div v-for="arcrel in organization.arc_relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{arcrel.name}}
                     </div>
 
                     <div class="card-label">Agency Types: </div>
-                    <div v-for="agtype in organization.agency_types" :key="agtype.id">
+                    <div v-for="agtype in organization.agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{agtype.name}}
                     </div>
                   </v-card-text>
@@ -274,7 +275,7 @@
                     </v-btn>
                   </div>
                   <div class="card-header-subtitle">{{ organization.contact_protocol }}</div>
-                  <div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+                  <div v-for="contact in organization_points_of_contact" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                     <div :ref="'first_name_' + contact.personId">
                       <span class="data">{{ contact.first_name }} {{ contact.last_name }}</span>
                       <v-btn
@@ -292,12 +293,12 @@
                       </v-btn>
                     </div>
                     <span class="sub-data">{{ contact.title }}</span>
-                    <span v-for="phone in contact.phones" v-bind:key="phone.number" class="sub-data">
-                <span :ref="'phone_' + phone.id">
-                  <span v-if="phone.isPrimary==true">
-                    {{ phone.number }}(P)
-                  </span>
-                </span>
+                    <span v-for="phone in contact.phones" v-bind:key="Math.floor((Math.random()*1000000000) + 1)" class="sub-data">
+                      <span :ref="'phone_' + phone.id">
+                        <span v-if="phone.isPrimary==true">
+                          {{ phone.number }}(P)
+                        </span>
+                      </span>
             </span>
                     <span v-for="phone in contact.phones" class="sub-data">
                 <span :ref="'phone_' + phone.id">
@@ -349,7 +350,7 @@
                       </v-icon>
                     </v-btn>
                   </div>
-                  <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                  <div v-for="manager in organization_relationship_managers" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                     <div :ref="'relationship_manager_' + manager.personId" class="data">
                       {{ manager.person.first_name }} {{ manager.person.last_name }}
                       <v-btn
@@ -364,8 +365,6 @@
                         ></v-icon>
                       </v-btn>
                     </div>
-<!--                    <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>-->
-<!--                    <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>-->
                   </div>
                 </v-card-text>
               </v-card>
@@ -408,12 +407,14 @@
           {{ organization.street_number }} {{ organization.street_name}}<br/>
           {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
           <br/>
-          <a :href="organization.website" style="color: #7F181B">
-            {{ organization.website }}
-          </a><span v-if="organization.phones.length != 0">
-                <span v-show="organization.website != ''"> | </span>
-                {{ organization.primaryPhone}}</span><br/>
-          <span v-for="county in organization.counties" :key="county.id">
+          <span v-show="organization.website != ''">
+              <a :href="organization.website" style="color: #7F181B">
+                  {{ organization.website }}
+              </a> | </span>
+          <span v-if="organization.phones != null && organization.phones.length != 0">{{ organization.primaryPhone}}
+          </span><br/>
+
+          <span v-for="county in organization.counties" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{county.name}}
                 </span>
         </div>
@@ -450,7 +451,7 @@
                   center-active
                   show-arrows
               >
-                <v-slide-item v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+                <v-slide-item v-for="contact in organization_points_of_contact" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                   <v-card
                       flat
                       :width="screen"
@@ -578,37 +579,37 @@
                   <v-icon
                       small
                       color="green"
-                      v-if="organization.mou.toLowerCase() == 'yes'"
+                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'yes'"
                       class="mdi mdi-check"
                   >
                   </v-icon>
                   <v-icon
                       small
                       color="red"
-                      v-if="organization.mou.toLowerCase() == 'no'"
+                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'no'"
                       class="mdi mdi-close"
                   >
                   </v-icon>
                   <v-icon
                       small
                       color="grey"
-                      v-if="organization.mou.toLowerCase() == 'maybe'"
+                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'maybe'"
                       class="mdi mdi-help"
                   >
                   </v-icon>
                 </div>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Lines of Business: </div>
-                <div v-for="lob in organization.line_of_businesses" :key="lob.id">
+                <div v-for="lob in organization.line_of_businesses" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{lob.name}}
                 </div>
 
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Community Services Provided: </div>
-                <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                <div v-for="arcrel in organization.arc_relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{arcrel.name}}
                 </div>
 
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Agency Types: </div>
-                <div v-for="agtype in organization.agency_types" :key="agtype.id">
+                <div v-for="agtype in organization.agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{agtype.name}}
                 </div>
               </div>
@@ -637,7 +638,7 @@
                   center-active
                   show-arrows
               >
-                <v-slide-item v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                <v-slide-item v-for="manager in organization_relationship_managers" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                   <v-card
                       flat
                       :width="screen"
@@ -1277,11 +1278,10 @@ import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
 import RoleDataService from "../services/RoleDataService";
 import "../assets/scss/organization.scss";
+
 //TODO: Sanitize and validate form input
 export default {
   name: "organization",
-  slgroup: null,
-  slgroup1: null,
   components: {
     POCDialog,
     NoteDialog,
@@ -1290,10 +1290,16 @@ export default {
 
   data() {
     return {
+      slgroup1: null,
+      slgroup: null,
+      /**
+       * Current User
+       **/
       currentUserId: '',
       isOwner: false,
       permissions: [],
       confirm_delete: false,
+
       /**
        * Small Screen
        **/
@@ -1302,7 +1308,7 @@ export default {
       items: [
         'Contacts', 'Notes', 'Details', 'Address', 'RM',
       ],
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+
       /**
        * Form validation
        **/
@@ -1530,7 +1536,7 @@ export default {
       data.organizationId = this.organization.id;
       data.personId = this.currentUserId;
       data.type = 'general';
-      NoteDataService.create(data).then(response=>{
+      NoteDataService.create(data).then(()=>{
         this.setOrganization(this.organization.id);
       }).catch(e=>{console.log(e)});
       // this.add_note_form.text = '';
@@ -1562,7 +1568,7 @@ export default {
         filePath: obj.item.filePath
       }
       FileDataService.delete(obj.item.id, data)
-          .then(response=>{
+          .then(()=>{
             this.populateFiles(this.organization.id);
           })
           .catch(e=>{
@@ -1611,7 +1617,7 @@ export default {
      **/
     deleteOrganization(){
       OrganizationDataService.delete(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.confirm_delete = false;
             this.$addToLog(this.organization.name, "deleted");
           })
@@ -1679,7 +1685,7 @@ export default {
       }
 
       OrganizationCountyDataService.deleteOrganizationCounties(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_counties.forEach(county=>{
               if(this.organization_counties.includes(county.name)){
                 let data = {
@@ -1687,7 +1693,7 @@ export default {
                   countyId: county.id
                 }
                 OrganizationCountyDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1695,7 +1701,7 @@ export default {
           })
           .catch(e=>{console.log(e)});
       OrganizationLineOfBusinessDataService.deleteOrganizationLinesOfBusiness(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_lines_of_business.forEach(line_of_business=>{
               if(this.organization_lines_of_business.includes(line_of_business.name)){
                 let data = {
@@ -1703,7 +1709,7 @@ export default {
                   lineOfBusinessId: line_of_business.id
                 }
                 OrganizationLineOfBusinessDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1712,7 +1718,7 @@ export default {
           .catch(e=>{console.log(e)});
 
       OrganizationArcRelationshipDataService.deleteOrganizationArcRelationships(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_arc_relationships.forEach(arc_relationship=>{
               if(this.organization_arc_relationships.includes(arc_relationship.name)){
                 let data = {
@@ -1720,7 +1726,7 @@ export default {
                   arcRelationshipId: arc_relationship.id
                 }
                 OrganizationArcRelationshipDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1728,7 +1734,7 @@ export default {
           })
           .catch(e=>{console.log(e)});
       OrganizationAgencyTypeDataService.deleteOrganizationAgencyTypes(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_agency_types.forEach(agency_type=>{
               if(this.organization_agency_types.includes(agency_type.name)){
                 let data = {
@@ -1736,7 +1742,7 @@ export default {
                   agencyTypeId: agency_type.id
                 }
                 OrganizationAgencyTypeDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1764,7 +1770,7 @@ export default {
                 .catch(e=>{console.log(e)});
             this.organization = response.data;
 
-            if(this.organization.phones.length==0){
+            if(response.data.phones.length==0){
               this.organization.primaryPhone = '';
             } else{
               this.organization.primaryPhone = response.data.phones[0].number;
@@ -1893,7 +1899,7 @@ export default {
       this.$addToLog("Relationship manager: "+rmName+"\n Organization:"+this.organization.name, "removed");
       RelationshipManagerDataService.delete(this.organization.id, this.current_relationship_manager_id)
           .then(
-              response=>{
+              ()=>{
                 this.setOrganization();
               })
           .catch(e=>{console.log(e)});
@@ -1902,13 +1908,13 @@ export default {
       data.isPrimary = primary;
       if(contactId != 0){
         service.update(contactId, data)
-            .then(response=>{
+            .then(()=>{
               this.setOrganization();
             })
             .catch(e=>{console.log(e)});
       }else{
         service.create(data)
-            .then(response=>{this.setOrganization();})
+            .then(()=>{this.setOrganization();})
             .catch(e=>{console.log(e)});
       }
     },
@@ -2071,7 +2077,7 @@ export default {
                   .catch(e=>{console.log(e)});
             }
             PointOfContactDataService.create(pocData)
-                .then(response=>{
+                .then(()=>{
                   this.setOrganization();
                 }).catch(e=>{console.log(e)});
           })
@@ -2119,7 +2125,7 @@ export default {
 
       let personId = this.organization_points_of_contact[0].id;
       PersonDataService.update(personId, data)
-          .then(response=>{
+          .then(()=>{
             this.setOrganization();
           }).catch(e=>{
             console.log(e)
@@ -2228,24 +2234,3 @@ export default {
   }
 };
 </script>
-
-<style>
-  .glass-wrap {
-    background: inherit;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.33);
-  }
-
-  .glass-wrap-outer{
-    background: inherit;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .expanded-class {
-    background-color: #a35555;
-  }
-</style>
-
-
-
