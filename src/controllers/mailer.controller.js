@@ -1,5 +1,3 @@
-const nodemailer = require('nodemailer');
-
 // Create and Save a new email number
 exports.sendMail = (req, res) => {
     let transporter = nodemailer.createTransport({
@@ -8,16 +6,15 @@ exports.sendMail = (req, res) => {
         secure: false, // true for 465, false for other ports
         auth: {
             user: "team.envue@gmail.com", // generated ethereal user
-            pass: "somepass", // generated ethereal password
+            pass: "password", // generated ethereal password
         },
     });
-
     let info = transporter.sendMail({
-        from: '"Envue 👻" <team.envue@gmail.com>', // sender address
-        to: req.body.sendTo,
-        subject: req.body.subject, // Subject line
-        text: req.body.text, // plain text body
-        html: req.body.html, // html body
+        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        subject: "Hello ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
     });
     console.log("Message sent: %s", info.messageId);
-};
+    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+}

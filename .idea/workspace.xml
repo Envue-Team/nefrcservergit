@@ -22,8 +22,14 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Revert back to upated users.vue with Log table.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add files to organization mobile screen.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/mailer.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/mailer.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/EmailerDataServiceProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/EmailerDataServiceProvider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,10 +175,42 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="45962000" />
-      <workItem from="1614649184056" duration="201000" />
-      <workItem from="1614689486873" duration="22467000" />
-      <workItem from="1615460811184" duration="341000" />
+      <workItem from="1614165597441" duration="41109000" />
+    </task>
+    <task id="LOCAL-00014" summary="Multiple relationship managers assignable to organization">
+      <created>1608316660601</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1608316660601</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add counties to organizations">
+      <created>1608397797185</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1608397797185</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Committing for pull. Clean up code">
+      <created>1608483463649</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1608483463649</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Extract Relationship dialog out">
+      <created>1608669793700</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1608669793700</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Update organization add and edit per arc request">
+      <created>1610314788185</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1610314788185</updated>
     </task>
     <task id="LOCAL-00019" summary="Add access security to the organization">
       <created>1610656925719</created>
@@ -482,42 +520,7 @@
       <option name="project" value="LOCAL" />
       <updated>1614268987892</updated>
     </task>
-    <task id="LOCAL-00063" summary="Mailler attempt, incomplete.">
-      <created>1614293818680</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1614293818680</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Mailer, working but, bad credentials.">
-      <created>1614296738126</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1614296738126</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Mailer operational.">
-      <created>1614297680340</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1614297680340</updated>
-    </task>
-    <task id="LOCAL-00066" summary="Fix profile link in navbar.">
-      <created>1614781849023</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1614781849025</updated>
-    </task>
-    <task id="LOCAL-00067" summary="For merge">
-      <created>1614805190525</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1614805190525</updated>
-    </task>
-    <option name="localTasksCounter" value="68" />
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -569,7 +572,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/premerge" />
+                        <option value="premerge" />
                       </list>
                     </value>
                   </entry>
@@ -588,6 +591,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update site logo." />
+    <MESSAGE value="Update site mobile layout and mobile forms layout." />
+    <MESSAGE value="Small tweeks" />
+    <MESSAGE value="For merge" />
+    <MESSAGE value="For merge reupdate contacts format and contact page." />
     <MESSAGE value="Make edit options more visible on small screen. Set close button to text on dialogs. Make active nav text white. Remove unnecessary assets." />
     <MESSAGE value="Block access for users not logged in" />
     <MESSAGE value="Globalize addToLog function" />
@@ -608,14 +616,13 @@
     <MESSAGE value="Add video to mobile screen." />
     <MESSAGE value="Add NEFRC labeling to login and register pages." />
     <MESSAGE value="Add files to organization mobile screen." />
-    <MESSAGE value="Mailler attempt, incomplete." />
-    <MESSAGE value="Mailer, working but, bad credentials." />
-    <MESSAGE value="Mailer operational." />
-    <MESSAGE value="Fix profile link in navbar." />
-    <MESSAGE value="For merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="For merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add files to organization mobile screen." />
   </component>
   <component name="WindowStateProjectService">
+    <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="330" y="193" key="#Notifications/0.24.1366.744@0.24.1366.744" timestamp="1606763721174" />
     <state x="126" y="24" key="#Project_Structure" timestamp="1607041743211">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -624,6 +631,10 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="240" y="178" width="876" height="406" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1366.711@0.27.1366.711" timestamp="1609806374428" />
+    <state x="444" y="24" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1606651871055">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="444" y="24" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.24.1366.744@0.24.1366.744" timestamp="1606651871055" />
     <state x="416" y="129" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610317733881">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -637,6 +648,10 @@
     </state>
     <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396010" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599570398" />
+    <state x="183" y="69" key="Git.Interactive.Rebase.Dialog" timestamp="1606761986402">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="183" y="69" key="Git.Interactive.Rebase.Dialog/0.24.1366.744@0.24.1366.744" timestamp="1606761986402" />
     <state width="1312" height="183" key="GridCell.Tab.0.bottom" timestamp="1607258408009">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -653,15 +668,15 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="1312" height="183" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1607258408009" />
-    <state x="0" y="24" width="1366" height="744" key="MergeDialog" timestamp="1614805448885">
-      <screen x="0" y="24" width="1366" height="744" />
+    <state x="0" y="27" width="1366" height="744" key="MergeDialog" timestamp="1613599144219">
+      <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="0" y="24" width="1366" height="744" key="MergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1614805448885" />
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1606761420373" />
     <state x="0" y="27" key="MergeDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599144219" />
-    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1614805448896">
-      <screen x="0" y="24" width="1366" height="744" />
+    <state x="298" y="27" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1613599144225">
+      <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1614805448896" />
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1606761992543" />
     <state x="298" y="27" key="MultipleFileMergeDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599144225" />
     <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog" timestamp="1610320141241">
       <screen x="0" y="27" width="1366" height="711" />
@@ -677,25 +692,25 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="99" y="96" width="1168" height="573" key="ShowDiffWithBranchDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396011" />
-    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614805471577">
+    <state width="498" height="449" key="SwitcherDM" timestamp="1606656867556">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1614805471577" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614297703805" />
+    <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614269709340">
+      <screen x="0" y="27" width="1366" height="711" />
+    </state>
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
-    <state x="464" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615422771377">
-      <screen x="0" y="24" width="1366" height="744" />
+    <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
+      <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="464" y="100" key="VcsDiffUtil.ChangesDialog/0.24.1366.744@0.24.1366.744" timestamp="1615422771377" />
-    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1615424909905">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1615424909905" />
+    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182518985" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
-    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614790402797">
-      <screen x="0" y="24" width="1366" height="744" />
+    <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614261239370">
+      <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1614790402797" />
+    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258156616" />
     <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1614261239370" />
     <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613595005381">
       <screen x="0" y="27" width="1366" height="711" />
@@ -705,6 +720,7 @@
     <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
+    <state x="116" y="24" width="726" height="744" key="find.popup/0.24.1366.744@0.24.1366.744" timestamp="1606775410164" />
     <state x="116" y="27" width="726" height="711" key="find.popup/0.27.1366.711@0.27.1366.711" timestamp="1612966602010" />
     <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610317806397">
       <screen x="0" y="27" width="1366" height="711" />
