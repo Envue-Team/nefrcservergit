@@ -22,6 +22,7 @@
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
+    "nodemailer": "^6.4.18",
     "sequelize": "^6.3.5",
     "vue": "^2.5.17",
     "vue-json-excel": "^0.3.0",
@@ -29,6 +30,7 @@
     "vue-router": "^3.0.3",
     "vue-session": "^1.0.0",
     "vue-toasted": "^1.1.28",
+    "vue-touch": "^2.0.0-beta.4",
     "vue-videobg": "^2.0.0",
     "vuetify": "^2.3.15"
   },

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 import Organizations from './views/Organizations.vue'
 import Organization from './views/Organization.vue'
 import Contacts from './views/Contacts.vue'
@@ -9,9 +8,10 @@ import Register from './views/Register.vue'
 import User from './views/User'
 import Users from './views/Users'
 import Login from './views/Login'
-import UserPage from './views/UserPage'
+import Profile from './views/Profile'
+import NotFound from './views/404'
 
-Vue.use(Router)
+Vue.use(Router);
 export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -28,11 +28,6 @@ export default new Router({
       }
     },
     {
-      path: '/home',
-      name: 'organizations',
-      component: Organizations
-    },
-    {
       path: '/register',
       name: 'register',
       component: Register
@@ -40,6 +35,7 @@ export default new Router({
     {
       path: '/organizations',
       name: 'organizations',
+      alias: '/home',
       component: Organizations
     },
     {
@@ -60,27 +56,24 @@ export default new Router({
     {
       path: '/users',
       name: 'users',
+      alias: '/admin',
       component: Users
-      // component: function() {
-      //   if (this.$session.get("userRole") == 0) {
-      //     return Users;
-      //   }
-      // }
     },
-    // {
-    //   path: '/users',
-    //   name: 'users',
-    //   component: Users
-    // },
     {
       path: '/user/:personId',
       name: 'user',
       component: User
     },
     {
-      path: '/userpage',
-      name: 'userpage',
-      component: UserPage
+      path: '/profile/:personId',
+      name: 'profile',
+      component: Profile
     },
+    {
+      path: '/404', name: 'NotFound', component: NotFound
+    },
+    {
+      path: '/:catchAll(.*)', redirect:'404'
+    }
   ]
-})
+});
