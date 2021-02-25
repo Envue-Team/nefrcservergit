@@ -159,93 +159,6 @@
             </v-row>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12">
-            <v-card
-                elevation="3"
-                class="pa-1
-                mt-15"
-                style="background-color: rgb(249, 249, 249)"
-            >
-              <v-card
-                  class="card-header-block pa-3"
-                  rounded
-              >
-                <v-card-text>
-                  <div class="card-header-title">Files</div>
-                </v-card-text>
-              </v-card>
-              <v-card-text>
-                <!--------------------------File List Table-------------------------------->
-                <v-row>
-                  <v-text-field
-                      class="shrink mr-3"
-                      label="Search"
-                      v-model="search"
-                      append-icon="mdi-magnify"
-                      dense
-                  ></v-text-field>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                      fab
-                      elevation="3"
-                      small
-                      class="ml-3"
-                      color="white"
-                      @click="upload_file_dlg=true"
-                  >
-                    <v-icon class="mdi mdi-dark mdi-upload">
-                    </v-icon>
-                  </v-btn>
-                </v-row>
-                <v-data-table
-                    :headers="headers"
-                    :search="search"
-                    :items="files"
-                    item-key="id"
-                    multi-sort
-                >
-                  <template v-slot:item.name="item">
-                    <p>{{ item.item.name  }}</p>
-                  </template>
-                  <template v-slot:item.date="item">
-                    <p>{{ item.item.date }}</p>
-                  </template>
-                  <template v-slot:item.author="item">
-                    <p>{{ item.item.author }}</p>
-                  </template>
-                  <template v-slot:item.download="item">
-                    <v-btn
-                        icon
-                        small
-                        @click="downloadFile(item)"
-                    >
-                      <v-icon
-                          color="orange darken-4"
-                      >
-                        mdi-arrow-down
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                  <template v-slot:item.remove="item">
-                    <v-btn
-                        icon
-                        small
-                        @click="deleteFile(item)"
-                    >
-                      <v-icon
-                          color="grey"
-                          class="mdi mdi-trash-can-outline"
-                      >
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                </v-data-table>
-                <!--------------------------//File List Table-------------------------------->
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
       </v-col>
       <v-col cols="3">
         <v-row>
@@ -671,6 +584,96 @@
         </v-expansion-panels>
       </v-col>
       <!---------------------------------//Small Screen------------------------------------->
+
+    </v-row>
+    <v-row>
+      <v-col class="col-md-9 col-sm-12">
+        <span class="mobile-title hidden-md-and-up">Files</span>
+
+        <v-card
+            elevation="3"
+            class="pa-1
+                mt-3"
+            style="background-color: rgb(249, 249, 249)"
+        >
+          <v-card
+              class="card-header-block pa-3 hidden-md-and-down"
+              rounded
+          >
+            <v-card-text>
+              <div class="card-header-title">Files</div>
+            </v-card-text>
+          </v-card>
+          <v-card-text>
+            <!--------------------------File List Table-------------------------------->
+            <v-row>
+              <v-text-field
+                  class="shrink mr-3"
+                  label="Search"
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  dense
+              ></v-text-field>
+              <v-spacer></v-spacer>
+              <v-btn
+                  fab
+                  elevation="3"
+                  small
+                  class="ml-3"
+                  color="white"
+                  @click="upload_file_dlg=true"
+              >
+                <v-icon class="mdi mdi-dark mdi-upload">
+                </v-icon>
+              </v-btn>
+            </v-row>
+            <v-data-table
+                :headers="headers"
+                :search="search"
+                :items="files"
+                item-key="id"
+                multi-sort
+            >
+              <template v-slot:item.name="item">
+                <p>{{ item.item.name  }}</p>
+              </template>
+              <template v-slot:item.date="item">
+                <p>{{ item.item.date }}</p>
+              </template>
+              <template v-slot:item.author="item">
+                <p>{{ item.item.author }}</p>
+              </template>
+              <template v-slot:item.download="item">
+                <v-btn
+                    icon
+                    small
+                    @click="downloadFile(item)"
+                >
+                  <v-icon
+                      color="orange darken-4"
+                  >
+                    mdi-arrow-down
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-slot:item.remove="item">
+                <v-btn
+                    icon
+                    small
+                    @click="deleteFile(item)"
+                >
+                  <v-icon
+                      color="grey"
+                      class="mdi mdi-trash-can-outline"
+                  >
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-data-table>
+            <!--------------------------//File List Table-------------------------------->
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
     <!--------------------------Dialogs-------------------------------->
     <POCDialog
