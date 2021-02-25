@@ -1280,6 +1280,7 @@ import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyType
 import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
 import RoleDataService from "../services/RoleDataService";
+import EmailerDataService from "../services/EmailDataService";
 import "../assets/scss/organization.scss";
 
 //TODO: Sanitize and validate form input
@@ -1293,6 +1294,7 @@ export default {
 
   data() {
     return {
+
       slgroup1: null,
       slgroup: null,
       /**
@@ -2207,6 +2209,9 @@ export default {
     validate () {
       this.$refs.form.validate()
     },
+    sendEmail(){
+      EmailerDataService.sendMail();
+    }
   },
   computed:{
     screen (){
@@ -2234,6 +2239,7 @@ export default {
     this.populateAgencyTypes();
     this.setPagePermissions();
     this.setCurrentUser();
+    this.sendEmail();
   }
 };
 </script>
