@@ -25,9 +25,11 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update dialogs to have Cancel instead of close.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Prevent contact creation popup on organizations with no contact if user is not owner or admin.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,14 +172,7 @@
       <workItem from="1613246323868" duration="70848000" />
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
-      <workItem from="1614165597441" duration="11387000" />
-    </task>
-    <task id="LOCAL-00007" summary="GUI Update">
-      <created>1606953191026</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1606953191026</updated>
+      <workItem from="1614165597441" duration="20594000" />
     </task>
     <task id="LOCAL-00008" summary="New GUI">
       <created>1607032473033</created>
@@ -515,7 +510,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614177160761</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Prevent contact creation popup on organizations with no contact if user is not owner or admin.">
+      <created>1614185890001</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1614185890001</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +588,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
     <MESSAGE value="Add video to login page." />
     <MESSAGE value="Add mobile theming across site." />
     <MESSAGE value="Update site per user requests. 2/12/21" />
@@ -611,7 +612,8 @@
     <MESSAGE value="404 page created." />
     <MESSAGE value="Formatted time in activity table." />
     <MESSAGE value="Update dialogs to have Cancel instead of close." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update dialogs to have Cancel instead of close." />
+    <MESSAGE value="Prevent contact creation popup on organizations with no contact if user is not owner or admin." />
+    <option name="LAST_COMMIT_MESSAGE" value="Prevent contact creation popup on organizations with no contact if user is not owner or admin." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -691,11 +693,11 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1613599959351">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614185909439">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1613599959351" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614185909439" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />

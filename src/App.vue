@@ -103,8 +103,10 @@
     </v-navigation-drawer>
     <v-main style="background-color: rgba(70, 9, 9, 0.1);">
       <video
-          class="hidden-md-and-down"
-          style="width:100%; height: auto;" v-if="isLoginPage" playsinline autoplay muted loop>
+          height="100%"
+          width="100%"
+          style="overflow: hidden"
+          v-if="isLoginPage" playsinline autoplay muted loop>
         <source :src='require("./assets/videos/arc_short.mp4")' type='video/mp4'>
       </video>
       <router-view @setPagePermissions="setPagePermissions" />
@@ -121,6 +123,7 @@ export default {
   name: 'App',
   data() {
     return {
+      windowWidth: window.innerWidth,
       'navDialog': false,
       'group': null,
       'page_title': '',
@@ -184,6 +187,14 @@ export default {
     },
   },
   computed: {
+    type(){
+      if (this.windowWidth.value < 550) return 'xs'
+      if (this.windowWidth.value > 549 && this.windowWidth.value < 1200) return 'md'
+      if (this.windowWidth.value > 1199) return 'lg'
+    },
+    onWidthChange(){
+      this.windowWidth = window.innerWidth
+    },
     isLoginPage(){
       return this.$route.name=='login';
     },
@@ -207,8 +218,12 @@ export default {
     }
   },
   mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
+    window.addEventListener('resize', this.onWidthChange);
     if(!this.$session.exists() && !this.$authenticated) this.$router.replace('/');
     this.setPagePermissions();
+  },
+  unmounted(){
+    window.removeEventListener('resize', this.onWidthChange);
   }
 };
 </script>
