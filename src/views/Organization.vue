@@ -1280,7 +1280,7 @@ import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyType
 import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
 import RoleDataService from "../services/RoleDataService";
-import EmailerDataService from "../services/EmailDataService";
+import EmailerDataServiceProvider from "../services/EmailerDataServiceProvider";
 import "../assets/scss/organization.scss";
 
 //TODO: Sanitize and validate form input
@@ -2210,7 +2210,12 @@ export default {
       this.$refs.form.validate()
     },
     sendEmail(){
-      EmailerDataService.sendMail();
+      console.log("called");
+      EmailerDataServiceProvider.getAll()
+          .then(response=>{
+            console.log("sendMail:");
+            console.log(response)})
+          .catch(e=>console.log(e));
     }
   },
   computed:{
