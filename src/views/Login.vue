@@ -7,7 +7,6 @@
         style="background-color: #C4DFF6"
     >
       <v-card>
-
         <v-tabs
             v-model="tab"
             show-arrows
@@ -23,6 +22,13 @@
           </v-tab>
           <v-tab-item>
             <v-card class="px-4">
+              <v-card-title
+                  style="color: grey"
+              >
+                <v-img src="../assets/images/req_logo.png" max-width="70px" style="margin-left: -20px; margin-right: 20px"/>
+                American Red Cross of Northeast Florida<br/>
+                Data Dashboard
+              </v-card-title>
               <v-card-text>
                 <v-form ref="loginForm" v-model="valid" lazy-validation>
                   <v-row>
@@ -74,6 +80,13 @@
           </v-tab-item>
           <v-tab-item>
             <v-card class="px-4">
+              <v-card-title
+                  style="color: grey"
+              >
+                <v-img src="../assets/images/req_logo.png" max-width="70px" style="margin-left: -20px; margin-right: 20px"/>
+                American Red Cross of Northeast Florida<br/>
+                Data Dashboard
+              </v-card-title>
               <v-card-text>
                 <v-form v-model="valid" lazy-validation>
                   <v-row>

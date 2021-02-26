@@ -25,10 +25,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="For merge">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Mailer, working but, bad credentials.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +70,9 @@
       </set>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/router.js" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectId" id="1kxoMmFagCudcSDuZBnMqcd8G8K" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -83,7 +85,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/config" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -99,15 +101,15 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/src/views" />
+      <recent name="$PROJECT_DIR$/src/config" />
       <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/routes" />
       <recent name="$PROJECT_DIR$/src/controllers" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -169,112 +171,9 @@
       <workItem from="1612807596055" duration="98384000" />
       <workItem from="1613000003653" duration="80848000" />
       <workItem from="1613246323868" duration="70848000" />
-      <workItem from="1613556150834" duration="14859000" />
-    </task>
-    <task id="LOCAL-00001" summary="Pre master merge">
-      <created>1606756858867</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1606756858867</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Tie organization contacts to contacts side&#10;Tie organization relationship managers to users side">
-      <created>1606835432544</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1606835432544</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Update Partner page for relationship page capabilities">
-      <created>1606840094131</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1606840094131</updated>
-    </task>
-    <task id="LOCAL-00004" summary="General updates throughout the application">
-      <created>1606841193415</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1606841193415</updated>
-    </task>
-    <task id="LOCAL-00005" summary="GUI Update">
-      <created>1606953166357</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1606953166360</updated>
-    </task>
-    <task id="LOCAL-00006" summary="GUI Update">
-      <created>1606953178761</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1606953178761</updated>
-    </task>
-    <task id="LOCAL-00007" summary="GUI Update">
-      <created>1606953191026</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1606953191026</updated>
-    </task>
-    <task id="LOCAL-00008" summary="New GUI">
-      <created>1607032473033</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1607032473033</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Update relationship new contact">
-      <created>1607041941128</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1607041941128</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Update home page to show links">
-      <created>1607068185211</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1607068185211</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Update partner and relationship pages for better code and higher standardization">
-      <created>1607074595734</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1607074595734</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Add contact edit/add/update information to organization">
-      <created>1607272841721</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1607272841721</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Multiple contacts assignable to organization">
-      <created>1607357790028</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1607357790028</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Multiple relationship managers assignable to organization">
-      <created>1608316660601</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1608316660601</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Add counties to organizations">
-      <created>1608397797185</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1608397797185</updated>
+      <workItem from="1613556150834" duration="24274000" />
+      <workItem from="1613926540429" duration="52136000" />
+      <workItem from="1614165597441" duration="44628000" />
     </task>
     <task id="LOCAL-00016" summary="Committing for pull. Clean up code">
       <created>1608483463649</created>
@@ -465,7 +364,161 @@
       <option name="project" value="LOCAL" />
       <updated>1613599078132</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="For merge reupdate contacts format and contact page.">
+      <created>1613599942607</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1613599942607</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Make edit options more visible on small screen. Set close button to text on dialogs. Make active nav text white. Remove unnecessary assets.">
+      <created>1614001986478</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1614001986478</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Block access for users not logged in">
+      <created>1614102894969</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1614102894969</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Globalize addToLog functionI">
+      <created>1614103331812</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1614103331812</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Activity log added to admin page.">
+      <created>1614110414068</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1614110414068</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Add logging of organization, relationship manager, contact, add, edit, and update.">
+      <created>1614120697017</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1614120697017</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Password update added to admin user view.">
+      <created>1614125135535</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1614125135535</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Fix password update to include matching rules.">
+      <created>1614166836501</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1614166836502</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Add profile page.">
+      <created>1614172601512</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1614172601512</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Fix profile page error.">
+      <created>1614172711885</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1614172711886</updated>
+    </task>
+    <task id="LOCAL-00053" summary="404 page created.">
+      <created>1614174725983</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1614174725983</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Formatted time in activity table.">
+      <created>1614176905936</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1614176905936</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Update dialogs to have Cancel instead of close.">
+      <created>1614177160761</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1614177160761</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Prevent contact creation popup on organizations with no contact if user is not owner or admin.">
+      <created>1614185890001</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1614185890001</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Remove add contact button on Contacts page.">
+      <created>1614253903891</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1614253903891</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Resolve errors throughout application. Resolve non unique key error. Resolve valid not found error.">
+      <created>1614260466159</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1614260466160</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Remove unused files. Remove unused routes. Resolve some errors.">
+      <created>1614262033959</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1614262033960</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Add video to mobile screen.">
+      <created>1614264068629</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1614264068630</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Add NEFRC labeling to login and register pages.">
+      <created>1614264995240</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1614264995240</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Add files to organization mobile screen.">
+      <created>1614268987892</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1614268987892</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Mailler attempt, incomplete.">
+      <created>1614293818680</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1614293818680</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Mailer, working but, bad credentials.">
+      <created>1614296738126</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1614296738126</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -536,32 +589,32 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update organization add and edit per arc request" />
-    <MESSAGE value="Add access security to the organization" />
-    <MESSAGE value="Add validation to organization add and edit pages. Add validation to point of contact form. Add access limitations to organization list page" />
-    <MESSAGE value="Add columns to search table: services, Line of Business, MOU, ARC Relationship, and Agency Type." />
-    <MESSAGE value="Update add organization dialogue." />
-    <MESSAGE value="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications." />
-    <MESSAGE value="Update theme to dashboard console" />
-    <MESSAGE value="Update theme to dashboard console - Post update live site" />
-    <MESSAGE value="Standardize pages. Update background and navbar color. Organize connections page." />
-    <MESSAGE value="Login redirect to connections page." />
-    <MESSAGE value="Update sideimage" />
-    <MESSAGE value="Update Connections and organizations to Partners. Update Organization form terms. Move Services to end of table. Fix agency type issues. Fix form validation in add new partner form. Fix excel export omissions. Create redirect to add contacts on new form." />
-    <MESSAGE value="Remove trash can from contact and user table. Standardize all dialogs with theming. Fix phone save/update issue with organizations. Fix redirect and notification issue with contact and user delete." />
-    <MESSAGE value="Hide users link when not permitted." />
-    <MESSAGE value="Limit file upload types to .gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv" />
-    <MESSAGE value="Add video to login page." />
-    <MESSAGE value="Add mobile theming across site." />
-    <MESSAGE value="Update site per user requests. 2/12/21" />
-    <MESSAGE value="Update excel sheet to include full data of selected organizations and on to only include filtered organizations." />
-    <MESSAGE value="Auto assign current user as relationship manager on organization creation." />
-    <MESSAGE value="Update contact to require title. Remove contact address and secondary contact information from contact add and edit forms." />
-    <MESSAGE value="Update site logo." />
-    <MESSAGE value="Update site mobile layout and mobile forms layout." />
     <MESSAGE value="Small tweeks" />
     <MESSAGE value="For merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="For merge" />
+    <MESSAGE value="For merge reupdate contacts format and contact page." />
+    <MESSAGE value="Make edit options more visible on small screen. Set close button to text on dialogs. Make active nav text white. Remove unnecessary assets." />
+    <MESSAGE value="Block access for users not logged in" />
+    <MESSAGE value="Globalize addToLog function" />
+    <MESSAGE value="Globalize addToLog functionI" />
+    <MESSAGE value="Activity log added to admin page." />
+    <MESSAGE value="Add logging of organization, relationship manager, contact, add, edit, and update." />
+    <MESSAGE value="Password update added to admin user view." />
+    <MESSAGE value="Fix password update to include matching rules." />
+    <MESSAGE value="Add profile page." />
+    <MESSAGE value="Fix profile page error." />
+    <MESSAGE value="404 page created." />
+    <MESSAGE value="Formatted time in activity table." />
+    <MESSAGE value="Update dialogs to have Cancel instead of close." />
+    <MESSAGE value="Prevent contact creation popup on organizations with no contact if user is not owner or admin." />
+    <MESSAGE value="Remove add contact button on Contacts page." />
+    <MESSAGE value="Resolve errors throughout application. Resolve non unique key error. Resolve valid not found error." />
+    <MESSAGE value="Remove unused files. Remove unused routes. Resolve some errors." />
+    <MESSAGE value="Add video to mobile screen." />
+    <MESSAGE value="Add NEFRC labeling to login and register pages." />
+    <MESSAGE value="Add files to organization mobile screen." />
+    <MESSAGE value="Mailler attempt, incomplete." />
+    <MESSAGE value="Mailer, working but, bad credentials." />
+    <option name="LAST_COMMIT_MESSAGE" value="Mailer, working but, bad credentials." />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -641,22 +694,22 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1613568048297">
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614296852185">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1613568048297" />
+    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614296852185" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182518985" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
-    <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1613599834171">
+    <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614261239370">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258156616" />
-    <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599834171" />
+    <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1614261239370" />
     <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613595005381">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -685,15 +738,15 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="0" y="27" width="1356" height="711" key="new project wizard/0.27.1366.711@0.27.1366.711" timestamp="1610318891564" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1613519832975">
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1613928829312">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1613519832975" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1613255524781">
+    <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1613928829312" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1614092943449">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="321" y="89" width="719" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1607209765083" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1613255524781" />
+    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1614092943449" />
   </component>
 </project>

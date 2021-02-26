@@ -29,7 +29,7 @@
               >
                 <v-icon class="mdi mdi-dark mdi-plus">
                 </v-icon>
-              </v-btn>
+              </v-btn> <span class="pt-3 pl-2">Add New</span>
               <v-spacer></v-spacer>
               <v-text-field
                   class="shrink mt-3 mr-3"
@@ -133,11 +133,11 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
-                    color="blue darken-1"
+                    color="#0091CD"
                     text
                     @click="add_person_dlg = false"
                 >
-                  Close
+                  Cancel
                 </v-btn>
                 <v-btn color="blue darken-1" text @click="addPerson" :disabled="!valid">
                   Save
@@ -147,11 +147,52 @@
           </v-card>
         </v-dialog>
         <!--------------------- dialog box to add person closed-------------------->
-
-        <!-- <button class="m-3 btn btn-sm btn-danger" @click="removeAllVolunteers">
-          Remove All
-        </button> -->
-        <!--      </v-col>-->
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col class="col-12">
+        <span class="mobile-title hidden-md-and-up">Logs</span>
+        <v-card
+            class="pa-3 mt-md-8 mt-sm-3"
+            outlined
+            elevation="3 text-wrap"
+            style="background-color: rgb(249, 249, 249)"
+        >
+          <v-card
+              style="margin-top:-40px; width:100%;"
+              color="#6D6E70"
+              class="pa-7 hidden-md-and-down"
+              rounded
+          >
+            <v-toolbar-title class="card-header-title">Logs</v-toolbar-title>
+          </v-card>
+          <v-card-text>
+            <v-row>
+              <v-spacer></v-spacer>
+              <v-text-field
+                  class="shrink mt-3 mr-3"
+                  label="Search"
+                  v-model="search"
+                  append-icon="mdi-magnify"
+              ></v-text-field>
+            </v-row>
+            <v-data-table
+                :headers="log_headers"
+                :items="activities"
+                :search="search"
+                item-key="id"
+                multi-sort
+                class="text-capitalize"
+            >
+              <template v-slot:item.entry="{ item }">
+                <span class="black--text"> {{ item.entry }}</span>
+              </template>
+              <template v-slot:item.createdAt="{ item }">
+                  {{ item.createdAt }}
+              </template>
+            </v-data-table>
+          </v-card-text>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -162,11 +203,14 @@ import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
+import ActivityLogDataService from "@/services/ActivityLogDataService";
 export default {
   name: "users",
   data() {
     return {
+      valid: true,
       volunteers: [],
+      activities: [],
       add_person_dlg: false,
       currentVolunteer: null,
       search: "",
@@ -215,6 +259,13 @@ export default {
       ];
       return headers;
     },
+    log_headers() {
+      let log_headers = [
+        { text: "Activity", value: "entry", width: "80px", class: 'red--text text--darken-3' },
+        { text: "Date", value: "createdAt", width: "80px", class: 'red--text text--darken-3' },
+      ];
+      return log_headers;
+    }
   },
   methods: {
     nav(item) {
@@ -226,7 +277,6 @@ export default {
     retrieveVolunteers() {
       UserDataService.getAll()
           .then((response) => {
-            console.log(response);
             this.volunteers = response.data;
             this.volunteers.forEach((volunteer) => {
               volunteer.name = volunteer.first_name + " " + volunteer.last_name;
@@ -237,10 +287,26 @@ export default {
             console.log(e.message);
           });
     },
+    populateActivities(){
+      ActivityLogDataService.getAll()
+          .then(response=>{
+            this.activities = response.data.map(log =>{
+                // let date = Intl.DateTimeFormat('en-US').format(new Date(log.createdAt));
+                let date = new Date(log.createdAt);
+                let fDate = Intl.DateTimeFormat('en-US', { dateStyle: 'short', timeStyle: 'short' }).format(date);
+              return {
+                entry: log.entry,
+                createdAt: fDate
+              };
+            });
+          })
+          .catch();
+    },
     refreshList() {
       this.retrieveVolunteers();
       this.currentVolunteers = null;
       this.currentIndex = -1;
+      this.populateActivities();
     },
     setActiveVolunteer(volunteer, index) {
       this.currentVolunteer = volunteer;
@@ -360,6 +426,7 @@ export default {
   },
   mounted() {
     this.retrieveVolunteers();
+    this.populateActivities();
   },
 };
 </script>

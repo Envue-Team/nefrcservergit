@@ -50,7 +50,9 @@
           >
             <v-icon class="mdi mdi-dark mdi-plus">
             </v-icon>
-          </v-btn>
+            </v-btn> <span
+              v-show="verifyAccess('create')"
+              class="pt-3 pl-2">Add New</span>
           </v-row>
         <v-row>
           <v-spacer></v-spacer>
@@ -342,11 +344,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-              color="blue darken-1"
+              style="color: #0091CD"
               text
               @click="add_organization_dlg=false"
           >
-            Close
+            Cancel
           </v-btn>
           <v-btn
               :disabled="!valid"
@@ -391,6 +393,7 @@ export default {
         permissions: [],
         toolbar_title: 'connections',
         current_user_id: '',
+        keys: [],
 
         /**
          * Form validation
@@ -519,12 +522,6 @@ export default {
             },
           ],
         ],
-
-        // filters:{
-        //   partners: false,
-        //   relationships: true,
-        //   my_assignments: false
-        // },
         add_organization_dlg: false,
         search: '',
         organizations: [],
@@ -603,7 +600,9 @@ export default {
             "notes": this.add_organization.notes,
             "action": this.add_organization.action
           };
-          OrganizationDataService.create(data)
+
+        this.$addToLog("Organization:"+this.add_organization.name, "created");
+        OrganizationDataService.create(data)
               .then(response => {
                 let id = response.data.id;
 
@@ -809,7 +808,6 @@ export default {
             })
             .catch(e=>{console.log(e)});
       },
-
       updateExcelList(){
         this.excel_data = this.filterOrganizations().map(organization => {
           let orgAddress = organization.street_number + " " +
