@@ -127,8 +127,7 @@
                     <v-autocomplete
                         label="User Role"
                         :items="roles"
-                        item-text="name"
-                        item-value="id"
+                        item-text="role"
                         v-model="edit_role.role"
                     >
                     </v-autocomplete>
@@ -386,10 +385,12 @@ export default {
       RoleDataService.getAll()
         .then((response) => {
           this.roles = response.data;
-
-          this.roles.forEach((role) => {
-            role.role = role.name;
+          this.roles.forEach((roleElement) => {
+            roleElement.role = roleElement.name.charAt(0).toUpperCase() + roleElement.name.slice(1);
+            // role.role = role.name.charAt(0).toUpperCase() + role.name.slice(1);
+            // console.log(role.role);
           })
+          console.log(this.roles);
 
         })
         .catch((err) => {
@@ -413,7 +414,11 @@ export default {
           this.contact_id.phone = response.data.phones[0].id;
           this.contact_id.email = response.data.emails[0].id;
 
-          this.view_role.role = response.data.user.roles[0].name;
+          let roleNameToUpperCase = response.data.user.roles[0].name;
+
+          let roleName = roleNameToUpperCase.charAt(0).toUpperCase() + roleNameToUpperCase.slice(1);
+
+          this.view_role.role = roleName;
           this.currentRoleId = response.data.user.roles[0].id;
 
         })
