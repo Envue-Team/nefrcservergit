@@ -299,7 +299,7 @@ export default {
         text: "This is a password test",
         html: "<p>Omea Wa Mau Shinderu</p>"
       }
-      EmailerDataServiceProvider.getAll(data)
+      EmailerDataServiceProvider.sendMail(data)
       .then((response) => {
         console.log(response);
       })
@@ -307,7 +307,7 @@ export default {
         console.log(e);
       })
     },
-    sendEmail() {
+    sendPasswordEmail() {
       console.log("called");
       console.log(this.loginEmail);
       UserDataService.findByEmail(this.loginEmail)
