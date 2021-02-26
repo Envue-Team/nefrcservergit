@@ -9,15 +9,16 @@ exports.sendMail = (req, res) => {
         secure: false, // true for 465, false for other ports
         auth: {
             user: "team.envue@gmail.com", // generated ethereal user
-            pass: "password", // generated ethereal password
+            pass: "somepass", // generated ethereal password
         },
     });
 
     let info = transporter.sendMail({
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
+        from: '"Envue 👻" <team.envue@gmail.com>', // sender address
+        to: "n01385552@unf.edu; n001916743@unf.edu: n00121210@unf.edu",
+        subject: "Test Succeeded ✔", // Subject line
+        text: "Successful email", // plain text body
+        html: "<b>Ok, y'all can go ahead and do the rest. It's posted to git.</b>", // html body
     });
     console.log("Message sent: %s", info.messageId);
 };
