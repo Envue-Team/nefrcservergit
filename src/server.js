@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const nodemailer = require("nodemailer");
 
 const expapp = express();
 
@@ -41,6 +40,7 @@ require("../src/routes/arc_relationship.routes")(expapp);
 require("../src/routes/organization_arc_relationship.routes")(expapp);
 require("../src/routes/role_permission.routes")(expapp);
 require("../src/routes/activity_log.routes")(expapp);
+require("../src/routes/mailer.routes")(expapp);
 
 
 // set port, listen for requests

@@ -166,6 +166,7 @@
         </v-card>
       </v-card>
     </v-dialog>
+    <!-- ############################   FORGOT PASSWORD DIALOG BOX ########################################## --->
     <v-dialog v-model="password_recover" max-width="600px">
       <v-card>
         <v-form v-model="valid" lazy-validation>
@@ -176,10 +177,12 @@
             <v-container>
               <v-row>
                 <v-col cols="6">
-                  <v-text-field label="Email"></v-text-field>
-                </v-col>
-                <v-col cols="6">
-                  <v-text-field label="Password"></v-text-field>
+                  <v-text-field
+                    v-model="loginEmail"
+                    :rules="loginEmailRules"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
                 </v-col>
               </v-row>
               <!-- make an input field for roles -->
@@ -194,12 +197,20 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="addPerson"
+              @click="testFunction"
               :disabled="!valid"
             >
               Save
             </v-btn>
           </v-card-actions>
+          <v-alert
+            v-if="this.ForgotPassword"
+            :color="this.ForgotPasswordColor"
+            dense
+            dismissible
+            :type="this.ForgotPasswordType"
+            >{{ this.ForgotPasswordMessage }}</v-alert
+          >
         </v-form>
       </v-card>
     </v-dialog>
@@ -214,8 +225,8 @@ import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
+import EmailerDataServiceProvider from "@/services/EmailerDataServiceProvider";
 const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 export default {
   name: "Login",
   computed: {
@@ -277,6 +288,63 @@ export default {
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+    },
+    checkEmail() {
+      EmailDataService.get();
+    },
+    testFunction() {
+      var data =  {
+        sendTo: "ruizjoseph17@gmail.com",
+        subject: "YOU FORGOT YOUR PASSWORD HOMIE",
+        text: "This is a password test",
+        html: "<p>Omea Wa Mau Shinderu</p>"
+      }
+      EmailerDataServiceProvider.getAll(data)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+    },
+    sendEmail() {
+      console.log("called");
+      console.log(this.loginEmail);
+      UserDataService.findByEmail(this.loginEmail)
+        .then((response) => {
+          console.log(response);
+          if (response.data.length == 0) {
+            this.ForgotPassword = true;
+            this.ForgotPasswordColor = "red";
+            this.ForgotPasswordType = "alert";
+            this.ForgotPasswordMessage = "Email Does Not Exist.";
+          } else if (response.data.length >= 1) {
+            
+            let userEmail = response.data[0].emails[0].address;
+            let userPass = response.data[0].user.password;
+            console.log(userEmail);
+            this.ForgotPassword = true;
+            this.ForgotPasswordColor = "green";
+            this.ForgotPasswordType = "success";
+            this.ForgotPasswordMessage = "Password reset link has been sent.";
+
+          }
+        })
+        .catch((e) => {
+            this.ForgotPassword = true;
+            this.ForgotPasswordColor = "red";
+            this.ForgotPasswordType = "alert";
+            this.ForgotPasswordMessage = "Something went wrong, please contact your Administrator.";
+        });
+
+      // EmailerDataServiceProvider.getAll()
+      //   .then((response) => {
+      //     console.log("sendEmail:");
+      //     console.log(response);
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
     },
     login() {
       this.error = true;
@@ -352,6 +420,10 @@ export default {
     RegisteredType: "",
     RegisteredColor: "",
     RegisteredMessage: "",
+    ForgotPassword: false,
+    ForgotPasswordColor: "",
+    ForgotPasswordType: "",
+    ForgotPasswordMessage: "",
     FirstName: "",
     UserId: "",
     PersonId: "",
