@@ -13,7 +13,7 @@ class UserDataService {
     return http.get(`/users/byUserId/${id}`);
   }
 
-  getByEmail(email) {
+  findByEmail(email) {
     return http.get(`/users/email/${email}`);
   }
 

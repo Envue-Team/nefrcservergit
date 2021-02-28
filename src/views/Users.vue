@@ -278,6 +278,7 @@ export default {
       UserDataService.getAll()
           .then((response) => {
             this.volunteers = response.data;
+            console.log(response.data);
             this.volunteers.forEach((volunteer) => {
               volunteer.name = volunteer.first_name + " " + volunteer.last_name;
               volunteer.role = volunteer.user.roles[0].name;
@@ -343,7 +344,6 @@ export default {
 
           PhoneDataService.create(phoneData);
           EmailDataService.create(emailData);
-
           UserRoleDataService.create(data)
             .then((resp) => {
               this.refreshList();

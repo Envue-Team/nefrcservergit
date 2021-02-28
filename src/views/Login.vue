@@ -296,7 +296,7 @@ export default {
             };
             PhoneDataService.create(phoneData);
             console.log(name);
-            // this.$addToLog(name, "registered");
+            this.$addToLog(name, "registered");
             EmailDataService.create(emailData);
             UserRoleDataService.create(data)
                 .then((resp) => {
