@@ -6,3 +6,6 @@
 /src/config/db.config0.js
 /dist
 
+src/config/db.config.js
+package-lock.json
+src/views/Login.vue

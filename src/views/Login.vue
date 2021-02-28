@@ -120,6 +120,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                           v-model="Phone"
+                          @keyup="formatPhone()"
                           :rules="phoneRules"
                           label="Phone"
                           maxlength="20"
@@ -190,6 +191,9 @@ import UserRoleDataService from "../services/UserRoleDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
 const crypto = require("crypto");
+
+//email import
+import EmailerDataServiceProvider from "@/services/EmailerDataServiceProvider";
 
 export default {
   name: "Login",
@@ -272,6 +276,8 @@ export default {
         email: this.Email,
         password: this.Password,
       };
+      var name = this.FirstName+' '+this.LastName;
+      console.log("name is "+name);
       UserDataService.create(data)
           .then((response) => {
             let data = {
@@ -289,6 +295,8 @@ export default {
               isPrimary: true,
             };
             PhoneDataService.create(phoneData);
+            console.log(name);
+            // this.$addToLog(name, "registered");
             EmailDataService.create(emailData);
             UserRoleDataService.create(data)
                 .then((resp) => {
@@ -303,15 +311,29 @@ export default {
                   this.RegisteredType = "alert";
                   this.RegisteredMessage = "Something went wrong, please contact your administrator.";
                 });
-            this.refreshList();
+            // this.refreshList();
+            this.sendAlertEmail(data);
           })
           .catch((e) => {
             console.log(e);
           });
       this.add_person_dlg = false;
     },
-    
-  },
+    sendAlertEmail(item){
+      console.log("called 1");
+      // EmailerDataServiceProvider.getAll()
+      // .then(response=>{
+      //   console.log("sendMail:");
+      //   console.log(response)})
+      // .catch(e=>console.log(e));
+    },
+    formatPhone(){
+      this.Phone = this.Phone.replace(/[^0-9]/g, '')
+        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
+        .substr(0,13);
+    }
+  }, 
+  
   data: () => ({
     dialog: true,
     tab: 0,
