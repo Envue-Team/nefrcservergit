@@ -75,13 +75,15 @@
         >
           {{ edit_person.first_name + " " + edit_person.last_name }}
           <v-btn
-              outlined
-              style="color: #878686; margin-left: 135px"
+              icon
+              small
+              class="ml-3"
               @click="edit_person_dlg=true"
           >
             <v-icon
                 small
                 class="mdi mdi-pencil"
+                style="color: #C4DFF6"
             >
             </v-icon>
           </v-btn>
@@ -232,11 +234,11 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="color: #0091CD"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click="edit_person_dlg = false"
             >
-              Cancel
+              Close
             </v-btn>
             <v-btn
                 class="hidden-md-and-down"
@@ -320,11 +322,11 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                style="color: #0091CD"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click="add_note_dlg = false"
             >
-              Cancel
+              Close
             </v-btn>
             <v-btn
                 style="background-color: #7F181B; color: white"
@@ -456,7 +458,6 @@ export default {
       phone2Id: "",
       emailId: "",
       email2Id: "",
-      valid: true,
       // person: {
       //     first_name: '',
       //     last_name:'',
@@ -720,6 +721,7 @@ export default {
           .then((response) => {
             // console.log(response);
             //this.retrieveVolunteers();
+            console.log(response);
             this.setPerson();
           })
           .catch((e) => {
