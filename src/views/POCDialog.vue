@@ -91,11 +91,11 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="color: #0091CD"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click.stop="show=false"
             >
-              Cancel
+              Close
             </v-btn>
             <v-btn
                 :disabled="!valid"

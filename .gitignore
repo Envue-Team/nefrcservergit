@@ -6,12 +6,6 @@
 /src/config/db.config0.js
 /dist
 
-.idea/inspectionProfiles/Project_Default.xml
-.idea/modules.xml
-.idea/nefrcservergit.iml
-.idea/shelf/Default_Changelist.xml
-.idea/shelf/Uncommitted_changes_before_Update_at_12_5_20__10_25_AM__Default_Changelist_.xml
-.idea/workspace.xml
 src/config/db.config.js
-src/server.js
-src/views/PasswordRecovery.vue
+package-lock.json
+src/views/Login.vue

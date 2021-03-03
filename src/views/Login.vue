@@ -100,7 +100,7 @@
                           v-model="Email"
                           :rules="emailRules"
                           label="Email"
-                          maxlength="20"
+                          maxlength="40"
                           required
                         ></v-text-field>
                       </v-col>
@@ -111,6 +111,7 @@
                           label="Phone"
                           maxlength="20"
                           required
+                          @keyup="formatPhone"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
@@ -392,6 +393,7 @@ export default {
         this.$session.set("userRole", this.UserRole);
         this.$router.replace({ name: "organizations" });
         this.$emit("setPagePermissions");
+        var aName = '';
       } else {
         this.FailedLogin = true;
       }
@@ -403,6 +405,7 @@ export default {
         email: this.Email,
         password: this.Password,
       };
+      var emailName = data.first_name+' '+data.last_name;
       UserDataService.create(data)
         .then((response) => {
           let data = {
@@ -435,12 +438,50 @@ export default {
               this.RegisteredMessage =
                 "Something went wrong, please contact your administrator.";
             });
-          this.refreshList();
+          this.sendEmailNotification(emailName);
         })
         .catch((e) => {
           console.log(e);
         });
       this.add_person_dlg = false;
+    },
+    sendEmailNotification(name){
+      //get all admin emails 
+      var users = [];
+      var adminEmails = [];
+      UserDataService.getAll()
+      .then((response) => {
+        users = response.data;
+        users.forEach(user => {
+          if(user.user.roles[0].id == 0) {
+            adminEmails.push(user.emails[0]);
+            var data =  {
+              sendTo: user.emails[0].address,
+              subject: "New User Registered",
+              html: "<p>A new user registered with the name '"
+              +name+
+              "' , please login to the website to view the new user<p>",
+            }
+            EmailerDataServiceProvider.sendMail(data)
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((e) => {
+              console.log(e);
+            })
+          }
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+    },
+
+    formatPhone(){
+      //automatically formats phone number to format (XXX)XXX-XXXX
+      this.Phone = this.Phone.replace(/[^0-9]/g, '')
+        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
+        .substr(0,13);
     },
   },
   data: () => ({
