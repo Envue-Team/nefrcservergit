@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class EmailerDataService {
-    getAll() {
-        return http.post(`emailer`);
+    sendMail(data) {
+        return http.post(`emailer`, data);
     }
 }
 

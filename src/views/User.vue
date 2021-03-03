@@ -30,19 +30,9 @@
                     </v-btn>
                   </div>
                   <div
-                      class="card-header-subtitle">
-                    {{ view_role.role}}<br/>
-                    {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
+                      class="card-header-subtitle">{{ view_role.role}}
                   </div>
                 </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                      small
-                      @click="edit_user_password_dlg=true"
-                  >
-                    Change User Password
-                  </v-btn>
-                </v-card-actions>
               </v-card>
             </v-card>
         <!--------------------------Small Screen------------------------------>
@@ -52,14 +42,15 @@
           >
             {{ edit_person.first_name + " " + edit_person.last_name }}
             <v-btn
-                outlined
-                style="color: #878686; margin-left: 135px"
+                icon
+                small
                 class="ml-3"
                 @click="edit_person_dlg=true"
             >
               <v-icon
                   small
                   class="mdi mdi-pencil"
+                  style="color: #C4DFF6"
               >
               </v-icon>
             </v-btn>
@@ -74,128 +65,11 @@
         >
           {{ view_role.role }}<br/>
           {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
-          <v-btn
-              class="mt-3"
-              small
-              @click="edit_user_password_dlg=true"
-          >
-            Change User Password
-          </v-btn>
         </div>
           </span>
         <!--------------------------Small Screen------------------------------>
       </v-col>
     </v-row>
-
-    <!-----------------------------------Edit User Password Dialog--------------------------------->
-    <v-dialog
-        v-model="edit_user_password_dlg"
-        content-class="lg-dlg"
-    >
-      <v-card
-          elevation="1"
-          class="pa-1"
-          style="background-color: #6D6E70"
-          rounded
-      >
-        <v-card>
-          <v-form v-model="valid">
-            <v-card-title>
-              <span class="dlg-title">Change User Password</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <div class="cols col-md-6 col-sm-12">
-                    <v-text-field
-                        label="New Password"
-                        type="password"
-                        hint="Password must be a minimum of 8 characters and have at least one letter and one number"
-                        required
-                        v-model="edit_user.password"
-                        :rules="passwordRules"
-                    ></v-text-field>
-                    <v-text-field
-                        label="Enter New Password Again"
-                        type="password"
-                        required
-                        v-model="verify"
-                        :rules="confirmationRules"
-                    ></v-text-field>
-                  </div>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                  style="color: #0091CD"
-                  text
-                  @click="edit_user_password_dlg=false"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                  class="hidden-md-and-down"
-                  style="background-color: #7F181B; color: white"
-                  depressed
-                  :disabled="!valid"
-                  @click="openDialog('EditPassword')"
-              >
-                Save Changes
-              </v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card>
-      </v-card>
-    </v-dialog>
-    <!-----------------------------------Edit User Password Dialog--------------------------------->
-
-    <!-----------------------------------Verify Edit User Password Dialog--------------------------------->
-    <v-dialog
-        content-class="small-dlg"
-        v-model="verify_edit_password_dialog"
-    >
-      <v-card
-          elevation="1"
-          class="pa-1"
-          style="background-color: #6D6E70"
-          rounded
-      >
-        <v-card>
-          <v-btn
-              text
-              disabled=true
-              style="color: #ED1B2E !important"
-          >
-            Caution
-          </v-btn>
-          <v-card-text>
-            Are you sure you want to make this change?
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-                @click="verify_edit_password_dialog=false"
-                style="background-color: #0091CD; color: white"
-                depressed
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-                @click="updatePassword"
-                style="background-color: #7F181B; color: white"
-                depressed
-            >
-              Yes
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-card>
-    </v-dialog>
-    <!-----------------------------------Verify Edit User Password Dialog--------------------------------->
-
     <!---------------------------------Edit Contact Dialog------------------------------->
     <v-dialog
         v-model="edit_person_dlg"
@@ -253,8 +127,7 @@
                     <v-autocomplete
                         label="User Role"
                         :items="roles"
-                        item-text="name"
-                        item-value="id"
+                        item-text="role"
                         v-model="edit_role.role"
                     >
                     </v-autocomplete>
@@ -280,11 +153,11 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="color: #0091CD"
-                text
+                style="background-color: #0091CD; color: white"
+                depressed
                 @click="edit_person_dlg=false"
             >
-              Cancel
+              Close
             </v-btn>
             <v-btn
                 class="hidden-md-and-down"
@@ -414,12 +287,8 @@ export default {
   data() {
     return {
       valid: false,
-      verify: '',
       delete_user_dialog: false,
       update_user_dialog: false,
-      edit_user_password_dlg: false,
-      verify_edit_password_dialog: false,
-      edit_password: '',
       personId: '',
       selectedRole: '',
       roles: [],
@@ -463,15 +332,6 @@ export default {
         v => !!v || "Required",
         v => /\S\d$/.test(v) || "Phone number must be valid",
       ],
-      passwordRules:[
-          v => !!v || "Required",
-          v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) ||
-              "Password must be a minimum of 8 characters and have at least one letter and one number"
-      ],
-      confirmationRules:[
-          v => !!v || "Required",
-          v => v === this.edit_user.password || "Passwords must match"
-      ],
       show1: false,
       rules: {
         required: (value) => !!value || "Required.",
@@ -491,9 +351,6 @@ export default {
         case 'Update':
           this.update_user_dialog = true;
           break;
-        case 'EditPassword':
-          this.edit_user_password_dlg = false;
-          this.verify_edit_password_dialog = true;
       }
     },
     deleteUser(){
@@ -528,10 +385,12 @@ export default {
       RoleDataService.getAll()
         .then((response) => {
           this.roles = response.data;
-
-          this.roles.forEach((role) => {
-            role.role = role.name;
+          this.roles.forEach((roleElement) => {
+            roleElement.role = roleElement.name.charAt(0).toUpperCase() + roleElement.name.slice(1);
+            // role.role = role.name.charAt(0).toUpperCase() + role.name.slice(1);
+            // console.log(role.role);
           })
+          console.log(this.roles);
 
         })
         .catch((err) => {
@@ -546,6 +405,7 @@ export default {
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
         .then((response) => {
+          console.log(response);
           this.edit_role.userId = response.data.user.id;
           this.edit_person = response.data;
           this.edit_user = response.data.user;
@@ -554,7 +414,11 @@ export default {
           this.contact_id.phone = response.data.phones[0].id;
           this.contact_id.email = response.data.emails[0].id;
 
-          this.view_role.role = response.data.user.roles[0].name;
+          let roleNameToUpperCase = response.data.user.roles[0].name;
+
+          let roleName = roleNameToUpperCase.charAt(0).toUpperCase() + roleNameToUpperCase.slice(1);
+
+          this.view_role.role = roleName;
           this.currentRoleId = response.data.user.roles[0].id;
 
         })
@@ -562,7 +426,7 @@ export default {
           console.log(e);
         });
     },
-    generateSalt() {
+  generateSalt() {
       return crypto.randomBytes(16).toString('base64');
     },
     encryptPassword(plainText, salt) {
@@ -572,26 +436,6 @@ export default {
           .update(salt)
           .digest('hex')
     },
-    updatePassword(){
-      let salt = this.generateSalt();
-      let password = this.encryptPassword(this.edit_user.password, salt)
-
-      let data = {
-        password: password,
-        salt: salt
-      };
-      let personID = this.$route.params.personId;
-
-      UserDataService.update(personID, data)
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((e) => {
-            console.log(e);
-          });
-      this.edit_person_dlg = false;
-    },
-
     updatePerson() {
 
       // let salt = this.generateSalt();
@@ -632,6 +476,7 @@ export default {
           console.log(e);
         });
       this.edit_person_dlg = false;
+      console.log(this.edit_role.role);
       this.updateSelectedRole(this.edit_role.role);
     },
   },

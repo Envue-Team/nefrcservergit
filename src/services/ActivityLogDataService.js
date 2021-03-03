@@ -2,7 +2,7 @@ import http from "../http-common";
 
 class ActivityLogDataService {
     getAll() {
-        return http.get(`activity_logs`);
+        return http.get(`activity_logs`); 
     }
 
     create(data) {
