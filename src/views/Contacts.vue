@@ -19,6 +19,17 @@
             </v-card>
           <v-card-text>
             <v-row>
+              <v-btn
+                  fab
+                  elevation="3"
+                  small
+                  class="ml-3"
+                  color="white"
+                  @click="add_person_dlg=true"
+              >
+                <v-icon class="mdi mdi-dark mdi-plus">
+                </v-icon>
+              </v-btn>
               <v-spacer></v-spacer>
               <v-text-field
                   v-model="search"
@@ -38,7 +49,9 @@
                 class="text-capitalize"
             >
               <template v-slot:item.name="{ item }">
-                <span class="black--text">{{ item.name }}</span>
+                <template v-if="item.first_name !== null">
+                  <span class="black--text">{{ item.name }}</span>
+                </template>
               </template>
               <template v-slot:item.address="{ item }">
                 <address>
@@ -51,11 +64,200 @@
               <template v-slot:item.phones="{ item }">
                   {{ phone.number }}
               </template>
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-btn
+                  icon
+                  small
+                  @click="openRemovePersonDlg(item)"
+                ></v-btn>
+                <v-icon
+                    color="grey"
+                    class="mdi mdi-trash-can-outline"
+                ></v-icon>
+              </template>
             </v-data-table>
           </v-card-text>
         </v-card>
+        <!------------------ dialog box to add person--------------------------->
+        <v-dialog v-model="add_person_dlg" max-width="600px">
+          <v-card>
+            <v-form v-model="valid" lazy-validation>
+              <v-card-title>
+                <span class="headline">Contact Information</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="6" sm="6" md="6">
+                      <v-text-field
+                        label="First Name"
+                        required
+                        v-model="add_person.firstname"
+                        :rules="nameRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="6" sm="6" md="6">
+                      <v-text-field
+                        label="Last Name"
+                        required
+                        v-model="add_person.lastname"
+                        :rules="nameRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="6" sm="6" md="6"> </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        label="Street Number"
+                        v-model="add_person.street_number"
+                        :rules="streetNumberRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        label="Street Name"
+                        v-model="add_person.street_name"
+                        :rules="nameRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="3" sm="6" md="4">
+                      <v-text-field
+                        label="City"
+                        v-model="add_person.city"
+                        :rules="nameRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="2">
+                      <v-select
+                        label="State"
+                        v-model="add_person.state"
+                        :rules="nameRules"
+                        :items="states"
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="3">
+                      <v-text-field
+                        label="Zip"
+                        v-model="add_person.zip"
+                        :rules="zipRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-text-field
+                        label="County"
+                        v-model="add_person.county"
+                        :rules="nameRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-text-field
+                        label="Primary Phone"
+                        v-model="add_person.primaryPhone"
+                        placeholder="(XXX) XXX-XXXX"
+                        @keyup="formatPrimaryPhone"
+                        :rules="phoneRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-text-field
+                        label="Secondary Phone"
+                        placeholder="(XXX) XXX-XXXX"
+                        v-model="add_person.secondaryPhone"
+                        @keyup="formatSecondaryPhone"
+                        :rules="phoneRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="6">
+                      <v-text-field
+                        label="Primary Email"
+                        v-model="add_person.primaryEmail"
+                        :rules="emailRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="6">
+                      <v-text-field
+                        label="Secondary Email"
+                        v-model="add_person.secondaryEmail"
+                        :rules="emailRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+                <small>*indicates required field</small>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="add_person_dlg = false"
+                >
+                  Close
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="addPerson" :disabled="!valid">
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-form>
+          </v-card>
+        </v-dialog>
+        <!--------------------- dialog box to add person closed-------------------->
       </v-col>
     </v-row>
+    <!-------------------------------------Remove Person Dialog------------------------------>
+    <v-dialog
+        content-class="small-dlg"
+        v-model="remove_person_dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to delete this point of contact?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="remove_person_dlg=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="deleteContact"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!-------------------------------------//Remove Person Dialog------------------------------>
+
   </v-container>
 </template>
 
@@ -63,12 +265,14 @@
 import ContactDataService from "@/services/ContactDataService";
 import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from "../services/PhoneDataService";
+//activity log addition
 import UserDataService from "../services/UserDataService";
 // import ActivityLogDataService from "../services/ActivityLogDataService";
 //close activity log addition
 
 export default {
   name: "volunteers-list",
+  //components: {AddVolunteer},
   data() {
     return {
       current_person_id: '',
@@ -159,24 +363,38 @@ export default {
   },
   computed: {
     headers() {
-      let headers = [
+      var headers = [
         { text: "Name", value: "name", width: "80px" , class: 'red--text text--darken-3'},
         { text: "Address", value: "address", width: "100px", class: 'red--text text--darken-3' },
         { text: "Email", value: "email", width: "80px", class: 'red--text text--darken-3' },
         { text: "Phone", value: "phone", width: "100px", class: 'red--text text--darken-3' },
         { text: "County", value: "county", width: "80px", class: 'red--text text--darken-3' },
         { text: "Organization", value: "organization_names", width: "80px", class: 'red--text text--darken-3' },
+
+        //{text: 'Notes', value: 'notes', width: '160px'},
       ];
+
+      //if(this.filters.partners){
+      //  headers.push({text: "Services", value:'partner.services', width: '80px'});
+      //}
+      //if(this.filters.relationships){
+      //  headers.push({text: "Status",value:'relationship.status', width: '80px'});
+      //}
       return headers;
     },
   },
   methods: {
     nav(item) {
+      // add dialog page to display the full info
       this.$router.push({ path: "contact/" + item.id });
+      //   }
+      // console.log(item.id+" is the ID(1)");
     },
     retrieveVolunteers() {
+      // console.log(this.$session.getAll());
       ContactDataService.getAll()
         .then((response) => {
+          // console.log(response.data);
           this.volunteers = response.data.filter((contact) => {
             return contact.user == null;
           });
@@ -215,6 +433,7 @@ export default {
             volunteer.organization_names = organization_names;
             volunteer.phone = phones;
           });
+          // console.log(this.volunteers);
         })
         .catch((e) => {
           console.log(e.message);

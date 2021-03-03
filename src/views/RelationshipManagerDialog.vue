@@ -44,11 +44,11 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn
-                style="color: #0091CD"
+                style="background-color: #0091CD; color: white"
                 @click.stop="show=false"
-                text
+                depressed
             >
-              Cancel
+              Close
             </v-btn>
             <v-btn v-show="rm_dlg_action=='Edit'"
                 style="background-color: #ED1B2E; color: white"

@@ -15,10 +15,10 @@ exports.sendMail = (req, res) => {
 
     let info = transporter.sendMail({
         from: '"Envue 👻" <team.envue@gmail.com>', // sender address
-        to: "n01385552@unf.edu; n001916743@unf.edu: n00121210@unf.edu",
-        subject: "Test Succeeded ✔", // Subject line
-        text: "Successful email", // plain text body
-        html: "<b>Ok, y'all can go ahead and do the rest. It's posted to git.</b>", // html body
+        to: req.body.sendTo,
+        subject: req.body.subject, // Subject line
+        text: req.body.text, // plain text body
+        html: req.body.html, // html body
     });
     console.log("Message sent: %s", info.messageId);
 };

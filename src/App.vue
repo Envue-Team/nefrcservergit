@@ -31,7 +31,7 @@
         <v-spacer></v-spacer>
         <v-btn
             icon
-            v-on:click="navigateToProfile"
+            :href="/profile/+$session.get('personId')"
         >
           <v-icon class="mdi mdi-light mdi-face"></v-icon>
         </v-btn>
@@ -185,9 +185,6 @@ export default {
       this.$authenticated = false;
       this.$session.destroy()
       this.$router.push('/')
-    },
-    navigateToProfile(){
-      return this.$router.replace('/profile/'+this.$session.get('personId'));
     },
   },
   computed: {
