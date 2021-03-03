@@ -39,12 +39,13 @@
                 {{ organization.street_number }} {{ organization.street_name}}
                 {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
                 <br/>
-                <span v-for="county in organization.counties" :key="county.id">
+                <span v-for="county in organization.counties" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{county.name}}
                 </span><br/>
                   <a :href="organization.website" style="color: #C4DFF6">
                   {{ organization.website }}
-                </a><span v-if="organization.phones.length != 0">
+                </a>
+                <span v-if="organization.phones != null && organization.phones.length != 0">
                 <span v-show="organization.website != ''"> | </span>
                 {{ organization.primaryPhone}}</span>
               </span>
@@ -76,17 +77,17 @@
                     <div class="card-label">National DCS MOU Partner: </div> {{ organization.mou }}
 
                     <div class="card-label">Lines of Business: </div>
-                    <div v-for="lob in organization.line_of_businesses" :key="lob.id">
+                    <div v-for="lob in organization.line_of_businesses" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{lob.name}}
                     </div>
 
                     <div class="card-label">Community Services Provided: </div>
-                    <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                    <div v-for="arcrel in organization.arc_relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{arcrel.name}}
                     </div>
 
                     <div class="card-label">Agency Types: </div>
-                    <div v-for="agtype in organization.agency_types" :key="agtype.id">
+                    <div v-for="agtype in organization.agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{agtype.name}}
                     </div>
                   </v-card-text>
@@ -158,93 +159,6 @@
             </v-row>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col cols="12">
-            <v-card
-                elevation="3"
-                class="pa-1
-                mt-15"
-                style="background-color: rgb(249, 249, 249)"
-            >
-              <v-card
-                  class="card-header-block pa-3"
-                  rounded
-              >
-                <v-card-text>
-                  <div class="card-header-title">Files</div>
-                </v-card-text>
-              </v-card>
-              <v-card-text>
-                <!--------------------------File List Table-------------------------------->
-                <v-row>
-                  <v-text-field
-                      class="shrink mr-3"
-                      label="Search"
-                      v-model="search"
-                      append-icon="mdi-magnify"
-                      dense
-                  ></v-text-field>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                      fab
-                      elevation="3"
-                      small
-                      class="ml-3"
-                      color="white"
-                      @click="upload_file_dlg=true"
-                  >
-                    <v-icon class="mdi mdi-dark mdi-upload">
-                    </v-icon>
-                  </v-btn>
-                </v-row>
-                <v-data-table
-                    :headers="headers"
-                    :search="search"
-                    :items="files"
-                    item-key="id"
-                    multi-sort
-                >
-                  <template v-slot:item.name="item">
-                    <p>{{ item.item.name  }}</p>
-                  </template>
-                  <template v-slot:item.date="item">
-                    <p>{{ item.item.date }}</p>
-                  </template>
-                  <template v-slot:item.author="item">
-                    <p>{{ item.item.author }}</p>
-                  </template>
-                  <template v-slot:item.download="item">
-                    <v-btn
-                        icon
-                        small
-                        @click="downloadFile(item)"
-                    >
-                      <v-icon
-                          color="orange darken-4"
-                      >
-                        mdi-arrow-down
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                  <template v-slot:item.remove="item">
-                    <v-btn
-                        icon
-                        small
-                        @click="deleteFile(item)"
-                    >
-                      <v-icon
-                          color="grey"
-                          class="mdi mdi-trash-can-outline"
-                      >
-                      </v-icon>
-                    </v-btn>
-                  </template>
-                </v-data-table>
-                <!--------------------------//File List Table-------------------------------->
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
       </v-col>
       <v-col cols="3">
         <v-row>
@@ -274,7 +188,7 @@
                     </v-btn>
                   </div>
                   <div class="card-header-subtitle">{{ organization.contact_protocol }}</div>
-                  <div v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+                  <div v-for="contact in organization_points_of_contact" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                     <div :ref="'first_name_' + contact.personId">
                       <span class="data">{{ contact.first_name }} {{ contact.last_name }}</span>
                       <v-btn
@@ -292,12 +206,12 @@
                       </v-btn>
                     </div>
                     <span class="sub-data">{{ contact.title }}</span>
-                    <span v-for="phone in contact.phones" v-bind:key="phone.number" class="sub-data">
-                <span :ref="'phone_' + phone.id">
-                  <span v-if="phone.isPrimary==true">
-                    {{ phone.number }}(P)
-                  </span>
-                </span>
+                    <span v-for="phone in contact.phones" v-bind:key="Math.floor((Math.random()*1000000000) + 1)" class="sub-data">
+                      <span :ref="'phone_' + phone.id">
+                        <span v-if="phone.isPrimary==true">
+                          {{ phone.number }}(P)
+                        </span>
+                      </span>
             </span>
                     <span v-for="phone in contact.phones" class="sub-data">
                 <span :ref="'phone_' + phone.id">
@@ -349,7 +263,7 @@
                       </v-icon>
                     </v-btn>
                   </div>
-                  <div v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                  <div v-for="manager in organization_relationship_managers" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                     <div :ref="'relationship_manager_' + manager.personId" class="data">
                       {{ manager.person.first_name }} {{ manager.person.last_name }}
                       <v-btn
@@ -364,8 +278,6 @@
                         ></v-icon>
                       </v-btn>
                     </div>
-<!--                    <div v-for="mphone in manager.person.phones" :key="mphone.number" class="sub-data">{{ mphone.number }}</div>-->
-<!--                    <div v-for="memail in manager.person.emails" :key="memail.address" class="sub-data"> {{ memail.address }}</div>-->
                   </div>
                 </v-card-text>
               </v-card>
@@ -386,13 +298,12 @@
         >
           {{ organization.name }}
           <v-btn
-              icon
-              class="ml-3"
+              style="color: #878686; margin-left: 140px"
+              outlined
               @click="openDialog('Edit')"
               v-if="verifyAccess('update')"
           >
             <v-icon
-                style="color: #9F9FA3"
                 class="mdi mdi-pencil"
                 small
             ></v-icon>
@@ -409,12 +320,14 @@
           {{ organization.street_number }} {{ organization.street_name}}<br/>
           {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
           <br/>
-          <a :href="organization.website" style="color: #7F181B">
-            {{ organization.website }}
-          </a><span v-if="organization.phones.length != 0">
-                <span v-show="organization.website != ''"> | </span>
-                {{ organization.primaryPhone}}</span><br/>
-          <span v-for="county in organization.counties" :key="county.id">
+          <span v-show="organization.website != ''">
+              <a :href="organization.website" style="color: #7F181B">
+                  {{ organization.website }}
+              </a> | </span>
+          <span v-if="organization.phones != null && organization.phones.length != 0">{{ organization.primaryPhone}}
+          </span><br/>
+
+          <span v-for="county in organization.counties" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{county.name}}
                 </span>
         </div>
@@ -429,18 +342,20 @@
               <div style="font-family: 'Poppins', sans-serif;
                    color: #504b4b;
                    font-size: 15px;
-                   padding-left: 20px">
+
+                "
+              >
                 {{ organization.contact_protocol }}
                 <v-btn
                     icon
-                    style="color: #7F181B"
+                    style="color: #7F181B; margin-left: 50px; margin-bottom: 20px"
                     v-show="verifyAccess('update')"
                 >
                   <v-icon
                       class="mdi mdi-account-plus"
                       @click="openDialog('Add POC')"
                   >
-                  </v-icon>
+                  </v-icon> Add Contact
                 </v-btn>
               </div>
               <v-slide-group
@@ -449,7 +364,7 @@
                   center-active
                   show-arrows
               >
-                <v-slide-item v-for="contact in organization_points_of_contact" v-bind:key="contact.id">
+                <v-slide-item v-for="contact in organization_points_of_contact" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                   <v-card
                       flat
                       :width="screen"
@@ -464,8 +379,8 @@
                 <span style="color: #504b4b; font-family: 'Poppins', sans-serif; font-weight: 700">
                   {{ contact.first_name }} {{ contact.last_name }}
                   <v-btn
-                    icon
-                    small
+                    style="color: #C4DFF6; margin-left: 90px"
+                    outlined
                     class="ml-3"
                     v-show="verifyAccess('update')"
                     @click="openDialog('Edit POC', contact.id)"
@@ -476,13 +391,13 @@
                             style="color: #C4DFF6"
                         ></v-icon>
                       </v-btn>
-                <br/>{{contact.title}}</span>
+                      <br/>{{contact.title}}</span>
                       <br/>
                       <a v-if="contact.phones.length != 0" href="tel: phone.number"
                          style="font-family: 'Poppins', sans-serif;
-                   color: #504b4b;
-                   font-size: 14px;
-                   "
+                         color: #504b4b;
+                         font-size: 14px;
+                         "
                       >
                         {{ contact.phones[0].number }}
                       </a>
@@ -510,49 +425,52 @@
                   style="font-family: 'Poppins', sans-serif;
                    color: #504b4b;
                    font-size: 15px;
-                   padding-left: 20px"
+                  "
               >
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
+                  Last Contact:
                   <v-btn
-                      icon
-                      style="color: #C4DFF6"
+                      style="color: #C4DFF6; margin-left: 90px"
+                      outlined
                       v-show="verifyAccess('update')"
                       @click="contact_note_dlg=true"
                   >
                     <v-icon
-                        class="mdi mdi-comment-outline"
+                        class="mdi mdi-comment"
                         small
                     ></v-icon>
                   </v-btn>
-                  Last Contact: </div>
+                </div>
                 {{ organization.last_contact }}
                 <br/>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
+                  Opportunities:
                   <v-btn
                       v-show="verifyAccess('update')"
-                      icon
-                      style="color: #C4DFF6"
+                      outlined
+                      style="color: #C4DFF6; margin-left: 80px"
                       @click="op_action_dlg=true"
                   >
                     <v-icon
-                        class="mdi mdi-comment-outline"
+                        class="mdi mdi-comment"
                         small></v-icon>
                   </v-btn>
-                  Opportunities: </div>
+                </div>
                 {{ organization.action }}
                 <br/>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
+                  Notes:
                   <v-btn
                       v-show="verifyAccess('update')"
-                      icon
-                      style="color: #C4DFF6"
+                      outlined
+                      style="color: #C4DFF6; margin-left: 135px"
                       @click="add_note_dlg=true"
                   >
                     <v-icon
                         small
-                        class="mdi mdi-comment-outline"></v-icon>
+                        class="mdi mdi-comment"></v-icon>
                   </v-btn>
-                  Notes </div>
+                </div>
                 {{ organization.notes }}
               </div>
             </v-expansion-panel-content>
@@ -574,37 +492,37 @@
                   <v-icon
                       small
                       color="green"
-                      v-if="organization.mou.toLowerCase() == 'yes'"
+                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'yes'"
                       class="mdi mdi-check"
                   >
                   </v-icon>
                   <v-icon
                       small
                       color="red"
-                      v-if="organization.mou.toLowerCase() == 'no'"
+                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'no'"
                       class="mdi mdi-close"
                   >
                   </v-icon>
                   <v-icon
                       small
                       color="grey"
-                      v-if="organization.mou.toLowerCase() == 'maybe'"
+                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'maybe'"
                       class="mdi mdi-help"
                   >
                   </v-icon>
                 </div>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Lines of Business: </div>
-                <div v-for="lob in organization.line_of_businesses" :key="lob.id">
+                <div v-for="lob in organization.line_of_businesses" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{lob.name}}
                 </div>
 
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Community Services Provided: </div>
-                <div v-for="arcrel in organization.arc_relationships" :key="arcrel.id">
+                <div v-for="arcrel in organization.arc_relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{arcrel.name}}
                 </div>
 
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Agency Types: </div>
-                <div v-for="agtype in organization.agency_types" :key="agtype.id">
+                <div v-for="agtype in organization.agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{agtype.name}}
                 </div>
               </div>
@@ -617,14 +535,14 @@
             <v-expansion-panel-content>
                 <v-btn
                     icon
-                    style="color: #7F181B"
+                    style="color: #7F181B; margin-left: 50px; margin-bottom: 20px"
                     v-show="verifyAccess('reassign')"
                 >
                   <v-icon
                       class="mdi mdi-account-plus"
                       @click="openDialog('Add RM')"
                   >
-                  </v-icon>
+                  </v-icon> Add Manager
                 </v-btn>
               <v-slide-group
                   v-model="slgroup1"
@@ -633,7 +551,7 @@
                   center-active
                   show-arrows
               >
-                <v-slide-item v-for="manager in organization_relationship_managers" v-bind:key="manager.id">
+                <v-slide-item v-for="manager in organization_relationship_managers" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                   <v-card
                       flat
                       :width="screen"
@@ -666,6 +584,96 @@
         </v-expansion-panels>
       </v-col>
       <!---------------------------------//Small Screen------------------------------------->
+
+    </v-row>
+    <v-row>
+      <v-col class="col-md-9 col-sm-12">
+        <span class="mobile-title hidden-md-and-up">Files</span>
+
+        <v-card
+            elevation="3"
+            class="pa-1
+                mt-3"
+            style="background-color: rgb(249, 249, 249)"
+        >
+          <v-card
+              class="card-header-block pa-3 hidden-md-and-down"
+              rounded
+          >
+            <v-card-text>
+              <div class="card-header-title">Files</div>
+            </v-card-text>
+          </v-card>
+          <v-card-text>
+            <!--------------------------File List Table-------------------------------->
+            <v-row>
+              <v-text-field
+                  class="shrink mr-3"
+                  label="Search"
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  dense
+              ></v-text-field>
+              <v-spacer></v-spacer>
+              <v-btn
+                  fab
+                  elevation="3"
+                  small
+                  class="ml-3"
+                  color="white"
+                  @click="upload_file_dlg=true"
+              >
+                <v-icon class="mdi mdi-dark mdi-upload">
+                </v-icon>
+              </v-btn>
+            </v-row>
+            <v-data-table
+                :headers="headers"
+                :search="search"
+                :items="files"
+                item-key="id"
+                multi-sort
+            >
+              <template v-slot:item.name="item">
+                <p>{{ item.item.name  }}</p>
+              </template>
+              <template v-slot:item.date="item">
+                <p>{{ item.item.date }}</p>
+              </template>
+              <template v-slot:item.author="item">
+                <p>{{ item.item.author }}</p>
+              </template>
+              <template v-slot:item.download="item">
+                <v-btn
+                    icon
+                    small
+                    @click="downloadFile(item)"
+                >
+                  <v-icon
+                      color="orange darken-4"
+                  >
+                    mdi-arrow-down
+                  </v-icon>
+                </v-btn>
+              </template>
+              <template v-slot:item.remove="item">
+                <v-btn
+                    icon
+                    small
+                    @click="deleteFile(item)"
+                >
+                  <v-icon
+                      color="grey"
+                      class="mdi mdi-trash-can-outline"
+                  >
+                  </v-icon>
+                </v-btn>
+              </template>
+            </v-data-table>
+            <!--------------------------//File List Table-------------------------------->
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
     <!--------------------------Dialogs-------------------------------->
     <POCDialog
@@ -755,11 +763,11 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  style="background-color: #0091CD; color: white"
-                  depressed
+                  style="color: #0091CD"
+                  text
                   @click="add_note_dlg=false"
               >
-                Close
+                Cancel
               </v-btn>
               <v-btn
                   style="background-color: #7F181B; color: white"
@@ -804,11 +812,11 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  style="background-color: #0091CD; color: white"
-                  depressed
+                  style="color: #0091CD"
+                  text
                   @click="contact_note_dlg=false"
               >
-                Close
+                Cancel
               </v-btn>
               <v-btn
                   style="background-color: #7F181B; color: white"
@@ -853,11 +861,11 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
-                  style="background-color: #0091CD; color: white"
-                  depressed
+                  style="color: #0091CD"
+                  text
                   @click="op_action_dlg=false"
               >
-                Close
+                Cancel
               </v-btn>
               <v-btn
                   style="background-color: #7F181B; color: white"
@@ -1118,11 +1126,11 @@
             </v-btn>
             <v-spacer></v-spacer>
             <v-btn
-                style="background-color: #0091CD; color: white"
-                depressed
+                style="color: #0091CD"
+                text
                 @click="organization_edit_dlg=false"
             >
-              Close
+              Cancel
             </v-btn>
 
             <v-btn
@@ -1272,12 +1280,12 @@ import OrganizationAgencyTypeDataService from "@/services/OrganizationAgencyType
 import ArcRelationshipDataService from "@/services/ArcRelationshipDataService";
 import AgencyTypeDataService from "@/services/AgencyTypeDataService";
 import RoleDataService from "../services/RoleDataService";
+import EmailerDataServiceProvider from "../services/EmailerDataServiceProvider";
 import "../assets/scss/organization.scss";
+
 //TODO: Sanitize and validate form input
 export default {
   name: "organization",
-  slgroup: null,
-  slgroup1: null,
   components: {
     POCDialog,
     NoteDialog,
@@ -1286,10 +1294,17 @@ export default {
 
   data() {
     return {
+
+      slgroup1: null,
+      slgroup: null,
+      /**
+       * Current User
+       **/
       currentUserId: '',
       isOwner: false,
       permissions: [],
       confirm_delete: false,
+
       /**
        * Small Screen
        **/
@@ -1298,7 +1313,7 @@ export default {
       items: [
         'Contacts', 'Notes', 'Details', 'Address', 'RM',
       ],
-        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+
       /**
        * Form validation
        **/
@@ -1497,7 +1512,6 @@ export default {
         case "Remove RM":
           this.delete_relationship_manager_dialog = true;
           this.current_relationship_manager_id = id;
-          console.log(id);
           break;
         case "Edit POC":
           this.update_poc_id = id;
@@ -1527,7 +1541,7 @@ export default {
       data.organizationId = this.organization.id;
       data.personId = this.currentUserId;
       data.type = 'general';
-      NoteDataService.create(data).then(response=>{
+      NoteDataService.create(data).then(()=>{
         this.setOrganization(this.organization.id);
       }).catch(e=>{console.log(e)});
       // this.add_note_form.text = '';
@@ -1559,7 +1573,7 @@ export default {
         filePath: obj.item.filePath
       }
       FileDataService.delete(obj.item.id, data)
-          .then(response=>{
+          .then(()=>{
             this.populateFiles(this.organization.id);
           })
           .catch(e=>{
@@ -1608,8 +1622,9 @@ export default {
      **/
     deleteOrganization(){
       OrganizationDataService.delete(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.confirm_delete = false;
+            this.$addToLog(this.organization.name, "deleted");
           })
           .catch(e=>{console.log(e)});
       this.$router.push({path: '/organizations'}).catch(err=>{console.log(err)});
@@ -1639,6 +1654,7 @@ export default {
      */
       this.update_organization_dlg = false;
       this.organization_edit_dlg = false;
+      this.$addToLog("Organization:"+this.organization.name, "updated");
       let data = {
         "name": this.organization.name,
         "street_number": this.organization.street_number,
@@ -1674,7 +1690,7 @@ export default {
       }
 
       OrganizationCountyDataService.deleteOrganizationCounties(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_counties.forEach(county=>{
               if(this.organization_counties.includes(county.name)){
                 let data = {
@@ -1682,7 +1698,7 @@ export default {
                   countyId: county.id
                 }
                 OrganizationCountyDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1690,7 +1706,7 @@ export default {
           })
           .catch(e=>{console.log(e)});
       OrganizationLineOfBusinessDataService.deleteOrganizationLinesOfBusiness(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_lines_of_business.forEach(line_of_business=>{
               if(this.organization_lines_of_business.includes(line_of_business.name)){
                 let data = {
@@ -1698,7 +1714,7 @@ export default {
                   lineOfBusinessId: line_of_business.id
                 }
                 OrganizationLineOfBusinessDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1707,7 +1723,7 @@ export default {
           .catch(e=>{console.log(e)});
 
       OrganizationArcRelationshipDataService.deleteOrganizationArcRelationships(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_arc_relationships.forEach(arc_relationship=>{
               if(this.organization_arc_relationships.includes(arc_relationship.name)){
                 let data = {
@@ -1715,7 +1731,7 @@ export default {
                   arcRelationshipId: arc_relationship.id
                 }
                 OrganizationArcRelationshipDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1723,7 +1739,7 @@ export default {
           })
           .catch(e=>{console.log(e)});
       OrganizationAgencyTypeDataService.deleteOrganizationAgencyTypes(this.organization.id)
-          .then(response=>{
+          .then(()=>{
             this.unmapped_agency_types.forEach(agency_type=>{
               if(this.organization_agency_types.includes(agency_type.name)){
                 let data = {
@@ -1731,7 +1747,7 @@ export default {
                   agencyTypeId: agency_type.id
                 }
                 OrganizationAgencyTypeDataService.create(data)
-                    .then(response=>{
+                    .then(()=>{
                       this.setOrganization();
                     }).catch(e=>{console.log(e)});
               }
@@ -1742,20 +1758,6 @@ export default {
     setOrganization(){
       OrganizationDataService.get(this.$route.params.organizationId)
           .then(response=>{
-            // this.notes = response.data.notes.map(note=>{
-            //   let date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
-            //   let dateCreated = new Date(note.createdAt);
-            //   return {
-            //     id: note.id,
-            //     text: note.text,
-            //     date: date,
-            //     author: note.person,
-            //     type: note.type,
-            //     createdAt: dateCreated
-            //   }
-            // });
-            // this.notes.sort((a,b)=>b.createdAt-a.createdAt);
-            // this.latest_note = this.notes[0];
             response.data.counties.forEach(county=>{
               this.organization_counties.push(county.name);
             });
@@ -1773,7 +1775,7 @@ export default {
                 .catch(e=>{console.log(e)});
             this.organization = response.data;
 
-            if(this.organization.phones.length==0){
+            if(response.data.phones.length==0){
               this.organization.primaryPhone = '';
             } else{
               this.organization.primaryPhone = response.data.phones[0].number;
@@ -1830,7 +1832,7 @@ export default {
           .catch(e=>{console.log(e)});
     },
     setPOC(res){
-      if(res.data.length == 0){
+      if(res.data.length == 0 && this.verifyAccess('update')){
         this.openDialog('Add POC');
       }else{
         this.organization_points_of_contact = res.data;
@@ -1861,7 +1863,15 @@ export default {
           .then(response=>{
             this.organization.relationship_managers = response.data;
             this.setOrganization();
-          })
+            return response.data;
+          }).then(data=>{
+            PersonDataService.get(data.personId)
+                .then(response=>{
+                  let rm = response.data.first_name +" "+response.data.last_name;
+                  this.$addToLog("Relationship manager: "+rm+"\n Organization:"+this.organization.name, "added");
+                })
+                .catch(e=>{console.log(e)})
+      })
           .catch(err=>{console.log(err)});
     },
     updateRelationshipManager(data, id){
@@ -1872,17 +1882,29 @@ export default {
           .then(response => {
             this.organization.relationship_managers = response.data;
             this.setOrganization();
+            return response.data;
+          })
+          .then(data=>{
+            PersonDataService.get(data.personId)
+                .then(response=>{
+                  let rm = response.data.first_name +" "+response.data.last_name;
+                  this.$addToLog("Relationship manager: "+rm+"\n Organization:"+this.organization.name, "updated");
+                })
           })
           .catch(e => {
             console.log(e)
           });
     },
     deleteRelationshipManager(){
-      // this.showRMDialog = false;
       this.delete_relationship_manager_dialog = false;
+      let rm = this.organization.relationship_managers.filter(manager=>{
+        return manager.person.id == this.current_relationship_manager_id;
+      });
+      let rmName = rm[0].person.first_name +" "+rm[0].person.last_name;
+      this.$addToLog("Relationship manager: "+rmName+"\n Organization:"+this.organization.name, "removed");
       RelationshipManagerDataService.delete(this.organization.id, this.current_relationship_manager_id)
           .then(
-              response=>{
+              ()=>{
                 this.setOrganization();
               })
           .catch(e=>{console.log(e)});
@@ -1891,11 +1913,13 @@ export default {
       data.isPrimary = primary;
       if(contactId != 0){
         service.update(contactId, data)
-            .then(response=>{this.setOrganization();})
+            .then(()=>{
+              this.setOrganization();
+            })
             .catch(e=>{console.log(e)});
       }else{
         service.create(data)
-            .then(response=>{this.setOrganization();})
+            .then(()=>{this.setOrganization();})
             .catch(e=>{console.log(e)});
       }
     },
@@ -1917,7 +1941,13 @@ export default {
                       .catch(e=>{console.log(e)})});
             return person.id;
           }).then(id=>{
-        PersonDataService.delete(id).catch(e=>{console.log(e)});
+        PersonDataService.get(id)
+            .then(response=>{
+              let name = response.data.first_name +" "+response.data.last_name;
+              this.$addToLog("Point of Contact: "+name+"\n Organization:"+this.organization.name, "removed");
+              PersonDataService.delete(id).catch(e=>{console.log(e)});
+            })
+            .catch(e=>{console.log(e)});
         this.setOrganization();
       })
           .catch(e=>{console.log(e)});
@@ -1926,6 +1956,9 @@ export default {
       PersonDataService.get(id)
           .then(response=>{
             let person = response.data;
+            let personName = person.first_name+" "+person.last_name;
+            this.$addToLog("Point of Contact: "+personName+"\n Organization:"+this.organization.name, "updated");
+            this.$addToLog()
             let phoneData = {};
             if(data.primary_phone){
               phoneData = {
@@ -1998,6 +2031,9 @@ export default {
           });
     },
     createPOC(data){
+      let personName = data.first_name+" "+data.last_name;
+      this.$addToLog("Point of Contact: "+personName+"\n Organization:"+this.organization.name, "created");
+
       PersonDataService.create(data)
           .then(response=>{
             let personId = response.data.id;
@@ -2046,7 +2082,7 @@ export default {
                   .catch(e=>{console.log(e)});
             }
             PointOfContactDataService.create(pocData)
-                .then(response=>{
+                .then(()=>{
                   this.setOrganization();
                 }).catch(e=>{console.log(e)});
           })
@@ -2080,9 +2116,8 @@ export default {
         personId: this.updated_point_of_contact.value
       };
       PointOfContactDataService.create(data)
-          .then(response=>{
+          .then(()=>{
             this.setOrganization();
-            // console.log(response);
           })
           .catch(err=>{console.log(err)});
     },
@@ -2095,7 +2130,7 @@ export default {
 
       let personId = this.organization_points_of_contact[0].id;
       PersonDataService.update(personId, data)
-          .then(response=>{
+          .then(()=>{
             this.setOrganization();
           }).catch(e=>{
             console.log(e)
@@ -2174,6 +2209,14 @@ export default {
     validate () {
       this.$refs.form.validate()
     },
+    sendEmail(){
+      console.log("called");
+      EmailerDataServiceProvider.getAll()
+          .then(response=>{
+            console.log("sendMail:");
+            console.log(response)})
+          .catch(e=>console.log(e));
+    }
   },
   computed:{
     screen (){
@@ -2201,27 +2244,7 @@ export default {
     this.populateAgencyTypes();
     this.setPagePermissions();
     this.setCurrentUser();
+    this.sendEmail();
   }
 };
 </script>
-
-<style>
-  .glass-wrap {
-    background: inherit;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.33);
-  }
-
-  .glass-wrap-outer{
-    background: inherit;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.15);
-  }
-
-  .expanded-class {
-    background-color: #a35555;
-  }
-</style>
-
-
-

@@ -1,10 +1,45 @@
-.details-font {
+.page-title {
+  font-family: "Roboto", sans-serif;
+  margin-left: -50px;
   font-size: 2em;
 }
+
 @media (max-width: 767px) {
-  .details-font {
-    font-size: 1.5em;
+  .page-title {
+    font-family: "Roboto", sans-serif;
+    margin-left: 10px;
+    font-size: 2em;
   }
 }
+.card-label {
+  font-weight: bold;
+  color: #6D6E70;
+}
+
+.card-label-light {
+  font-weight: bold;
+  color: white;
+}
+
+.data {
+  color: white;
+  font-weight: bold;
+}
+
+.sub-data {
+  color: white;
+  font-family: Poppins, sans-serif;
+}
+
+.item-title {
+  font-size: 36px;
+  color: #6D6E70;
+}
+
+.active-drawer-link {
+  background-color: #ED1B2E;
+}
+
+/*# sourceMappingURL=organization.scss.map */
 
 /*# sourceMappingURL=organization.css.map */
