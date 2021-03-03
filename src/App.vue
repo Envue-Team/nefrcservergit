@@ -20,22 +20,20 @@
         <v-btn
             class="mr-3 hidden-md-and-up"
             elevation="1"
-            fab
             small
             @click.stop="toggleDrawer"
         >
-          <v-icon class="mdi mdi-dark mdi-dots-vertical"></v-icon>
+          <v-icon class="mdi mdi-dark mdi-menu"></v-icon>
         </v-btn>
         <v-toolbar-title
         style="color: white"
         >{{getPageTitle}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
-            text
             icon
-            href="/userpage"
+            :href="/profile/+$session.get('personId')"
         >
-          <v-icon class="mdi mdi-light mdi-account"></v-icon>
+          <v-icon class="mdi mdi-light mdi-face"></v-icon>
         </v-btn>
     </v-app-bar>
     <v-navigation-drawer
@@ -44,13 +42,13 @@
         :mini-variant.sync="mini"
         app
     >
-    <v-img src="./assets/images/rescuers.jpeg" height="100%">
+    <v-img src="./assets/images/rescuers.jpeg"  height="100%">
       <v-list-item>
         <v-list-item-avatar style="margin-left: -10px">
           <v-img src="./assets/images/req_logo.png" min-height="70px"/>
         </v-list-item-avatar>
 
-        <v-list-item-title style="color: grey; font-weight: bolder">
+        <v-list-item-title style="color: white; font-weight: bolder">
           American Red Cross
         </v-list-item-title>
 
@@ -76,6 +74,7 @@
             active-class="active-drawer-link"
             dark
             :to="item.link"
+            v-on:click="item.click"
         >
           <v-list-item-icon>
             <v-icon>{{ item.icon }}</v-icon>
@@ -85,15 +84,33 @@
               <v-list-item-title>{{ item.title }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item
+          link
+          active-class="active-drawer-link"
+          dark
+          @click="logout"
+        >
+          <v-list-item-icon>
+            <v-icon class="mdi mdi-logout"></v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
     </v-img>
     </v-navigation-drawer>
     <v-main style="background-color: rgba(70, 9, 9, 0.1);">
+      <div class="video-container">
       <video
-          class="hidden-md-and-down"
-          style="width:100%; height: auto;" v-if="isLoginPage" playsinline autoplay muted loop>
+          height="100%"
+          width="100%"
+          style="overflow: hidden"
+          v-if="isLoginPage" playsinline autoplay muted loop>
         <source :src='require("./assets/videos/arc_short.mp4")' type='video/mp4'>
       </video>
+      </div>
       <router-view @setPagePermissions="setPagePermissions" />
     </v-main>
   </v-app>
@@ -106,11 +123,6 @@ import { mdbContainer, mdbRow, mdbCol } from 'mdbvue';
 
 export default {
   name: 'App',
-  mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
-    if(!this.$authenticated) {
-      this.$router.replace({ name: "login" });
-    }
-  },
   data() {
     return {
       'navDialog': false,
@@ -163,12 +175,16 @@ export default {
     },
     setNavLinks(){
       this.items = [
-        // { title: 'Profile', icon: 'mdi-account', link: '/profile' },
-        { title: 'Partners', icon: 'mdi-home-city', link: '/home', isVisible: true },
-        { title: 'Admin', icon: 'mdi-account-key', link: '/users', isVisible: this.verifyAccess('modify') },
-        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true },
-        { title: 'Sign Out', icon: 'mdi-logout', link: '/', isVisible: true}
+        { title: 'Profile', icon: 'mdi-face', link: '/profile/'+this.$session.get("personId"), isVisible: true, click: '' },
+        { title: 'Partners', icon: 'mdi-home-city', link: '/home', isVisible: true, click: '' },
+        { title: 'Admin', icon: 'mdi-account-key', link: '/users', isVisible: this.verifyAccess('modify'), click: '' },
+        { title: 'Contacts', icon: 'mdi-account-group', link: '/contacts', isVisible: true, click: '' },
       ];
+    },
+    logout() {
+      this.$authenticated = false;
+      this.$session.destroy()
+      this.$router.push('/')
     },
   },
   computed: {
@@ -194,18 +210,36 @@ export default {
       }
     }
   },
-  mounted(){
+  mounted() { //TODO: UNCOMMENT FOR LOGIN PAGE
+    if(!this.$session.exists() && !this.$authenticated) this.$router.replace('/');
     this.setPagePermissions();
   },
-
 };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.video-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.video-container video {
+  /* Make video to at least 100% wide and tall */
+  min-width: 100%;
+  min-height: 100%;
+
+  /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+  width: auto;
+  height: auto;
+
+  /* Center the video */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 
 </style>
