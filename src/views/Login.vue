@@ -198,7 +198,7 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="testFunction"
+              @click="sendPasswordEmail"
               :disabled="!valid"
             >
               Save
@@ -293,20 +293,15 @@ export default {
     checkEmail() {
       EmailDataService.get();
     },
-    testFunction() {
-      var data =  {
-        sendTo: "ruizjoseph17@gmail.com",
-        subject: "YOU FORGOT YOUR PASSWORD HOMIE",
-        text: "This is a password test",
-        html: "<p>Omea Wa Mau Shinderu</p>"
-      }
-      EmailerDataServiceProvider.sendMail(data)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((e) => {
-        console.log(e);
-      })
+    generateSalt() {
+      return crypto.randomBytes(16).toString("base64");
+    },
+    encryptPassword(plainText, salt) {
+      return crypto
+        .createHash("sha256")
+        .update(plainText)
+        .update(salt)
+        .digest("hex");
     },
     sendPasswordEmail() {
       console.log("called");
@@ -320,22 +315,64 @@ export default {
             this.ForgotPasswordType = "alert";
             this.ForgotPasswordMessage = "Email Does Not Exist.";
           } else if (response.data.length >= 1) {
-            
             let userEmail = response.data[0].emails[0].address;
             let userPass = response.data[0].user.password;
             console.log(userEmail);
+
+            let size = 8;
+            let characters =
+              "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+            for (let i = 0, charSize = characters.length; i < size; ++i) {
+              this.passwordReturn += characters.charAt(
+                Math.floor(Math.random() * charSize)
+              );
+            }
+
+            let salt = this.generateSalt();
+            let password = this.encryptPassword(this.passwordReturn, salt);
+
+            var data = {
+              first_name: response.data[0].first_name,
+              last_name: response.data[0].last_name,
+              email: userEmail,
+              password: password,
+              salt: salt,
+            };
+            var personId = response.data[0].id;
+
+            UserDataService.update(personId, data).then((response) => {
+              console.log(response);
+              console.log(this.passwordReturn);
+              var data = {
+                sendTo: "ruizjoseph17@gmail.com",
+                subject: "YOU FORGOT YOUR PASSWORD HOMIE",
+                text: "Here is your new password ya little dummy" + this.passwordReturn,
+                html: "Here is your new password ya little dummy " + this.passwordReturn,
+              };
+              EmailerDataServiceProvider.sendMail(data)
+                .then((response) => {
+                  console.log(response);
+                })
+                .catch((e) => {
+                  console.log(e);
+                });
+            });
+
+            //update password with 'passwordReturn' then email client.
+
             this.ForgotPassword = true;
             this.ForgotPasswordColor = "green";
             this.ForgotPasswordType = "success";
             this.ForgotPasswordMessage = "Password reset link has been sent.";
-
           }
         })
         .catch((e) => {
-            this.ForgotPassword = true;
-            this.ForgotPasswordColor = "red";
-            this.ForgotPasswordType = "alert";
-            this.ForgotPasswordMessage = "Something went wrong, please contact your Administrator.";
+          this.ForgotPassword = true;
+          this.ForgotPasswordColor = "red";
+          this.ForgotPasswordType = "alert";
+          this.ForgotPasswordMessage =
+            "Something went wrong, please contact your Administrator.";
         });
 
       // EmailerDataServiceProvider.getAll()
@@ -458,6 +495,7 @@ export default {
     FailedLogin: false,
     Registered: "",
     password_recover: false,
+    passwordReturn: "",
     RegisteredType: "",
     RegisteredColor: "",
     RegisteredMessage: "",
