@@ -24,24 +24,16 @@
       </path>
     </select>
   </component>
-  <component name="CMakeSettings">
-    <configurations>
-      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" ENABLED="true" />
-    </configurations>
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Fix profile link in navbar.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="For merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ClangdSettings">
-    <option name="formatViaClangd" value="false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -184,14 +176,7 @@
       <workItem from="1613926540429" duration="52136000" />
       <workItem from="1614165597441" duration="45962000" />
       <workItem from="1614649184056" duration="201000" />
-      <workItem from="1614689486873" duration="13337000" />
-    </task>
-    <task id="LOCAL-00018" summary="Update organization add and edit per arc request">
-      <created>1610314788185</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1610314788185</updated>
+      <workItem from="1614689486873" duration="22467000" />
     </task>
     <task id="LOCAL-00019" summary="Add access security to the organization">
       <created>1610656925719</created>
@@ -529,7 +514,14 @@
       <option name="project" value="LOCAL" />
       <updated>1614781849025</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="For merge">
+      <created>1614805190525</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1614805190525</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -600,7 +592,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="For merge reupdate contacts format and contact page." />
     <MESSAGE value="Make edit options more visible on small screen. Set close button to text on dialogs. Make active nav text white. Remove unnecessary assets." />
     <MESSAGE value="Block access for users not logged in" />
     <MESSAGE value="Globalize addToLog function" />
@@ -625,7 +616,8 @@
     <MESSAGE value="Mailer, working but, bad credentials." />
     <MESSAGE value="Mailer operational." />
     <MESSAGE value="Fix profile link in navbar." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix profile link in navbar." />
+    <MESSAGE value="For merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="For merge" />
   </component>
   <component name="WindowStateProjectService">
     <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
@@ -677,15 +669,15 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="1312" height="183" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1607258408009" />
-    <state x="0" y="27" width="1366" height="744" key="MergeDialog" timestamp="1613599144219">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog" timestamp="1614805448885">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="0" y="24" width="1366" height="744" key="MergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1606761420373" />
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1614805448885" />
     <state x="0" y="27" key="MergeDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599144219" />
-    <state x="298" y="27" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1613599144225">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1614805448896">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1606761992543" />
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1614805448896" />
     <state x="298" y="27" key="MultipleFileMergeDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599144225" />
     <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog" timestamp="1610320141241">
       <screen x="0" y="27" width="1366" height="711" />
@@ -705,16 +697,16 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
-    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614781869689">
+    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614805471577">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1614781869689" />
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1614805471577" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614297703805" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
-    <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1614808239922">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182518985" />
+    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1614808239922" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614790402797">
       <screen x="0" y="24" width="1366" height="744" />

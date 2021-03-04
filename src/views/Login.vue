@@ -42,7 +42,10 @@
                           counter
                           @click:append="show1 = !show1"
                         ></v-text-field>
-                        <v-btn @click="password_recover = true"
+                        <v-btn
+                            color="blue"
+                            text
+                            @click="password_recover = true"
                           >Forgot Password</v-btn
                         >
                         <v-alert
@@ -169,12 +172,14 @@
     </v-dialog>
     <!-- ############################   FORGOT PASSWORD DIALOG BOX ########################################## --->
     <v-dialog v-model="password_recover" max-width="600px">
-      <v-card>
+      <v-card class="pa-1" style="background-color: #c4dff6">
+        <v-card>
         <v-form v-model="valid" lazy-validation>
           <v-card-title>
-            <span class="headline">Forgot Password?</span>
+            <span class="dlg-title">Forgot Password?</span>
           </v-card-title>
           <v-card-text>
+            <p class="card-label">Please, put your email address on file to request a new password. The new password will be sent to your email.</p>
             <v-container>
               <v-row>
                 <v-col cols="6">
@@ -213,6 +218,7 @@
             >{{ this.ForgotPasswordMessage }}</v-alert
           >
         </v-form>
+        </v-card>
       </v-card>
     </v-dialog>
   </v-row>
@@ -339,16 +345,14 @@ export default {
               password: password,
               salt: salt,
             };
-            var personId = response.data[0].id;
+            let personId = response.data[0].id;
 
             UserDataService.update(personId, data).then((response) => {
-              console.log(response);
-              console.log(this.passwordReturn);
-              var data = {
+              let data = {
                 sendTo: "ruizjoseph17@gmail.com",
-                subject: "YOU FORGOT YOUR PASSWORD HOMIE",
-                text: "Here is your new password ya little dummy" + this.passwordReturn,
-                html: "Here is your new password ya little dummy " + this.passwordReturn,
+                subject: "Password Reset",
+                text: "Here is your new password" + this.passwordReturn,
+                html: "Here is your new password" + this.passwordReturn,
               };
               EmailerDataServiceProvider.sendMail(data)
                 .then((response) => {
@@ -374,15 +378,6 @@ export default {
           this.ForgotPasswordMessage =
             "Something went wrong, please contact your Administrator.";
         });
-
-      // EmailerDataServiceProvider.getAll()
-      //   .then((response) => {
-      //     console.log("sendEmail:");
-      //     console.log(response);
-      //   })
-      //   .catch((e) => {
-      //     console.log(e);
-      //   });
     },
     login() {
       this.error = true;
