@@ -22,10 +22,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update to latest state from local">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update registration function to use the appropriate axios provisions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config/db.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Register.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,20 +171,6 @@
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
       <workItem from="1614165597441" duration="41109000" />
-    </task>
-    <task id="LOCAL-00016" summary="Committing for pull. Clean up code">
-      <created>1608483463649</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1608483463649</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Extract Relationship dialog out">
-      <created>1608669793700</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1608669793700</updated>
     </task>
     <task id="LOCAL-00018" summary="Update organization add and edit per arc request">
       <created>1610314788185</created>
@@ -516,7 +501,21 @@
       <option name="project" value="LOCAL" />
       <updated>1615468238922</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Fix profile link">
+      <created>1615468852205</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1615468852205</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Update registration function to use the appropriate axios provisions">
+      <created>1615469347449</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1615469347449</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,8 +586,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Small tweeks" />
-    <MESSAGE value="For merge" />
     <MESSAGE value="For merge reupdate contacts format and contact page." />
     <MESSAGE value="Make edit options more visible on small screen. Set close button to text on dialogs. Make active nav text white. Remove unnecessary assets." />
     <MESSAGE value="Block access for users not logged in" />
@@ -612,7 +609,9 @@
     <MESSAGE value="Add files to organization mobile screen." />
     <MESSAGE value="Cherry pick from previous" />
     <MESSAGE value="Update to latest state from local" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update to latest state from local" />
+    <MESSAGE value="Fix profile link" />
+    <MESSAGE value="Update registration function to use the appropriate axios provisions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update registration function to use the appropriate axios provisions" />
   </component>
   <component name="WindowStateProjectService">
     <state x="401" y="208" key="#Notifications" timestamp="1615462339965">

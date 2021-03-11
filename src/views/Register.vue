@@ -154,7 +154,6 @@ import UserDataService from '@/services/UserDataService';
 /* ---------- Forgot Password Chain ----------
 *
  */
-const axios = require('axios');
 export default {
     computed: {
     passwordMatch() {
@@ -172,20 +171,6 @@ export default {
           emailAddress: JSON.stringify(this.Email),
         }
         UserDataService.create(data).then().catch(e=>console.log(e));
-        // submit form to server/API here...
-        // axios.post('localhost:3000/Users', {
-        //     userId: JSON.stringify(this.UserId),
-        //     firstName: JSON.stringify(this.FirstName),
-        //     lastName: JSON.stringify(this.LastName),
-        //     password: JSON.stringify(this.Password),
-        //     emailAddress: JSON.stringify(this.Email),
-        // })
-        // .then(function (response) {
-        //     console.log(response);
-        // })
-        // .catch(function (error) {
-        //     console.log(error);
-        // })
       }
     },
     reset() {
