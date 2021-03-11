@@ -46,8 +46,8 @@
           </v-card>
         </v-card>
         <!--------------------------Small Screen------------------------------>
-        <span class="hidden-md-and-up">
         <div
+            class="hidden-md-and-up"
             style="font-weight: 700; color: #878686; font-size: 18px;"
         >
             {{ edit_person.first_name + " " + edit_person.last_name }}
@@ -65,6 +65,7 @@
             </v-btn>
           </div>
         <div
+            class="hidden-md-and-up"
             style="
               padding: 10px 20px;
               font-family: 'Poppins', sans-serif;
@@ -82,7 +83,6 @@
             Change Your Password
           </v-btn>
         </div>
-          </span>
         <!--------------------------Small Screen------------------------------>
       </v-col>
     </v-row>
@@ -101,7 +101,7 @@
         <v-card>
           <v-form v-model="valid">
             <v-card-title>
-              <span class="dlg-title">Change User Password</span>
+              <span class="dlg-title">Change Your Password</span>
             </v-card-title>
             <v-card-text>
               <v-container>
@@ -210,7 +210,7 @@
         <v-card>
           <v-form v-model="valid" lazy-validation>
             <v-card-title>
-              <span class="dlg-title">Profile Information</span>
+              <span class="dlg-title">Your Information</span>
             </v-card-title>
             <v-card-text>
               <v-container>
@@ -382,7 +382,6 @@
 <script>
 import UserDataService from "../services/UserDataService";
 import RoleDataService from "../services/RoleDataService";
-import UserRoleDataService from "../services/UserRoleDataService";
 import EmailDataService from "@/services/EmailDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 const crypto = require('crypto');
@@ -476,7 +475,7 @@ export default {
     deleteUser(){
       this.delete_user_dialog = false;
       this.edit_person_dlg = false;
-      UserDataService.delete(this.personId).then(response=>{
+      UserDataService.delete(this.personId).then(()=>{
         this.$router.push({path: '/users'}).catch(err=>{console.log(err)});
         this.$toasted
             .show("User has been successfully deleted",{theme: 'bubble'})
@@ -556,21 +555,21 @@ export default {
       // let salt = this.generateSalt();
       // let password = this.encryptPassword(this.edit_user.password, salt)
 
-      var data = {
+      let data = {
         first_name: this.edit_person.first_name,
         last_name: this.edit_person.last_name,
         email: this.edit_user.email,
         // password: password,
         // salt: salt
       };
-      var personID = this.$route.params.personId;
+      let personID = this.$route.params.personId;
       //data.services = this.add_person.services;
 
-      var updatePhone = {
+      let updatePhone = {
         number: this.edit_contact.phone,
         isPrimary: true
       }
-      var updateEmail = {
+      let updateEmail = {
         address: this.edit_user.email,
         isPrimary: true
       }
@@ -593,11 +592,10 @@ export default {
       this.edit_person_dlg = false;
       this.update_user_dialog = false;
       this.setPerson();
-      // this.updateSelectedRole(this.edit_role.role);
     },
   },
   mounted() {
-    if(this.$session.get("personId") != this.$route.params.personId) this.$router.replace('/404');
+    if(this.$session.get("personId") !== this.$route.params.personId) this.$router.replace('/404');
     this.setPerson();
   },
 };

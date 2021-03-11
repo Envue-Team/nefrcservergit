@@ -2239,7 +2239,6 @@ export default {
     this.populateAgencyTypes();
     this.setPagePermissions();
     this.setCurrentUser();
-    this.sendEmail();
   }
 };
 </script>

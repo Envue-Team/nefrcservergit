@@ -179,7 +179,7 @@
             <span class="dlg-title">Forgot Password?</span>
           </v-card-title>
           <v-card-text>
-            <p class="card-label">Please, put your email address on file to request a new password. The new password will be sent to your email.</p>
+            <p>Please, put your email address on file to request a new password. The new password will be sent to your email.</p>
             <v-container>
               <v-row>
                 <v-col cols="6">
