@@ -4,10 +4,6 @@
     <expand>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
       <path>
@@ -19,16 +15,15 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:premerge" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/premerge" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="For merge">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Revert back to upated users.vue with Log table.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +172,7 @@
       <workItem from="1614165597441" duration="45962000" />
       <workItem from="1614649184056" duration="201000" />
       <workItem from="1614689486873" duration="22467000" />
+      <workItem from="1615460811184" duration="341000" />
     </task>
     <task id="LOCAL-00019" summary="Add access security to the organization">
       <created>1610656925719</created>
@@ -573,7 +569,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="premerge" />
+                        <option value="origin/premerge" />
                       </list>
                     </value>
                   </entry>
@@ -620,10 +616,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="For merge" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="330" y="193" key="#Notifications" timestamp="1606763721174">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state x="330" y="193" key="#Notifications/0.24.1366.744@0.24.1366.744" timestamp="1606763721174" />
     <state x="126" y="24" key="#Project_Structure" timestamp="1607041743211">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -632,10 +624,6 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="240" y="178" width="876" height="406" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1366.711@0.27.1366.711" timestamp="1609806374428" />
-    <state x="444" y="24" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1606651871055">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state x="444" y="24" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.24.1366.744@0.24.1366.744" timestamp="1606651871055" />
     <state x="416" y="129" width="524" height="505" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1610317733881">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -649,10 +637,6 @@
     </state>
     <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396010" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599570398" />
-    <state x="183" y="69" key="Git.Interactive.Rebase.Dialog" timestamp="1606761986402">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state x="183" y="69" key="Git.Interactive.Rebase.Dialog/0.24.1366.744@0.24.1366.744" timestamp="1606761986402" />
     <state width="1312" height="183" key="GridCell.Tab.0.bottom" timestamp="1607258408009">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -693,20 +677,20 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="99" y="96" width="1168" height="573" key="ShowDiffWithBranchDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396011" />
-    <state width="498" height="449" key="SwitcherDM" timestamp="1606656867556">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state width="498" height="449" key="SwitcherDM/0.24.1366.744@0.24.1366.744" timestamp="1606656867556" />
     <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614805471577">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1614805471577" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614297703805" />
     <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
-    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1614808239922">
+    <state x="464" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615422771377">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1614808239922" />
+    <state x="464" y="100" key="VcsDiffUtil.ChangesDialog/0.24.1366.744@0.24.1366.744" timestamp="1615422771377" />
+    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1615424909905">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1615424909905" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1614790402797">
       <screen x="0" y="24" width="1366" height="744" />
@@ -721,7 +705,6 @@
     <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="116" y="24" width="726" height="744" key="find.popup/0.24.1366.744@0.24.1366.744" timestamp="1606775410164" />
     <state x="116" y="27" width="726" height="711" key="find.popup/0.27.1366.711@0.27.1366.711" timestamp="1612966602010" />
     <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610317806397">
       <screen x="0" y="27" width="1366" height="711" />
