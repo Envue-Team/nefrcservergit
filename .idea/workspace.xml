@@ -22,28 +22,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="fixup! Style password reset dialog. Remove unnecessary console logging.">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update to latest state from local">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/mailer.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/mailer.routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Home.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organizations.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organizations.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/POCDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/POCDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Partner.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Profile.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Relationship-Legacy.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Relationship.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/RelationshipManagerDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/RelationshipManagerDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Scratch.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/UserPage.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Users.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/db.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,13 +172,6 @@
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
       <workItem from="1614165597441" duration="41109000" />
-    </task>
-    <task id="LOCAL-00015" summary="Add counties to organizations">
-      <created>1608397797185</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1608397797185</updated>
     </task>
     <task id="LOCAL-00016" summary="Committing for pull. Clean up code">
       <created>1608483463649</created>
@@ -534,7 +509,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615461705205</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Update to latest state from local">
+      <created>1615468238922</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1615468238922</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,7 +587,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update site mobile layout and mobile forms layout." />
     <MESSAGE value="Small tweeks" />
     <MESSAGE value="For merge" />
     <MESSAGE value="For merge reupdate contacts format and contact page." />
@@ -630,7 +611,8 @@
     <MESSAGE value="Add NEFRC labeling to login and register pages." />
     <MESSAGE value="Add files to organization mobile screen." />
     <MESSAGE value="Cherry pick from previous" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cherry pick from previous" />
+    <MESSAGE value="Update to latest state from local" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update to latest state from local" />
   </component>
   <component name="WindowStateProjectService">
     <state x="401" y="208" key="#Notifications" timestamp="1615462339965">
@@ -658,10 +640,10 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="180" y="24" key="CommitChangelistDialog2/0.24.1366.744@0.24.1366.744" timestamp="1615462257883" />
-    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog" timestamp="1615468049103">
+    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog" timestamp="1615468426358">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468049103" />
+    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468426358" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599570398" />
     <state width="1312" height="183" key="GridCell.Tab.0.bottom" timestamp="1607258408009">
       <screen x="0" y="24" width="1366" height="744" />

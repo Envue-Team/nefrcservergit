@@ -187,7 +187,7 @@ export default {
       this.$router.push('/')
     },
     navigateToProfile(){
-      return this.$router.replace('/profile/'+$session.get('personId'));
+      return this.$router.replace('/profile/'+this.$session.get('personId'));
     },
   },
   computed: {
