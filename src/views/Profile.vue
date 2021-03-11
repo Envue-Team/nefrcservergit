@@ -1,55 +1,55 @@
 <template>
   <v-container>
     <v-row
-      ><!---------------------First Container Row-------------------------------->
+    ><!---------------------First Container Row-------------------------------->
       <v-col class="col-md-5 col-sm-12"
-        ><!----------------------Left Column-------------------------->
+      ><!----------------------Left Column-------------------------->
         <!---------------------Contact Basic Data-------------------------------->
-            <v-card
-                class="pa-1 mx-10 hidden-md-and-down"
-                elevation="3 text-wrap">
-              <v-card
-                  style="margin-top:-15px; width:100%;"
-                  color="#6D6E70"
-                  class="pa-7"
-                  rounded
-              >
-                <v-card-text>
-                  <div class="card-header-title">{{ edit_person.first_name + " " + edit_person.last_name }}
-                    <v-btn
-                        icon
-                        small
-                        class="ml-3"
-                        @click="edit_person_dlg=true"
-                    >
-                      <v-icon
-                          small
-                          class="mdi mdi-pencil"
-                          style="color: #C4DFF6"
-                      ></v-icon>
-                    </v-btn>
-                  </div>
-                  <div
-                      class="card-header-subtitle">
-                    {{ view_role.role}}<br/>
-                    {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
-                  </div>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                      small
-                      @click="edit_user_password_dlg=true"
-                  >
-                    Change User Password
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-card>
-        <!--------------------------Small Screen------------------------------>
-        <span class="hidden-md-and-up">
-        <div
-              style="font-weight: 700; color: #878686; font-size: 18px;"
+        <v-card
+            class="pa-1 mx-10 hidden-md-and-down"
+            elevation="3 text-wrap">
+          <v-card
+              style="margin-top:-15px; width:100%;"
+              color="#6D6E70"
+              class="pa-7"
+              rounded
           >
+            <v-card-text>
+              <div class="card-header-title">{{ edit_person.first_name + " " + edit_person.last_name }}
+                <v-btn
+                    icon
+                    small
+                    class="ml-3"
+                    @click="edit_person_dlg=true"
+                >
+                  <v-icon
+                      small
+                      class="mdi mdi-pencil"
+                      style="color: #C4DFF6"
+                  ></v-icon>
+                </v-btn>
+              </div>
+              <div
+                  class="card-header-subtitle">
+                <span class="text-capitalize">{{ view_role.role}}</span><br/>
+                {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
+              </div>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                  small
+                  @click="edit_user_password_dlg=true"
+              >
+                Change Your Password
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-card>
+        <!--------------------------Small Screen------------------------------>
+        <div
+            class="hidden-md-and-up"
+            style="font-weight: 700; color: #878686; font-size: 18px;"
+        >
             {{ edit_person.first_name + " " + edit_person.last_name }}
             <v-btn
                 outlined
@@ -65,6 +65,7 @@
             </v-btn>
           </div>
         <div
+            class="hidden-md-and-up"
             style="
               padding: 10px 20px;
               font-family: 'Poppins', sans-serif;
@@ -72,17 +73,16 @@
               font-size: 16px;
             "
         >
-          {{ view_role.role }}<br/>
+          <span class="text-capitalize">{{ view_role.role }}</span><br/>
           {{ edit_person.emails[0].address }} | {{ edit_person.phones[0].number }}
           <v-btn
               class="mt-3"
               small
               @click="edit_user_password_dlg=true"
           >
-            Change User Password
+            Change Your Password
           </v-btn>
         </div>
-          </span>
         <!--------------------------Small Screen------------------------------>
       </v-col>
     </v-row>
@@ -101,7 +101,7 @@
         <v-card>
           <v-form v-model="valid">
             <v-card-title>
-              <span class="dlg-title">Change User Password</span>
+              <span class="dlg-title">Change Your Password</span>
             </v-card-title>
             <v-card-text>
               <v-container>
@@ -196,7 +196,7 @@
     </v-dialog>
     <!-----------------------------------Verify Edit User Password Dialog--------------------------------->
 
-    <!---------------------------------Edit Contact Dialog------------------------------->
+    <!---------------------------------Edit User Dialog------------------------------->
     <v-dialog
         v-model="edit_person_dlg"
         content-class="lg-dlg"
@@ -207,58 +207,41 @@
           style="background-color: #6D6E70"
           rounded
       >
-      <v-card>
-        <v-form v-model="valid" lazy-validation>
-          <v-card-title>
-            <span class="dlg-title">User Information</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <div class="cols col-md-6 col-sm-12">
-                  <v-text-field
-                      label="First Name"
-                      required
-                      v-model="edit_person.first_name"
-                      :rules="nameRules"
-                  ></v-text-field>
-                </div>
-                <div class="cols col-md-6 col-sm-12">
-                  <v-text-field
-                      label="Last Name"
-                      required
-                      v-model="edit_person.last_name"
-                      :rules="nameRules"
-                  ></v-text-field>
-                </div>
-              </v-row>
-              <v-row>
-                <div class="cols col-md-6 col-sm-12">
-                  <v-text-field
-                      label="Email"
-                      v-model="edit_user.email"
-                      :rules="emailRules"
-                  ></v-text-field>
-                </div>
-                <!-- <v-col cols="6">
-                  <v-text-field
-                    label="Password"
-                    type="password"
-                    v-model="edit_user.password"
-                  ></v-text-field>
-                </v-col> -->
-              </v-row>
-              <v-row>
+        <v-card>
+          <v-form v-model="valid" lazy-validation>
+            <v-card-title>
+              <span class="dlg-title">Your Information</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
                   <div class="cols col-md-6 col-sm-12">
-                    <v-autocomplete
-                        label="User Role"
-                        :items="roles"
-                        item-text="name"
-                        item-value="id"
-                        v-model="edit_role.role"
-                    >
-                    </v-autocomplete>
+                    <v-text-field
+                        label="First Name"
+                        required
+                        v-model="edit_person.first_name"
+                        :rules="nameRules"
+                    ></v-text-field>
                   </div>
+                  <div class="cols col-md-6 col-sm-12">
+                    <v-text-field
+                        label="Last Name"
+                        required
+                        v-model="edit_person.last_name"
+                        :rules="nameRules"
+                    ></v-text-field>
+                  </div>
+                </v-row>
+                <v-row>
+                  <div class="cols col-md-6 col-sm-12">
+                    <v-text-field
+                        label="Email"
+                        v-model="edit_user.email"
+                        :rules="emailRules"
+                    ></v-text-field>
+                  </div>
+                </v-row>
+                <v-row>
                   <div class="cols col-md-6 col-sm-12">
                     <v-text-field
                         label="Phone"
@@ -266,49 +249,43 @@
                         :rules="phoneRules"
                     ></v-text-field>
                   </div>
-              </v-row>
-            </v-container>
-            <small>*indicates required field</small>
-          </v-card-text>
-          <v-card-actions>
-            <v-btn
-                style="background-color: #ED1B2E; color: white"
-                depressed
-                @click="openDialog('Delete')"
-            >
-              Delete
-            </v-btn>
-            <v-spacer></v-spacer>
-            <v-btn
-                style="color: #0091CD"
-                text
-                @click="edit_person_dlg=false"
-            >
-              Cancel
-            </v-btn>
-            <v-btn
-                class="hidden-md-and-down"
-                style="background-color: #7F181B; color: white"
-                depressed
-                :disabled="!valid"
-                @click="openDialog('Update')"
-            >
-              Save Changes
-            </v-btn>
-            <v-btn
-                class="hidden-md-and-up"
-                style="background-color: #7F181B; color: white"
-                depressed
-                :disabled="!valid"
-                @click="openDialog('Update')"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
-        </v-form>
+                </v-row>
+              </v-container>
+              <small>*indicates required field</small>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                  style="color: #0091CD"
+                  text
+                  @click="edit_person_dlg=false"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                  class="hidden-md-and-down"
+                  style="background-color: #7F181B; color: white"
+                  depressed
+                  :disabled="!valid"
+                  @click="openDialog('Update')"
+              >
+                Save Changes
+              </v-btn>
+              <v-btn
+                  class="hidden-md-and-up"
+                  style="background-color: #7F181B; color: white"
+                  depressed
+                  :disabled="!valid"
+                  @click="openDialog('Update')"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-form>
         </v-card>
       </v-card>
     </v-dialog>
+    <!---------------------------------Edit User Dialog------------------------------->
 
     <!-----------------------------------Delete User Dialog--------------------------------->
     <v-dialog
@@ -405,7 +382,6 @@
 <script>
 import UserDataService from "../services/UserDataService";
 import RoleDataService from "../services/RoleDataService";
-import UserRoleDataService from "../services/UserRoleDataService";
 import EmailDataService from "@/services/EmailDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 const crypto = require('crypto');
@@ -464,13 +440,13 @@ export default {
         v => /\S\d$/.test(v) || "Phone number must be valid",
       ],
       passwordRules:[
-          v => !!v || "Required",
-          v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) ||
-              "Password must be a minimum of 8 characters and have at least one letter and one number"
+        v => !!v || "Required",
+        v => /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(v) ||
+            "Password must be a minimum of 8 characters and have at least one letter and one number"
       ],
       confirmationRules:[
-          v => !!v || "Required",
-          v => v === this.edit_user.password || "Passwords must match"
+        v => !!v || "Required",
+        v => v === this.edit_user.password || "Passwords must match"
       ],
       show1: false,
       rules: {
@@ -499,44 +475,26 @@ export default {
     deleteUser(){
       this.delete_user_dialog = false;
       this.edit_person_dlg = false;
-      UserDataService.delete(this.personId).then(response=>{
+      UserDataService.delete(this.personId).then(()=>{
         this.$router.push({path: '/users'}).catch(err=>{console.log(err)});
         this.$toasted
             .show("User has been successfully deleted",{theme: 'bubble'})
             .goAway(1000);
       }).catch(e=>{console.log(e)});
     },
-    updateSelectedRole(role) {
-
-      var data = {
-        userId: this.edit_role.userId,
-        roleId: this.currentRoleId
-      }
-      var updatedDataRole = {
-        roleId: role
-      }
-
-      UserRoleDataService.update(data.userId, data.roleId, updatedDataRole)
-      .then((response)=> {
-        console.log(response);
-      })
-      .catch((e)=> {
-        console.log(e);
-      })
-    },
     populateRoles() {
       RoleDataService.getAll()
-        .then((response) => {
-          this.roles = response.data;
+          .then((response) => {
+            this.roles = response.data;
 
-          this.roles.forEach((role) => {
-            role.role = role.name;
+            this.roles.forEach((role) => {
+              role.role = role.name;
+            })
+
           })
-
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+          .catch((err) => {
+            console.log(err);
+          });
     },
     showDialog() {
       this.edit_person_dlg = true;
@@ -545,22 +503,22 @@ export default {
       this.personId = this.$route.params.personId;
       this.populateRoles();
       UserDataService.get(this.$route.params.personId)
-        .then((response) => {
-          this.edit_role.userId = response.data.user.id;
-          this.edit_person = response.data;
-          this.edit_user = response.data.user;
-          this.edit_contact.phone = response.data.phones[0].number;
+          .then((response) => {
+            this.edit_role.userId = response.data.user.id;
+            this.edit_person = response.data;
+            this.edit_user = response.data.user;
+            this.edit_contact.phone = response.data.phones[0].number;
 
-          this.contact_id.phone = response.data.phones[0].id;
-          this.contact_id.email = response.data.emails[0].id;
+            this.contact_id.phone = response.data.phones[0].id;
+            this.contact_id.email = response.data.emails[0].id;
 
-          this.view_role.role = response.data.user.roles[0].name;
-          this.currentRoleId = response.data.user.roles[0].id;
+            this.view_role.role = response.data.user.roles[0].name;
+            this.currentRoleId = response.data.user.roles[0].id;
 
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          })
+          .catch((e) => {
+            console.log(e);
+          });
     },
     generateSalt() {
       return crypto.randomBytes(16).toString('base64');
@@ -597,21 +555,21 @@ export default {
       // let salt = this.generateSalt();
       // let password = this.encryptPassword(this.edit_user.password, salt)
 
-      var data = {
+      let data = {
         first_name: this.edit_person.first_name,
         last_name: this.edit_person.last_name,
         email: this.edit_user.email,
         // password: password,
         // salt: salt
       };
-      var personID = this.$route.params.personId;
+      let personID = this.$route.params.personId;
       //data.services = this.add_person.services;
 
-      var updatePhone = {
+      let updatePhone = {
         number: this.edit_contact.phone,
         isPrimary: true
       }
-      var updateEmail = {
+      let updateEmail = {
         address: this.edit_user.email,
         isPrimary: true
       }
@@ -620,22 +578,24 @@ export default {
       EmailDataService.update(this.contact_id.email, updateEmail);
 
       UserDataService.update(personID, data)
-        .then((response) => {
-          // console.log(response);
-          //this.retrieveVolunteers();
-          console.log(response);
-        })
-        .then((id) => {
-          console.log(id);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+          .then((response) => {
+            // console.log(response);
+            //this.retrieveVolunteers();
+            console.log(response);
+          })
+          .then((id) => {
+            console.log(id);
+          })
+          .catch((e) => {
+            console.log(e);
+          });
       this.edit_person_dlg = false;
-      this.updateSelectedRole(this.edit_role.role);
+      this.update_user_dialog = false;
+      this.setPerson();
     },
   },
   mounted() {
+    if(this.$session.get("personId") !== this.$route.params.personId) this.$router.replace('/404');
     this.setPerson();
   },
 };
