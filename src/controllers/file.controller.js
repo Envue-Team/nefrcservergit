@@ -13,7 +13,7 @@ exports.create = (req, res) => {
   }
 
   // console.log(req.file);
-  console.log(req.body);
+  // console.log(req.body);
   // Create a file
   console.log(req);
   const file = {
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
     filePath: "uploads/"+req.file.filename,
     fileName: req.file.originalname
   }
-  console.log(file);
+  // console.log(file);
 
   // Save filePath in the database
   DBFile.create(file)

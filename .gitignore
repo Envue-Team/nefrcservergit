@@ -9,3 +9,4 @@
 src/config/db.config.js
 package-lock.json
 src/views/Login.vue
+/src/controllers/file.controller.js
