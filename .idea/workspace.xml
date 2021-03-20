@@ -22,9 +22,20 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update registration function to use the appropriate axios provisions">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add authorship to notes">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/nefrcservergit.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Register.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Register.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/helful-commands.txt" beforeDir="false" afterPath="$PROJECT_DIR$/helful-commands.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/file.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/file.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/role.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/role.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/file.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/file.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,15 +90,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views" />
     <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -171,20 +187,9 @@
       <workItem from="1613556150834" duration="24274000" />
       <workItem from="1613926540429" duration="52136000" />
       <workItem from="1614165597441" duration="41109000" />
-    </task>
-    <task id="LOCAL-00018" summary="Update organization add and edit per arc request">
-      <created>1610314788185</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1610314788185</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Add access security to the organization">
-      <created>1610656925719</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1610656925719</updated>
+      <workItem from="1615500519016" duration="1052000" />
+      <workItem from="1615509042974" duration="8383000" />
+      <workItem from="1615898896644" duration="67583000" />
     </task>
     <task id="LOCAL-00020" summary="Add validation to organization add and edit pages. Add validation to point of contact form. Add access limitations to organization list page">
       <created>1610918723438</created>
@@ -515,7 +520,21 @@
       <option name="project" value="LOCAL" />
       <updated>1615469347449</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Small cleanup">
+      <created>1615469405156</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1615469405156</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Add authorship to notes">
+      <created>1615472071814</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1615472071815</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -572,7 +591,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="premerge" />
+                        <option value="origin/premerge" />
                       </list>
                     </value>
                   </entry>
@@ -586,8 +605,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="For merge reupdate contacts format and contact page." />
-    <MESSAGE value="Make edit options more visible on small screen. Set close button to text on dialogs. Make active nav text white. Remove unnecessary assets." />
     <MESSAGE value="Block access for users not logged in" />
     <MESSAGE value="Globalize addToLog function" />
     <MESSAGE value="Globalize addToLog functionI" />
@@ -611,17 +628,19 @@
     <MESSAGE value="Update to latest state from local" />
     <MESSAGE value="Fix profile link" />
     <MESSAGE value="Update registration function to use the appropriate axios provisions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update registration function to use the appropriate axios provisions" />
+    <MESSAGE value="Small cleanup" />
+    <MESSAGE value="Add authorship to notes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add authorship to notes" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="533" y="274" key="#ESLint" timestamp="1616106102307">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="533" y="274" key="#ESLint/0.24.1366.744@0.24.1366.744" timestamp="1616106102307" />
     <state x="401" y="208" key="#Notifications" timestamp="1615462339965">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="401" y="208" key="#Notifications/0.24.1366.744@0.24.1366.744" timestamp="1615462339965" />
-    <state x="126" y="24" key="#Project_Structure" timestamp="1607041743211">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state x="126" y="24" key="#Project_Structure/0.24.1366.744@0.24.1366.744" timestamp="1607041743211" />
     <state x="240" y="178" width="876" height="406" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609806374428">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -644,22 +663,6 @@
     </state>
     <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468426358" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599570398" />
-    <state width="1312" height="183" key="GridCell.Tab.0.bottom" timestamp="1607258408009">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state width="1312" height="183" key="GridCell.Tab.0.bottom/0.24.1366.744@0.24.1366.744" timestamp="1607258408009" />
-    <state width="1312" height="183" key="GridCell.Tab.0.center" timestamp="1607258408008">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state width="1312" height="183" key="GridCell.Tab.0.center/0.24.1366.744@0.24.1366.744" timestamp="1607258408008" />
-    <state width="1312" height="183" key="GridCell.Tab.0.left" timestamp="1607258408008">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state width="1312" height="183" key="GridCell.Tab.0.left/0.24.1366.744@0.24.1366.744" timestamp="1607258408008" />
-    <state width="1312" height="183" key="GridCell.Tab.0.right" timestamp="1607258408009">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state width="1312" height="183" key="GridCell.Tab.0.right/0.24.1366.744@0.24.1366.744" timestamp="1607258408009" />
     <state x="0" y="27" width="1366" height="744" key="MergeDialog" timestamp="1613599144219">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -671,23 +674,16 @@
     <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog" timestamp="1610320141241">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="391" y="33" key="RollbackChangesDialog/0.24.1366.744@0.24.1366.744" timestamp="1607165711434" />
     <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610320141241" />
     <state x="147" y="27" key="SettingsEditor" timestamp="1610395648666">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="147" y="34" key="SettingsEditor/0.24.1366.744@0.24.1366.744" timestamp="1607256288631" />
     <state x="147" y="27" key="SettingsEditor/0.27.1366.711@0.27.1366.711" timestamp="1610395648666" />
-    <state x="99" y="96" width="1168" height="573" key="ShowDiffWithBranchDialog" timestamp="1607258396011">
+    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1615469421190">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="99" y="96" width="1168" height="573" key="ShowDiffWithBranchDialog/0.24.1366.744@0.24.1366.744" timestamp="1607258396011" />
-    <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1614269709340">
-      <screen x="0" y="27" width="1366" height="711" />
-    </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1607183713963" />
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1615469421190" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
-    <state x="283" y="130" width="800" height="529" key="Vcs.Push.Dialog.v2/0.38.1366.730@0.38.1366.730" timestamp="1607272851656" />
     <state x="475" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615462467199">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -695,7 +691,6 @@
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1610319576085">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="99" y="96" width="1168" height="573" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182518985" />
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1615468049103">
       <screen x="0" y="24" width="1366" height="744" />
@@ -705,7 +700,6 @@
     <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613595005381">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="410" y="295" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.744@0.24.1366.744" timestamp="1607256387911" />
     <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1613595005381" />
     <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
       <screen x="0" y="27" width="1366" height="711" />
@@ -714,34 +708,30 @@
     <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog" timestamp="1610317806397">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
-    <state x="332" y="43" key="git4idea.branch.GitSmartOperationDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182791613" />
     <state x="332" y="45" width="629" height="679" key="git4idea.branch.GitSmartOperationDialog/0.27.1366.711@0.27.1366.711" timestamp="1610317806397" />
     <state x="492" y="295" width="529" height="211" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1615466088536">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="492" y="295" key="git4idea.remote.GitConfigureRemotesDialog/0.24.1366.744@0.24.1366.744" timestamp="1615466088536" />
     <state x="492" y="286" width="529" height="211" key="git4idea.remote.GitConfigureRemotesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610315593853" />
-    <state x="386" y="275" key="git4idea.ui.GitResetDialog" timestamp="1607182969333">
-      <screen x="0" y="24" width="1366" height="744" />
-    </state>
-    <state x="386" y="275" key="git4idea.ui.GitResetDialog/0.24.1366.744@0.24.1366.744" timestamp="1607182969333" />
     <state x="388" y="230" key="git4idea.ui.GitUnstashDialog" timestamp="1615462207907">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="388" y="230" key="git4idea.ui.GitUnstashDialog/0.24.1366.744@0.24.1366.744" timestamp="1615462207907" />
-    <state x="0" y="27" width="1356" height="711" key="new project wizard" timestamp="1610318891564">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="0" y="24" width="1356" height="711" key="new project wizard" timestamp="1615504573022">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
+    <state x="0" y="24" key="new project wizard/0.24.1366.744@0.24.1366.744" timestamp="1615504573022" />
     <state x="0" y="27" width="1356" height="711" key="new project wizard/0.27.1366.711@0.27.1366.711" timestamp="1610318891564" />
-    <state x="347" y="165" width="672" height="648" key="run.anything.popup" timestamp="1613928829312">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="347" y="168" width="672" height="678" key="run.anything.popup" timestamp="1615471893926">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1607173895426" />
+    <state x="347" y="168" width="672" height="678" key="run.anything.popup/0.24.1366.744@0.24.1366.744" timestamp="1615471893926" />
     <state x="347" y="165" width="672" height="648" key="run.anything.popup/0.27.1366.711@0.27.1366.711" timestamp="1613928829312" />
-    <state x="321" y="89" width="719" height="648" key="search.everywhere.popup" timestamp="1614092943449">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="321" y="89" width="719" height="679" key="search.everywhere.popup" timestamp="1616187432737">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="321" y="89" width="719" height="678" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1607209765083" />
+    <state x="321" y="89" width="719" height="679" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1616187432737" />
     <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1614092943449" />
   </component>
 </project>

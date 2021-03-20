@@ -1,6 +1,6 @@
 npm run build
 aws s3 sync ./dist s3://nefrc-virgina-bucket
-ssh -i "/home/kia/Documents/Fall2020/CIS4327/ec2_express_node_key_pair.pem" ubuntu@ec2-18-234-216-12.compute-1.amazonaws.com
+ssh -i "/home/kia/Documents/Fall2020/CIS4327/ec2_express_node_key_pair.pem" ubuntu@ec2-35-168-125-56.compute-1.amazonaws.com
 
 docker nefrcservergit
 `` docker build -t nefrcservergit:dev .``

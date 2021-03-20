@@ -3,7 +3,6 @@ const DBRole = db.role;
 
 
 exports.findAll = (req, res) => {
-    console.log()
     DBRole.findAll({})
         .then(data => {
             res.send(data);
@@ -18,7 +17,6 @@ exports.findAll = (req, res) => {
 
 // Find a single role by id
 exports.findOne = (req, res) => {
-    console.log("called");
     let id = req.params.roleId;
     DBRole.findByPk(id, {
         include :[
