@@ -390,18 +390,6 @@ export default {
         });
       //todo: add backend functionality to store string in database
     },
-  
-    //format phone number as it is entered
-    formatPrimaryPhone() {
-      this.add_person.primaryPhone = this.add_person.primaryPhone.replace(/[^0-9]/g, '')
-        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
-        .substr(0,13);
-    },
-    formatSecondaryPhone() {
-      this.add_person.secondaryPhone = this.add_person.secondaryPhone.replace(/[^0-9]/g, '')
-        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
-        .substr(0,13);
-    },
   },
 
   mounted() {
