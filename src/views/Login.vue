@@ -114,7 +114,6 @@
                           label="Phone"
                           maxlength="20"
                           required
-                          @keyup="formatPhone"
                         ></v-text-field>
                       </v-col>
                       <v-col cols="12">
@@ -470,13 +469,6 @@ export default {
       .catch((e) => {
         console.log(e);
       })
-    },
-
-    formatPhone(){
-      //automatically formats phone number to format (XXX)XXX-XXXX
-      this.Phone = this.Phone.replace(/[^0-9]/g, '')
-        .replace(/^(\d{3})?(\d{3})?(\d{4})?/g, '($1)$2-$3')
-        .substr(0,13);
     },
   },
   data: () => ({
