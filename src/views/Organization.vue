@@ -327,7 +327,7 @@
           <span v-if="organization.phones != null && organization.phones.length != 0">{{ organization.primaryPhone}}
           </span><br/>
 
-          <span v-for="county in organization.counties" :key="Math.floor((Math.random()*1000000000) + 1)">
+          <span v-for="county in organization.counties" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                   {{county.name}}
                 </span>
         </div>
@@ -894,7 +894,8 @@
           rounded
       >
     <v-card>
-      <form id="uploadForm">
+      <form id="uploadForm"
+      >
       <v-card-title>
         <span class="dlg-title">Upload a file for this Partner</span>
       </v-card-title>
@@ -1364,9 +1365,6 @@ export default {
       agencyRule:[
         v => !!v || 'An agency type must be selected'
       ],
-      arcFunctionRule:[
-        v => !!v || 'ARC type must be selected'
-      ],
 
       /**
        * Counties
@@ -1559,9 +1557,8 @@ export default {
           .then(response=>{
             let fileURL = window.URL.createObjectURL(new Blob([response.data]));
             let fileLink = document.createElement('a');
-
             fileLink.href = fileURL;
-            fileLink.setAttribute('download', 'file.pdf');
+            fileLink.setAttribute('download', obj.item.name);
             document.body.appendChild(fileLink);
 
             fileLink.click();
@@ -1609,6 +1606,8 @@ export default {
       this.upload_disabled=true;
       this.populateFiles(this.organization.id)
       let form = document.getElementById("uploadForm");
+      console.log("called");
+      // form.submit();
       form.reset();
       this.reset();
     },
