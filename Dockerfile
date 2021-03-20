@@ -1,11 +1,25 @@
-FROM ubuntu 
+FROM node:latest
 
-# ubuntu setup
-RUN apt-get update -y
-RUN apt-get upgrade -y 
-RUN apt-get install nodejs -y && apt-get install npm -y
-RUN apt-get git
+RUN apt-get update
+RUN apt-get -y install mysql-server
 
-# install curl for n
-RUN apt-get install curl -y
-RUN apt-get install vim -y 
+# install simple http server for serving static content
+RUN npm install -g http-server
+
+# make the 'app' folder the current working directory
+WORKDIR /app
+
+# copy both 'package.json' and 'package-lock.json' (if available)
+COPY package*.json ./
+
+# install project dependencies
+RUN npm install
+
+# copy project files and folders to the current working directory (i.e. 'app' folder)
+COPY . .
+
+# build app for production with minification
+RUN npm run --silent build
+
+EXPOSE 8080
+CMD [ "http-server", "dist" ]
