@@ -8,6 +8,13 @@ docker nefrcservergit
 
 to install the material design icons on mac run:
     `` npm install material-design-icons --save ``
+
+
+NOTE: For docker make sure Dockerfile is named exactly like that.
+
+docker
+    docker build -t "test_website:Dockerfile” .
+
     
 
 

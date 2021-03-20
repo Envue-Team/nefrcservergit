@@ -94,6 +94,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="cf.first.check.clang-format" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -185,6 +186,7 @@
       <workItem from="1614165597441" duration="45962000" />
       <workItem from="1614649184056" duration="201000" />
       <workItem from="1614689486873" duration="13337000" />
+      <workItem from="1614912602781" duration="7000" />
     </task>
     <task id="LOCAL-00018" summary="Update organization add and edit per arc request">
       <created>1610314788185</created>
