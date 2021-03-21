@@ -69,7 +69,6 @@
                   >
                     <v-card-text >
                       <div class="card-header-title">Details</div>
-                      <span class="card-header-subtitle">{{ organization.service }}</span>
                     </v-card-text>
                   </v-card>
                   </v-card>
@@ -486,8 +485,6 @@
                    font-size: 15px;
                    padding-left: 20px"
               >
-                <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Further Notes: </div>
-                {{ organization.service }}<br />
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">MOU:
                   <v-icon
                       small
@@ -1037,11 +1034,24 @@
                   <v-select
                     multiple
                     required
+                    return-object
                     :rules="countyRule"
                     v-model="organization_counties"
                     :items="all_counties"
                     label="*Counties"
                   >
+                    <template v-slot:prepend-item>
+                      <v-list-item
+                          ripple
+                          @click="toggleSelectAll('county')"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Select All
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
                   </v-select>
                 </div>
               </v-row>
@@ -1062,11 +1072,23 @@
                   <v-select
                       multiple
                       required
-                      :rules="mouRule"
+                      :rules="lobRule"
                       v-model="organization_lines_of_business"
                       :items="all_lines_of_business"
                       label="*Line of Business"
                   >
+                    <template v-slot:prepend-item>
+                      <v-list-item
+                          ripple
+                          @click="toggleSelectAll('lines_of_business')"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Select All
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
                   </v-select>
                 </div>
                 <div class="cols col-md-6 col-sm-12"
@@ -1079,17 +1101,42 @@
                       :items="all_arc_relationships"
                       label="*Community Services Provided"
                   >
+                    <template v-slot:prepend-item>
+                      <v-list-item
+                          ripple
+                          @click="toggleSelectAll('arc_relationships')"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Select All
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
                   </v-select>
                 </div>
                 <div class="cols col-md-6 col-sm-12"
                 >
                   <v-select
                       multiple
+                      return-object
                       v-model="organization_agency_types"
                       :rules="agencyRule"
                       :items="all_agency_types"
                       label="*Agency Types"
                   >
+                    <template v-slot:prepend-item>
+                      <v-list-item
+                          ripple
+                          @click="toggleSelectAll('agency_types')"
+                      >
+                        <v-list-item-content>
+                          <v-list-item-title>
+                            Select All
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
                   </v-select>
                 </div>
               </v-row>
@@ -1105,12 +1152,6 @@
                 </div>
                 <div class="cols col-md-5 col-sm-12"
                 >
-                  <v-textarea
-                      required
-                      v-model="organization.service"
-                      :rules="serviceDescriptionRule"
-                      label="*Additional Notes"
-                  ></v-textarea>
                 </div>
               </v-row>
             </v-container>
@@ -1359,9 +1400,6 @@ export default {
       arcFunctionRule:[
         v => !!v || 'ARC type must be selected'
       ],
-      serviceDescriptionRule:[
-        v => !!v || 'Please provide a service description'
-      ],
       agencyRule:[
         v => !!v || 'An agency type must be selected'
       ],
@@ -1488,6 +1526,27 @@ export default {
     }
   },
   methods: {
+
+    toggleSelectAll(type){
+      switch(type){
+        case 'county':
+          this.organization_counties = this.organization_counties.length == this.all_counties.length ?
+              [] : this.all_counties;
+          break;
+        case 'agency_types':
+          this.organization_agency_types = this.organization_agency_types.length == this.all_agency_types.length ?
+              [] : this.all_agency_types;
+          break;
+        case 'arc_relationships':
+          this.organization_arc_relationships = this.organization_arc_relationships.length == this.all_arc_relationships.length ?
+              [] : this.all_arc_relationships;
+          break;
+        case 'lines_of_business':
+          this.organization_lines_of_business = this.organization_lines_of_business.length == this.all_lines_of_business.length ?
+              [] : this.all_lines_of_business;
+          break;
+      }
+    },
     openDialog(dlg, id=null){
       switch(dlg){
         case "Add RM":
@@ -1606,8 +1665,6 @@ export default {
       this.upload_disabled=true;
       this.populateFiles(this.organization.id)
       let form = document.getElementById("uploadForm");
-      console.log("called");
-      // form.submit();
       form.reset();
       this.reset();
     },
@@ -1666,7 +1723,7 @@ export default {
         "mou": this.organization.mou,
         "contact_protocol": this.organization.contact_protocol,
         "last_contact": this.organization.last_contact,
-        "service": this.organization.service,
+        // "service": this.organization.service,
         "notes": this.organization.notes,
         "action": this.organization.action
       }

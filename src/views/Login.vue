@@ -258,7 +258,6 @@ export default {
     checkCredentials() {
       UserDataService.findByEmail(this.loginEmail)
         .then((response) => {
-          console.log(response);
           let originalPassword = response.data[0].user.password;
           let salt = response.data[0].user.salt;
           this.UserId = response.data[0].user.id;
