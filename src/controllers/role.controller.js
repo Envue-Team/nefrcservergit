@@ -24,7 +24,6 @@ exports.findOne = (req, res) => {
         ]
     })
         .then(data => {
-            console.log(data);
             res.send(data);
         })
         .catch(err => {

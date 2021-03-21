@@ -244,6 +244,18 @@
                     :rules="countyRule"
                     label="*Counties"
                 >
+                  <template v-slot:prepend-item>
+                    <v-list-item
+                        ripple
+                        @click="toggleSelectAll('county')"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          Select All
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
                 </v-select>
               </v-col>
             </v-row>
@@ -277,6 +289,18 @@
                     :rules="lobRule"
                     label="*Line of Business"
                 >
+                  <template v-slot:prepend-item>
+                    <v-list-item
+                        ripple
+                        @click="toggleSelectAll('lines_of_business')"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          Select All
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
                 </v-select>
               </v-col>
             </v-row>
@@ -294,6 +318,18 @@
                     :rules="arcFunctionRule"
                     label="*Community Services Provided"
                 >
+                  <template v-slot:prepend-item>
+                    <v-list-item
+                        ripple
+                        @click="toggleSelectAll('arc_relationships')"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          Select All
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
                 </v-select>
               </v-col>
               <v-col
@@ -309,6 +345,18 @@
                     :rules="agencyRule"
                     label="*Agency Types"
                 >
+                  <template v-slot:prepend-item>
+                    <v-list-item
+                        ripple
+                        @click="toggleSelectAll('agency_types')"
+                    >
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          Select All
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
                 </v-select>
               </v-col>
             </v-row>
@@ -329,13 +377,6 @@
                   sm="12"
                   md="5"
               >
-                <v-textarea
-                    v-model="add_organization.service"
-                    rows="2"
-                    required
-                    label="*Additional Notes"
-                    :rules="serviceDescriptionRule"
-                ></v-textarea>
               </v-col>
             </v-row>
           </v-container>
@@ -579,6 +620,26 @@ export default {
       }
     },
     methods: {
+      toggleSelectAll(type){
+        switch(type){
+          case 'county':
+            this.add_organization.county = this.add_organization.county.length == this.all_counties.length ?
+                [] : this.all_counties;
+            break;
+          case 'agency_types':
+            this.add_organization.agency_type = this.add_organization.agency_type.length == this.all_agency_types.length ?
+                [] : this.all_agency_types;
+            break;
+          case 'arc_relationships':
+            this.add_organization.arc_relationship = this.add_organization.arc_relationship.length == this.all_arc_relationships.length ?
+                [] : this.all_arc_relationships;
+            break;
+          case 'lines_of_business':
+            this.add_organization.line_of_business = this.add_organization.line_of_business.length == this.all_lines_of_business.length ?
+                [] : this.all_lines_of_business;
+            break;
+        }
+      },
       nav(item){
         this.$router.push({path: "organization/"+item.id});
       },
