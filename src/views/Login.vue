@@ -258,7 +258,6 @@ export default {
     checkCredentials() {
       UserDataService.findByEmail(this.loginEmail)
         .then((response) => {
-          console.log(response);
           let originalPassword = response.data[0].user.password;
           let salt = response.data[0].user.salt;
           this.UserId = response.data[0].user.id;
@@ -346,12 +345,12 @@ export default {
             };
             let personId = response.data[0].id;
 
-            UserDataService.update(personId, data).then((response) => {
+            UserDataService.update(personId, data).then(() => {
               let data = {
-                sendTo: "ruizjoseph17@gmail.com",
+                sendTo: userEmail,
                 subject: "Password Reset",
-                text: "Here is your new password" + this.passwordReturn,
-                html: "Here is your new password" + this.passwordReturn,
+                text: "Here is your new password " + this.passwordReturn,
+                // html: "Here is your new password" + this.passwordReturn,
               };
               EmailerDataServiceProvider.sendMail(data)
                 .then((response) => {
@@ -440,7 +439,7 @@ export default {
       this.add_person_dlg = false;
     },
     sendEmailNotification(name){
-      //get all admin emails 
+      //get all admin emails
       var users = [];
       var adminEmails = [];
       UserDataService.getAll()
@@ -448,6 +447,7 @@ export default {
         users = response.data;
         users.forEach(user => {
           if(user.user.roles[0].id == 0) {
+            console.log("Email administrator");
             adminEmails.push(user.emails[0]);
             var data =  {
               sendTo: user.emails[0].address,
