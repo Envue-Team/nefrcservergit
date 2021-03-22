@@ -22,10 +22,9 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add select all functionality to organization edit and add forms">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Trying to send up latest emailer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/mailer.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/mailer.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,14 +184,7 @@
       <workItem from="1615500519016" duration="1052000" />
       <workItem from="1615509042974" duration="8383000" />
       <workItem from="1615898896644" duration="86059000" />
-      <workItem from="1616363905916" duration="3514000" />
-    </task>
-    <task id="LOCAL-00022" summary="Update add organization dialogue.">
-      <created>1612024553824</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1612024553824</updated>
+      <workItem from="1616363905916" duration="4457000" />
     </task>
     <task id="LOCAL-00023" summary="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications.">
       <created>1612123575225</created>
@@ -530,7 +522,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616334464023</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Trying to send up latest emailer">
+      <created>1616416870855</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1616416870856</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -601,7 +600,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Globalize addToLog functionI" />
     <MESSAGE value="Activity log added to admin page." />
     <MESSAGE value="Add logging of organization, relationship manager, contact, add, edit, and update." />
     <MESSAGE value="Password update added to admin user view." />
@@ -626,7 +624,8 @@
     <MESSAGE value="Add authorship to notes" />
     <MESSAGE value="Update file functionality to operate on live site and download with the appropriate extension." />
     <MESSAGE value="Add select all functionality to organization edit and add forms" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add select all functionality to organization edit and add forms" />
+    <MESSAGE value="Trying to send up latest emailer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying to send up latest emailer" />
   </component>
   <component name="WindowStateProjectService">
     <state x="533" y="274" key="#ESLint" timestamp="1616106102307">
@@ -680,10 +679,10 @@
     </state>
     <state x="147" y="24" key="SettingsEditor/0.24.1366.744@0.24.1366.744" timestamp="1616204706094" />
     <state x="147" y="27" key="SettingsEditor/0.27.1366.711@0.27.1366.711" timestamp="1610395648666" />
-    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616416757004">
+    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616416875962">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616416757004" />
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616416875962" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
     <state x="475" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615462467199">
       <screen x="0" y="24" width="1366" height="744" />
@@ -693,10 +692,10 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
-    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1615468049103">
+    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616417769982">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468049103" />
+    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1616417769982" />
     <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1614261239370" />
     <state x="410" y="295" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616416709020">
       <screen x="0" y="24" width="1366" height="744" />

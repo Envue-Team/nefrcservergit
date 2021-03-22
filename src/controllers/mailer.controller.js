@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 // Create and Save a new email number
 exports.sendMail = (req, res) => {
+    console.log("called");
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -11,7 +12,7 @@ exports.sendMail = (req, res) => {
             pass: "somepass", // generated ethereal password
         },
     });
-    
+
     let info = transporter.sendMail({
         from: '"Envue 👻" <team.envue@gmail.com>', // sender address
         to: req.body.sendTo,
@@ -28,3 +29,4 @@ exports.sendMail = (req, res) => {
             });
         });
 };
+
