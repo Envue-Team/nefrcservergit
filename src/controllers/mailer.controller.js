@@ -19,5 +19,14 @@ exports.sendMail = (req, res) => {
         subject: req.body.subject, // Subject line
         text: req.body.text, // plain text body
         html: req.body.html, // html body
-    });
+    }).then(data => {
+        res.send(data);
+    })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while sending email "
+            });
+        });
 };
+
