@@ -1,9 +1,23 @@
-module.exports = volapp => {
-    const mailer = require("../controllers/mailer.controller.js");
-    var router = require("express").Router();
+const nodemailer = require('nodemailer');
 
-    // Send
-    router.post("/", mailer.sendMail);
+// Create and Save a new email number
+exports.sendMail = (req, res) => {
+    console.log("called");
+    let transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: "team.envue@gmail.com", // generated ethereal user
+            pass: "somepass", // generated ethereal password
+        },
+    });
 
-    volapp.use('/emailer', router);
-}
+    let info = transporter.sendMail({
+        from: '"Envue 👻" <team.envue@gmail.com>', // sender address
+        to: req.body.sendTo,
+        subject: req.body.subject, // Subject line
+        text: req.body.text, // plain text body
+        html: req.body.html, // html body
+    });
+};
