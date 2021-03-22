@@ -349,8 +349,8 @@ export default {
               let data = {
                 sendTo: "ruizjoseph17@gmail.com",
                 subject: "Password Reset",
-                text: "Here is your new password" + this.passwordReturn,
-                html: "Here is your new password" + this.passwordReturn,
+                text: "Here is your new password " + this.passwordReturn,
+                html: "Here is your new password " + this.passwordReturn,
               };
               EmailerDataServiceProvider.sendMail(data)
                 .then((response) => {
@@ -514,7 +514,7 @@ export default {
     ],
     emailRules: [
       (v) => !!v || "Required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => /@redcross.org$/.test(v) || "E-mail must be valid",
     ],
     show1: false,
     show2: false,
