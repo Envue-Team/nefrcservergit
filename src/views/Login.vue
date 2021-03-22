@@ -231,7 +231,7 @@ import UserDataService from "../services/UserDataService";
 import UserRoleDataService from "../services/UserRoleDataService";
 import PhoneDataService from "@/services/PhoneDataService";
 import EmailDataService from "@/services/EmailDataService";
-import EmailerDataServiceProvider from "@/services/EmailerDataServiceProvider";
+import EmailerDataServiceProvider from "../services/EmailerDataServiceProvider";
 const crypto = require("crypto");
 export default {
   name: "Login",
