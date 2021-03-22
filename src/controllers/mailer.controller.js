@@ -10,16 +10,8 @@ exports.sendMail = (req, res) => {
             user: "team.envue@gmail.com", // generated ethereal user
             pass: "somepass", // generated ethereal password
         },
-    }).then(data => {
-        res.send(data);
-    })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating email"
-            });
-        });
-
+    });
+    
     let info = transporter.sendMail({
         from: '"Envue 👻" <team.envue@gmail.com>', // sender address
         to: req.body.sendTo,
