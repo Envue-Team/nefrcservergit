@@ -22,20 +22,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add authorship to notes">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/nefrcservergit.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Add select all functionality to organization edit and add forms">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helful-commands.txt" beforeDir="false" afterPath="$PROJECT_DIR$/helful-commands.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/file.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/file.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/role.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/role.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/file.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/file.routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/Organization.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Organization.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/mailer.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/mailer.routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,6 +60,9 @@
   </component>
   <component name="GitRewordedCommitMessages">
     <option name="onto" value="a771426c269826ff31e117bf1501f376677d0782" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="46d48a8a-edff-4905-922e-707ea2d80aa5" />
   </component>
   <component name="GithubPullRequestsUISettings">
     <option name="hiddenUrls">
@@ -110,7 +103,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -131,13 +124,15 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -189,21 +184,8 @@
       <workItem from="1614165597441" duration="41109000" />
       <workItem from="1615500519016" duration="1052000" />
       <workItem from="1615509042974" duration="8383000" />
-      <workItem from="1615898896644" duration="67583000" />
-    </task>
-    <task id="LOCAL-00020" summary="Add validation to organization add and edit pages. Add validation to point of contact form. Add access limitations to organization list page">
-      <created>1610918723438</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1610918723438</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Add columns to search table: services, Line of Business, MOU, ARC Relationship, and Agency Type.">
-      <created>1610920261420</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1610920261420</updated>
+      <workItem from="1615898896644" duration="86059000" />
+      <workItem from="1616363905916" duration="3514000" />
     </task>
     <task id="LOCAL-00022" summary="Update add organization dialogue.">
       <created>1612024553824</created>
@@ -534,7 +516,21 @@
       <option name="project" value="LOCAL" />
       <updated>1615472071815</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Update file functionality to operate on live site and download with the appropriate extension.">
+      <created>1616204503320</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1616204503321</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Add select all functionality to organization edit and add forms">
+      <created>1616334464022</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1616334464023</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -605,8 +601,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Block access for users not logged in" />
-    <MESSAGE value="Globalize addToLog function" />
     <MESSAGE value="Globalize addToLog functionI" />
     <MESSAGE value="Activity log added to admin page." />
     <MESSAGE value="Add logging of organization, relationship manager, contact, add, edit, and update." />
@@ -630,7 +624,9 @@
     <MESSAGE value="Update registration function to use the appropriate axios provisions" />
     <MESSAGE value="Small cleanup" />
     <MESSAGE value="Add authorship to notes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add authorship to notes" />
+    <MESSAGE value="Update file functionality to operate on live site and download with the appropriate extension." />
+    <MESSAGE value="Add select all functionality to organization edit and add forms" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add select all functionality to organization edit and add forms" />
   </component>
   <component name="WindowStateProjectService">
     <state x="533" y="274" key="#ESLint" timestamp="1616106102307">
@@ -663,6 +659,10 @@
     </state>
     <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468426358" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599570398" />
+    <state x="470" y="141" key="FileChooserDialogImpl" timestamp="1616330557067">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="470" y="141" key="FileChooserDialogImpl/0.24.1366.744@0.24.1366.744" timestamp="1616330557067" />
     <state x="0" y="27" width="1366" height="744" key="MergeDialog" timestamp="1613599144219">
       <screen x="0" y="27" width="1366" height="711" />
     </state>
@@ -675,14 +675,15 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610320141241" />
-    <state x="147" y="27" key="SettingsEditor" timestamp="1610395648666">
-      <screen x="0" y="27" width="1366" height="711" />
-    </state>
-    <state x="147" y="27" key="SettingsEditor/0.27.1366.711@0.27.1366.711" timestamp="1610395648666" />
-    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1615469421190">
+    <state x="147" y="24" key="SettingsEditor" timestamp="1616204706094">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1615469421190" />
+    <state x="147" y="24" key="SettingsEditor/0.24.1366.744@0.24.1366.744" timestamp="1616204706094" />
+    <state x="147" y="27" key="SettingsEditor/0.27.1366.711@0.27.1366.711" timestamp="1610395648666" />
+    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616416757004">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616416757004" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
     <state x="475" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615462467199">
       <screen x="0" y="24" width="1366" height="744" />
@@ -697,9 +698,10 @@
     </state>
     <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468049103" />
     <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1614261239370" />
-    <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1613595005381">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="410" y="295" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616416709020">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
+    <state x="410" y="295" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.24.1366.744@0.24.1366.744" timestamp="1616416709020" />
     <state x="410" y="286" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.27.1366.711@0.27.1366.711" timestamp="1613595005381" />
     <state x="116" y="27" width="726" height="711" key="find.popup" timestamp="1612966602010">
       <screen x="0" y="27" width="1366" height="711" />
