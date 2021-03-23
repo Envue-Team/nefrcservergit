@@ -589,6 +589,7 @@ export default {
           .catch((e) => {
             console.log(e);
           });
+      this.verify_edit_password_dialog = false;
       this.edit_person_dlg = false;
     },
 
@@ -631,6 +632,7 @@ export default {
         .catch((e) => {
           console.log(e);
         });
+      this.update_user_dialog = false;
       this.edit_person_dlg = false;
       this.updateSelectedRole(this.edit_role.role);
     },
