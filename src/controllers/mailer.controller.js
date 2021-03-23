@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 
 // Create and Save a new email number
 exports.sendMail = (req, res) => {
+    console.log("called");
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -26,5 +27,6 @@ exports.sendMail = (req, res) => {
                 message:
                     err.message || "Some error occurred while sending email "
             });
-        })
-    }
+        });
+};
+
