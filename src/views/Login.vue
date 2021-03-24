@@ -98,7 +98,7 @@
                           required
                         ></v-text-field>
                       </v-col>
-                      <v-col cols="12" sm="6" md="6">
+                      <v-col cols="12" sm="6">
                         <v-text-field
                           v-model="Email"
                           :rules="emailRules"
@@ -107,7 +107,10 @@
                           required
                         ></v-text-field>
                       </v-col>
-                      <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12" sm="6" v-bind:style = "{'padding-right':'120px', 'position':'relative', 'top':'30px' }">
+                        <h2>@redcross.org</h2>
+                      </v-col>
+                      <v-col cols="12">
                         <v-text-field
                           v-model="Phone"
                           :rules="phoneRules"
@@ -336,10 +339,10 @@ export default {
             let salt = this.generateSalt();
             let password = this.encryptPassword(this.passwordReturn, salt);
 
-            var data = {
+            var data = { 
               first_name: response.data[0].first_name,
               last_name: response.data[0].last_name,
-              email: userEmail,
+              email: userEmail + '@redcross.org',
               password: password,
               salt: salt,
             };
@@ -511,11 +514,11 @@ export default {
     ],
     loginEmailRules: [
       (v) => !!v || "Required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => /@redcross.org$/.test(v) || "E-mail must be valid",
     ],
     emailRules: [
       (v) => !!v || "Required",
-      (v) => /@redcross.org$/.test(v) || "E-mail must be valid",
+      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
     ],
     show1: false,
     show2: false,
@@ -526,3 +529,4 @@ export default {
   }),
 };
 </script>
+
