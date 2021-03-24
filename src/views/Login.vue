@@ -342,7 +342,7 @@ export default {
             var data = { 
               first_name: response.data[0].first_name,
               last_name: response.data[0].last_name,
-              email: userEmail + '@redcross.org',
+              email: userEmail,
               password: password,
               salt: salt,
             };
@@ -398,7 +398,7 @@ export default {
       var data = {
         first_name: this.FirstName,
         last_name: this.LastName,
-        email: this.Email,
+        email: this.Email + '@redcross.org',
         password: this.Password,
       };
       var emailName = data.first_name+' '+data.last_name;
@@ -518,7 +518,7 @@ export default {
     ],
     emailRules: [
       (v) => !!v || "Required",
-      (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
+      (v) => /^[a-zA-Z0-9_]*$/.test(v) || "Name must be valid",
     ],
     show1: false,
     show2: false,
