@@ -657,7 +657,7 @@
                 <v-btn
                     icon
                     small
-                    @click="deleteFile(item)"
+                    @click="verifyDeleteFile(item)"
                 >
                   <v-icon
                       color="grey"
@@ -1209,6 +1209,51 @@
     </v-dialog>
     <!---------------------------------//Edit Organization Dialog------------------------------>
 
+    <!---------------------------------Delete File Dialog------------------------------>
+    <v-dialog
+        content-class="small-dlg"
+        v-model="verify_delete_file_dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to delete this organization's file?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="verify_delete_file_dlg=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="deleteFile"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Delete File Dialog------------------------------>
+
     <!---------------------------------Delete Organization Dialog------------------------------>
     <v-dialog
         content-class="small-dlg"
@@ -1542,6 +1587,8 @@ export default {
       file_upload: '',
       upload_disabled: true,
       search: '',
+      file_to_delete: '',
+      verify_delete_file_dlg: false,
 
       /**
        * Notes
@@ -1578,6 +1625,10 @@ export default {
               [] : this.all_lines_of_business;
           break;
       }
+    },
+    verifyDeleteFile(item){
+      this.file_to_delete = item;
+      this.verify_delete_file_dlg = true;
     },
     openDialog(dlg, id=null){
       switch(dlg){
@@ -1656,7 +1707,8 @@ export default {
           })
           .catch(e=>{console.log(e)});
     },
-    deleteFile(obj){
+    deleteFile(){
+      let obj = this.file_to_delete;
       let data = {
         filePath: obj.item.filePath
       }
@@ -1667,6 +1719,7 @@ export default {
           .catch(e=>{
             console.log(e);
           });
+      this.verify_delete_file_dlg = false;
     },
     reset() {
       // reset form to initial state
