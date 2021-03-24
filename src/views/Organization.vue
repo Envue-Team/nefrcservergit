@@ -1752,7 +1752,8 @@ export default {
           });
       this.formData = '';
       this.files_to_upload = [];
-      this.upload_disabled=true;
+      this.upload_disabled = true;
+      this.upload_file_dlg = false;
       this.populateFiles(this.organization.id)
       this.reset();
     },
@@ -1983,14 +1984,19 @@ export default {
             this.website = this.organization.website;
             this.primaryPhone = this.organization.primaryPhone;
             this.mou = this.organization.mou;
+            this.lines_of_business = [];
             this.organization.line_of_businesses.forEach(lob=>{
               this.lines_of_business.push(lob);
             });
             this.organization_arc_relationships.forEach(ar=>{
-              this.relationships.push(ar);
+              if(!this.relationships.includes(ar)){
+                this.relationships.push(ar);
+              }
             });
             this.organization_agency_types.forEach(type=>{
-              this.agency_types.push(type);
+              if(!this.agency_types.includes(type)){
+                this.agency_types.push(type);
+              }
             });
             this.contact_protocol = this.organization.contact_protocol;
             this.last_contact = this.organization.last_contact;
