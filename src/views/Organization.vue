@@ -898,6 +898,7 @@
       </v-card-title>
       <v-card-text>
           <v-file-input
+              v-model="files_to_upload"
               accept=".gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv"
               id="fileInput"
               label="Upload new file"
@@ -908,6 +909,14 @@
           ></v-file-input>
         </v-card-text>
         <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            style="color: #0091CD"
+            text
+            @click="closeFileUploadDialog"
+          >
+            Cancel
+          </v-btn>
           <v-btn
               depressed
               small
@@ -1524,6 +1533,7 @@ export default {
        * Files
        **/
       files: [],
+      files_to_upload: [],
       uploadedFiles: [],
       upload_file_dlg: false,
       uploadError: null,
@@ -1664,6 +1674,10 @@ export default {
       this.uploadedFiles = [];
       this.uploadError = null;
     },
+    closeFileUploadDialog(){
+      this.upload_file_dlg=false;
+      this.files_to_upload = [];
+    },
     uploadFile() {
       const formData = new FormData();
       formData.append('file', this.file_upload);
@@ -1684,10 +1698,9 @@ export default {
             this.currentStatus = STATUS_FAILED;
           });
       this.formData = '';
+      this.files_to_upload = [];
       this.upload_disabled=true;
       this.populateFiles(this.organization.id)
-      let form = document.getElementById("uploadForm");
-      form.reset();
       this.reset();
     },
     filesChange(files) {
