@@ -23,9 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Trying to send up latest emailer">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
     </list>
+    <list id="f4eb0025-6bd8-41a0-9026-75077699b6c4" name="Apply: " comment="Trying to update git" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -653,10 +653,10 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="180" y="24" key="CommitChangelistDialog2/0.24.1366.744@0.24.1366.744" timestamp="1615462257883" />
-    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog" timestamp="1615468426358">
+    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog" timestamp="1616710664436">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1615468426358" />
+    <state x="99" y="96" width="1168" height="573" key="DiffContextDialog/0.24.1366.744@0.24.1366.744" timestamp="1616710664436" />
     <state x="99" y="96" width="1168" height="548" key="DiffContextDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599570398" />
     <state x="470" y="141" key="FileChooserDialogImpl" timestamp="1616330557067">
       <screen x="0" y="24" width="1366" height="744" />
@@ -679,10 +679,18 @@
     </state>
     <state x="147" y="24" key="SettingsEditor/0.24.1366.744@0.24.1366.744" timestamp="1616204706094" />
     <state x="147" y="27" key="SettingsEditor/0.27.1366.711@0.27.1366.711" timestamp="1610395648666" />
-    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616416875962">
+    <state x="421" y="80" key="VCS.ChangeListViewerDialog" timestamp="1616710518330">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616416875962" />
+    <state x="421" y="80" key="VCS.ChangeListViewerDialog/0.24.1366.744@0.24.1366.744" timestamp="1616710518330" />
+    <state x="530" y="297" key="VCS.ChangelistChooser" timestamp="1616710499839">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="530" y="297" key="VCS.ChangelistChooser/0.24.1366.744@0.24.1366.744" timestamp="1616710499839" />
+    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616710555037">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616710555037" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
     <state x="475" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615462467199">
       <screen x="0" y="24" width="1366" height="744" />
@@ -715,6 +723,10 @@
     </state>
     <state x="492" y="295" key="git4idea.remote.GitConfigureRemotesDialog/0.24.1366.744@0.24.1366.744" timestamp="1615466088536" />
     <state x="492" y="286" width="529" height="211" key="git4idea.remote.GitConfigureRemotesDialog/0.27.1366.711@0.27.1366.711" timestamp="1610315593853" />
+    <state x="436" y="283" key="git4idea.ui.GitStashDialog" timestamp="1616710339388">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="436" y="283" key="git4idea.ui.GitStashDialog/0.24.1366.744@0.24.1366.744" timestamp="1616710339388" />
     <state x="388" y="230" key="git4idea.ui.GitUnstashDialog" timestamp="1615462207907">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
@@ -734,5 +746,9 @@
     </state>
     <state x="321" y="89" width="719" height="679" key="search.everywhere.popup/0.24.1366.744@0.24.1366.744" timestamp="1616187432737" />
     <state x="321" y="89" width="719" height="648" key="search.everywhere.popup/0.27.1366.711@0.27.1366.711" timestamp="1614092943449" />
+    <state x="412" y="297" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1616710510240">
+      <screen x="0" y="24" width="1366" height="744" />
+    </state>
+    <state x="412" y="297" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.24.1366.744@0.24.1366.744" timestamp="1616710510240" />
   </component>
 </project>

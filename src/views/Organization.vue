@@ -2,7 +2,7 @@
   <v-container>
     <span class="hidden-md-and-down">
       <div class="item-title">
-          {{ organization.name }}
+          {{ name }}
         <v-btn
           icon
           class="ml-3"
@@ -36,18 +36,18 @@
                   >
                     <v-card-text>
               <span class="sub-data">
-                {{ organization.street_number }} {{ organization.street_name}}
-                {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
+                {{ street_number }} {{ street_name}}
+                {{ city }}, {{ state }} {{ zip }}
                 <br/>
-                <span v-for="county in organization.counties" :key="Math.floor((Math.random()*1000000000) + 1)">
+                <span v-for="county in counties" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{county.name}}
                 </span><br/>
-                  <a :href="organization.website" style="color: #C4DFF6">
-                  {{ organization.website }}
+                  <a :href="website" style="color: #C4DFF6">
+                  {{ website }}
                 </a>
                 <span v-if="organization.phones != null && organization.phones.length != 0">
-                <span v-show="organization.website != ''"> | </span>
-                {{ organization.primaryPhone}}</span>
+                <span v-show="website != ''"> | </span>
+                {{ primaryPhone}}</span>
               </span>
                     </v-card-text>
                   </v-card>
@@ -73,21 +73,21 @@
                   </v-card>
                   </v-card>
                   <v-card-text>
-                    <div class="card-label">National DCS MOU Partner: </div> {{ organization.mou }}
+                    <div class="card-label">National DCS MOU Partner: </div> {{ mou }}
 
                     <div class="card-label">Lines of Business: </div>
-                    <div v-for="lob in organization.line_of_businesses" :key="Math.floor((Math.random()*1000000000) + 1)">
+                    <div v-for="lob in lines_of_business" :key="Math.floor((Math.random()*1000000000) + 1)">
                       {{lob.name}}
                     </div>
 
                     <div class="card-label">Community Services Provided: </div>
-                    <div v-for="arcrel in organization.arc_relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
-                      {{arcrel.name}}
+                    <div v-for="arcrel in relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
+                      {{arcrel}}
                     </div>
 
                     <div class="card-label">Agency Types: </div>
-                    <div v-for="agtype in organization.agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
-                      {{agtype.name}}
+                    <div v-for="agtype in agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
+                      {{agtype}}
                     </div>
                   </v-card-text>
                 </v-card>
@@ -121,7 +121,7 @@
                           ></v-icon>
                         </v-btn>
                       </div>
-                      <div class="sub-data">{{ organization.last_contact }}</div>
+                      <div class="sub-data">{{ last_contact }}</div>
                       <div class="card-label-light">
                         Opportunities/Actions Needed to Improve Profile:
                         <v-btn
@@ -136,7 +136,7 @@
                         </v-btn>
 
                       </div>
-                      <div class="sub-data">{{ organization.action }}</div>
+                      <div class="sub-data">{{ action }}</div>
                       <div class="card-label-light">
                         Note:
                         <v-btn
@@ -150,7 +150,7 @@
                               class="mdi mdi-comment-outline"></v-icon>
                         </v-btn>
                       </div>
-                      <div class="sub-data">{{ organization.notes }}</div>
+                      <div class="sub-data">{{ notes }}</div>
                     </v-card-text>
                   </v-card>
                 </v-card>
@@ -186,7 +186,7 @@
                       </v-icon>
                     </v-btn>
                   </div>
-                  <div class="card-header-subtitle">{{ organization.contact_protocol }}</div>
+                  <div class="card-header-subtitle">{{ contact_protocol }}</div>
                   <div v-for="contact in organization_points_of_contact" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
                     <div :ref="'first_name_' + contact.personId">
                       <span class="data">{{ contact.first_name }} {{ contact.last_name }}</span>
@@ -208,7 +208,7 @@
                     <span v-for="phone in contact.phones" v-bind:key="Math.floor((Math.random()*1000000000) + 1)" class="sub-data">
                       <span :ref="'phone_' + phone.id">
                         <span v-if="phone.isPrimary==true">
-                          {{ phone.number }}(P)
+                          {{ phone.number }}
                         </span>
                       </span>
             </span>
@@ -295,7 +295,7 @@
         <div
             style="font-weight: 700; color: #878686; font-size: 18px;"
         >
-          {{ organization.name }}
+          {{ name }}
           <v-btn
               style="color: #878686; margin-left: 140px"
               outlined
@@ -316,18 +316,18 @@
               font-size: 16px;
             "
         >
-          {{ organization.street_number }} {{ organization.street_name}}<br/>
-          {{ organization.city }}, {{ organization.state }} {{ organization.zip }}
+          {{ street_number }} {{ street_name}}<br/>
+          {{ city }}, {{ state }} {{ zip }}
           <br/>
           <span v-show="organization.website != ''">
               <a :href="organization.website" style="color: #7F181B">
-                  {{ organization.website }}
+                  {{ website }}
               </a> | </span>
           <span v-if="organization.phones != null && organization.phones.length != 0">{{ organization.primaryPhone}}
           </span><br/>
 
-          <span v-for="county in organization.counties" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
-                  {{county.name}}
+          <span v-for="county in counties" v-bind:key="Math.floor((Math.random()*1000000000) + 1)">
+                  {{county}}
                 </span>
         </div>
         <v-expansion-panels
@@ -344,7 +344,7 @@
 
                 "
               >
-                {{ organization.contact_protocol }}
+                {{ contact_protocol }}
                 <v-btn
                     icon
                     style="color: #7F181B; margin-left: 50px; margin-bottom: 20px"
@@ -440,7 +440,7 @@
                     ></v-icon>
                   </v-btn>
                 </div>
-                {{ organization.last_contact }}
+                {{ last_contact }}
                 <br/>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
                   Opportunities:
@@ -455,7 +455,7 @@
                         small></v-icon>
                   </v-btn>
                 </div>
-                {{ organization.action }}
+                {{ action }}
                 <br/>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">
                   Notes:
@@ -470,7 +470,7 @@
                         class="mdi mdi-comment"></v-icon>
                   </v-btn>
                 </div>
-                {{ organization.notes }}
+                {{ notes }}
               </div>
             </v-expansion-panel-content>
           </v-expansion-panel>
@@ -489,38 +489,38 @@
                   <v-icon
                       small
                       color="green"
-                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'yes'"
+                      v-if="mou != null && mou.toLowerCase() == 'yes'"
                       class="mdi mdi-check"
                   >
                   </v-icon>
                   <v-icon
                       small
                       color="red"
-                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'no'"
+                      v-if="mou != null && mou.toLowerCase() == 'no'"
                       class="mdi mdi-close"
                   >
                   </v-icon>
                   <v-icon
                       small
                       color="grey"
-                      v-if="organization.mou != null && organization.mou.toLowerCase() == 'maybe'"
+                      v-if="mou != null && mou.toLowerCase() == 'maybe'"
                       class="mdi mdi-help"
                   >
                   </v-icon>
                 </div>
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Lines of Business: </div>
-                <div v-for="lob in organization.line_of_businesses" :key="Math.floor((Math.random()*1000000000) + 1)">
+                <div v-for="lob in lines_of_business" :key="Math.floor((Math.random()*1000000000) + 1)">
                   {{lob.name}}
                 </div>
 
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Community Services Provided: </div>
-                <div v-for="arcrel in organization.arc_relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
-                  {{arcrel.name}}
+                <div v-for="arcrel in relationships" :key="Math.floor((Math.random()*1000000000) + 1)">
+                  {{arcrel}}
                 </div>
 
                 <div style="font-weight: bold; font-family: 'Cantarell', sans-serif;">Agency Types: </div>
-                <div v-for="agtype in organization.agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
-                  {{agtype.name}}
+                <div v-for="agtype in agency_types" :key="Math.floor((Math.random()*1000000000) + 1)">
+                  {{agtype}}
                 </div>
               </div>
             </v-expansion-panel-content>
@@ -657,7 +657,7 @@
                 <v-btn
                     icon
                     small
-                    @click="deleteFile(item)"
+                    @click="verifyDeleteFile(item)"
                 >
                   <v-icon
                       color="grey"
@@ -762,7 +762,7 @@
               <v-btn
                   style="color: #0091CD"
                   text
-                  @click="add_note_dlg=false"
+                  @click="closeEditNotesDialog"
               >
                 Cancel
               </v-btn>
@@ -811,7 +811,7 @@
               <v-btn
                   style="color: #0091CD"
                   text
-                  @click="contact_note_dlg=false"
+                  @click="closeEditLastContactDialog"
               >
                 Cancel
               </v-btn>
@@ -860,7 +860,7 @@
               <v-btn
                   style="color: #0091CD"
                   text
-                  @click="op_action_dlg=false"
+                  @click="closeEditActionDialog"
               >
                 Cancel
               </v-btn>
@@ -898,6 +898,7 @@
       </v-card-title>
       <v-card-text>
           <v-file-input
+              v-model="files_to_upload"
               accept=".gif,.jpg,.jpeg,.png,.doc,.docx,.xlsx, .xlsb, .xlsm, .txt, .csv, .tsv"
               id="fileInput"
               label="Upload new file"
@@ -908,6 +909,14 @@
           ></v-file-input>
         </v-card-text>
         <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            style="color: #0091CD"
+            text
+            @click="closeFileUploadDialog"
+          >
+            Cancel
+          </v-btn>
           <v-btn
               depressed
               small
@@ -1170,7 +1179,7 @@
             <v-btn
                 style="color: #0091CD"
                 text
-                @click="organization_edit_dlg=false"
+                @click="closeEditOrganizationDialog"
             >
               Cancel
             </v-btn>
@@ -1199,6 +1208,51 @@
       </v-card>
     </v-dialog>
     <!---------------------------------//Edit Organization Dialog------------------------------>
+
+    <!---------------------------------Delete File Dialog------------------------------>
+    <v-dialog
+        content-class="small-dlg"
+        v-model="verify_delete_file_dlg"
+    >
+      <v-card
+          elevation="1"
+          class="pa-1"
+          style="background-color: #6D6E70"
+          rounded
+      >
+        <v-card>
+          <v-btn
+              text
+              disabled=true
+              style="color: #ED1B2E !important"
+          >
+            Caution
+          </v-btn>
+          <v-card-text>
+            Are you sure you want to delete this organization's file?
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                @click="verify_delete_file_dlg=false"
+                style="background-color: #0091CD; color: white"
+                depressed
+            >
+              No
+            </v-btn>
+            <v-btn
+                @click="deleteFile"
+                style="background-color: #7F181B; color: white"
+                depressed
+            >
+              Yes
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-card>
+    </v-dialog>
+    <!---------------------------------//Delete File Dialog------------------------------>
 
     <!---------------------------------Delete Organization Dialog------------------------------>
     <v-dialog
@@ -1336,6 +1390,25 @@ export default {
 
   data() {
     return {
+      /**
+       * Organization Display
+       **/
+      name: '',
+      street_number: '',
+      street_name: '',
+      city: '',
+      state: '',
+      zip: '',
+      counties: [],
+      website: '',
+      primaryPhone: '',
+      mou: '',
+      lines_of_business: [],
+      relationships: [],
+      agency_types: [],
+      preferred_method_of_contact: '',
+      contact_protocol: '',
+
 
       slgroup1: null,
       slgroup: null,
@@ -1505,6 +1578,7 @@ export default {
        * Files
        **/
       files: [],
+      files_to_upload: [],
       uploadedFiles: [],
       upload_file_dlg: false,
       uploadError: null,
@@ -1513,6 +1587,8 @@ export default {
       file_upload: '',
       upload_disabled: true,
       search: '',
+      file_to_delete: '',
+      verify_delete_file_dlg: false,
 
       /**
        * Notes
@@ -1523,6 +1599,9 @@ export default {
       add_note_form: {
         text: '',
       },
+      last_contact: '',
+      action: '',
+      notes: ''
     }
   },
   methods: {
@@ -1546,6 +1625,10 @@ export default {
               [] : this.all_lines_of_business;
           break;
       }
+    },
+    verifyDeleteFile(item){
+      this.file_to_delete = item;
+      this.verify_delete_file_dlg = true;
     },
     openDialog(dlg, id=null){
       switch(dlg){
@@ -1624,7 +1707,8 @@ export default {
           })
           .catch(e=>{console.log(e)});
     },
-    deleteFile(obj){
+    deleteFile(){
+      let obj = this.file_to_delete;
       let data = {
         filePath: obj.item.filePath
       }
@@ -1635,12 +1719,17 @@ export default {
           .catch(e=>{
             console.log(e);
           });
+      this.verify_delete_file_dlg = false;
     },
     reset() {
       // reset form to initial state
       this.currentStatus = STATUS_INITIAL;
       this.uploadedFiles = [];
       this.uploadError = null;
+    },
+    closeFileUploadDialog(){
+      this.upload_file_dlg=false;
+      this.files_to_upload = [];
     },
     uploadFile() {
       const formData = new FormData();
@@ -1662,10 +1751,10 @@ export default {
             this.currentStatus = STATUS_FAILED;
           });
       this.formData = '';
-      this.upload_disabled=true;
+      this.files_to_upload = [];
+      this.upload_disabled = true;
+      this.upload_file_dlg = false;
       this.populateFiles(this.organization.id)
-      let form = document.getElementById("uploadForm");
-      form.reset();
       this.reset();
     },
     filesChange(files) {
@@ -1703,6 +1792,47 @@ export default {
             });
           })
     .catch(e=>{console.log(e)});
+    },
+    closeEditLastContactDialog(){
+      this.contact_note_dlg=false;
+      this.organization.last_contact = this.last_contact;
+    },
+    closeEditActionDialog(){
+      this.op_action_dlg=false;
+      this.organization.action = this.action;
+    },
+    closeEditNotesDialog(){
+      this.add_note_dlg=false;
+      this.organization.notes = this.notes;
+    },
+    closeEditOrganizationDialog(){
+      this.organization_edit_dlg=false;
+      this.organization.name = this.name;
+      this.street_number = this.organization.street_number;
+      this.organization.street_name = this.street_name;
+      this.organization.city = this.city;
+      this.organization.state = this.state;
+      this.organization.zip = this.zip;
+      this.organization.counties = [];
+      this.counties.forEach(county=>{
+        this.organization.counties.push(county);
+      });
+      this.organization.website = this.website;
+      this.organization.primaryPhone = this.primaryPhone;
+      this.organization.mou = this.mou;
+      this.organization.line_of_businesses = [];
+      this.lines_of_business.forEach(lob=>{
+        this.organization.line_of_businesses.push(lob);
+      });
+      this.organization_arc_relationships = [];
+      this.organization_arc_relationships.forEach(ar=>{
+        this.relationships.push(ar);
+      });
+      this.organization_agency_types = [];
+      this.agency_types.forEach(type=>{
+        this.organization_agency_types.push(type);
+      });
+      this.organization.contact_protocol = this.contact_protocol;
     },
     updateOrganization(){
       /*
@@ -1839,13 +1969,43 @@ export default {
             this.organization_state = response.data.state;
             this.organization_relationship_managers = response.data.relationship_managers;
 
+            this.add_note_dlg = false;
+            this.contact_note_dlg = false;
+            this.op_action_dlg = false;
+            this.name = this.organization.name;
+            this.street_number = this.organization.street_number;
+            this.street_name = this.organization.street_name;
+            this.city = this.organization.city;
+            this.state = this.organization.state;
+            this.zip = this.organization.zip;
+            this.organization.counties.forEach(county=>{
+              this.counties.push(county);
+            });
+            this.website = this.organization.website;
+            this.primaryPhone = this.organization.primaryPhone;
+            this.mou = this.organization.mou;
+            this.lines_of_business = [];
+            this.organization.line_of_businesses.forEach(lob=>{
+              this.lines_of_business.push(lob);
+            });
+            this.organization_arc_relationships.forEach(ar=>{
+              if(!this.relationships.includes(ar)){
+                this.relationships.push(ar);
+              }
+            });
+            this.organization_agency_types.forEach(type=>{
+              if(!this.agency_types.includes(type)){
+                this.agency_types.push(type);
+              }
+            });
+            this.contact_protocol = this.organization.contact_protocol;
+            this.last_contact = this.organization.last_contact;
+            this.action = this.organization.action;
+            this.notes = this.organization.notes;
             this.populateFiles(this.organization.id);
             this.setOwnerStatus();
           })
           .catch(e=>{console.log(e)});
-      this.add_note_dlg = false;
-      this.contact_note_dlg = false;
-      this.op_action_dlg = false;
     },
     populateCounties(){
       CountyDataService.getAll()
@@ -2264,9 +2424,6 @@ export default {
      **/
     validate () {
       this.$refs.form.validate()
-    },
-    sendEmail(){
-      EmailerDataService.sendMail();
     }
   },
   computed:{

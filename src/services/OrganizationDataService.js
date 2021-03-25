@@ -25,6 +25,10 @@ class OrganizationDataService {
     return http.delete(`/organizations`);
   }
 
+  getByContactId(id) {
+    return http.get(`/organizations/getByContactId/${id}`);
+  }
+
 }
 
 export default new OrganizationDataService();

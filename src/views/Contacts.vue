@@ -64,6 +64,7 @@ import ContactDataService from "@/services/ContactDataService";
 import EmailDataService from "../services/EmailDataService";
 import PhoneDataService from "../services/PhoneDataService";
 import UserDataService from "../services/UserDataService";
+import OrganizationDataService from "@/services/OrganizationDataService";
 // import ActivityLogDataService from "../services/ActivityLogDataService";
 //close activity log addition
 
@@ -181,6 +182,13 @@ export default {
             return contact.user == null;
           });
           this.volunteers.forEach((volunteer) => {
+            var volCounties = '';
+            volunteer.organizations.forEach(organization => {
+              organization.counties.forEach(county=>{
+                volCounties += county.name+", ";
+              });
+            });
+            volunteer.county = volCounties.substring(0, volCounties.length - 2);
             volunteer.address =
               volunteer.street_number +
               " " +
@@ -216,6 +224,21 @@ export default {
             volunteer.phone = phones;
           });
         })
+        //   .then(()=>{
+        //   this.volunteers.forEach(volunteer => {
+        //     OrganizationDataService.getByContactId(volunteer.id)
+        //         .then((response)=>{
+        //           if(response.data.length != 0){
+        //             let volCounties = '';
+        //             response.data[0].counties.forEach(county=>{
+        //               volCounties += county.name+", ";
+        //             });
+        //             volunteer.county = volCounties.substring(0, volCounties.length - 2);
+        //           }
+        //         })
+        //         .catch(e=>console.log(e));
+        //   });
+        // })
         .catch((e) => {
           console.log(e.message);
         });
