@@ -38,10 +38,7 @@
                     {{ edit_person.primaryPhone }} | {{ edit_person.primaryEmail }}
                   </div>
                   <div class="card-header-subtitle">
-                    {{ edit_person.street_number }} {{ edit_person.street_name }}<br />
-                    {{ edit_person.city }}, {{ edit_person.state }}
-                    {{ edit_person.zip }}<br />
-                    {{ edit_person.county + " County" }}<br />
+                    {{ edit_person.county }}<br />
                     Affiliated Organizations: {{ edit_person.organization_names }}
                     <br />
                     <!-- Alternate Contact Info:
@@ -439,6 +436,7 @@ import EmailDataService from "../services/EmailDataService";
 import PersonDataService from "../services/PersonDataService";
 import NoteDataService from "../services/NoteDataService";
 import NoteDialog from "./NoteDialog";
+import OrganizationDataService from "@/services/OrganizationDataService";
 
 
 export default {
@@ -448,6 +446,7 @@ export default {
   },
   data() {
     return {
+      organization: '',
       delete_poc_dialog: false,
       update_poc_dialog: false,
       edit_person_dlg: false,
@@ -603,52 +602,49 @@ export default {
         })
             .catch(e=>{console.log(e)});
       },
-        showDialog() {
-            this.edit_person_dlg = true;
-        },
-        setPerson() {
-            PersonDataService.get(this.$route.params.personId)
-			.then(response => {
-				// this.notes = response.data.notes.map(note=>{
-				// 	var date = Intl.DateTimeFormat('en-US').format(new Date(note.createdAt));
-				// 	return {
-				// 		id: note.id,
-				// 		text: note.text,
-				// 		date: date,
-				// 		author: note.person,
-				// 		type: note.type
-				// 	}
-				// });
-                // console.log(response.data);
-                this.edit_person = response.data;
-                response.data.phones.forEach(phone => {
-                    if(phone.isPrimary) {
-                        this.edit_person.primaryPhone = phone.number;
-                        this.phoneId = phone.id;
-                    }
-                    else {
-                        this.edit_person.secondaryPhone = phone.number;
-                        this.phone2Id = phone.id;
-                    }
-                });
-                response.data.emails.forEach(email => {
-                    if(email.isPrimary) {
-                        this.edit_person.primaryEmail = email.address;
-                        this.emailId = email.id;
-                    }
-                    else {
-                        this.edit_person.secondaryEmail = email.address;
-                        this.email2Id = email.id;
-                    }
-                });
-                this.edit_person.organization_names = '';
-                response.data.organizations.forEach(organization=>{
-                    this.edit_person.organization_names += organization.name+"\n";
-                });
-			})
-			.catch(e => {
-				console.log(e.message);
+      setPerson() {
+        PersonDataService.get(this.$route.params.personId)
+            .then(response => {
+              this.edit_person = response.data;
+              var perCounty = '';
+              response.data.organizations.forEach(organization => {
+                organization.counties.forEach(county=>{
+                  perCounty += county.name +", ";
+                })
+              });
+              this.edit_person.county = perCounty.substring(0, perCounty.length - 2);
+              response.data.phones.forEach(phone => {
+                if(phone.isPrimary) {
+                  this.edit_person.primaryPhone = phone.number;
+                  this.phoneId = phone.id;
+                }
+                else {
+                  this.edit_person.secondaryPhone = phone.number;
+                  this.phone2Id = phone.id;
+                }
+              });
+              response.data.emails.forEach(email => {
+                if(email.isPrimary) {
+                  this.edit_person.primaryEmail = email.address;
+                  this.emailId = email.id;
+                }
+                else {
+                  this.edit_person.secondaryEmail = email.address;
+                  this.email2Id = email.id;
+                }
+              });
+              this.edit_person.organization_names = '';
+              response.data.organizations.forEach(organization=>{
+                this.edit_person.organization_names += organization.name+"\n";
+                console.log(organization);
+              });
+            })
+            .catch(e => {
+              console.log(e.message);
             });
+      },
+      showDialog() {
+            this.edit_person_dlg = true;
         },
         updatePerson() {
             this.update_poc_dialog = false;
@@ -700,7 +696,6 @@ export default {
     //note methods
 
     addNote(val) {
-      console.log(val);
       if (this.$refs.new_note_form.validate()) {
         var data = {
           first_name: this.edit_person.first_name,

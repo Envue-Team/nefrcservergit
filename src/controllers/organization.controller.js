@@ -555,3 +555,40 @@ exports.deleteAll = (req, res) => {
       });
     });
 };
+
+// Find organization by contact id
+exports.findByContact = (req, res) => {
+  const id = req.params.id;
+
+  console.log("called by findbycontact");
+  DBOrganization.findAll({
+    include :[
+      'emails',
+      'phones',
+      'partner',
+      'counties',
+      'line_of_businesses',
+      'arc_relationships',
+      'agency_types',
+      {
+        model: DBPerson,
+        where: { id : {[Op.eq]: id} }
+      },
+      {
+        model: DBRM,
+        include: [{
+          model: DBPerson,
+          include: ['phones', 'emails']
+        }]
+      }
+    ]
+  })
+      .then(data => {
+        res.send(data);
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Error retrieving organization with id=" + id +" err: "+err
+        });
+      });
+};

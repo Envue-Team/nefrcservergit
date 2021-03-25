@@ -23,5 +23,8 @@ module.exports = volapp => {
   // Delete all shelters
   router.delete("/", organizations.deleteAll);
 
+  // Get Organization by Contact Id
+  router.get("/getByContactId/:id", organizations.findByContact);
+
   volapp.use('/organizations', router);
 };

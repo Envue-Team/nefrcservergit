@@ -5,6 +5,7 @@ const DBPOC = db.pointofcontact;
 const DBUser = db.user;
 const DBRole = db.role;
 const DBPhone = db.phone;
+const DBOrganization = db.organization;
 const Op = require('sequelize').Op;
 
 // Create and Save a new person
@@ -127,7 +128,11 @@ exports.contactFindAll = (req, res) => {
         model: DBPhone,
         order: ['isPrimary', 'DESC']
       },
-      'organizations',
+        {
+            model: DBOrganization,
+            include: ['counties']
+        },
+      // 'organizations',
       'emails']
   })
       .then(data => {
@@ -152,7 +157,11 @@ exports.findOne = (req, res) => {
                 model: DBPhone,
                 order: ['isPrimary', 'DESC']
               },
-              'organizations',
+                {
+                    model: DBOrganization,
+                    include: ['counties']
+                },
+              // 'organizations',
               'emails'
             ]
       })

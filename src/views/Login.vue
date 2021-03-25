@@ -26,7 +26,6 @@
                       <v-col cols="12">
                         <v-text-field
                             v-model="loginEmail"
-                            :rules="loginEmailRules"
                             label="E-mail"
                             required
                         ></v-text-field>
@@ -244,16 +243,16 @@ export default {
     },
   },
   methods: {
-    generateSalt() {
-      return crypto.randomBytes(16).toString("base64");
-    },
-    encryptPassword(plainText, salt) {
-      return crypto
-          .createHash("sha256")
-          .update(plainText)
-          .update(salt)
-          .digest("hex");
-    },
+    // generateSalt() {
+    //   return crypto.randomBytes(16).toString("base64");
+    // },
+    // encryptPassword(plainText, salt) {
+    //   return crypto
+    //       .createHash("sha256")
+    //       .update(plainText)
+    //       .update(salt)
+    //       .digest("hex");
+    // },
     testPassword(salt, originalPass, loginPassword) {
       let password = this.encryptPassword(loginPassword, salt);
       return originalPass == password;
