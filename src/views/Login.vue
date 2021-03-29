@@ -310,11 +310,8 @@ export default {
           .digest("hex");
     },
     sendPasswordEmail() {
-      console.log("called");
-      console.log(this.loginEmail);
       UserDataService.findByEmail(this.loginEmail)
           .then((response) => {
-            console.log(response);
             if (response.data.length == 0) {
               this.ForgotPassword = true;
               this.ForgotPasswordColor = "red";
@@ -323,7 +320,6 @@ export default {
             } else if (response.data.length >= 1) {
               let userEmail = response.data[0].emails[0].address;
               let userPass = response.data[0].user.password;
-              console.log(userEmail);
 
               let size = 8;
               let characters =
@@ -513,11 +509,11 @@ export default {
     ],
     loginEmailRules: [
       (v) => !!v || "Required",
-      (v) => /@redcross.org$/.test(v) || "E-mail must be valid",
+      (v) => /@$/.test(v) || "E-mail must be valid",
     ],
     emailRules: [
       (v) => !!v || "Required",
-      (v) => /^[a-zA-Z0-9_]*$/.test(v) || "Name must be valid",
+      (v) => /^[a-zA-Z0-9_]*$/.test(v) || "Email must be valid",
     ],
     show1: false,
     show2: false,
