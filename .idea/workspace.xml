@@ -22,8 +22,56 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Trying to send up latest emailer">
+    <list default="true" id="23f4c8ae-727b-4edf-97c6-6ffffb4501a6" name="Default Changelist" comment="Update email rules.">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21,_6_11_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21,_6_13_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21,_6_14_PM_[Default_Changelist]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21__6_11_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21__6_13_PM__Default_Changelist_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_3_25_21__6_14_PM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/awscli-bundle.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/dist/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/BrandPoster.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/arcflag.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/city_backdrop_drk1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/city_background_drk2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/grey_and_red_city.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/red_crescent_trprnt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/red_cross_cross.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/rescue.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/rescue_lg.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/side_logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/images/sidebar-emergency.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/db.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/db.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/mailer.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/mailer.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/http-common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/http-common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/About.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/AddShelter.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/AddVolunteer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/ListShelters.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/ListVolunteers.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/Shelter.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/Volunteer.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/controllers/legacy-partner.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/controllers/shelter.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/controllers/volunteer.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/county.controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/county.model.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/county.routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/models/legacy-volunteer.model.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/models/shelter.model.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/routes/shelter.routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/legacy/routes/volunteer.routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Contact.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contact.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Contacts.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Contacts.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/Profile.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/Profile.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/User.vue" afterDir="false" />
     </list>
     <list id="f4eb0025-6bd8-41a0-9026-75077699b6c4" name="Apply: " comment="Trying to update git" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,15 +171,13 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -185,20 +231,10 @@
       <workItem from="1615509042974" duration="8383000" />
       <workItem from="1615898896644" duration="86059000" />
       <workItem from="1616363905916" duration="4457000" />
-    </task>
-    <task id="LOCAL-00023" summary="Update to hide users page access based on access. Collapsing navbar. Beginning connections page modifications.">
-      <created>1612123575225</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1612123575225</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Update theme to dashboard console">
-      <created>1612782114349</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1612782114349</updated>
+      <workItem from="1617017546431" duration="9486000" />
+      <workItem from="1617056277493" duration="4432000" />
+      <workItem from="1617790413743" duration="4553000" />
+      <workItem from="1618313225396" duration="1577000" />
     </task>
     <task id="LOCAL-00025" summary="Update theme to dashboard console - Post update live site">
       <created>1612783591094</created>
@@ -529,7 +565,21 @@
       <option name="project" value="LOCAL" />
       <updated>1616416870856</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="Just wanna push this to AWS">
+      <created>1616710727125</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1616710727125</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Update email rules.">
+      <created>1617016109579</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1617016109580</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -600,8 +650,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Activity log added to admin page." />
-    <MESSAGE value="Add logging of organization, relationship manager, contact, add, edit, and update." />
     <MESSAGE value="Password update added to admin user view." />
     <MESSAGE value="Fix password update to include matching rules." />
     <MESSAGE value="Add profile page." />
@@ -625,7 +673,9 @@
     <MESSAGE value="Update file functionality to operate on live site and download with the appropriate extension." />
     <MESSAGE value="Add select all functionality to organization edit and add forms" />
     <MESSAGE value="Trying to send up latest emailer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trying to send up latest emailer" />
+    <MESSAGE value="Just wanna push this to AWS" />
+    <MESSAGE value="Update email rules." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update email rules." />
   </component>
   <component name="WindowStateProjectService">
     <state x="533" y="274" key="#ESLint" timestamp="1616106102307">
@@ -662,13 +712,15 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="470" y="141" key="FileChooserDialogImpl/0.24.1366.744@0.24.1366.744" timestamp="1616330557067" />
-    <state x="0" y="27" width="1366" height="744" key="MergeDialog" timestamp="1613599144219">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog" timestamp="1616710826006">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
+    <state x="0" y="24" width="1366" height="744" key="MergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1616710826006" />
     <state x="0" y="27" key="MergeDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599144219" />
-    <state x="298" y="27" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1613599144225">
-      <screen x="0" y="27" width="1366" height="711" />
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog" timestamp="1616710826027">
+      <screen x="0" y="24" width="1366" height="744" />
     </state>
+    <state x="298" y="24" width="917" height="744" key="MultipleFileMergeDialog/0.24.1366.744@0.24.1366.744" timestamp="1616710826027" />
     <state x="298" y="27" key="MultipleFileMergeDialog/0.27.1366.711@0.27.1366.711" timestamp="1613599144225" />
     <state x="391" y="36" width="504" height="700" key="RollbackChangesDialog" timestamp="1610320141241">
       <screen x="0" y="27" width="1366" height="711" />
@@ -687,10 +739,10 @@
       <screen x="0" y="24" width="1366" height="744" />
     </state>
     <state x="530" y="297" key="VCS.ChangelistChooser/0.24.1366.744@0.24.1366.744" timestamp="1616710499839" />
-    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616710555037">
+    <state x="283" y="118" width="800" height="529" key="Vcs.Push.Dialog.v2" timestamp="1616710840980">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616710555037" />
+    <state x="283" y="118" key="Vcs.Push.Dialog.v2/0.24.1366.744@0.24.1366.744" timestamp="1616710840980" />
     <state x="283" y="117" width="800" height="529" key="Vcs.Push.Dialog.v2/0.27.1366.711@0.27.1366.711" timestamp="1614269709340" />
     <state x="475" y="100" key="VcsDiffUtil.ChangesDialog" timestamp="1615462467199">
       <screen x="0" y="24" width="1366" height="744" />
@@ -700,10 +752,10 @@
       <screen x="0" y="27" width="1366" height="711" />
     </state>
     <state x="99" y="96" width="1168" height="548" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1610319576085" />
-    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616417769982">
+    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616944067906">
       <screen x="0" y="24" width="1366" height="744" />
     </state>
-    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1616417769982" />
+    <state x="100" y="96" width="1166" height="572" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.24.1366.744@0.24.1366.744" timestamp="1616944067906" />
     <state x="100" y="96" width="1106" height="547" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.27.1366.711@0.27.1366.711" timestamp="1614261239370" />
     <state x="410" y="295" width="516" height="176" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1616416709020">
       <screen x="0" y="24" width="1366" height="744" />

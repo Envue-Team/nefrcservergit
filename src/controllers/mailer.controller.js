@@ -2,7 +2,6 @@ const nodemailer = require('nodemailer');
 
 // Create and Save a new email number
 exports.sendMail = (req, res) => {
-    console.log("called");
     let transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 587,
@@ -13,11 +12,10 @@ exports.sendMail = (req, res) => {
         },
     });
 
-    let info = transporter.sendMail({
-        from: '"Envue 👻" <team.envue@gmail.com>', // sender address
+    transporter.sendMail({
+        from: '"RM Portal Admin" <Rachael.Broadwater@redcross.org>', // sender address
         to: req.body.sendTo,
         subject: req.body.subject, // Subject line
-        text: req.body.text, // plain text body
         html: req.body.html, // html body
     }).then(data => {
         res.send(data);

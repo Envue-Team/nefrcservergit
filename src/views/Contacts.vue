@@ -270,7 +270,6 @@ export default {
       ContactDataService.findByName(this.first_name)
         .then((response) => {
           this.volunteers = response.data;
-          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);
@@ -290,7 +289,6 @@ export default {
       data.services = this.add_person.services;
       ContactDataService.create(data).
       then(response=>{
-        console.log(response);
 
         //activity log addition
         var logname = data.first_name +" "+data.last_name;
@@ -368,7 +366,6 @@ export default {
       ) {
         ContactDataService.delete(item.id)
           .then((response) => {
-            console.log(response);
             //activity log addition
             var action = "deleted";
             var name = item.first_name+" "+item.last_name;

@@ -186,7 +186,7 @@
                   <v-col cols="6">
                     <v-text-field
                         v-model="loginEmail"
-                        :rules="loginEmailRules"
+                        :rules="emailRules"
                         label="E-mail"
                         required
                     ></v-text-field>
@@ -202,12 +202,12 @@
                 Close
               </v-btn>
               <v-btn
-                  color="blue darken-1"
-                  text
+                  style="background-color: #7F181B; color: white"
+                  depressed
                   @click="sendPasswordEmail"
                   :disabled="!valid"
               >
-                Save
+                Request Password
               </v-btn>
             </v-card-actions>
             <v-alert
@@ -243,16 +243,6 @@ export default {
     },
   },
   methods: {
-    // generateSalt() {
-    //   return crypto.randomBytes(16).toString("base64");
-    // },
-    // encryptPassword(plainText, salt) {
-    //   return crypto
-    //       .createHash("sha256")
-    //       .update(plainText)
-    //       .update(salt)
-    //       .digest("hex");
-    // },
     testPassword(salt, originalPass, loginPassword) {
       let password = this.encryptPassword(loginPassword, salt);
       return originalPass == password;
@@ -342,17 +332,21 @@ export default {
                 salt: salt,
               };
               let personId = response.data[0].id;
-
               UserDataService.update(personId, data).then(() => {
+                let body = "<html><head></head><body><p>Hello</p>" +
+                    "<p>This is confirmation that your password to the Beta Partner RM Portal has been changed. If you did not initiate this request or if you have any questions, please reach out to Rachael.Broadwater.@redcross.org.</p>" +
+                    "<p>Your password is <strong>" + this.passwordReturn + "</strong></p>"+
+                    "<p>Please, login with this new password and change your password immediately" + "</p>"+
+                    "<p>Have a great day!</p>" +
+                    "<p>Partnership RM Portal Admin</p></body></html>";
                 let data = {
                   sendTo: userEmail,
-                  subject: "Password Reset",
-                  text: "Here is your new password " + this.passwordReturn,
-                  // html: "Here is your new password" + this.passwordReturn,
+                  subject: "RM Portal – Password Reset Confirmation",
+                  html: body,
                 };
                 EmailerDataServiceProvider.sendMail(data)
                     .then((response) => {
-                      console.log(response);
+                      // console.log(response);
                     })
                     .catch((e) => {
                       console.log(e);
@@ -440,23 +434,38 @@ export default {
       //get all admin emails
       var users = [];
       var adminEmails = [];
+      let body = "<htlm><head></head><bod>" +
+          "<p>Hello " + this.FirstName + ",</p>" +
+          "<p>Welcome to the <strong>Beta Partner Relationship Management (RM) Portal</strong>! </p>" +
+          "<p><emphasis>Read-Only</emphasis> access is provided immediately by signing up. If you need additional access to modify/add/remove relationships, please reach out to <a href='mailto:Rachael.Broadwater.@redcross.org'>Rachael.Broadwater.@redcross.org</a>.</p>" +
+          "<p>Please note: this site is not a part of American Red Cross Single Sign On (SSO) and will require an alternative password; password reset is available on the sign-on screen if needed.</p>" +
+          "<p>Have a great day!</p>" +
+          "<p>Partnership RM Portal Admin</p>" +
+          "</bod></htlm>";
+      let registerData = {
+        sendTo: this.Email,
+        subject: "Welcome to the Beta Partner Relationship Management Portal!",
+        html: body
+      }
+      EmailerDataServiceProvider.sendMail(registerData).catch(e=>console.log(e));
       UserDataService.getAll()
           .then((response) => {
             users = response.data;
             users.forEach(user => {
               if(user.user.roles[0].id == 0) {
-                console.log("Email administrator");
                 adminEmails.push(user.emails[0]);
+                let body = "<html><head></head><body><p>Hello! " + this.FirstName + " "+ this.LastName +" has newly registered to the portal</p>" +
+                    "<p><strong>Read-Only access</strong> has been provided to the new user.</p>"+
+                    "<p>To view more information, login to the RM Portal and search the user in the Users table on the Admin page.</p>" +
+                    "<p>Thank you!</p></body></html>"
                 var data =  {
                   sendTo: user.emails[0].address,
-                  subject: "New User Registered",
-                  html: "<p>A new user registered with the name '"
-                      +name+
-                      "' , please login to the website to view the new user<p>",
+                  subject: "New User Registration to RM Portal",
+                  html: body,
                 }
                 EmailerDataServiceProvider.sendMail(data)
                     .then((response) => {
-                      console.log(response);
+                      // console.log(response);
                     })
                     .catch((e) => {
                       console.log(e);
@@ -466,7 +475,7 @@ export default {
           })
           .catch((e) => {
             console.log(e);
-          })
+          });
     },
   },
   data: () => ({
@@ -513,7 +522,7 @@ export default {
     ],
     emailRules: [
       (v) => !!v || "Required",
-      (v) => /^[a-zA-Z0-9_]*$/.test(v) || "Email must be valid",
+      // (v) => /^[a-zA-Z0-9_]*$/.test(v) || "Email must be valid",
     ],
     show1: false,
     show2: false,

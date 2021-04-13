@@ -636,7 +636,6 @@ export default {
               this.edit_person.organization_names = '';
               response.data.organizations.forEach(organization=>{
                 this.edit_person.organization_names += organization.name+"\n";
-                console.log(organization);
               });
             })
             .catch(e => {
@@ -726,7 +725,6 @@ export default {
       NoteDataService.delete(val.id)
         .then((response) => {
           this.setPerson(this.$route.params.personId);
-          console.log(response);
         })
         .catch((e) => {
           console.log(e);
