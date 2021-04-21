@@ -541,8 +541,7 @@ export default {
       let personID = this.$route.params.personId;
 
       UserDataService.update(personID, data)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
           })
           .catch((e) => {
             console.log(e);
@@ -578,10 +577,9 @@ export default {
       EmailDataService.update(this.contact_id.email, updateEmail);
 
       UserDataService.update(personID, data)
-          .then((response) => {
+          .then(() => {
             // console.log(response);
             //this.retrieveVolunteers();
-            console.log(response);
           })
           .then((id) => {
             console.log(id);

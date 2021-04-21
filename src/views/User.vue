@@ -517,8 +517,7 @@ export default {
       }
 
       UserRoleDataService.update(data.userId, data.roleId, updatedDataRole)
-      .then((response)=> {
-        console.log(response);
+      .then(()=> {
       })
       .catch((e)=> {
         console.log(e);
@@ -583,8 +582,7 @@ export default {
       let personID = this.$route.params.personId;
 
       UserDataService.update(personID, data)
-          .then((response) => {
-            console.log(response);
+          .then(() => {
           })
           .catch((e) => {
             console.log(e);
@@ -622,9 +620,7 @@ export default {
 
       UserDataService.update(personID, data)
         .then((response) => {
-          // console.log(response);
           //this.retrieveVolunteers();
-          console.log(response);
         })
         .then((id) => {
           console.log(id);
